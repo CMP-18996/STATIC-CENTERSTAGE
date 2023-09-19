@@ -2,9 +2,9 @@ package org.firstinspires.ftc.teamcode.common;
 
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 
 public class Robot {
     public enum OpModes {
@@ -12,6 +12,7 @@ public class Robot {
         TELEOP
     }
     public Motor leftFront, rightFront, leftRear, rightRear;
+    public WebcamName webcam;
     public BNO055IMU imu;
 
     public Robot(HardwareMap hardwareMap, OpModes mode) {
@@ -25,7 +26,7 @@ public class Robot {
         rightRear.setRunMode(Motor.RunMode.RawPower);
 
         if (mode.equals(OpModes.AUTO)) {
-            //camera init
+            webcam = hardwareMap.get(WebcamName.class, "Webcam 1");
         }
     }
     public double getAngle() {
