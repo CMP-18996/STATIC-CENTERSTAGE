@@ -28,7 +28,7 @@ public class linearDriveToAprilTagCommand extends CommandBase {
         for (double[] tag : obs) {
             if (tag[0] == tagID) {
                 y = tag[2];
-                drive.manualPower(0, Math.sqrt(tag[2]) - 1, Math.sqrt(tag[1]));
+                drive.manualPower(0, Math.sqrt(tag[2]) - 1, Math.signum(tag[1])*Math.sqrt(Math.abs(tag[1])));
                 break;
             }
         }

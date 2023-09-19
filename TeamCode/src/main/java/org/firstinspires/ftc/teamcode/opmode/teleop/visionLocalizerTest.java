@@ -28,7 +28,7 @@ public class visionLocalizerTest extends CommandOpMode {
 
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
-        schedule(new linearDriveToAprilTagCommand(cam, drive, 3));
+        schedule(new linearDriveToAprilTagCommand(cam, drive, 5));
     }
     @Override
     public void run() {
