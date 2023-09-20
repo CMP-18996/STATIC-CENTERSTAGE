@@ -5,19 +5,12 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.classicLinearDriveToAprilTagCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.linearDriveToAprilTagCommand;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
-import org.firstinspires.ftc.teamcode.common.vision.VisionPortalCamera;
-import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
-import java.util.Arrays;
-
-@TeleOp(name = "visionLocalizerTest")
-public class visionLocalizerTest extends CommandOpMode {
+@TeleOp(name = "defaultDriveTest")
+public class defaultDriveTest extends CommandOpMode {
     public Robot robot;
     public Drive drive;
-    classicLinearDriveToAprilTagCommand t;
     @Override
     public void initialize() {
         telemetry.addData("Status","Initalizing...");
@@ -30,16 +23,12 @@ public class visionLocalizerTest extends CommandOpMode {
 
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
-        t = new classicLinearDriveToAprilTagCommand(robot, drive, 5);
-        CommandScheduler.getInstance().schedule(t);
     }
     @Override
     public void run() {
         CommandScheduler.getInstance().run();
-        drive.periodic();
-        telemetry.addData("What I see?", t.getTagOfInterest());
-        telemetry.addData("Stats", t.getStats());
+        drive.manualPower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+        telemetry.addData("Status", "Rumning...");
         telemetry.update();
     }
-}   // end class
-
+}

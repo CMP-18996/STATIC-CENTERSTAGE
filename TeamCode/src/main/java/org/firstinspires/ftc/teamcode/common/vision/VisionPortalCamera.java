@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.common.vision;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -10,10 +11,10 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AprilTagCamera extends SubsystemBase {
+public class VisionPortalCamera extends SubsystemBase {
     private AprilTagProcessor aprilTag;
     private VisionPortal visionPortal;
-    public AprilTagCamera(Robot robot) {
+    public VisionPortalCamera(Robot robot) {
         aprilTag = new AprilTagProcessor.Builder()
                 .setDrawAxes(true)
                 .setDrawTagOutline(true)
@@ -26,15 +27,14 @@ public class AprilTagCamera extends SubsystemBase {
 
         // Create the vision portal by using a builder.
         VisionPortal.Builder builder = new VisionPortal.Builder();
-        builder.setCamera(robot.webcam);
+        builder.setCamera(robot.hardwareMap.get(WebcamName.class, "Webcam 1"));
         //builder.setCameraResolution(new Size(640, 480));
         // Set the stream format; MJPEG uses less bandwidth than default YUY2.
         //builder.setStreamFormat(VisionPortal.StreamFormat.YUY2);
         builder.setAutoStopLiveView(false);
         builder.addProcessor(aprilTag);
         visionPortal = builder.build();
-        // Disable or re-enable the aprilTag processor at any time.
-        //visionPortal.setProcessorEnabled(aprilTag, true);
+        visionPortal.setProcessorEnabled(aprilTag, true);
     }
     public VisionPortal getVisionPortal() {
         return visionPortal;
