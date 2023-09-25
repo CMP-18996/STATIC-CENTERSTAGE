@@ -75,7 +75,7 @@ public class classicLinearDriveToAprilTagCommand extends CommandBase {
                     rot.firstAngle,
                     rot.secondAngle,
                     rot.thirdAngle};
-            //TODO drive.manualPower(-0.3 * stats[0], -0.3 * Math.abs(stats[1] - 1), 0.01 * stats[3]);
+            drive.manualPower(Math.sqrt(stats[2]), Math.sqrt(stats[2]) - 1, Math.signum(Math.abs(stats[1]))*Math.sqrt(Math.abs(stats[1])));
         } else {
             drive.manualPower(0,0,0.2);
         }

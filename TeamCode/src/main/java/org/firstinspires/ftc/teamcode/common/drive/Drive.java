@@ -16,7 +16,7 @@ public class Drive extends SubsystemBase {
     }
 
     public MecanumDrive getDrive() { return drive; }
-    public void calculatePower(double lx, double ly, double rx) {
+    public void calculatePower(double strafe, double forward, double turn) {
     }
     public void manualPower(double strafe, double forward, double turn) {
         this.strafe = strafe;

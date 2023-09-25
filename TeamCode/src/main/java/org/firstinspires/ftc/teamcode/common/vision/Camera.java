@@ -28,19 +28,19 @@ public class Camera extends SubsystemBase {
     AprilTagDetectionPipeline AprilTagPipeline;
     Scalar lowerBound;
     Scalar upperBound;
-    double tagsize = .2; // in meters
+    double tagsize = 0.0508; // in meters
 
     public Camera(HardwareMap hardwareMap) {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         ConePipeline = new ConeDetection(lowerBound, upperBound);
-        AprilTagPipeline = new AprilTagDetectionPipeline(tagsize, 1430, 1430, 480, 620); // these values might be wrong I got them off some random website
+        AprilTagPipeline = new AprilTagDetectionPipeline(tagsize, 963.508, 972.014, 312.259, 223.992); // these values might be wrong I got them off some random website
         webcam.setPipeline(AprilTagPipeline);
         // webcam.setMillisecondsPermissionTimeout(7000); // Timeout for obtaining permission is configurable. Set before opening.
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
