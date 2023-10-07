@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.Exposur
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.VisionProcessor;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
@@ -35,7 +36,7 @@ public class Camera extends SubsystemBase {
                 .setOutputUnits(DistanceUnit.INCH, AngleUnit.DEGREES)
                 .setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)
                 .build();
-        propProcessor = new PropProcessor();
+        propProcessor = new PropProcessor(GlobalVariables.color);
         visionPortal = new VisionPortal.Builder()
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .setCameraResolution(new Size(640, 360))
@@ -48,7 +49,6 @@ public class Camera extends SubsystemBase {
 
 
     public Camera(HardwareMap hardwareMap) {
-
         this.hardwareMap = hardwareMap;
     }
 
