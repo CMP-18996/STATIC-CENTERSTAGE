@@ -15,8 +15,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.VisionProcessor;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+import org.tensorflow.lite.task.vision.detector.Detection;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Camera extends SubsystemBase {
@@ -26,7 +31,14 @@ public class Camera extends SubsystemBase {
     private VisionProcessor propProcessor;
 
 
-    public void initProcessor() {
+    public ArrayList<AprilTagDetection> getTagLocalization() {
+        return aprilTag.getDetections();
+    }
+
+
+    public Camera(HardwareMap hardwareMap) {
+
+        this.hardwareMap = hardwareMap;
         aprilTag = new AprilTagProcessor
                 // I have no clue what this stuff does
                 .Builder()
@@ -47,11 +59,6 @@ public class Camera extends SubsystemBase {
         setManualExposure(6, 250);
     }
 
-
-    public Camera(HardwareMap hardwareMap) {
-        this.hardwareMap = hardwareMap;
-    }
-
     // only use when stop is not requested
     private void setManualExposure(int exposureMS, int gain) {
         if (visionPortal == null) {
@@ -64,6 +71,5 @@ public class Camera extends SubsystemBase {
         exposureControl.setExposure((long)exposureMS, TimeUnit.MILLISECONDS);
         GainControl gainControl = visionPortal.getCameraControl(GainControl.class);
         gainControl.setGain(gain);
-
     }
 }

@@ -8,6 +8,7 @@ import org.firstinspires.ftc.vision.VisionProcessor;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
@@ -37,9 +38,11 @@ public class PropProcessor implements VisionProcessor {
 
     // TODO: Figure these values out
     private int smallestAllowedArea = 0;
-    private int xPos1 = 0;
-    private int xPos2 = 20;
-    private int xPos3 = 40;
+
+    // Number of Detections of Each Prop Location
+    private int leftPos = 0;
+    private int middlePos = 0;
+    private int rightPos = 0;
 
     // These are not final nor is the system for detecting final
 
@@ -73,12 +76,19 @@ public class PropProcessor implements VisionProcessor {
         Core.inRange(hsvMat, lowerBound, upperBound, mask);
         Imgproc.findContours(mask, contours, fillerMat, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 
-        if (contours != null && findLargestContour(contours) != null) {
-
+        MatOfPoint largestContour = findLargestContour(contours);
+        if (contours != null && largestContour != null) {
+            Rect boundingRect = Imgproc.boundingRect(largestContour);
+            int pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
+            if (pixelVal < 213 * scalePercent) {
+                leftPos++;
+            } else if (pixelVal < 440 * scalePercent) {
+                middlePos++;
+            } else {
+                rightPos++;
+            }
         }
     }
-
-
 
     @Override
     public void onDrawFrame(Canvas canvas, int onscreenWidth, int onscreenHeight, float scaleBmpPxToCanvasPx, float scaleCanvasDensity, Object userContext) {
