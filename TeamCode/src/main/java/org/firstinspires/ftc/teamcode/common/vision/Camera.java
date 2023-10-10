@@ -32,7 +32,8 @@ public class Camera extends SubsystemBase {
 
 
     public ArrayList<AprilTagDetection> getTagLocalization() {
-        return aprilTag.getDetections();
+        if (visionPortal.getCameraState() == VisionPortal.CameraState.STREAMING) return aprilTag.getDetections();
+        return null;
     }
 
 
@@ -54,6 +55,7 @@ public class Camera extends SubsystemBase {
                 .setCameraResolution(new Size(640, 360))
                 .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
                 .addProcessor(propProcessor)
+                .setAutoStopLiveView(true)
                 .addProcessor(aprilTag)
                 .build();
         setManualExposure(6, 250);

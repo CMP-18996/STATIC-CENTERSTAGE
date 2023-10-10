@@ -6,13 +6,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
+import org.firstinspires.ftc.teamcode.common.vision.Camera;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;
 
 @TeleOp
 public class VisionPortalTest extends CommandOpMode {
-    public Robot robot;
+    public Camera camera;
 
     @Override
     public void initialize() {
@@ -20,14 +21,14 @@ public class VisionPortalTest extends CommandOpMode {
         telemetry.update();
 
         CommandScheduler.getInstance().reset();
-        robot = new org.firstinspires.ftc.teamcode.common.Robot(hardwareMap, org.firstinspires.ftc.teamcode.common.Robot.OpModes.AUTO);
+        camera = new Camera(hardwareMap);
 
         telemetry.addData("Status", "Initialized!");
     }
 
     @Override
     public void run() {
-        List<AprilTagDetection> currentDetections = robot.camera.getTagLocalization();
+        List<AprilTagDetection> currentDetections = camera.getTagLocalization();
         telemetry.addData("# AprilTags Detected", currentDetections.size());
 
         // Step through the list of detections and display info for each one.
@@ -47,5 +48,6 @@ public class VisionPortalTest extends CommandOpMode {
         telemetry.addLine("\nkey:\nXYZ = X (Right), Y (Forward), Z (Up) dist.");
         telemetry.addLine("PRY = Pitch, Roll & Yaw (XYZ Rotation)");
         telemetry.addLine("RBE = Range, Bearing & Elevation");
+        sleep(20);
     }
 }
