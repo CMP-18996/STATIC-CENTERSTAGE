@@ -11,12 +11,9 @@ public class IntakeTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         intakeMotor = hardwareMap.dcMotor.get("intake");
+        waitForStart();
         while (opModeIsActive()) {
-            if (gamepad1.right_trigger < .2) {
-                intakeMotor.setPower(-.2);
-            } else {
-                intakeMotor.setPower(-1);
-            }
+            intakeMotor.setPower(gamepad1.right_trigger);
         }
     }
 }

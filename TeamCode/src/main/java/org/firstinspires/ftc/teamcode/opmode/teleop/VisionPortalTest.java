@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
@@ -17,6 +18,7 @@ public class VisionPortalTest extends CommandOpMode {
 
     @Override
     public void initialize() {
+        GlobalVariables.color = GlobalVariables.Color.BLUE;
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 

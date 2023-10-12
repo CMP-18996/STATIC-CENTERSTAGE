@@ -38,7 +38,6 @@ public class Camera extends SubsystemBase {
 
 
     public Camera(HardwareMap hardwareMap) {
-
         this.hardwareMap = hardwareMap;
         aprilTag = new AprilTagProcessor
                 // I have no clue what this stuff does

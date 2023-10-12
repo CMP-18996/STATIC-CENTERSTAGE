@@ -62,7 +62,7 @@ public class classicLinearDriveToAprilTagCommand extends CommandBase {
     public void initialize() {}
     @Override
     public void execute() {
-        currentDetections = camera.getAprilTagPipeline().getLatestDetections();
+        /*currentDetections = camera.getAprilTagPipeline().getLatestDetections();
         if (currentDetections.size() > 0) {
             for (AprilTagDetection tag : currentDetections) {
                 if (tag.id == 4 ||tag.id == 5 ||tag.id == 6) {
@@ -82,7 +82,7 @@ public class classicLinearDriveToAprilTagCommand extends CommandBase {
             drive.manualPower(0.3*stats[0], 0.3*stats[1], 0.01 * stats[3]);
         } else {
             drive.manualPower(0,0,0.2);
-        }
+        }*/
     }
     @Override
     public boolean isFinished() {
