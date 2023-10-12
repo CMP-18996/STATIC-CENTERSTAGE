@@ -55,11 +55,14 @@ public class PropProcessor implements VisionProcessor {
 
     @Override
     public Object processFrame(Mat frame, long captureTimeNanos) {
-        if (!objectDetected) detectObject(frame);
-        return new Mat();
+        if (!objectDetected) {
+            frame = detectObject(frame);
+            checkFinish();
+        }
+        return frame;
     }
 
-    public void detectObject(Mat frame) {
+    public Mat detectObject(Mat frame) {
         double scalePercent = 40;
         int width = (int) Math.round(frame.size().width * scalePercent / 100);
         int height = (int) Math.round(frame.size().height * scalePercent / 100);
@@ -86,6 +89,25 @@ public class PropProcessor implements VisionProcessor {
                 middlePos++;
             } else {
                 rightPos++;
+            }
+        }
+        return mask;
+    }
+
+    private void checkFinish() {
+        if (leftPos + middlePos + rightPos >= 10) {
+            objectDetected = true;
+            if (leftPos > middlePos && leftPos > rightPos) {
+                GlobalVariables.position = GlobalVariables.Position.LEFT;
+            }
+            else if (middlePos > leftPos && rightPos > leftPos) {
+                GlobalVariables.position = GlobalVariables.Position.MIDDLE;
+            }
+            else if (rightPos > leftPos && rightPos > middlePos) {
+                GlobalVariables.position = GlobalVariables.Position.RIGHT;
+            }
+            else {
+                objectDetected = false;
             }
         }
     }
@@ -116,17 +138,15 @@ public class PropProcessor implements VisionProcessor {
 
     // TODO: Get values for these and uncomment
     public PropProcessor(GlobalVariables.Color teamColor) {
-        /*
         switch (teamColor) {
             case RED:
-                lowerBound = new Scalar(0, 0, 0);
-                upperBound = new Scalar(255, 255, 255);
+                lowerBound = new Scalar(0, 0, 58.7);
+                upperBound = new Scalar(7.4, 255, 255);
                 break;
             case BLUE:
                 lowerBound = new Scalar(0, 0, 0);
                 upperBound = new Scalar(255, 255, 255);
                 break;
         }
-        */
     }
 }
