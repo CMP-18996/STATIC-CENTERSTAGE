@@ -27,7 +27,7 @@ public class defaultDriveTest extends CommandOpMode {
     @Override
     public void run() {
         CommandScheduler.getInstance().run();
-        drive.manualPower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+        drive.manualPower(-gamepad1.left_stick_x, gamepad1.left_stick_y, -gamepad1.right_stick_x);
         telemetry.addData("Status", "Rumning...");
         telemetry.update();
     }

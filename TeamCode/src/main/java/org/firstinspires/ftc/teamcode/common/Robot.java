@@ -21,12 +21,16 @@ public class Robot {
         this.hardwareMap = hardwareMap;
         leftFront = new Motor(hardwareMap, "leftFront");
         leftFront.setRunMode(Motor.RunMode.RawPower);
+        leftFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         rightFront = new Motor(hardwareMap,"rightFront");
         rightFront.setRunMode(Motor.RunMode.RawPower);
+        rightFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         leftRear = new Motor(hardwareMap,"leftRear");
         leftRear.setRunMode(Motor.RunMode.RawPower);
+        leftRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         rightRear = new Motor(hardwareMap,"rightRear");
         rightRear.setRunMode(Motor.RunMode.RawPower);
+        rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
         if (mode.equals(OpModes.AUTO)) {
             camera = new Camera(hardwareMap);

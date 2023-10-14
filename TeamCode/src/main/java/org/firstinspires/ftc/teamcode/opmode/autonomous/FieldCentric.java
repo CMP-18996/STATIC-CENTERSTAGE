@@ -28,9 +28,9 @@ public class FieldCentric extends LinearOpMode {
 
         while (opModeIsActive()) {
             heading = calculateHeading(drive.pose.heading.real, drive.pose.heading.imag);
-            y = -(gamepad1.left_stick_x * Math.sin(heading) + gamepad1.left_stick_y * Math.cos(heading));
-            x = -(gamepad1.left_stick_x * Math.cos(heading) - gamepad1.left_stick_y * Math.sin(heading));
-            drive.setDrivePowers(new PoseVelocity2d(new Vector2d(y, x), -gamepad1.right_stick_x));
+            y = (gamepad1.left_stick_x * Math.sin(heading) + gamepad1.left_stick_y * Math.cos(heading));
+            x = (gamepad1.left_stick_x * Math.cos(heading) - gamepad1.left_stick_y * Math.sin(heading));
+            drive.setDrivePowers(new PoseVelocity2d(new Vector2d(-y, -x), -gamepad1.right_stick_x));
 
             drive.updatePoseEstimate();
 
