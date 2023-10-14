@@ -17,7 +17,7 @@ public class defaultDriveTest extends CommandOpMode {
         telemetry.update();
 
         CommandScheduler.getInstance().reset();
-        robot = new Robot(hardwareMap, Robot.OpModes.AUTO);
+        robot = new Robot(hardwareMap, Robot.OpModes.TELEOP);
         drive = new Drive(robot);
         register(drive);
 
