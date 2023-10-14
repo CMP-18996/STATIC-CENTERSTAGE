@@ -51,7 +51,7 @@ public class Camera extends SubsystemBase {
         propProcessor = new PropProcessor(GlobalVariables.color); //causes error on init?
         visionPortal = new VisionPortal.Builder()
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
-                .setCameraResolution(new Size(640, 360))
+                .setCameraResolution(new Size(640, 480))
                 .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
                 .addProcessor(propProcessor)
                 .setAutoStopLiveView(true)
