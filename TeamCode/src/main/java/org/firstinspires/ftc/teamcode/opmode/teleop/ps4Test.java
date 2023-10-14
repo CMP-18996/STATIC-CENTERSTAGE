@@ -17,7 +17,7 @@ public class ps4Test extends CommandOpMode {
     public Drive drive;
 
     Touchpad touchpad;
-    TouchpadHandler handler = new TouchpadHandler();
+    TouchpadHandler handler;
     Button topRight, topLeft, center;
     Swipe rotateLeft, rotateRight;
     @Override
@@ -36,7 +36,7 @@ public class ps4Test extends CommandOpMode {
         center = new Button(touchpad, false, RectBounds.CENTER, true);
         rotateLeft = new Swipe(touchpad, false, Swipe.SwipeType.LEFT_SWIPE);
         rotateRight = new Swipe(touchpad, false, Swipe.SwipeType.RIGHT_SWIPE);
-        handler.addInputs(touchpad, topRight, rotateLeft, rotateRight);
+        handler = new TouchpadHandler(touchpad, topRight, topLeft, rotateLeft, rotateRight, center);
 
         telemetry.addData("Status", "Initialized!");
         telemetry.update();

@@ -53,9 +53,9 @@ public class Camera extends SubsystemBase {
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .setCameraResolution(new Size(640, 480))
                 .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
-                .addProcessor(propProcessor)
+                //.addProcessor(propProcessor)
                 .setAutoStopLiveView(true)
-                //.addProcessor(aprilTag)
+                .addProcessor(aprilTag)
                 .build();
         visionPortal.setProcessorEnabled(aprilTag, true);
         //visionPortal.setProcessorEnabled(propProcessor, true);
