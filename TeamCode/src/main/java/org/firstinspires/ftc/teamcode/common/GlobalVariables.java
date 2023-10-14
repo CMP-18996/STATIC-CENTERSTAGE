@@ -7,13 +7,14 @@ public class GlobalVariables {
     }
 
     public enum Position {
+        UNDETECTED,
         LEFT,
         MIDDLE,
         RIGHT
     }
 
     public static Color color;
-    public static Position position;
+    public static Position position = Position.UNDETECTED;
 
     public GlobalVariables(Color color) {
         this.color = color;

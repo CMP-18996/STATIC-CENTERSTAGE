@@ -106,7 +106,7 @@ public class PropProcessor implements VisionProcessor {
             else if (rightPos > leftPos && rightPos > middlePos) {
                 GlobalVariables.position = GlobalVariables.Position.RIGHT;
             }
-            else {
+            else { // only happens in the case that it gets something like left 5 right 5 middle 0
                 objectDetected = false;
             }
         }
