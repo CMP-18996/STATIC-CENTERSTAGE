@@ -26,6 +26,7 @@ public class VisionPortalTest extends CommandOpMode {
         camera = new Camera(hardwareMap);
 
         telemetry.addData("Status", "Initialized!");
+        telemetry.update();
     }
 
     @Override

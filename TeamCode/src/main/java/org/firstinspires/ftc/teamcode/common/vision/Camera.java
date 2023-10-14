@@ -55,12 +55,11 @@ public class Camera extends SubsystemBase {
                 .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
                 .addProcessor(propProcessor)
                 .setAutoStopLiveView(true)
-                .addProcessor(aprilTag)
+                //.addProcessor(aprilTag)
                 .build();
         visionPortal.setProcessorEnabled(aprilTag, true);
-        visionPortal.setProcessorEnabled(propProcessor, true);
-        while (!visionPortal.getCameraState().equals(VisionPortal.CameraState.STREAMING)) {}
-        setManualExposure(6, 250);
+        //visionPortal.setProcessorEnabled(propProcessor, true);
+        //setManualExposure(6, 250);
     }
 
     // only use when stop is not requested
