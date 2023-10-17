@@ -28,7 +28,7 @@ public class Camera extends SubsystemBase {
     private VisionPortal visionPortal;
     private HardwareMap hardwareMap;
     private AprilTagProcessor aprilTag;
-    private VisionProcessor propProcessor;
+    private PropProcessor propProcessor;
 
 
     public ArrayList<AprilTagDetection> getTagLocalization() {
@@ -53,12 +53,12 @@ public class Camera extends SubsystemBase {
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .setCameraResolution(new Size(640, 480))
                 .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
-                //.addProcessor(propProcessor)
+                .addProcessor(propProcessor)
                 .setAutoStopLiveView(true)
                 .addProcessor(aprilTag)
                 .build();
         visionPortal.setProcessorEnabled(aprilTag, true);
-        //visionPortal.setProcessorEnabled(propProcessor, true);
+        visionPortal.setProcessorEnabled(propProcessor, true);
         //setManualExposure(6, 250);
     }
 
