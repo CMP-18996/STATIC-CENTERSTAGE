@@ -1,3 +1,4 @@
+//overlapping commands 2x5 grid
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
@@ -22,7 +23,7 @@ public class ps4Test extends CommandOpMode {
     Swipe rotateLeft, rotateRight;
     @Override
     public void initialize() {
-        telemetry.addData("Status", "Initalizing...");
+        telemetry.addData("Status", "Init...");
         telemetry.update();
 
         CommandScheduler.getInstance().reset();
