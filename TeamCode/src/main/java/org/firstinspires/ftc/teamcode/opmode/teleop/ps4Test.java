@@ -32,12 +32,12 @@ public class ps4Test extends CommandOpMode {
         register(drive);
 
         touchpad = new Touchpad(gamepad1);
-        topRight = new Button(touchpad, false, RectBounds.TOP_RIGHT, true);
+        /*topRight = new Button(touchpad, false, RectBounds.TOP_RIGHT, true);
         topLeft = new Button(touchpad, false, RectBounds.TOP_LEFT, true);
         center = new Button(touchpad, false, RectBounds.CENTER, true);
         rotateLeft = new Swipe(touchpad, false, Swipe.SwipeType.LEFT_SWIPE);
-        rotateRight = new Swipe(touchpad, false, Swipe.SwipeType.RIGHT_SWIPE);
-        handler = new TouchpadHandler(touchpad, topRight, topLeft, rotateLeft, rotateRight, center);
+        rotateRight = new Swipe(touchpad, false, Swipe.SwipeType.RIGHT_SWIPE);*/ //errors
+        handler = new TouchpadHandler(touchpad);
 
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
@@ -49,12 +49,12 @@ public class ps4Test extends CommandOpMode {
         drive.manualPower(0, gamepad1.left_stick_y, 0);
 
         handler.updateInputs();
-        if (topLeft.get()) drive.manualPower(-0.4, 0, 0);
+        /*if (topLeft.get()) drive.manualPower(-0.4, 0, 0);
         if (topRight.get()) drive.manualPower(0.4, 0, 0);
         if (center.get()) drive.manualPower(0, 0, 0);
         if (rotateLeft.get()) drive.manualPower(0, 0, -0.4);
         if (rotateRight.get()) drive.manualPower(0, 0, 0.4);
-
+*/
         telemetry.addData("Status", "Rumning...");
         telemetry.addLine();
         telemetry.addData("PRESS top left/right", "Strafe left/right");
