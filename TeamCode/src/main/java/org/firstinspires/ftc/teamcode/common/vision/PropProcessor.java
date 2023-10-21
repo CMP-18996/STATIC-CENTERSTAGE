@@ -32,9 +32,11 @@ public class PropProcessor implements VisionProcessor {
     private Scalar upperBound;
     private Mat hsvMat;
     private Mat mask;
+    private Mat resized;
     private List<MatOfPoint> contours;
     private Mat fillerMat;
     private MatOfPoint largestContour;
+    private MatOfPoint largestCountourFound;
 
     // TODO: Figure these values out
     private int smallestAllowedArea = 0;
@@ -59,7 +61,7 @@ public class PropProcessor implements VisionProcessor {
             frame = detectObject(frame);
             checkFinish();
         }
-        return frame;
+        return null;
     }
 
     public Mat detectObject(Mat frame) {
@@ -67,7 +69,8 @@ public class PropProcessor implements VisionProcessor {
         int width = (int) Math.round(frame.size().width * scalePercent / 100);
         int height = (int) Math.round(frame.size().height * scalePercent / 100);
         Size dimensions = new Size(width, height);
-        Imgproc.resize(frame, frame, dimensions);
+        resized = new Mat();
+        Imgproc.resize(frame, resized, dimensions);
 
         hsvMat = new Mat();
         mask = new Mat();
@@ -79,7 +82,7 @@ public class PropProcessor implements VisionProcessor {
         Core.inRange(hsvMat, lowerBound, upperBound, mask);
         Imgproc.findContours(mask, contours, fillerMat, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 
-        MatOfPoint largestContour = findLargestContour(contours);
+        largestContour = findLargestContour(contours);
         if (contours != null && largestContour != null) {
             Rect boundingRect = Imgproc.boundingRect(largestContour);
             int pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
@@ -120,7 +123,7 @@ public class PropProcessor implements VisionProcessor {
     private MatOfPoint findLargestContour(List<MatOfPoint> contours) {
 
         double largestArea = 0;
-        MatOfPoint largestContour = null;
+        largestCountourFound = new MatOfPoint();
 
         for (MatOfPoint contour : contours) {
             double area = Imgproc.contourArea(contour);

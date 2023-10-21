@@ -42,7 +42,7 @@ public class Camera extends SubsystemBase {
         aprilTag = new AprilTagProcessor
                 // I have no clue what this stuff does
                 .Builder()
-                .setLensIntrinsics(963.508, 972.014, 312.259, 223.992)
+                .setLensIntrinsics(920.510, 921.306, 653.369, 354.512)
                 .setDrawAxes(true)
                 .setDrawTagOutline(true)
                 .setOutputUnits(DistanceUnit.INCH, AngleUnit.DEGREES)
@@ -58,9 +58,11 @@ public class Camera extends SubsystemBase {
                 .addProcessor(aprilTag)
                 .build();
         visionPortal.setProcessorEnabled(aprilTag, true);
-        visionPortal.setProcessorEnabled(propProcessor, true);
-        //setManualExposure(6, 250);
+        //visionPortal.setProcessorEnabled(propProcessor, true);
     }
+
+    
+
 
     // only use when stop is not requested
     private void setManualExposure(int exposureMS, int gain) {

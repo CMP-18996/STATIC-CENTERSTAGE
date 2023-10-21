@@ -12,14 +12,16 @@ public class ColorTest extends LinearOpMode {
         public void runOpMode() {
             // Get the color sensor from hardwareMap
             colorSensor = hardwareMap.get(ColorSensor.class, "Color");
-
+            colorSensor.enableLed(false);
             // Wait for the Play button to be pressed
             waitForStart();
 
             // While the Op Mode is running, update the telemetry values.
             while (opModeIsActive()) {
 
-                telemetry.addData("color sensed using pro sensing (I am god)", colorSensor.argb());
+                telemetry.addData("red", colorSensor.red());
+                telemetry.addData("blue", colorSensor.blue());
+                telemetry.addData("green", colorSensor.green());
                 telemetry.update();
             }
         }
