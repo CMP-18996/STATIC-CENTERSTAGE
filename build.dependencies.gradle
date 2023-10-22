@@ -31,7 +31,5 @@ dependencies {
     implementation('com.acmerobotics.dashboard:dashboard:0.4.13') {
         exclude group: 'org.firstinspires.ftc'
     }
-    //ps4 pad
-    implementation 'io.github.ftc-enforcers-7149:touchpadplusplus:0.5.0'
 }
 
