@@ -1,3 +1,8 @@
+/*
+columns: 1 2 3 4 5
+rows: 1
+      2
+ */
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
@@ -11,7 +16,8 @@ import org.firstinspires.ftc.teamcode.common.drive.Drive;
 public class ps4Test extends CommandOpMode {
     public Robot robot;
     public Drive drive;
-    public double x1, y1, x2, y2;
+    public double x,y;
+    public int column, row;
     @Override
     public void initialize() {
         telemetry.addData("Status","Initalizing...");
@@ -28,24 +34,24 @@ public class ps4Test extends CommandOpMode {
     @Override
     public void run() {
         CommandScheduler.getInstance().run();
-        x1 = gamepad1.touchpad_finger_1_x;
-        y1 = gamepad1.touchpad_finger_1_y;
-        x2 = gamepad1.touchpad_finger_2_x;
-        y2 = gamepad1.touchpad_finger_2_y;
-        if (gamepad1.touchpad && x1 > 0.4) {
+        x = gamepad1.touchpad_finger_1_x;
+        y = gamepad1.touchpad_finger_1_y;
+        column = (int) Math.floor(2.5 * (x + 0.2) + 3);
+        row = (int) (-1 * Math.floor(0.5 * x) + 1);
+        /*if (gamepad1.touchpad && x > 0.4) {
             drive.manualPower(0.35, 0, 0);
-        } else if (gamepad1.touchpad && x1 < -0.4) {
+        } else if (gamepad1.touchpad && x < -0.4) {
             drive.manualPower(-0.35, 0, 0);
-        } else if (gamepad1.touchpad && y1 > 0.4) {
+        } else if (gamepad1.touchpad && y > 0.4) {
             drive.manualPower(0, 0.35, 0);
-        } else if (gamepad1.touchpad && y1 < -0.4) {
+        } else if (gamepad1.touchpad && y < -0.4) {
             drive.manualPower(0, -0.35, 0);
         } else {
             drive.manualPower(0, 0, 0);
-        }
+        }*/
         telemetry.addData("Status", "Rumning...");
-        telemetry.addData("Touchpad X", gamepad1.touchpad_finger_1_x);
-        telemetry.addData("Touchpad Y", gamepad1.touchpad_finger_1_y);
+        telemetry.addData("Touchpad X, Y", x + " , " + y);
+        telemetry.addData("Row, Column", row + " x " + column);
         telemetry.update();
     }
 }

@@ -6,12 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.classicLinearDriveToAprilTagCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.linearDriveToAprilTagCommand;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
-import org.firstinspires.ftc.teamcode.common.vision.VisionPortalCamera;
-import org.firstinspires.ftc.teamcode.common.vision.Camera;
-
-import java.util.Arrays;
 
 @TeleOp(name = "visionLocalizerTest")
 public class visionLocalizerTest extends CommandOpMode {
