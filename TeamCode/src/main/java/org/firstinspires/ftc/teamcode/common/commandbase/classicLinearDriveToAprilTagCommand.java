@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.vision.VisionPortal;
-import org.openftc.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,16 +23,16 @@ public class classicLinearDriveToAprilTagCommand extends CommandBase {
     private Camera camera;
     private Drive drive;
     private static final double FEET_PER_METER = 3.28084;
-    private AprilTagDetection tagOfInterest = null;
+    private AprilTagDetection t = null;
     ArrayList<AprilTagDetection> currentDetections;
     private double[] stats = new double[]{999, 999, 999, 999, 999, 999};
     private final double MARGIN_OF_ERROR = 1.0;
     private int tagID;
     public int getTagOfInterest() {
-        if (tagOfInterest == null) {
+        if (t == null) {
             return -1;
         }
-        return tagOfInterest.id;
+        return t.id;
     }
     public static List<Double> convertArrayToList(double[] array) {
         // Create an empty List
@@ -62,27 +62,22 @@ public class classicLinearDriveToAprilTagCommand extends CommandBase {
     public void initialize() {}
     @Override
     public void execute() {
-        /*currentDetections = camera.getAprilTagPipeline().getLatestDetections();
+        currentDetections = camera.getTagLocalization();
         if (currentDetections.size() > 0) {
             for (AprilTagDetection tag : currentDetections) {
                 if (tag.id == 4 ||tag.id == 5 ||tag.id == 6) {
-                    tagOfInterest = tag;
+                    t = tag;
                     break;
                 }
             }
         }
-        if (tagOfInterest != null) {
-            Orientation rot = Orientation.getOrientation(tagOfInterest.pose.R, AxesReference.INTRINSIC, AxesOrder.YXZ, AngleUnit.DEGREES);
-            stats = new double[]{tagOfInterest.pose.x * FEET_PER_METER,
-                    tagOfInterest.pose.y * FEET_PER_METER,
-                    tagOfInterest.pose.z * FEET_PER_METER,
-                    rot.firstAngle,
-                    rot.secondAngle,
-                    rot.thirdAngle};
-            drive.manualPower(0.3*stats[0], 0.3*stats[1], 0.01 * stats[3]);
+        if (t != null) {
+            stats = new double[]{t.ftcPose.x, t.ftcPose.y, t.ftcPose.z,
+                    t.ftcPose.pitch, t.ftcPose.roll, t.ftcPose.yaw};
+            drive.manualPower(0.3*stats[0], 0.3*stats[1], 0.01 * stats[5]);
         } else {
             drive.manualPower(0,0,0.2);
-        }*/
+        }
     }
     @Override
     public boolean isFinished() {
