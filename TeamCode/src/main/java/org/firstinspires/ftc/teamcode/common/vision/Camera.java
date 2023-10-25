@@ -57,7 +57,6 @@ public class Camera extends SubsystemBase {
                 .setAutoStopLiveView(true)
                 .addProcessor(aprilTag)
                 .build();
-        visionPortal.setProcessorEnabled(aprilTag, true);
         //visionPortal.setProcessorEnabled(propProcessor, true);
     }
 

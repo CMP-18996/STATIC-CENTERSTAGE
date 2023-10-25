@@ -86,9 +86,9 @@ public class PropProcessor implements VisionProcessor {
         if (contours != null && largestContour != null) {
             Rect boundingRect = Imgproc.boundingRect(largestContour);
             int pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
-            if (pixelVal < 213 * scalePercent) {
+            if (pixelVal < cameraCalibration.getSize().getWidth() * scalePercent / 3) {
                 leftPos++;
-            } else if (pixelVal < 440 * scalePercent) {
+            } else if (pixelVal < cameraCalibration.getSize().getWidth() * scalePercent * 2 / 3) {
                 middlePos++;
             } else {
                 rightPos++;
