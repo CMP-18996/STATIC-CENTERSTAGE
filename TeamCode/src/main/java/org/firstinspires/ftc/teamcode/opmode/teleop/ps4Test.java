@@ -37,7 +37,7 @@ public class ps4Test extends CommandOpMode {
         x = gamepad1.touchpad_finger_1_x;
         y = gamepad1.touchpad_finger_1_y;
         column = (int) Math.floor(2.5 * (x + 0.2) + 3);
-        row = (int) (-1 * Math.floor(0.5 * x) + 1);
+        row = (int) (-1 * Math.floor(0.5 * y) + 1);
         /*if (gamepad1.touchpad && x > 0.4) {
             drive.manualPower(0.35, 0, 0);
         } else if (gamepad1.touchpad && x < -0.4) {
