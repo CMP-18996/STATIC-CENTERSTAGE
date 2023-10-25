@@ -41,11 +41,11 @@ public class Robot {
         rightRear.setRunMode(Motor.RunMode.RawPower);
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
-        intakeMotor = new MotorEx(hardwareMap, "intake");
+        /*intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);
-        intakeMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        intakeMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);*/
 
-        double coverServoMinRot = 0.0;
+       /* double coverServoMinRot = 0.0;
         double coverServoMaxRot = 180.0;
         coverServo1 = new SimpleServo(hardwareMap, "cover1", coverServoMinRot, coverServoMaxRot);
         coverServo1.setInverted(false);
@@ -58,10 +58,7 @@ public class Robot {
         depositServo1.setInverted(false);
         depositServo2 = new SimpleServo(hardwareMap, "deposit2", depositServoMinRot, depositServoMaxRot);
         depositServo2.setInverted(true);
-
-
-
-
+````````*/
 
         if (mode.equals(OpModes.AUTO)) {
             camera = new Camera(hardwareMap);

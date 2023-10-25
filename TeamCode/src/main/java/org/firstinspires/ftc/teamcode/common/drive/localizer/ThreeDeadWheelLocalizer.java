@@ -19,9 +19,9 @@ import org.firstinspires.ftc.teamcode.common.drive.localizer.Localizer;
 @Config
 public final class ThreeDeadWheelLocalizer implements Localizer {
     public static class Params {
-        public double par0YTicks = -11121.72308;
-        public double par1YTicks = 11232.40429;
-        public double perpXTicks = -9642.793931;
+        public double par0YTicks = -11458.78108;
+        public double par1YTicks = 10992.35342;
+        public double perpXTicks = -9833.946602;
     }
 
     public static Params PARAMS = new Params();
