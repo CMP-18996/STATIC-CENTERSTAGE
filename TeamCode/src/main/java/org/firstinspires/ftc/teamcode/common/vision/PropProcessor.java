@@ -143,8 +143,8 @@ public class PropProcessor implements VisionProcessor {
     public PropProcessor(GlobalVariables.Color teamColor) {
         switch (teamColor) {
             case RED:
-                lowerBound = new Scalar(0, 0, 58.7);
-                upperBound = new Scalar(7.4, 255, 255);
+                lowerBound = new Scalar(0, 15, 58.7);
+                upperBound = new Scalar(10, 255, 255);
                 break;
             case BLUE:
                 lowerBound = new Scalar(0, 0, 0);
