@@ -25,7 +25,6 @@ public class PropProcessor implements VisionProcessor {
     private int width;
     private int height;
     private Rect boundingRect;
-    public GlobalVariables.Position detectedPosition = GlobalVariables.Position.UNDETECTED;
     private CameraCalibration cameraCalibration;
     private boolean objectDetected = false;
 
@@ -39,7 +38,7 @@ public class PropProcessor implements VisionProcessor {
     private List<MatOfPoint> contours;
     private Mat fillerMat;
     private MatOfPoint largestContour;
-    private MatOfPoint largestCountourFound;
+    private MatOfPoint largestContourFound;
     boolean startDetecting = false;
 
     // TODO: Figure these values out
@@ -65,7 +64,7 @@ public class PropProcessor implements VisionProcessor {
             frame = detectObject(frame);
             checkFinish();
         }
-        return null;
+        return frame;
     }
 
     public Mat detectObject(Mat frame) {
@@ -127,7 +126,7 @@ public class PropProcessor implements VisionProcessor {
     private MatOfPoint findLargestContour(List<MatOfPoint> contours) {
 
         double largestArea = 0;
-        largestCountourFound = new MatOfPoint();
+        largestContourFound = new MatOfPoint();
 
         for (MatOfPoint contour : contours) {
             double area = Imgproc.contourArea(contour);
