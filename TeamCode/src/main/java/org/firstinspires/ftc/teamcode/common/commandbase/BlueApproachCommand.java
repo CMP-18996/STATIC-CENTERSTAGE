@@ -7,7 +7,7 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
-public class BlueApproach extends CommandBase {
+public class BlueApproachCommand extends CommandBase {
     public enum Distance {
         CLOSE,
         FAR
@@ -16,7 +16,7 @@ public class BlueApproach extends CommandBase {
     Distance d;
     boolean t = false;
 
-    public BlueApproach(MecanumDrive drive, Distance d) {
+    public BlueApproachCommand(MecanumDrive drive, Distance d) {
         this.drive = drive;
         this.d = d;
     }
