@@ -40,6 +40,7 @@ public class PropProcessor implements VisionProcessor {
     private Mat fillerMat;
     private MatOfPoint largestContour;
     private MatOfPoint largestCountourFound;
+    boolean startDetecting = false;
 
     // TODO: Figure these values out
     private int smallestAllowedArea = 0;
@@ -60,7 +61,7 @@ public class PropProcessor implements VisionProcessor {
 
     @Override
     public Object processFrame(Mat frame, long captureTimeNanos) {
-        if (!objectDetected) {
+        if (!objectDetected && startDetecting) {
             frame = detectObject(frame);
             checkFinish();
         }
