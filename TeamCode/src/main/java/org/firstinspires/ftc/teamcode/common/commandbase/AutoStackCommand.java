@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.common.commandbase;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.command.CommandBase;
@@ -24,12 +25,16 @@ public class AutoStackCommand extends CommandBase {
             case BLUE:
                 Actions.runBlocking(
                         drive.actionBuilder(drive.pose)
-                                .splineTo(new Vector2d(-36.32, 48.93), Math.toRadians(90.00))
+                                .setReversed(true)
+                                .splineToSplineHeading(new Pose2d(12, 12, Math.toRadians(0)), Math.toRadians(180))
+                                .splineToSplineHeading(new Pose2d(-52, 12, Math.toRadians(0)), Math.toRadians(180))
+                                .setReversed(false)
+                                .splineTo(new Vector2d(12, 12), Math.toRadians(0))
+                                .splineTo(new Vector2d(47, 36), Math.toRadians(0))
                                 .build());
             case RED:
                 Actions.runBlocking(
                         drive.actionBuilder(drive.pose)
-                                .splineTo(new Vector2d(-36.32, 48.93), Math.toRadians(90.00))
                                 .build());
         }
         t = true;
