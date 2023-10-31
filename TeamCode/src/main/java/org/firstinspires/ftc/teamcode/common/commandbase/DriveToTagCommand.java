@@ -2,27 +2,17 @@ package org.firstinspires.ftc.teamcode.common.commandbase;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-public class classicLinearDriveToAprilTagCommand extends CommandBase {
+public class DriveToTagCommand extends CommandBase {
     private Camera camera;
     private Drive drive;
-    private static final double FEET_PER_METER = 3.28084;
     private AprilTagDetection t = null;
     ArrayList<AprilTagDetection> currentDetections;
     private double[] stats = new double[]{999, 999, 999, 999, 999, 999};
@@ -51,7 +41,7 @@ public class classicLinearDriveToAprilTagCommand extends CommandBase {
     public List<Double> getStats() {
         return convertArrayToList(stats);
     }
-    public classicLinearDriveToAprilTagCommand(Robot robot, Drive drive, int tagID) {
+    public DriveToTagCommand(Robot robot, Drive drive, int tagID) {
         this.camera = robot.camera;
         this.drive = drive;
         this.tagID = tagID;
@@ -65,7 +55,7 @@ public class classicLinearDriveToAprilTagCommand extends CommandBase {
         currentDetections = camera.getTagLocalization();
         if (currentDetections.size() > 0) {
             for (AprilTagDetection tag : currentDetections) {
-                if (tag.id == 4 ||tag.id == 5 ||tag.id == 6) {
+                if (tag.id == 4 || tag.id == 5 || tag.id == 6) {
                     t = tag;
                     break;
                 }
@@ -76,7 +66,7 @@ public class classicLinearDriveToAprilTagCommand extends CommandBase {
                     t.ftcPose.pitch, t.ftcPose.roll, t.ftcPose.yaw};
             drive.manualPower(0.3*stats[0], 0.3*stats[1], 0.01 * stats[5]);
         } else {
-            drive.manualPower(0,0,0.2);
+            drive.manualPower(0,0,0);
         }
     }
     @Override
