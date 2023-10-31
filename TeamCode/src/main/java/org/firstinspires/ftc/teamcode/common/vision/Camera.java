@@ -60,8 +60,9 @@ public class Camera extends SubsystemBase {
         //visionPortal.setProcessorEnabled(propProcessor, true);
     }
 
-    
-
+    public void startPropProcessing() {
+        propProcessor.startDetecting = true;
+    }
 
     // only use when stop is not requested
     private void setManualExposure(int exposureMS, int gain) {

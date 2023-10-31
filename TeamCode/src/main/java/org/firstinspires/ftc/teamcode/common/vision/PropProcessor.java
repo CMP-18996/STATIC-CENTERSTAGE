@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.common.vision;
 
 import android.graphics.Canvas;
+import android.graphics.Paint;
 
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
@@ -23,20 +24,22 @@ import java.util.List;
 public class PropProcessor implements VisionProcessor {
     private int width;
     private int height;
-    public GlobalVariables.Position detectedPosition;
+    private Rect boundingRect;
     private CameraCalibration cameraCalibration;
     private boolean objectDetected = false;
 
     // All util things
     private Scalar lowerBound;
     private Scalar upperBound;
+    private int pixelVal;
     private Mat hsvMat;
     private Mat mask;
     private Mat resized;
     private List<MatOfPoint> contours;
     private Mat fillerMat;
     private MatOfPoint largestContour;
-    private MatOfPoint largestCountourFound;
+    private MatOfPoint largestContourFound;
+    boolean startDetecting = false;
 
     // TODO: Figure these values out
     private int smallestAllowedArea = 0;
@@ -57,11 +60,11 @@ public class PropProcessor implements VisionProcessor {
 
     @Override
     public Object processFrame(Mat frame, long captureTimeNanos) {
-        if (!objectDetected) {
+        if (!objectDetected && startDetecting) {
             frame = detectObject(frame);
             checkFinish();
         }
-        return null;
+        return frame;
     }
 
     public Mat detectObject(Mat frame) {
@@ -84,8 +87,8 @@ public class PropProcessor implements VisionProcessor {
 
         largestContour = findLargestContour(contours);
         if (contours != null && largestContour != null) {
-            Rect boundingRect = Imgproc.boundingRect(largestContour);
-            int pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
+            boundingRect = Imgproc.boundingRect(largestContour);
+            pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
             if (pixelVal < cameraCalibration.getSize().getWidth() * scalePercent / 3) {
                 leftPos++;
             } else if (pixelVal < cameraCalibration.getSize().getWidth() * scalePercent * 2 / 3) {
@@ -117,13 +120,13 @@ public class PropProcessor implements VisionProcessor {
 
     @Override
     public void onDrawFrame(Canvas canvas, int onscreenWidth, int onscreenHeight, float scaleBmpPxToCanvasPx, float scaleCanvasDensity, Object userContext) {
-
+        canvas.drawCircle(pixelVal, boundingRect.y, 10, new Paint());
     }
 
     private MatOfPoint findLargestContour(List<MatOfPoint> contours) {
 
         double largestArea = 0;
-        largestCountourFound = new MatOfPoint();
+        largestContourFound = new MatOfPoint();
 
         for (MatOfPoint contour : contours) {
             double area = Imgproc.contourArea(contour);

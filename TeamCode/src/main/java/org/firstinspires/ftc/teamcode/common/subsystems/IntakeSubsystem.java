@@ -7,7 +7,8 @@ import org.firstinspires.ftc.teamcode.common.Robot;
 public class IntakeSubsystem extends SubsystemBase {
     private Robot robot;
     private SweepingState sweepingState = SweepingState.STOPPED;
-    private double power = .6;
+    private double intakePower = .6;
+    private double repelPower = .8; // keep positive
     private CoverState coverState = CoverState.CLOSED;
 
 
@@ -27,13 +28,13 @@ public class IntakeSubsystem extends SubsystemBase {
         sweepingState = setState;
         switch (sweepingState) {
             case INTAKING:
-                robot.intakeMotor.set(power);
+                robot.intakeMotor.set(intakePower);
                 break;
             case STOPPED:
                 robot.intakeMotor.set(0);
                 break;
             case REPELLING:
-                robot.intakeMotor.set(-power);
+                robot.intakeMotor.set(-repelPower);
                 break;
         }
     }

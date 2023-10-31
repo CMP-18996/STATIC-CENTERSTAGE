@@ -32,6 +32,7 @@ public class VisionPortalTest extends CommandOpMode {
 
     @Override
     public void run() {
+        camera.startPropProcessing();
         List<AprilTagDetection> currentDetections = camera.getTagLocalization();
         telemetry.addData("# AprilTags Detected", currentDetections.size());
 
