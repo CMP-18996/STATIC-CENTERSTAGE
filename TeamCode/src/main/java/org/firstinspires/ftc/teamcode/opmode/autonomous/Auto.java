@@ -6,8 +6,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables.Distance;
+import org.firstinspires.ftc.teamcode.common.commandbase.AutoStackCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.BlueApproachCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
@@ -24,6 +26,8 @@ public class Auto extends CommandOpMode {
         robot = new Robot(hardwareMap, Robot.OpModes.TELEOP);
         drive = new MecanumDrive(hardwareMap, Distance.FAR.getP());
         schedule(new BlueApproachCommand(drive, Distance.FAR));
+        schedule(new AutoStackCommand(drive, GlobalVariables.Color.BLUE));
+        schedule(new AutoStackCommand(drive, GlobalVariables.Color.BLUE));
 
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
