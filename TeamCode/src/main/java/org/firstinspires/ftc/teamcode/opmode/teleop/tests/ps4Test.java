@@ -50,7 +50,7 @@ public class ps4Test extends CommandOpMode {
             drive.manualPower(0, 0, 0);
         }*/
         if (row == 3) {
-            gamepad1.rumble(200);
+            gamepad1.rumble(1000);
         }
         telemetry.addData("Status", "Rumning...");
         telemetry.addData("Touchpad X, Y", x + " , " + y);
