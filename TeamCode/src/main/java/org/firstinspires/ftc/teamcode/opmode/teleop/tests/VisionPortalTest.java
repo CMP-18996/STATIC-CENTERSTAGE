@@ -54,6 +54,7 @@ public class VisionPortalTest extends CommandOpMode {
         telemetry.addLine("PRY = Pitch, Roll & Yaw (XYZ Rotation)");
         telemetry.addLine("RBE = Range, Bearing & Elevation");
         telemetry.addLine("Prop Position Detected: " + GlobalVariables.position.toString());
+        telemetry.addData("Detected Pixel Val:", camera.getTelemetryTestVal());
         telemetry.update();
         sleep(20);
     }
