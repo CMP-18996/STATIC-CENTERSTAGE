@@ -36,6 +36,10 @@ public class Camera extends SubsystemBase {
         return null;
     }
 
+    public int getTelemetryTestVal() {
+        return propProcessor.telemetryTestVal;
+    }
+
 
     public Camera(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;

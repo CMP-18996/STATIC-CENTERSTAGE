@@ -32,6 +32,7 @@ public class PropProcessor implements VisionProcessor {
     private Scalar lowerBound;
     private Scalar upperBound;
     private int pixelVal;
+    public int telemetryTestVal;
     private Mat hsvMat;
     private Mat mask;
     private Mat resized;
@@ -83,12 +84,14 @@ public class PropProcessor implements VisionProcessor {
 
         Imgproc.cvtColor(frame, hsvMat, Imgproc.COLOR_RGB2HSV);
         Core.inRange(hsvMat, lowerBound, upperBound, mask);
+        Core.bitwise_not(mask, mask);
         Imgproc.findContours(mask, contours, fillerMat, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 
         largestContour = findLargestContour(contours);
         if (contours != null && largestContour != null) {
             boundingRect = Imgproc.boundingRect(largestContour);
-            pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
+            pixelVal = (int) Math.ceil(boundingRect.x);
+            telemetryTestVal = pixelVal;
             if (pixelVal < cameraCalibration.getSize().getWidth() * scalePercent / 3) {
                 leftPos++;
             } else if (pixelVal < cameraCalibration.getSize().getWidth() * scalePercent * 2 / 3) {
@@ -120,7 +123,7 @@ public class PropProcessor implements VisionProcessor {
 
     @Override
     public void onDrawFrame(Canvas canvas, int onscreenWidth, int onscreenHeight, float scaleBmpPxToCanvasPx, float scaleCanvasDensity, Object userContext) {
-        canvas.drawCircle(pixelVal, boundingRect.y, 10, new Paint());
+        //canvas.drawCircle(pixelVal, boundingRect.y, 10, new Paint());
     }
 
     private MatOfPoint findLargestContour(List<MatOfPoint> contours) {
