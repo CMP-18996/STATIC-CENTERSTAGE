@@ -29,14 +29,14 @@ public class BlueApproachCommand extends CommandBase {
             case CLOSE:
                 Actions.runBlocking(
                         drive.actionBuilder(CLOSE.getP())
-                                .splineTo(new Vector2d(47, 36), Math.toRadians(0))
+                                .splineTo(new Vector2d(47, 45.5), Math.toRadians(0))
                                 .build());
             case FAR:
                 Actions.runBlocking(
                         drive.actionBuilder(FAR.getP())
                                 .splineTo(new Vector2d(-36, 24), Math.toRadians(-90))
-                                .splineTo(new Vector2d(0, 12), Math.toRadians(0))
-                                .splineTo(new Vector2d(47, 36), Math.toRadians(0))
+                                .splineToSplineHeading(new Pose2d(0, 12, 0), Math.toRadians(0))
+                                .splineTo(new Vector2d(47, 45.5), Math.toRadians(0))
                                 .build());
         }
         t = true;

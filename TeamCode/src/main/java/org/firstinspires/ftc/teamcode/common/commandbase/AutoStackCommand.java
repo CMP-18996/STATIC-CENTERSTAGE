@@ -27,10 +27,10 @@ public class AutoStackCommand extends CommandBase {
                         drive.actionBuilder(drive.pose)
                                 .setReversed(true)
                                 .splineToSplineHeading(new Pose2d(12, 12, Math.toRadians(0)), Math.toRadians(180))
-                                .splineToSplineHeading(new Pose2d(-52, 12, Math.toRadians(0)), Math.toRadians(180))
+                                .splineToSplineHeading(new Pose2d(-64, 12, Math.toRadians(0)), Math.toRadians(180))
                                 .setReversed(false)
                                 .splineTo(new Vector2d(12, 12), Math.toRadians(0))
-                                .splineTo(new Vector2d(47, 36), Math.toRadians(0))
+                                .splineTo(new Vector2d(47, 45.5), Math.toRadians(0))
                                 .build());
             case RED:
                 Actions.runBlocking(
