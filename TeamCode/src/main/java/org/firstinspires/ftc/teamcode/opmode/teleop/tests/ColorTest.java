@@ -28,33 +28,33 @@ public class ColorTest extends LinearOpMode {
                 telemetry.addData("blue", colorSensor.blue());
                 telemetry.addData("green", colorSensor.green());
                 telemetry.update();
-                if(405>= colorSensor.red() && colorSensor.red() >= 365){
-                    if(587>= colorSensor.blue() && colorSensor.blue() >= 547){
-                        if(665>= colorSensor.green() && colorSensor.green() >= 625){
+                if(425>= colorSensor.red() && colorSensor.red() >= 345){
+                    if(607>= colorSensor.blue() && colorSensor.blue() >= 527){
+                        if(685>= colorSensor.green() && colorSensor.green() >= 605){
                             telemetry.addLine("white");
                             telemetry.update();
                         }
                     }
                 }
-                else if(130>= colorSensor.red() && colorSensor.red() >= 90){
-                    if(173>= colorSensor.blue() && colorSensor.blue() >= 133){
-                        if(279>= colorSensor.green() && colorSensor.green() >= 239){
+                else if(150>= colorSensor.red() && colorSensor.red() >= 70){
+                    if(193>= colorSensor.blue() && colorSensor.blue() >= 113){
+                        if(299>= colorSensor.green() && colorSensor.green() >= 219){
                             telemetry.addLine("green");
                             telemetry.update();
                         }
                     }
                 }
-                else if(255>= colorSensor.red() && colorSensor.red() >= 215){
-                    if(179>= colorSensor.blue() && colorSensor.blue() >= 139){
-                        if(363>= colorSensor.green() && colorSensor.green() >= 323){
+                else if(275>= colorSensor.red() && colorSensor.red() >= 195){
+                    if(199>= colorSensor.blue() && colorSensor.blue() >= 119){
+                        if(383>= colorSensor.green() && colorSensor.green() >= 303){
                             telemetry.addLine("yellow");
                             telemetry.update();
                         }
                     }
                 }
-                else if(219>= colorSensor.red() && colorSensor.red() >= 179){
-                    if(395>= colorSensor.blue() && colorSensor.blue() >= 355){
-                        if(312>= colorSensor.green() && colorSensor.green() >= 272){
+                else if(219>= colorSensor.red() && colorSensor.red() >= 159){
+                    if(415>= colorSensor.blue() && colorSensor.blue() >= 335){
+                        if(332>= colorSensor.green() && colorSensor.green() >= 252){
                             telemetry.addLine("purple");
                             telemetry.update();
                         }
