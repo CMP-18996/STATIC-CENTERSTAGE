@@ -41,6 +41,7 @@ public class ColorTest extends LinearOpMode {
                     telemetry.addData("color", "purple");
                 }
                 telemetry.update();
+                sleep(20);
             }
         }
 }
