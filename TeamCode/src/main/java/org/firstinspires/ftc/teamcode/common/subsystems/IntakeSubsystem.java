@@ -11,6 +11,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private double repelPower = .8; // keep positive
     private CoverState coverState = CoverState.CLOSED;
 
+    private ColorState slotOne ;
 
     public enum CoverState {
         OPENED,
@@ -22,6 +23,13 @@ public class IntakeSubsystem extends SubsystemBase {
         INTAKING,
         STOPPED,
         REPELLING
+    }
+
+    public enum ColorState {
+        WHITE,
+        GREEN,
+        PURPLE,
+        YELLOW,
     }
 
     public void updateSweepingState(SweepingState setState) {
@@ -41,6 +49,23 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void updateCoverState(CoverState setState) {
         coverState = setState;
+        int openPosition = 0;
+        int closedPosition = 0;
+
+        switch(coverState) {
+            case OPENED:
+                break;
+            case OPENING:
+                robot.coverServo1.setPosition(openPosition);
+                break;
+            case CLOSED:
+                robot.coverServo1.setPosition(closedPosition);
+                break;
+        }
+    }
+
+    public void identifyColor() {
+
     }
 
     public void periodic() {
