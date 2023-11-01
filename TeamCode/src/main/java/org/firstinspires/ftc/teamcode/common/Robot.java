@@ -49,8 +49,8 @@ public class Robot {
         double coverServoMaxRot = 180.0;
         coverServo1 = new SimpleServo(hardwareMap, "cover1", coverServoMinRot, coverServoMaxRot);
         coverServo1.setInverted(false);
-        coverServo2 = new SimpleServo(hardwareMap, "cover2", coverServoMinRot, coverServoMaxRot);
-        coverServo2.setInverted(true);
+//        coverServo2 = new SimpleServo(hardwareMap, "cover2", coverServoMinRot, coverServoMaxRot);
+//        coverServo2.setInverted(true);
 
         double depositServoMinRot = 0.0;
         double depositServoMaxRot = 0.0;
