@@ -16,7 +16,6 @@ import java.util.List;
 public class AutoDriveToTagCommand extends CommandBase {
     private Camera camera;
     private MecanumDrive drive;
-    private AprilTagDetection t = null;
     boolean b = false;
     ArrayList<AprilTagDetection> currentDetections;
     private double[] stats = new double[]{999, 999, 999, 999, 999, 999};
@@ -43,12 +42,11 @@ public class AutoDriveToTagCommand extends CommandBase {
         if (currentDetections.size() > 0) {
             for (AprilTagDetection tag : currentDetections) {
                 if (tag.id == tagID) {
-                    t = tag;
-                    stats = new double[]{t.ftcPose.x, t.ftcPose.y, t.ftcPose.z,
-                            t.ftcPose.pitch, t.ftcPose.roll, t.ftcPose.yaw};
+                    stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
+                            tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
                     Actions.runBlocking(drive.actionBuilder(drive.pose)
                             .splineTo(new Vector2d(drive.pose.position.x + stats[0],
-                                    drive.pose.position.x + stats[1]),
+                                    drive.pose.position.x + stats[1] - 6),
                                     Math.toRadians(calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + stats[5]))
                             .build());
                     break;
