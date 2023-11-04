@@ -19,7 +19,7 @@ public class VisionPortalTest extends CommandOpMode {
 
     @Override
     public void initialize() {
-        GlobalVariables.color = GlobalVariables.Color.BLUE;
+        GlobalVariables.color = GlobalVariables.Color.RED;
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
