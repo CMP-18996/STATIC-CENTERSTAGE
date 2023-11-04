@@ -30,6 +30,7 @@ public class IntakeSubsystem extends SubsystemBase {
         GREEN,
         PURPLE,
         YELLOW,
+        NONE
     }
 
     public void updateSweepingState(SweepingState setState) {
