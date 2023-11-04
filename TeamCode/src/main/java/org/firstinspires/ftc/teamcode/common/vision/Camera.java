@@ -39,7 +39,7 @@ public class Camera extends SubsystemBase {
     public int getTelemetryTestVal() {
         return propProcessor.telemetryTestVal;
     }
-
+    public VisionPortal getVisionPortal() { return visionPortal; };
 
     public Camera(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
@@ -61,7 +61,6 @@ public class Camera extends SubsystemBase {
                 .setAutoStopLiveView(true)
                 .addProcessor(aprilTag)
                 .build();
-        //visionPortal.setProcessorEnabled(propProcessor, true);
     }
 
     public void startPropProcessing() {

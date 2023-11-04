@@ -28,6 +28,7 @@ public class PropProcessor implements VisionProcessor {
     private Rect boundingRect;
     private CameraCalibration cameraCalibration;
     private boolean objectDetected = false;
+    private ArrayList<MatOfPoint> arbitrary;
 
     // All util things
     private Scalar lowerBound;
@@ -37,6 +38,7 @@ public class PropProcessor implements VisionProcessor {
     private Mat hsvMat;
     private Mat mask;
     private Mat resized;
+    private Mat negMat;
     private List<MatOfPoint> contours;
     private Mat fillerMat;
     private MatOfPoint largestContour;
@@ -62,8 +64,8 @@ public class PropProcessor implements VisionProcessor {
 
     @Override
     public Object processFrame(Mat frame, long captureTimeNanos) {
+        frame = detectObject(frame);
         if (!objectDetected && startDetecting) {
-            frame = detectObject(frame);
             checkFinish();
         }
         return null;
@@ -78,19 +80,24 @@ public class PropProcessor implements VisionProcessor {
         Imgproc.resize(frame, resized, dimensions);
 
         hsvMat = new Mat();
+        negMat = new Mat();
         mask = new Mat();
         fillerMat = new Mat();
         contours = new ArrayList<>();
         largestContour = new MatOfPoint();
 
         Imgproc.cvtColor(frame, hsvMat, Imgproc.COLOR_RGB2HSV);
-        Core.inRange(hsvMat, lowerBound, upperBound, mask);
+        Core.bitwise_not(hsvMat, negMat);
+        Core.inRange(negMat, lowerBound, upperBound, mask);
         Imgproc.findContours(mask, contours, fillerMat, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 
         largestContour = findLargestContour(contours);
         if (contours != null && largestContour != null) {
             boundingRect = Imgproc.boundingRect(largestContour);
+            arbitrary = new ArrayList<>();
+            arbitrary.add(largestContour);
             pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
+            Imgproc.drawContours(frame, arbitrary, 0, new Scalar(42, 42, 129), -1, Imgproc.LINE_8, fillerMat, 0);
             telemetryTestVal = pixelVal;
             if (pixelVal < width * scalePercent / 3) {
                 leftPos++;
@@ -128,6 +135,10 @@ public class PropProcessor implements VisionProcessor {
             paint.setColor(Color.RED); // Set the color to red
             canvas.drawCircle(pixelVal * 10 / 4, boundingRect.y * 10 / 4, 10, paint);
         }
+
+        Paint paint = new Paint();
+        paint.setColor(Color.RED); // Set the color to red
+        canvas.drawCircle(height / 2, width / 2, 10, paint);
     }
 
     private MatOfPoint findLargestContour(List<MatOfPoint> contours) {
