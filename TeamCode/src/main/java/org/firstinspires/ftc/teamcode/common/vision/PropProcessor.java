@@ -87,17 +87,17 @@ public class PropProcessor implements VisionProcessor {
         largestContour = new MatOfPoint();
 
         Imgproc.cvtColor(frame, hsvMat, Imgproc.COLOR_RGB2HSV);
-        Core.bitwise_not(hsvMat, negMat);
-        Core.inRange(negMat, lowerBound, upperBound, mask);
+        //Core.bitwise_not(hsvMat, negMat);
+        Core.inRange(hsvMat, lowerBound, upperBound, mask);
         Imgproc.findContours(mask, contours, fillerMat, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 
         largestContour = findLargestContour(contours);
         if (contours != null && largestContour != null) {
             boundingRect = Imgproc.boundingRect(largestContour);
-            arbitrary = new ArrayList<>();
-            arbitrary.add(largestContour);
+            //arbitrary = new ArrayList<>();
+            //arbitrary.add(largestContour);
             pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
-            Imgproc.drawContours(frame, arbitrary, 0, new Scalar(42, 42, 129), -1, Imgproc.LINE_8, fillerMat, 0);
+            //Imgproc.drawContours(frame, arbitrary, 0, new Scalar(42, 42, 129), -1, Imgproc.LINE_8, fillerMat, 0);
             telemetryTestVal = pixelVal;
             if (pixelVal < width * scalePercent / 3) {
                 leftPos++;
