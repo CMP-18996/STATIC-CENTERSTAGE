@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp
+@TeleOp(name="Current test")
 public class MotorCurrent extends LinearOpMode {
     DcMotor leftFront, rightFront, leftRear, rightRear;
     @Override
@@ -22,6 +22,7 @@ public class MotorCurrent extends LinearOpMode {
             telemetry.addData("Right front: ", rightFront.getPower());
             telemetry.addData("Left rear: ", leftRear.getPower());
             telemetry.addData("Right rear: ", rightRear.getPower());
+            telemetry.update();
         }
     }
 }
