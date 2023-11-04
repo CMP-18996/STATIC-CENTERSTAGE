@@ -123,9 +123,11 @@ public class PropProcessor implements VisionProcessor {
 
     @Override
     public void onDrawFrame(Canvas canvas, int onscreenWidth, int onscreenHeight, float scaleBmpPxToCanvasPx, float scaleCanvasDensity, Object userContext) {
-        Paint paint = new Paint();
-        paint.setColor(Color.RED); // Set the color to red
-        canvas.drawCircle(pixelVal * 10 / 4, boundingRect.y * 10 / 4, 10, paint);
+        if (boundingRect != null) {
+            Paint paint = new Paint();
+            paint.setColor(Color.RED); // Set the color to red
+            canvas.drawCircle(pixelVal * 10 / 4, boundingRect.y * 10 / 4, 10, paint);
+        }
     }
 
     private MatOfPoint findLargestContour(List<MatOfPoint> contours) {
