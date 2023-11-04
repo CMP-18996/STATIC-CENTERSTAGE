@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.common.vision;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
@@ -65,7 +66,7 @@ public class PropProcessor implements VisionProcessor {
             frame = detectObject(frame);
             checkFinish();
         }
-        return frame;
+        return null;
     }
 
     public Mat detectObject(Mat frame) {
@@ -84,17 +85,16 @@ public class PropProcessor implements VisionProcessor {
 
         Imgproc.cvtColor(frame, hsvMat, Imgproc.COLOR_RGB2HSV);
         Core.inRange(hsvMat, lowerBound, upperBound, mask);
-        Core.bitwise_not(mask, mask);
         Imgproc.findContours(mask, contours, fillerMat, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 
         largestContour = findLargestContour(contours);
         if (contours != null && largestContour != null) {
             boundingRect = Imgproc.boundingRect(largestContour);
-            pixelVal = (int) Math.ceil(boundingRect.x);
+            pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
             telemetryTestVal = pixelVal;
-            if (pixelVal < cameraCalibration.getSize().getWidth() * scalePercent / 3) {
+            if (pixelVal < width * scalePercent / 3) {
                 leftPos++;
-            } else if (pixelVal < cameraCalibration.getSize().getWidth() * scalePercent * 2 / 3) {
+            } else if (pixelVal < width * scalePercent * 2 / 3) {
                 middlePos++;
             } else {
                 rightPos++;
@@ -123,7 +123,9 @@ public class PropProcessor implements VisionProcessor {
 
     @Override
     public void onDrawFrame(Canvas canvas, int onscreenWidth, int onscreenHeight, float scaleBmpPxToCanvasPx, float scaleCanvasDensity, Object userContext) {
-        //canvas.drawCircle(pixelVal, boundingRect.y, 10, new Paint());
+        Paint paint = new Paint();
+        paint.setColor(Color.RED); // Set the color to red
+        canvas.drawCircle(pixelVal * 10 / 4, boundingRect.y * 10 / 4, 10, paint);
     }
 
     private MatOfPoint findLargestContour(List<MatOfPoint> contours) {
