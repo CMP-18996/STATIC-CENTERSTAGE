@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
+import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;
@@ -18,14 +19,13 @@ public class VisionPortalTest extends CommandOpMode {
 
     @Override
     public void initialize() {
-        GlobalVariables.color = GlobalVariables.Color.BLUE;
+        GlobalVariables.color = GlobalVariables.Color.RED;
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
         CommandScheduler.getInstance().reset();
         camera = new Camera(hardwareMap);
-
-
+        while (camera.getVisionPortal().getCameraState() != VisionPortal.CameraState.STARTING_STREAM) sleep(30);
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
     }
