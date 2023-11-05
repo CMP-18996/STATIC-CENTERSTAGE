@@ -18,9 +18,13 @@ public class IntakeWait extends CommandBase {
 //    private int motorPower;
 
     private boolean f;
+    DcMotor leftFront, rightFront, leftRear, rightRear;
 
-    public IntakeWait() {
-
+    public IntakeWait(DcMotor leftFront, DcMotor rightFront, DcMotor leftRear, DcMotor rightRear) {
+        this.leftFront = leftFront;
+        this.rightFront = rightFront;
+        this.leftRear = leftRear;
+        this.rightRear = rightRear;
     }
 
     @Override
@@ -29,6 +33,10 @@ public class IntakeWait extends CommandBase {
     @Override
     public void execute() {
 
+        leftFront.setPower(-0.25);
+        rightFront.setPower(-0.25);
+        leftRear.setPower(-0.25);
+        rightRear.setPower(-0.25);
     }
 
     @Override
