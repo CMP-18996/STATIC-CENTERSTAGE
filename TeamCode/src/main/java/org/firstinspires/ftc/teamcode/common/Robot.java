@@ -60,9 +60,9 @@ public class Robot {
         depositServo2.setInverted(true);
 ````````*/
 
-        if (mode.equals(OpModes.AUTO)) {
-            camera = new Camera(hardwareMap);
-        }
+        //if (mode.equals(OpModes.AUTO)) {
+        //   camera = new Camera(hardwareMap);
+        //}
     }
     public double getAngle() {
         return imu.getAngularOrientation().firstAngle;

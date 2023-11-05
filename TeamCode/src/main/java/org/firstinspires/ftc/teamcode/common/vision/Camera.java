@@ -26,14 +26,12 @@ import java.util.concurrent.TimeUnit;
 
 public class Camera extends SubsystemBase {
     private VisionPortal visionPortal;
-    private HardwareMap hardwareMap;
     private AprilTagProcessor aprilTag;
     private PropProcessor propProcessor;
 
 
     public ArrayList<AprilTagDetection> getTagLocalization() {
-        if (visionPortal.getCameraState() == VisionPortal.CameraState.STREAMING) return aprilTag.getDetections();
-        return null;
+        return aprilTag.getDetections();
     }
 
     public int getTelemetryTestVal() {
@@ -42,7 +40,6 @@ public class Camera extends SubsystemBase {
     public VisionPortal getVisionPortal() { return visionPortal; };
 
     public Camera(HardwareMap hardwareMap) {
-        this.hardwareMap = hardwareMap;
         aprilTag = new AprilTagProcessor
                 // I have no clue what this stuff does
                 .Builder()

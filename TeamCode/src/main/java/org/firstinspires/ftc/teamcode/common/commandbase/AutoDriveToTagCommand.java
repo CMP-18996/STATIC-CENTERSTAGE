@@ -17,11 +17,11 @@ public class AutoDriveToTagCommand extends CommandBase {
     private Camera camera;
     private MecanumDrive drive;
     boolean b = false;
-    ArrayList<AprilTagDetection> currentDetections;
+    List<AprilTagDetection> currentDetections;
     private double[] stats = new double[]{999, 999, 999, 999, 999, 999};
     private final int tagID;
-    public AutoDriveToTagCommand(Robot robot, MecanumDrive drive, int tagID) {
-        this.camera = robot.camera;
+    public AutoDriveToTagCommand(Camera camera, MecanumDrive drive, int tagID) {
+        this.camera = camera;
         this.drive = drive;
         this.tagID = tagID;
         addRequirements(this.camera);
@@ -39,17 +39,19 @@ public class AutoDriveToTagCommand extends CommandBase {
     @Override
     public void execute() {
         currentDetections = camera.getTagLocalization();
-        if (currentDetections.size() > 0) {
-            for (AprilTagDetection tag : currentDetections) {
-                if (tag.id == tagID) {
-                    stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
-                            tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
-                    Actions.runBlocking(drive.actionBuilder(drive.pose)
-                            .splineTo(new Vector2d(drive.pose.position.x + stats[0],
-                                    drive.pose.position.x + stats[1] - 6),
-                                    Math.toRadians(calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + stats[5]))
-                            .build());
-                    break;
+        if (currentDetections != null) {
+            if (currentDetections.size() > 0) {
+                for (AprilTagDetection tag : currentDetections) {
+                    if (tag.id == tagID) {
+                        stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
+                                tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
+                        Actions.runBlocking(drive.actionBuilder(drive.pose)
+                                .splineTo(new Vector2d(drive.pose.position.y - stats[0],
+                                                drive.pose.position.x + stats[1]),
+                                        Math.toRadians(calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + stats[5]))
+                                .build());
+                        break;
+                    }
                 }
             }
         }
