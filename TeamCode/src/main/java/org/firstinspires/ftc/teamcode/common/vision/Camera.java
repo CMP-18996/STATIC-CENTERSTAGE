@@ -61,7 +61,6 @@ public class Camera extends SubsystemBase {
                 .setAutoStopLiveView(true)
                 .addProcessor(aprilTag)
                 .build();
-        setManualExposure();
     }
 
     public void startPropProcessing() {
