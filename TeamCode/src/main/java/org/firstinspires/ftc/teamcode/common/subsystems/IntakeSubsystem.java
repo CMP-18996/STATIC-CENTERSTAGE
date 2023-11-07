@@ -1,8 +1,14 @@
 package org.firstinspires.ftc.teamcode.common.subsystems;
 
-import com.arcrobotics.ftclib.command.SubsystemBase;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.common.Robot;
+import org.firstinspires.ftc.teamcode.common.commandbase.IntakeWait;
+
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class IntakeSubsystem extends SubsystemBase {
     private Robot robot;
@@ -10,8 +16,14 @@ public class IntakeSubsystem extends SubsystemBase {
     private double intakePower = .6;
     private double repelPower = .8; // keep positive
     private CoverState coverState = CoverState.CLOSED;
-
     private ColorState slotOne ;
+
+    DcMotor leftFront = hardwareMap.get(DcMotor.class, "leftFront");
+    DcMotor rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+    DcMotor leftRear = hardwareMap.get(DcMotor.class, "leftRear");
+    DcMotor rightRear = hardwareMap.get(DcMotor.class, "rightRear");
+
+    IntakeWait intakeWait = new IntakeWait(leftFront, rightFront, leftRear, rightRear);
 
     public enum CoverState {
         OPENED,
@@ -37,6 +49,7 @@ public class IntakeSubsystem extends SubsystemBase {
         sweepingState = setState;
         switch (sweepingState) {
             case INTAKING:
+                intakeWait.schedule();
                 robot.intakeMotor.set(intakePower);
                 break;
             case STOPPED:

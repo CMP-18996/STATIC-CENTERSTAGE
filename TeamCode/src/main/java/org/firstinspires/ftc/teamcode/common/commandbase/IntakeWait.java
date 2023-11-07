@@ -2,22 +2,11 @@ package org.firstinspires.ftc.teamcode.common.commandbase;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-//import com.acmerobotics.roadrunner.ftc.Actions;
-//import com.acmerobotics.roadrunner.*;
-import com.arcrobotics.ftclib.util.Timing;
-//import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
-//import org.firstinspires.ftc.teamcode.common.drive.Drive;
-//import org.firstinspires.ftc.teamcode.common.Robot;
-
 public class IntakeWait extends CommandBase {
-
-//    private MecanumDrive drive;
-//    Idk if I even need this
-//    private int motorPower;
-
-    private boolean f;
+    private boolean f = false;
     DcMotor leftFront, rightFront, leftRear, rightRear;
 
     public IntakeWait(DcMotor leftFront, DcMotor rightFront, DcMotor leftRear, DcMotor rightRear) {
@@ -28,15 +17,28 @@ public class IntakeWait extends CommandBase {
     }
 
     @Override
-    public void initialize() {}
+    public void initialize() { }
 
     @Override
     public void execute() {
+        Timing.Timer timer1 = new Timing.Timer(500);
+        timer1.start();
 
-        leftFront.setPower(-0.25);
-        rightFront.setPower(-0.25);
-        leftRear.setPower(-0.25);
-        rightRear.setPower(-0.25);
+        while (!timer1.isTimerOn()) {
+            leftFront.setPower(-0.25);
+            rightFront.setPower(-0.25);
+            leftRear.setPower(-0.25);
+            rightRear.setPower(-0.25);
+        }
+
+        Timing.Timer timer2 = new Timing.Timer(500);
+        while (!timer1.isTimerOn()) {
+            leftFront.setPower(0.25);
+            rightFront.setPower(0.25);
+            leftRear.setPower(0.25);
+            rightRear.setPower(0.25);
+        }
+        f = true;
     }
 
     @Override
