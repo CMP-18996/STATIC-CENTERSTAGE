@@ -28,8 +28,12 @@ public class ColorTest extends LinearOpMode {
                 telemetry.addData("red", r);
                 telemetry.addData("blue", b);
                 telemetry.addData("green", g);
-                telemetry.addData("color", "none");
-                if (g > b && b > r) {
+
+            }
+            if(g> 200 && b> 200 && r> 200){
+                telemetry.addData("color", "black");
+            }
+                else if (g > b && b > r) {
                     if (g > 400) {
                         telemetry.addData("color", "white");
                     } else {
@@ -40,6 +44,7 @@ public class ColorTest extends LinearOpMode {
                 } else if (b > g && g > r) {
                     telemetry.addData("color", "purple");
                 }
+                else{telemetry.addData("color", "none");
                 telemetry.update();
                 sleep(20);
             }
