@@ -64,8 +64,8 @@ public class PropProcessor implements VisionProcessor {
 
     @Override
     public Object processFrame(Mat frame, long captureTimeNanos) {
-        frame = detectObject(frame);
         if (!objectDetected && startDetecting) {
+            frame = detectObject(frame);
             checkFinish();
         }
         return null;
@@ -129,17 +129,7 @@ public class PropProcessor implements VisionProcessor {
     }
 
     @Override
-    public void onDrawFrame(Canvas canvas, int onscreenWidth, int onscreenHeight, float scaleBmpPxToCanvasPx, float scaleCanvasDensity, Object userContext) {
-        if (boundingRect != null) {
-            Paint paint = new Paint();
-            paint.setColor(Color.RED); // Set the color to red
-            canvas.drawCircle(pixelVal * 10 / 4, boundingRect.y * 10 / 4, 10, paint);
-        }
-
-        Paint paint = new Paint();
-        paint.setColor(Color.RED); // Set the color to red
-        canvas.drawCircle(height / 2, width / 2, 10, paint);
-    }
+    public void onDrawFrame(Canvas canvas, int onscreenWidth, int onscreenHeight, float scaleBmpPxToCanvasPx, float scaleCanvasDensity, Object userContext) {}
 
     private MatOfPoint findLargestContour(List<MatOfPoint> contours) {
 
@@ -160,7 +150,6 @@ public class PropProcessor implements VisionProcessor {
     }
 
 
-    // TODO: Get values for these and uncomment
     public PropProcessor(GlobalVariables.Color teamColor) {
         switch (teamColor) {
             case RED:
@@ -168,8 +157,8 @@ public class PropProcessor implements VisionProcessor {
                 upperBound = new Scalar(10, 255, 255);
                 break;
             case BLUE:
-                lowerBound = new Scalar(0, 0, 0);
-                upperBound = new Scalar(255, 255, 255);
+                lowerBound = new Scalar(108, 55, 0);
+                upperBound = new Scalar(121.8, 255, 255);
                 break;
         }
     }

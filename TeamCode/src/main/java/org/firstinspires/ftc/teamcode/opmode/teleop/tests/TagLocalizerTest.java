@@ -20,7 +20,6 @@ import org.firstinspires.ftc.vision.VisionPortal;
 public class TagLocalizerTest extends CommandOpMode {
     public Robot robot;
     public MecanumDrive drive;
-    private Camera camera;
     @Override
     public void initialize() {
         telemetry.addData("Status","Initalizing...");
@@ -29,12 +28,11 @@ public class TagLocalizerTest extends CommandOpMode {
 
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap, Robot.OpModes.AUTO);
-        camera = new Camera(hardwareMap);
-        while (camera.getVisionPortal().getCameraState() != VisionPortal.CameraState.STARTING_STREAM) sleep(30);
         drive = new MecanumDrive(hardwareMap, GlobalVariables.Distance.CLOSE.getP());
+
         schedule(new BlueApproachCommand(drive, GlobalVariables.Distance.CLOSE));
         schedule(new WaitCommand(2));
-        schedule(new AutoDriveToTagCommand(camera, drive, 2));
+        schedule(new AutoDriveToTagCommand(robot.camera, drive, 2));
 
         telemetry.addData("Status", "Initialized!");
         telemetry.update();

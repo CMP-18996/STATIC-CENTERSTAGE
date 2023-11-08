@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Camera extends SubsystemBase {
     private VisionPortal visionPortal;
+    private boolean exposureSet = false;
     private AprilTagProcessor aprilTag;
     private PropProcessor propProcessor;
 
@@ -61,7 +62,11 @@ public class Camera extends SubsystemBase {
     }
 
     public void startPropProcessing() {
-        propProcessor.startDetecting = true;
+        if (!exposureSet) {
+            propProcessor.startDetecting = true;
+            exposureSet = true;
+            setManualExposure(6, 250);
+        }
     }
 
     // only use when stop is not requested
