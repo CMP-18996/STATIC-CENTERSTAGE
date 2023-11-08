@@ -87,7 +87,6 @@ public class IntakeSubsystem extends SubsystemBase {
         }
     }
 
-    @Deprecated
     public void identifyColor() {
 
     }
