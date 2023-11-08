@@ -27,7 +27,7 @@ public class PropProcessor implements VisionProcessor {
     private int height;
     private Rect boundingRect;
     private CameraCalibration cameraCalibration;
-    private boolean objectDetected = false;
+    public boolean objectDetected = false;
     private ArrayList<MatOfPoint> arbitrary;
 
     // All util things
@@ -111,7 +111,7 @@ public class PropProcessor implements VisionProcessor {
     }
 
     private void checkFinish() {
-        if (leftPos + middlePos + rightPos >= 10) {
+        if (leftPos + middlePos + rightPos >= 20) {
             objectDetected = true;
             if (leftPos > middlePos && leftPos > rightPos) {
                 GlobalVariables.position = GlobalVariables.Position.LEFT;
@@ -122,7 +122,7 @@ public class PropProcessor implements VisionProcessor {
             else if (rightPos > leftPos && rightPos > middlePos) {
                 GlobalVariables.position = GlobalVariables.Position.RIGHT;
             }
-            else { // only happens in the case that it gets something like left 5 right 5 middle 0
+            else { // only happens in the case that it gets something like left 10 right 10 middle 0
                 objectDetected = false;
             }
         }

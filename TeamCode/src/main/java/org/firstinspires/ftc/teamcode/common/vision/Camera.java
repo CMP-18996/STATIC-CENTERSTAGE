@@ -71,6 +71,9 @@ public class Camera extends SubsystemBase {
 
     public void startPropProcessing() {
         propProcessor.startDetecting = true;
+        if (propProcessor.objectDetected) {
+            visionPortal.setProcessorEnabled(propProcessor, false);
+        }
     }
 
     // only use when stop is not requested
