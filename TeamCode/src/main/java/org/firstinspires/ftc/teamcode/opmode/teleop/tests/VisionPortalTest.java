@@ -25,13 +25,14 @@ public class VisionPortalTest extends CommandOpMode {
 
         CommandScheduler.getInstance().reset();
         camera = new Camera(hardwareMap);
+        while (camera.getVisionPortal().getCameraState() != VisionPortal.CameraState.STREAMING) sleep(30);
+        camera.startPropProcessing();
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
     }
 
     @Override
     public void run() {
-        camera.startPropProcessing();
         List<AprilTagDetection> currentDetections = camera.getTagLocalization();
         telemetry.addData("# AprilTags Detected", currentDetections.size());
 
