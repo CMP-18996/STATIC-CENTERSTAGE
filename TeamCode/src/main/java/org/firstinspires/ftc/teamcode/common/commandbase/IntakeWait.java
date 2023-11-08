@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import java.util.concurrent.TimeUnit;
+
 public class IntakeWait extends CommandBase {
     private boolean f = false;
     DcMotor leftFront, rightFront, leftRear, rightRear;
@@ -21,7 +23,7 @@ public class IntakeWait extends CommandBase {
 
     @Override
     public void execute() {
-        Timing.Timer timer1 = new Timing.Timer(500);
+        Timing.Timer timer1 = new Timing.Timer(500, TimeUnit.MILLISECONDS);
         timer1.start();
 
         while (!timer1.isTimerOn()) {
@@ -31,8 +33,10 @@ public class IntakeWait extends CommandBase {
             rightRear.setPower(-0.25);
         }
 
-        Timing.Timer timer2 = new Timing.Timer(500);
-        while (!timer1.isTimerOn()) {
+        Timing.Timer timer2 = new Timing.Timer(500, TimeUnit.MILLISECONDS);
+        timer2.start();
+
+        while (!timer2.isTimerOn()) {
             leftFront.setPower(0.25);
             rightFront.setPower(0.25);
             leftRear.setPower(0.25);
