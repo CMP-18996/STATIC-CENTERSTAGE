@@ -64,8 +64,8 @@ public class PropProcessor implements VisionProcessor {
 
     @Override
     public Object processFrame(Mat frame, long captureTimeNanos) {
-        frame = detectObject(frame);
         if (!objectDetected && startDetecting) {
+            frame = detectObject(frame);
             checkFinish();
         }
         return null;

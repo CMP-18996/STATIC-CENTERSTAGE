@@ -61,7 +61,9 @@ public class Camera extends SubsystemBase {
     }
 
     public void startPropProcessing() {
+
         propProcessor.startDetecting = true;
+        setManualExposure(6, 250);
     }
 
     // only use when stop is not requested

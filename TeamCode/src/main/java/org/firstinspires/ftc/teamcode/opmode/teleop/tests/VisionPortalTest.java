@@ -25,7 +25,6 @@ public class VisionPortalTest extends CommandOpMode {
 
         CommandScheduler.getInstance().reset();
         camera = new Camera(hardwareMap);
-        while (camera.getVisionPortal().getCameraState() != VisionPortal.CameraState.STARTING_STREAM) sleep(30);
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
     }
