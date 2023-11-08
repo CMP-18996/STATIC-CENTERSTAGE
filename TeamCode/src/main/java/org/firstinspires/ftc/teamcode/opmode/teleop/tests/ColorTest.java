@@ -13,8 +13,8 @@ public class ColorTest extends LinearOpMode {
         ColorSensor colorSensor1;
         ColorSensor colorSensor2;
         int r1, b1, g1, r2, b2, g2;
-        String color1;
-        String color2;
+        public String color1;
+        public String color2;
         @Override
         public void runOpMode() {
             // Get the color sensor from hardwareMap
