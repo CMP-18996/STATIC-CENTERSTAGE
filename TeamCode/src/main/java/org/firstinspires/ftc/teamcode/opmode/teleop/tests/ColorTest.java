@@ -12,6 +12,7 @@ public class ColorTest extends LinearOpMode {
         // Define a variable for our color sensor
         ColorSensor colorSensor;
         int r, b, g;
+        String color;
         @Override
         public void runOpMode() {
             // Get the color sensor from hardwareMap
@@ -32,21 +33,31 @@ public class ColorTest extends LinearOpMode {
             }
             if(g< 200 && b< 200 && r< 200){
                 telemetry.addData("color", "black");
+                color = "black";
             }
                 else if (g > b && b > r) {
                     if (g > 400) {
                         telemetry.addData("color", "white");
+                        color = "white";
                     } else {
                         telemetry.addData("color", "green");
+                        color = "green";
                     }
                 } else if (g > r && r > b) {
                     telemetry.addData("color", "yellow");
+                color = "yellow";
                 } else if (b > g && g > r) {
                     telemetry.addData("color", "purple");
+                color = "purple";
                 }
-                else{telemetry.addData("color", "none");
+                else {
+                telemetry.addData("color", "none");
+                color = "none";
+
+            }
                 telemetry.update();
                 sleep(20);
-            }
+
+
         }
 }
