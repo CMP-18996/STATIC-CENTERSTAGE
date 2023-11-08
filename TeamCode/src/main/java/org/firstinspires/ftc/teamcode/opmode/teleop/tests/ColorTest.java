@@ -30,7 +30,7 @@ public class ColorTest extends LinearOpMode {
                 telemetry.addData("green", g);
 
             }
-            if(g> 200 && b> 200 && r> 200){
+            if(g< 200 && b< 200 && r< 200){
                 telemetry.addData("color", "black");
             }
                 else if (g > b && b > r) {
