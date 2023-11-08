@@ -26,7 +26,7 @@ public class IntakeWait extends CommandBase {
         Timing.Timer timer1 = new Timing.Timer(500, TimeUnit.MILLISECONDS);
         timer1.start();
 
-        while (!timer1.isTimerOn()) {
+        while (timer1.isTimerOn()) {
             leftFront.setPower(-0.25);
             rightFront.setPower(-0.25);
             leftRear.setPower(-0.25);
@@ -36,7 +36,7 @@ public class IntakeWait extends CommandBase {
         Timing.Timer timer2 = new Timing.Timer(500, TimeUnit.MILLISECONDS);
         timer2.start();
 
-        while (!timer2.isTimerOn()) {
+        while (timer2.isTimerOn()) {
             leftFront.setPower(0.25);
             rightFront.setPower(0.25);
             leftRear.setPower(0.25);
