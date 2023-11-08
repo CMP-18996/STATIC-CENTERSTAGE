@@ -59,14 +59,18 @@ public class Camera extends SubsystemBase {
                 .setAutoStopLiveView(true)
                 .addProcessor(aprilTag)
                 .build();
+        while (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
+            try {
+                sleep(30);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        setManualExposure(6, 250);
     }
 
     public void startPropProcessing() {
-        if (!exposureSet) {
-            propProcessor.startDetecting = true;
-            exposureSet = true;
-            setManualExposure(6, 250);
-        }
+        propProcessor.startDetecting = true;
     }
 
     // only use when stop is not requested
