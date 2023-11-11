@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.common.subsystems;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import static org.firstinspires.ftc.teamcode.opmode.teleop.tests.ColorTest.color1;
+import static org.firstinspires.ftc.teamcode.opmode.teleop.tests.ColorTest.color2;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.common.Robot;
