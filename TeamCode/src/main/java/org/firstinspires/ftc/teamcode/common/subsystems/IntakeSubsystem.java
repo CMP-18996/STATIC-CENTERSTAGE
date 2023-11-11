@@ -49,7 +49,7 @@ public class IntakeSubsystem extends SubsystemBase {
         GREEN,
         PURPLE,
         YELLOW,
-        Black,
+        BlACK,
         NONE;
     }
 
