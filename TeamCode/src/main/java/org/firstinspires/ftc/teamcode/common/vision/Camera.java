@@ -44,7 +44,7 @@ public class Camera extends SubsystemBase {
         aprilTag = new AprilTagProcessor
                 // I have no clue what this stuff does
                 .Builder()
-                .setLensIntrinsics(920.510, 921.306, 653.369, 354.512)
+                .setLensIntrinsics(1430, 1430, 480, 620) // manually found values: 920.510, 921.306, 653.369, 354.512
                 .setDrawAxes(true)
                 .setDrawTagOutline(true)
                 .setOutputUnits(DistanceUnit.INCH, AngleUnit.DEGREES)
@@ -59,13 +59,20 @@ public class Camera extends SubsystemBase {
                 .setAutoStopLiveView(true)
                 .addProcessor(aprilTag)
                 .build();
+        while (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
+            try {
+                sleep(30);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        setManualExposure(6, 250);
     }
 
     public void startPropProcessing() {
-        if (!exposureSet) {
-            propProcessor.startDetecting = true;
-            exposureSet = true;
-            setManualExposure(6, 250);
+        propProcessor.startDetecting = true;
+        if (propProcessor.objectDetected) {
+            visionPortal.setProcessorEnabled(propProcessor, false);
         }
     }
 

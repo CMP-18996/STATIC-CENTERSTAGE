@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.IntakeWait;
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -16,7 +17,10 @@ public class IntakeSubsystem extends SubsystemBase {
     private double intakePower = .6;
     private double repelPower = .8; // keep positive
     private CoverState coverState = CoverState.CLOSED;
-    private ColorState slotOne ;
+    private ColorState slotOne;
+    private ColorState slotTwo;
+
+    // color1, color2, both strings
 
     DcMotor leftFront = hardwareMap.get(DcMotor.class, "leftFront");
     DcMotor rightFront = hardwareMap.get(DcMotor.class, "rightFront");
@@ -24,6 +28,9 @@ public class IntakeSubsystem extends SubsystemBase {
     DcMotor rightRear = hardwareMap.get(DcMotor.class, "rightRear");
 
     IntakeWait intakeWait = new IntakeWait(leftFront, rightFront, leftRear, rightRear);
+
+    ColorSensor colorSensor1 = hardwareMap.get(ColorSensor.class, "Color1");
+    ColorSensor colorSensor2 = hardwareMap.get(ColorSensor.class, "Color2");
 
     public enum CoverState {
         OPENED,
@@ -38,11 +45,13 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public enum ColorState {
-        WHITE,
-        GREEN,
-        PURPLE,
-        YELLOW,
-        NONE
+        WHITE("white"),
+        GREEN("green"),
+        PURPLE("purple"),
+        YELLOW("yellow"),
+        NONE("black");
+
+        ColorState(String color) {}
     }
 
     public void updateSweepingState(SweepingState setState) {
