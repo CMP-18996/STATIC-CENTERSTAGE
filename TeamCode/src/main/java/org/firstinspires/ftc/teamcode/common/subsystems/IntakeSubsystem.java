@@ -29,8 +29,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
     IntakeWait intakeWait = new IntakeWait(leftFront, rightFront, leftRear, rightRear);
 
-    ColorSensor colorSensor1 = hardwareMap.get(ColorSensor.class, "Color1");
-    ColorSensor colorSensor2 = hardwareMap.get(ColorSensor.class, "Color2");
+    // ColorSensor colorSensor1 = hardwareMap.get(ColorSensor.class, "Color1");
+    // ColorSensor colorSensor2 = hardwareMap.get(ColorSensor.class, "Color2");
 
     public enum CoverState {
         OPENED,
@@ -45,13 +45,12 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public enum ColorState {
-        WHITE("white"),
-        GREEN("green"),
-        PURPLE("purple"),
-        YELLOW("yellow"),
-        NONE("black");
-
-        ColorState(String color) {}
+        WHITE,
+        GREEN,
+        PURPLE,
+        YELLOW,
+        Black,
+        NONE;
     }
 
     public void updateSweepingState(SweepingState setState) {
@@ -88,7 +87,12 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void identifyColor() {
-
+        if (!color1.equals("")) {
+            slotOne = ColorState.valueOf(color1);
+        }
+        if (!color2.equals("")) {
+            slotTwo = ColorState.valueOf(color2);
+        }
     }
 
     public void periodic() {

@@ -34,26 +34,26 @@ public class ColorTest extends LinearOpMode {
             }
             if(g1< 200 && b1< 200 && r1< 200){
                 telemetry.addData("color1", "black");
-                color1 = "black";
+                color1 = "BLACK";
             }
                 else if (g1 > b1 && b1 > r1) {
                     if (g1 > 400) {
                         telemetry.addData("color1", "white");
-                        color1 = "white";
+                        color1 = "WHITE";
                     } else {
                         telemetry.addData("color1", "green");
-                        color1 = "green";
+                        color1 = "GREEN";
                     }
                 } else if (g1 > r1 && r1 > b1) {
                     telemetry.addData("color1", "yellow");
-                color1 = "yellow";
+                color1 = "YELLOW";
                 } else if (b1 > g1 && g1> r1) {
                     telemetry.addData("color1", "purple");
-                color1 = "purple";
+                color1 = "PURPLE";
                 }
                 else {
                 telemetry.addData("color1", "none");
-                color1 = "none";
+                color1 = "NONE";
 
             }
 
@@ -65,26 +65,26 @@ public class ColorTest extends LinearOpMode {
             }
             if(g2< 200 && b2< 200 && r2< 200){
                 telemetry.addData("color2", "black");
-                color2 = "black";
+                color2 = "BLACK";
             }
             else if (g2 > b2 && b2 > r2) {
                 if (g2 > 400) {
                     telemetry.addData("color2", "white");
-                    color2 = "white";
+                    color2 = "WHITE";
                 } else {
                     telemetry.addData("color2", "green");
-                    color2 = "green";
+                    color2 = "GREEN";
                 }
             } else if (g2 > r2 && r2 > b2) {
                 telemetry.addData("color2", "yellow");
-                color2 = "yellow";
+                color2 = "YELLOW";
             } else if (b2 > g2 && g2> r2) {
                 telemetry.addData("color2", "purple");
-                color2 = "purple";
+                color2 = "PURPLE";
             }
             else {
                 telemetry.addData("color2", "none");
-                color2 = "none";
+                color2 = "NONE";
 
             }
                 telemetry.update();
