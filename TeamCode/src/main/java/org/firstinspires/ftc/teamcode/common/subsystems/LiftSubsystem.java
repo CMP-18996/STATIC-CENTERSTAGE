@@ -9,13 +9,18 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.HardwareMap;=
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class LiftSubsystem extends SubsystemBase{
     private Motor motorUp, motorDown;
     private int upPower, downPower;
     private double baseHeight, heightLevelOne, heightLevelTwo, heightLevelThree, heightLevelFour, heightLevelFive;
     private DistanceSensor heightDetector;
+    private Robot robot;
+
+    LiftSubsystem(Robot robot) {
+        this.robot = robot;
+    }
 
     public enum LiftHeights {
         // Change the values for the actual robot, otherwise it'll probably crash
@@ -26,8 +31,10 @@ public class LiftSubsystem extends SubsystemBase{
         HEIGHTFOUR(4.0),
         HEIGHTFIVE(55.0);
 
-        LiftHeights(double height) {
+        private double height;
 
+        LiftHeights(double height) {
+            this.height = height;
         }
     }
 }
