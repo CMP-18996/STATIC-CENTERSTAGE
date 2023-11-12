@@ -11,6 +11,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class LiftSubsystem extends SubsystemBase{
-    Motor up, down;
-    int upPower, downPower;
+    private Motor motorUp, motorDown;
+    private int upPower, downPower;
 }
