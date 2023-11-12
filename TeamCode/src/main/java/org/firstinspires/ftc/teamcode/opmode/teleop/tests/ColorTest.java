@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.dashboard.FtcDashboard;
 
-@Config
+
 @TeleOp
 public class ColorTest extends LinearOpMode {
         // Define a variable for our color sensor
