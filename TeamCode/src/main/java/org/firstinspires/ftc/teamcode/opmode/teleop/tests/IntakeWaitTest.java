@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.IntakeWait;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 
-@TeleOp
+@TeleOp(name = "IntakeWaitTest")
 public class IntakeWaitTest extends CommandOpMode {
     Robot robot;
     IntakeSubsystem intake;
