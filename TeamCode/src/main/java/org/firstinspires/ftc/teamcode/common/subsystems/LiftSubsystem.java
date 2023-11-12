@@ -31,8 +31,10 @@ public class LiftSubsystem extends SubsystemBase{
         HEIGHTFOUR(4.0),
         HEIGHTFIVE(55.0);
 
-        LiftHeights(double height) {
+        private double height;
 
+        LiftHeights(double height) {
+            this.height = height;
         }
     }
 }
