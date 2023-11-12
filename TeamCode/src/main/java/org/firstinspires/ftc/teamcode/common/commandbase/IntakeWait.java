@@ -1,52 +1,31 @@
 package org.firstinspires.ftc.teamcode.common.commandbase;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
+
 import java.util.concurrent.TimeUnit;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
-public class IntakeWait extends CommandBase {
+public class IntakeWait extends SequentialCommandGroup {
+
     private boolean f = false;
-    DcMotor leftFront, rightFront, leftRear, rightRear;
+    private IntakeSubsystem intake;
 
-    public IntakeWait(DcMotor leftFront, DcMotor rightFront, DcMotor leftRear, DcMotor rightRear) {
-        this.leftFront = leftFront;
-        this.rightFront = rightFront;
-        this.leftRear = leftRear;
-        this.rightRear = rightRear;
-    }
-
-    @Override
-    public void initialize() { }
-
-    @Override
-    public void execute() {
-        Timing.Timer timer1 = new Timing.Timer(500, TimeUnit.MILLISECONDS);
-        timer1.start();
-
-        while (timer1.isTimerOn()) {
-            leftFront.setPower(-0.25);
-            rightFront.setPower(-0.25);
-            leftRear.setPower(-0.25);
-            rightRear.setPower(-0.25);
-        }
-
-        Timing.Timer timer2 = new Timing.Timer(500, TimeUnit.MILLISECONDS);
-        timer2.start();
-
-        while (timer2.isTimerOn()) {
-            leftFront.setPower(0.25);
-            rightFront.setPower(0.25);
-            leftRear.setPower(0.25);
-            rightRear.setPower(0.25);
-        }
-        f = true;
-    }
-
-    @Override
-    public boolean isFinished() {
-        return f;
+    public IntakeWait(IntakeSubsystem intake) {
+        addCommands(
+                new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
+                new WaitCommand(400),
+                new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED),
+                new WaitCommand(200),
+                new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING)
+        );
+        addRequirements(intake);
     }
 }

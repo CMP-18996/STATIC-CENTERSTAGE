@@ -23,14 +23,6 @@ public class IntakeSubsystem extends SubsystemBase {
     private ColorState slotTwo;
 
     // color1, color2, both strings
-
-    DcMotor leftFront = hardwareMap.get(DcMotor.class, "leftFront");
-    DcMotor rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-    DcMotor leftRear = hardwareMap.get(DcMotor.class, "leftRear");
-    DcMotor rightRear = hardwareMap.get(DcMotor.class, "rightRear");
-
-    IntakeWait intakeWait = new IntakeWait(leftFront, rightFront, leftRear, rightRear);
-
     // ColorSensor colorSensor1 = hardwareMap.get(ColorSensor.class, "Color1");
     // ColorSensor colorSensor2 = hardwareMap.get(ColorSensor.class, "Color2");
 
@@ -59,7 +51,6 @@ public class IntakeSubsystem extends SubsystemBase {
         sweepingState = setState;
         switch (sweepingState) {
             case INTAKING:
-                intakeWait.schedule();
                 robot.intakeMotor.set(intakePower);
                 break;
             case STOPPED:
@@ -99,5 +90,9 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void periodic() {
 
+    }
+
+    public IntakeSubsystem(Robot robot) {
+        this.robot = robot;
     }
 }
