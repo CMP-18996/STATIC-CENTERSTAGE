@@ -15,6 +15,7 @@ public class LiftSubsystem extends SubsystemBase{
     private Motor motorUp, motorDown;
     private int upPower, downPower;
     private double baseHeight, heightLevelOne, heightLevelTwo, heightLevelThree, heightLevelFour, heightLevelFive;
+    // May or may not need the height detector, could use potentiometer or encoding
     private DistanceSensor heightDetector;
     private Robot robot;
 
@@ -24,6 +25,7 @@ public class LiftSubsystem extends SubsystemBase{
 
     public enum LiftHeights {
         // Change the values for the actual robot, otherwise it'll probably crash
+        // At least six states
         BASE(0.0),
         HEIGHTONE(1.0),
         HEIGHTTWO(2.0),
@@ -36,5 +38,16 @@ public class LiftSubsystem extends SubsystemBase{
         LiftHeights(double height) {
             this.height = height;
         }
+    }
+    // Set state
+    // States are accurate
+    // Make sure to move to state
+
+    public void updateState(LiftHeights height) {
+
+    }
+
+    public void periodic() {
+
     }
 }
