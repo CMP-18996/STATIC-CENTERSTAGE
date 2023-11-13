@@ -23,7 +23,9 @@ public final class ThreeDeadWheelLocalizer implements Localizer {
         public double par1YTicks = 10992.35342;
         public double perpXTicks = -9833.946602;
     }
-
+    //cc -> +y -theta
+    //c -> -y +theta
+    //both -> ok
     public static Params PARAMS = new Params();
 
     public final Encoder par0, par1, perp;
