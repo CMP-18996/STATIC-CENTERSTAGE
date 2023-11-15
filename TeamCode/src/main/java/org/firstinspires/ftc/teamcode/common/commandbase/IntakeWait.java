@@ -17,6 +17,7 @@ public class IntakeWait extends SequentialCommandGroup {
     // Don't need this anymore, probably should get rid of this
     // private boolean f = false;
     private IntakeSubsystem intake;
+    private IntakeSubsystem.SweepingState sweepingState;
 
     public IntakeWait(IntakeSubsystem intake) {
         addCommands(

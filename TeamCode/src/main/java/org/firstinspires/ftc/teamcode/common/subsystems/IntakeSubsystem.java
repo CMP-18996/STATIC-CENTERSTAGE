@@ -62,6 +62,8 @@ public class IntakeSubsystem extends SubsystemBase {
         }
     }
 
+    public SweepingState getSweepingState() { return this.sweepingState; }
+
     public void updateCoverState(CoverState setState) {
         coverState = setState;
         int openPosition = 0;
