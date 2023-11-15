@@ -14,17 +14,17 @@ import java.util.concurrent.TimeUnit;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
 public class IntakeWait extends SequentialCommandGroup {
-
-    private boolean f = false;
+    // Don't need this anymore, probably should get rid of this
+    // private boolean f = false;
     private IntakeSubsystem intake;
 
     public IntakeWait(IntakeSubsystem intake) {
         addCommands(
                 new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
-                new WaitCommand(400),
-                new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED),
-                new WaitCommand(200),
-                new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING)
+                new WaitCommand(500),
+                new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
+                new WaitCommand(500),
+                new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED)
         );
         addRequirements(intake);
     }
