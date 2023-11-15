@@ -18,6 +18,12 @@ import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 public class IntakeWaitTest extends CommandOpMode {
     Robot robot;
     IntakeSubsystem intake;
+
+    /*
+Make motor run for 5 seconds normally in the picking up direction
+Stall/Move Back and Forwards Command
+ */
+
     @Override
     public void initialize() {
         CommandScheduler.getInstance().reset();
