@@ -23,15 +23,16 @@ public class IntakeWaitTest extends CommandOpMode {
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap, Robot.OpModes.TELEOP);
         intake = new IntakeSubsystem(robot);
-    }
-
-    @Override
-    public void run() {
         CommandScheduler.getInstance().schedule(
                 new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED),
                 new WaitCommand(1000),
                 new IntakeWait(intake),
                 new WaitCommand(500)
         );
+    }
+
+    @Override
+    public void run() {
+        super.run();
     }
 }

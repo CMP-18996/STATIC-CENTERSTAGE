@@ -41,9 +41,9 @@ public class Robot {
         rightRear.setRunMode(Motor.RunMode.RawPower);
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
-        /*intakeMotor = new MotorEx(hardwareMap, "intake");
+        intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);
-        intakeMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);*/
+        intakeMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
        /* double coverServoMinRot = 0.0;
         double coverServoMaxRot = 180.0;
