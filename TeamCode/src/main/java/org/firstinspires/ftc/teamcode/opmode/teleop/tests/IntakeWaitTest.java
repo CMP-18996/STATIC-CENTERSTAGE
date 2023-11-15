@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.har
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -30,15 +31,18 @@ Stall/Move Back and Forwards Command
         robot = new Robot(hardwareMap, Robot.OpModes.TELEOP);
         intake = new IntakeSubsystem(robot);
         CommandScheduler.getInstance().schedule(
-                new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED),
-                new WaitCommand(1000),
-                new IntakeWait(intake),
-                new WaitCommand(500)
+                new SequentialCommandGroup(
+                        new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED),
+                        new WaitCommand(1000),
+                        new IntakeWait(intake),
+                        new WaitCommand(500)
+                )
         );
     }
 
     @Override
     public void run() {
-        super.run();
+        CommandScheduler.getInstance().run();
     }
+
 }

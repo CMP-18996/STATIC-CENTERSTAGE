@@ -16,13 +16,15 @@ public class Robot {
         AUTO,
         TELEOP
     }
-    public Motor leftFront, rightFront, leftRear, rightRear, intakeMotor;
-    public ServoEx coverServo1, coverServo2, depositServo1, depositServo2;
+    public Motor leftFront, rightFront, leftRear, rightRear, intakeMotor, xAdj;
+    public ServoEx coverServo1, coverServo2, depositServo1, depositServo2, fourBar, leftDeposit, rightDeposit, channel;
     public Camera camera;
     public BNO055IMU imu;
     public HardwareMap hardwareMap;
 
     public Robot(HardwareMap hardwareMap, OpModes mode) {
+
+        // drivetrain
         this.hardwareMap = hardwareMap;
         leftFront = new MotorEx(hardwareMap, "leftFront");
         leftFront.setRunMode(Motor.RunMode.RawPower);
@@ -45,6 +47,7 @@ public class Robot {
         intakeMotor.setRunMode(Motor.RunMode.RawPower);
         intakeMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
+        // intake
        /* double coverServoMinRot = 0.0;
         double coverServoMaxRot = 180.0;
         coverServo1 = new SimpleServo(hardwareMap, "cover1", coverServoMinRot, coverServoMaxRot);
@@ -63,6 +66,10 @@ public class Robot {
         //if (mode.equals(OpModes.AUTO)) {
         //   camera = new Camera(hardwareMap);
         //}
+
+        // Deposit
+        //xAdj = new MotorEx(hardwareMap, "xAdj");
+        //xAdj.setRunMode(Motor.RunMode.VelocityControl);
     }
     public double getAngle() {
         return imu.getAngularOrientation().firstAngle;
