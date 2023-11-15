@@ -21,10 +21,10 @@ public class IntakeWait extends SequentialCommandGroup {
     public IntakeWait(IntakeSubsystem intake) {
         addCommands(
                 new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
-                new WaitCommand(1000),
-                new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED),
-                new WaitCommand(1000),
-                new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING)
+                new WaitCommand(500),
+                new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
+                new WaitCommand(500),
+                new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED)
         );
         addRequirements(intake);
     }
