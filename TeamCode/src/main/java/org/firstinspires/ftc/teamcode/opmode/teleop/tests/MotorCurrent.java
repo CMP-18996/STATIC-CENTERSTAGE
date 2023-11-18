@@ -1,5 +1,5 @@
-
 package org.firstinspires.ftc.teamcode.opmode.teleop.tests;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
