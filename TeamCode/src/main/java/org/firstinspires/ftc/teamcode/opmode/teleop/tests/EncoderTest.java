@@ -25,7 +25,7 @@ public class EncoderTest extends LinearOpMode {
         encoder = hardwareMap.get(DcMotorEx.class, "encoderMotor");
 
         while (opModeIsActive()) {
-            System.out.println("system errors can fuck off");
+
         }
     }
 }
