@@ -11,6 +11,20 @@ public class DepositSubsystem extends SubsystemBase {
     //ParityState parityState = ParityState.LOWER;
     LowerHorizontalState lowerHorizontalState = LowerHorizontalState.C;
     UpperHorizontalState upperHorizontalState = UpperHorizontalState.C;
+    FourBarState fourBarState = FourBarState.DOWN;
+    GrabberState rightGrabberState = GrabberState.CLOSED;
+    GrabberState leftGrabberState = GrabberState.CLOSED;
+
+    public enum GrabberState {
+        OPEN(40.0),
+        CLOSED(0.0);
+        public double value;
+        GrabberState(double val) { value = val; }
+    }
+    public enum GrabberPos {
+        RIGHT,
+        LEFT
+    }
     public enum UpperHorizontalState {
         A(centerVal - 2.5 * incrementVal),
         B(centerVal - 1.5 * incrementVal),
@@ -36,6 +50,15 @@ public class DepositSubsystem extends SubsystemBase {
         }
     }
 
+    public enum FourBarState {
+        DOWN(0.0),
+        HIGH(50.0),
+        LOW(80.0);
+
+        public double value;
+        FourBarState(double val) { value = val; }
+    }
+
     /*
     Add back if necessary
     public enum ParityState {
@@ -57,6 +80,35 @@ public class DepositSubsystem extends SubsystemBase {
     public void setUpperHorizontalState(UpperHorizontalState state) {
         robot.xAdj.setTargetDistance(upperHorizontalState.value - state.value);
         upperHorizontalState = state;
+    }
+
+    public void setFourBarState(FourBarState state) {
+        robot.fourBar.setPosition(state.value);
+        fourBarState = state;
+    }
+
+    public void setGrabberState(GrabberState grabberState, GrabberPos grabberPos) {
+        switch (grabberPos) {
+            case LEFT:
+                leftGrabberState = grabberState;
+                robot.leftDeposit.setPosition(leftGrabberState.value);
+                break;
+            case RIGHT:
+                rightGrabberState = grabberState;
+                robot.rightDeposit.setPosition(rightGrabberState.value);
+                break;
+        }
+    }
+    public FourBarState getFourBarState() {
+        return fourBarState;
+    }
+
+    public UpperHorizontalState getUpperHorizontalState() {
+        return upperHorizontalState;
+    }
+
+    public LowerHorizontalState getLowerHorizontalState() {
+        return lowerHorizontalState;
     }
 
     public DepositSubsystem(Robot robot) {

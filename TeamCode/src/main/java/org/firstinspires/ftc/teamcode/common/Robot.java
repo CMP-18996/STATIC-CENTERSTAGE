@@ -17,7 +17,7 @@ public class Robot {
         TELEOP
     }
     public Motor leftFront, rightFront, leftRear, rightRear, intakeMotor, xAdj;
-    public ServoEx coverServo1, coverServo2, depositServo1, depositServo2, fourBar, leftDeposit, rightDeposit, channel;
+    public ServoEx coverServo1, coverServo2, fourBar, leftDeposit, rightDeposit, channel;
     public Camera camera;
     public BNO055IMU imu;
     public HardwareMap hardwareMap;
@@ -68,8 +68,23 @@ public class Robot {
         //}
 
         // Deposit
-        //xAdj = new MotorEx(hardwareMap, "xAdj");
-        //xAdj.setRunMode(Motor.RunMode.VelocityControl);
+        xAdj = new MotorEx(hardwareMap, "xAdj");
+        xAdj.setRunMode(Motor.RunMode.VelocityControl);
+        xAdj.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+
+        double fourBarMinRot = 0.0;
+        double fourBarMaxRot = 180.0;
+        fourBar = new SimpleServo(hardwareMap, "fourBar", fourBarMinRot, fourBarMaxRot);
+
+        double depositMinRot = 0.0;
+        double depositMaxRot = 180.0;
+        rightDeposit = new SimpleServo(hardwareMap, "rightDeposit", depositMinRot, depositMaxRot);
+        leftDeposit = new SimpleServo(hardwareMap, "leftDeposit", depositMinRot, depositMaxRot);
+
+        double channelMinRot = 0.0;
+        double channelMaxRot = 180.0;
+        channel = new SimpleServo(hardwareMap, "channel", channelMinRot, channelMaxRot);
+
     }
     public double getAngle() {
         return imu.getAngularOrientation().firstAngle;
