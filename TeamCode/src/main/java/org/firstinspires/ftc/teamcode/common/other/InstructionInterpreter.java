@@ -62,7 +62,7 @@ public class InstructionInterpreter {
         put("Align", new AutoDriveToTagCommand(robot.camera, drive, 2));
         put("Cycle Stack", new AutoStackCommand(drive, GlobalVariables.Color.BLUE));
     }};
-    InstructionInterpreter(Robot robot, MecanumDrive drive) throws FileNotFoundException {
+    public InstructionInterpreter(Robot robot, MecanumDrive drive) throws FileNotFoundException {
         this.robot = robot;
         this.drive = drive;
         try {

@@ -1,3 +1,6 @@
+/**
+ * ONLY WORKS FOR ONE SPECIFIED TAG
+ */
 package org.firstinspires.ftc.teamcode.common.commandbase;
 
 import com.acmerobotics.roadrunner.Vector2d;
@@ -6,11 +9,8 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
-import org.firstinspires.ftc.teamcode.common.drive.Drive;
-import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AutoDriveToTagCommand extends CommandBase {
@@ -26,6 +26,7 @@ public class AutoDriveToTagCommand extends CommandBase {
         this.tagID = tagID;
         addRequirements(this.camera);
     }
+    //turn complex coordinates into angle from 0-360
     public double calculateHeading(double real, double imag) {
         if (real == 0) real += 0.0000000000000000001;
         if (imag == 0) imag += 0.0000000000000000001;
@@ -55,13 +56,10 @@ public class AutoDriveToTagCommand extends CommandBase {
                 }
             }
         }
-        b = true;
+        b = true; //command only run once
     }
     @Override
-    public boolean isFinished() {
-        return b;
-    }
-
+    public boolean isFinished() {return b;}
 }
 
 

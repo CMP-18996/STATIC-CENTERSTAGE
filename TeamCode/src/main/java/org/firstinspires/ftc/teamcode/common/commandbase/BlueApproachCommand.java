@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.common.commandbase;
 
-import static org.firstinspires.ftc.teamcode.common.GlobalVariables.Distance.CLOSE;
-import static org.firstinspires.ftc.teamcode.common.GlobalVariables.Distance.FAR;
+import static org.firstinspires.ftc.teamcode.common.GlobalVariables.Distance.*;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
@@ -20,7 +19,6 @@ public class BlueApproachCommand extends CommandBase {
         this.drive = drive;
         this.d = d;
     }
-
     @Override
     public void initialize() {}
     @Override
@@ -43,7 +41,6 @@ public class BlueApproachCommand extends CommandBase {
     }
     @Override
     public boolean isFinished() { return t;}
-
 }
 
 

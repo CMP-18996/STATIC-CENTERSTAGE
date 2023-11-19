@@ -16,7 +16,6 @@ public class AutoStackCommand extends CommandBase {
         this.drive = drive;
         this.color = color;
     }
-
     @Override
     public void initialize() {}
     @Override
@@ -41,7 +40,6 @@ public class AutoStackCommand extends CommandBase {
     }
     @Override
     public boolean isFinished() { return t;}
-
 }
 
 

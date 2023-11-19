@@ -14,6 +14,9 @@ import org.firstinspires.ftc.teamcode.common.commandbase.AutoDriveToTagCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.AutoStackCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.BlueApproachCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
+import org.firstinspires.ftc.teamcode.common.other.InstructionInterpreter;
+
+import java.io.FileNotFoundException;
 
 @Autonomous(name = "Auto")
 public class Auto extends CommandOpMode {
@@ -29,14 +32,11 @@ public class Auto extends CommandOpMode {
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap, Robot.OpModes.AUTO);
         drive = new MecanumDrive(hardwareMap, Distance.FAR.getP());
-        schedule(new BlueApproachCommand(drive, Distance.FAR));
-        schedule(new WaitCommand(2));
-        schedule(new AutoDriveToTagCommand(robot.camera, drive, 2));
-        schedule(new AutoStackCommand(drive, GlobalVariables.Color.BLUE));
-        schedule(new AutoDriveToTagCommand(robot.camera, drive, 2));
-        schedule(new AutoStackCommand(drive, GlobalVariables.Color.BLUE));
-        schedule(new AutoDriveToTagCommand(robot.camera, drive, 2));
-
+        try {
+            InstructionInterpreter i = new InstructionInterpreter(robot, drive);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
     }
