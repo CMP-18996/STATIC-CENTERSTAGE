@@ -8,6 +8,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
@@ -19,11 +20,9 @@ public class Robot {
     public Motor leftFront, rightFront, leftRear, rightRear, intakeMotor, xAdj;
     public ServoEx coverServo1, coverServo2, fourBar, leftDeposit, rightDeposit, channel;
     public Camera camera;
-    public BNO055IMU imu;
     public HardwareMap hardwareMap;
 
     public Robot(HardwareMap hardwareMap, OpModes mode) {
-
         // drivetrain
         this.hardwareMap = hardwareMap;
         leftFront = new MotorEx(hardwareMap, "leftFront");
@@ -85,8 +84,6 @@ public class Robot {
         double channelMaxRot = 180.0;
         channel = new SimpleServo(hardwareMap, "channel", channelMinRot, channelMaxRot);
 
-    }
-    public double getAngle() {
-        return imu.getAngularOrientation().firstAngle;
+
     }
 }

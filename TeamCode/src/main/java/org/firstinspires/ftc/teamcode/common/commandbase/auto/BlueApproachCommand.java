@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.common.commandbase;
+package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
 import static org.firstinspires.ftc.teamcode.common.GlobalVariables.Distance.*;
 

@@ -2,17 +2,11 @@ package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables.Distance;
-import org.firstinspires.ftc.teamcode.common.commandbase.AutoDriveToTagCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.AutoStackCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.BlueApproachCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.other.InstructionInterpreter;
 
@@ -33,7 +27,7 @@ public class Auto extends CommandOpMode {
         robot = new Robot(hardwareMap, Robot.OpModes.AUTO);
         drive = new MecanumDrive(hardwareMap, Distance.FAR.getP());
         try {
-            InstructionInterpreter i = new InstructionInterpreter(robot, drive);
+            InstructionInterpreter i = new InstructionInterpreter(robot, drive, telemetry);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

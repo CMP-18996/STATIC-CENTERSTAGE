@@ -1,7 +1,7 @@
 /**
  * ONLY WORKS FOR ONE SPECIFIED TAG
  */
-package org.firstinspires.ftc.teamcode.common.commandbase;
+package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;

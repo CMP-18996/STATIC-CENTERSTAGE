@@ -1,17 +1,16 @@
 package org.firstinspires.ftc.teamcode.common.other;
 
-import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.AutoDriveToTagCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.AutoStackCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.BlueApproachCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.AutoDriveToTagCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.AutoStackCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.BlueApproachCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.PropPixelCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
 import java.io.File;
@@ -42,8 +41,10 @@ public class InstructionInterpreter {
     final private String path = "java/org/firstinspires/ftc/teamcode/opmode/autonomous/instructions.cool";
     private Team team;
     private Distance distance;
+
     public Robot robot;
     public MecanumDrive drive;
+    public Telemetry telemetry;
     Map<String, CommandBase> redCloseMap = new HashMap<String, CommandBase>() {{
         // Insert Red Close Commands Here
     }};
@@ -55,16 +56,19 @@ public class InstructionInterpreter {
         put("Wait", new WaitCommand(500));
         put("Align", new AutoDriveToTagCommand(robot.camera, drive, 2));
         put("Cycle Stack", new AutoStackCommand(drive, GlobalVariables.Color.BLUE));
+        put("Deposit Prop Pixel", new PropPixelCommand(telemetry));
     }};
     Map<String, CommandBase> blueFarMap = new HashMap<String, CommandBase>() {{
         put("Approach", new BlueApproachCommand(drive, GlobalVariables.Distance.FAR));
         put("Wait", new WaitCommand(500));
         put("Align", new AutoDriveToTagCommand(robot.camera, drive, 2));
         put("Cycle Stack", new AutoStackCommand(drive, GlobalVariables.Color.BLUE));
+        put("Deposit Prop Pixel", new PropPixelCommand(telemetry));
     }};
-    public InstructionInterpreter(Robot robot, MecanumDrive drive) throws FileNotFoundException {
+    public InstructionInterpreter(Robot robot, MecanumDrive drive, Telemetry telemetry) throws FileNotFoundException {
         this.robot = robot;
         this.drive = drive;
+        this.telemetry = telemetry;
         try {
             ReadState readState = ReadState.VARIABLES_NOT_FOUND;
             File myObj = new File(path);
