@@ -11,16 +11,14 @@ import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 public class AutoStackCommand extends CommandBase {
     private MecanumDrive drive;
     boolean t = false;
-    GlobalVariables.Color color;
-    public AutoStackCommand(MecanumDrive drive, GlobalVariables.Color color) {
+    public AutoStackCommand(MecanumDrive drive) {
         this.drive = drive;
-        this.color = color;
     }
     @Override
     public void initialize() {}
     @Override
     public void execute() {
-        switch (color) {
+        switch (GlobalVariables.color) {
             case BLUE:
                 Actions.runBlocking(
                         drive.actionBuilder(drive.pose)

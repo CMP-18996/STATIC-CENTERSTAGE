@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.common;
 
+import android.provider.Settings;
+
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
@@ -13,17 +15,13 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
 public class Robot {
-    public enum OpModes {
-        AUTO,
-        TELEOP
-    }
     public Motor leftFront, rightFront, leftRear, rightRear, intakeMotor, xAdj;
     public ServoEx coverServo1, coverServo2, fourBar, leftDeposit, rightDeposit, channel;
     public Camera camera;
     public HardwareMap hardwareMap;
 
-    public Robot(HardwareMap hardwareMap, OpModes mode) {
-        if (mode.equals(OpModes.AUTO)) {
+    public Robot(HardwareMap hardwareMap) {
+        if (GlobalVariables.opMode.equals(GlobalVariables.OpMode.AUTO)) {
             camera = new Camera(hardwareMap);
         }
         // drivetrain

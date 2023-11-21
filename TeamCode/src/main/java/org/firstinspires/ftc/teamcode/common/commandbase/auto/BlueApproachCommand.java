@@ -12,18 +12,16 @@ import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
 public class BlueApproachCommand extends CommandBase {
     private MecanumDrive drive;
-    GlobalVariables.Distance d;
     boolean t = false;
 
-    public BlueApproachCommand(MecanumDrive drive, GlobalVariables.Distance d) {
+    public BlueApproachCommand(MecanumDrive drive) {
         this.drive = drive;
-        this.d = d;
     }
     @Override
     public void initialize() {}
     @Override
     public void execute() {
-        switch (d) {
+        switch (GlobalVariables.distance) {
             case CLOSE:
                 Actions.runBlocking(
                         drive.actionBuilder(CLOSE.getP())

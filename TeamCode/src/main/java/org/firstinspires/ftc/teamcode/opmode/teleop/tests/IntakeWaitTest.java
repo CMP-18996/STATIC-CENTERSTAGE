@@ -9,6 +9,8 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.IntakeWait;
@@ -26,8 +28,10 @@ Stall/Move Back and Forwards Command
 
     @Override
     public void initialize() {
+        GlobalVariables.opMode = GlobalVariables.OpMode.TELEOP;
+
         CommandScheduler.getInstance().reset();
-        robot = new Robot(hardwareMap, Robot.OpModes.TELEOP);
+        robot = new Robot(hardwareMap);
         intake = new IntakeSubsystem(robot);
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(

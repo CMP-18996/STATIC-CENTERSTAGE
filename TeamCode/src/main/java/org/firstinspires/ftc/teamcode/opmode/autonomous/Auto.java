@@ -1,23 +1,15 @@
 package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.GlobalVariables.Distance;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.AutoDriveToTagCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.AutoStackCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.BlueApproachCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.PropPixelCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
-import org.firstinspires.ftc.teamcode.common.other.InstructionInterpreter;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 
 @Autonomous(name = "Auto")
 public class Auto extends CommandOpMode {
@@ -29,26 +21,30 @@ public class Auto extends CommandOpMode {
         telemetry.update();
 
         GlobalVariables.color = GlobalVariables.Color.BLUE;
+        GlobalVariables.distance = GlobalVariables.Distance.CLOSE;
+        GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
 
-        CommandScheduler.getInstance().reset();
-        robot = new Robot(hardwareMap, Robot.OpModes.AUTO);
-        drive = new MecanumDrive(hardwareMap, Distance.CLOSE.getP());
+        reset();
+        robot = new Robot(hardwareMap);
+        drive = new MecanumDrive(hardwareMap, GlobalVariables.distance.getP());
+        register(robot.camera);
 
-        CommandScheduler.getInstance().schedule(
-                new BlueApproachCommand(drive, GlobalVariables.Distance.CLOSE),
+        schedule(
+                new BlueApproachCommand(drive),
                 new AutoDriveToTagCommand(robot.camera, drive),
-                new AutoStackCommand(drive, GlobalVariables.Color.BLUE),
+                new PropPixelCommand(telemetry),
+                new AutoStackCommand(drive),
                 new AutoDriveToTagCommand(robot.camera, drive),
-                new AutoStackCommand(drive, GlobalVariables.Color.BLUE),
+                new AutoStackCommand(drive),
                 new AutoDriveToTagCommand(robot.camera, drive));
 
+        robot.camera.startPropProcessing();
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
     }
     @Override
     public void run() {
-        robot.camera.startPropProcessing();
-        CommandScheduler.getInstance().run();
+        run();
         telemetry.addData("Status", "Running...");
         telemetry.update();
     }

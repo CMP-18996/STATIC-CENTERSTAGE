@@ -7,7 +7,6 @@ public class GlobalVariables {
         BLUE,
         RED
     }
-
     public enum Position {
         UNDETECTED,
         LEFT,
@@ -25,10 +24,14 @@ public class GlobalVariables {
             return p;
         }
     }
-
+    public enum OpMode {
+        AUTO,
+        TELEOP
+    }
     public static Color color;
     public static Position position = Position.UNDETECTED;
-
+    public static Distance distance;
+    public static OpMode opMode;
     public GlobalVariables(Color color) {
         this.color = color;
     }

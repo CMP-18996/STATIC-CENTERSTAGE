@@ -84,16 +84,16 @@ public class InstructionInterpreter {
                                 case 0B00: //blue far
                                     switch (data) {
                                         case "approach":
-                                            CommandScheduler.getInstance().schedule(new BlueApproachCommand(drive, GlobalVariables.Distance.FAR));
+                                            CommandScheduler.getInstance().schedule(new BlueApproachCommand(drive));
                                         case "cycle stack":
-                                            CommandScheduler.getInstance().schedule(new AutoStackCommand(drive, GlobalVariables.Color.BLUE));
+                                            CommandScheduler.getInstance().schedule(new AutoStackCommand(drive));
                                     }
                                 case 0B01: //blue close
                                     switch (data) {
                                         case "approach":
-                                            CommandScheduler.getInstance().schedule(new BlueApproachCommand(drive, GlobalVariables.Distance.FAR));
+                                            CommandScheduler.getInstance().schedule(new BlueApproachCommand(drive));
                                         case "cycle stack":
-                                            CommandScheduler.getInstance().schedule(new AutoStackCommand(drive, GlobalVariables.Color.BLUE));
+                                            CommandScheduler.getInstance().schedule(new AutoStackCommand(drive));
                                     }
                                 case 0B10: //red far
 

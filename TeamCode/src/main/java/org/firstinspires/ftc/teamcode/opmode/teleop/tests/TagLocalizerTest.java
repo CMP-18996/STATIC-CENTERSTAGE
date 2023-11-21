@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop.tests;
 
+import android.provider.Settings;
+
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -20,12 +22,14 @@ public class TagLocalizerTest extends CommandOpMode {
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
         GlobalVariables.color = GlobalVariables.Color.RED;
+        GlobalVariables.distance = GlobalVariables.Distance.CLOSE;
+        GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
 
         CommandScheduler.getInstance().reset();
-        robot = new Robot(hardwareMap, Robot.OpModes.AUTO);
+        robot = new Robot(hardwareMap);
         drive = new MecanumDrive(hardwareMap, GlobalVariables.Distance.CLOSE.getP());
 
-        schedule(new BlueApproachCommand(drive, GlobalVariables.Distance.CLOSE));
+        schedule(new BlueApproachCommand(drive));
         schedule(new WaitCommand(2));
         schedule(new AutoDriveToTagCommand(robot.camera, drive));
 

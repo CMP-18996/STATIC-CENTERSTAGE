@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
 
@@ -18,8 +19,9 @@ public class defaultDriveTest extends CommandOpMode {
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
+        GlobalVariables.opMode = GlobalVariables.OpMode.TELEOP;
         CommandScheduler.getInstance().reset();
-        robot = new Robot(hardwareMap, Robot.OpModes.TELEOP);
+        robot = new Robot(hardwareMap);
         drive = new Drive(robot);
         register(drive);
 

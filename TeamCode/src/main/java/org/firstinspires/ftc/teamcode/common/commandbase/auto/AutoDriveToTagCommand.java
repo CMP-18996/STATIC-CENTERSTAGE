@@ -16,7 +16,7 @@ import java.util.List;
 public class AutoDriveToTagCommand extends CommandBase {
     private Camera camera;
     private MecanumDrive drive;
-    boolean b = false;
+    int t = 0;
     List<AprilTagDetection> currentDetections;
     private double[] stats = new double[]{999, 999, 999, 999, 999, 999};
     public AutoDriveToTagCommand(Camera camera, MecanumDrive drive) {
@@ -49,15 +49,16 @@ public class AutoDriveToTagCommand extends CommandBase {
                                                 drive.pose.position.x + stats[1]),
                                         Math.toRadians(calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + stats[5]))
                                 .build());
+                        t = 20;
                         break;
                     }
                 }
             }
         }
-        b = true; //command only run once
+        t++;
     }
     @Override
-    public boolean isFinished() {return b;}
+    public boolean isFinished() {return t >= 20;}
 }
 
 
