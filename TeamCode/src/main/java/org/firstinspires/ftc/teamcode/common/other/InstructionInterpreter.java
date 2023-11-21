@@ -15,6 +15,8 @@ import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Map;
@@ -27,44 +29,13 @@ public class InstructionInterpreter {
         VARIABLES,
         COMMANDS,
     }
-
-    enum Team {
-        RED,
-        BLUE
-    }
-
-    enum Distance {
-        CLOSE,
-        FAR
-    }
-
-    final private String path = "java/org/firstinspires/ftc/teamcode/opmode/autonomous/instructions.cool";
-    private Team team;
-    private Distance distance;
+    final private String path = "/sdcard/FIRST/instructions.txt";
+    //first bit is team blue/red, second bit is distance far/close (as 0/1)
+    private int colorDistanceByte = 0B00;
 
     public Robot robot;
     public MecanumDrive drive;
     public Telemetry telemetry;
-    Map<String, CommandBase> redCloseMap = new HashMap<String, CommandBase>() {{
-        // Insert Red Close Commands Here
-    }};
-    Map<String, CommandBase> redFarMap = new HashMap<String, CommandBase>() {{
-        // Insert Red Far Commands Here
-    }};
-    Map<String, CommandBase> blueCloseMap = new HashMap<String, CommandBase>() {{
-        put("Approach", new BlueApproachCommand(drive, GlobalVariables.Distance.CLOSE));
-        put("Wait", new WaitCommand(500));
-        put("Align", new AutoDriveToTagCommand(robot.camera, drive, 2));
-        put("Cycle Stack", new AutoStackCommand(drive, GlobalVariables.Color.BLUE));
-        put("Deposit Prop Pixel", new PropPixelCommand(telemetry));
-    }};
-    Map<String, CommandBase> blueFarMap = new HashMap<String, CommandBase>() {{
-        put("Approach", new BlueApproachCommand(drive, GlobalVariables.Distance.FAR));
-        put("Wait", new WaitCommand(500));
-        put("Align", new AutoDriveToTagCommand(robot.camera, drive, 2));
-        put("Cycle Stack", new AutoStackCommand(drive, GlobalVariables.Color.BLUE));
-        put("Deposit Prop Pixel", new PropPixelCommand(telemetry));
-    }};
     public InstructionInterpreter(Robot robot, MecanumDrive drive, Telemetry telemetry) throws FileNotFoundException {
         this.robot = robot;
         this.drive = drive;
@@ -91,28 +62,44 @@ public class InstructionInterpreter {
                             }
                         }
                         if (input[0].equals("team") && input[1].equals("red")) {
-                            team = Team.RED;
-                        } else if (input[0].equals("team") && input[1].equals("blue")) {
-                            team = Team.BLUE;
-                        } else if (input[0].equals("distance") && input[1].equals("close")) {
-                            distance = Distance.CLOSE;
-                        } else if (input[0].equals("distance") && input[1].equals("far")) {
-                            distance = Distance.FAR;
-                        }
+                            colorDistanceByte += 0B10;
+                        } /*else if (input[0].equals("team") && input[1].equals("blue")) {
+                            colorDistanceByte += 0B00;
+                        } */else if (input[0].equals("distance") && input[1].equals("close")) {
+                            colorDistanceByte += 0B01;
+                        } /*else if (input[0].equals("distance") && input[1].equals("far")) {
+                            colorDistanceByte += 0B00;
+                        }*/
                         break;
                     case COMMANDS:
-                        Map<String, CommandBase> usedMap =
-                                (team == Team.RED) ?
-                                        ((distance == Distance.CLOSE) ?
-                                                redCloseMap :
-                                                redFarMap
-                                                )
-                                        :
-                                        ((distance == Distance.CLOSE) ?
-                                                blueCloseMap :
-                                                blueFarMap
-                                        ); // change this pls
-                        CommandScheduler.getInstance().schedule(usedMap.get(data));
+                        switch (data) {
+                            case "wait":
+                                CommandScheduler.getInstance().schedule(new WaitCommand(500));
+                            case "deposit prop pixel":
+                                CommandScheduler.getInstance().schedule(new PropPixelCommand(telemetry));
+                            case "align":
+                                CommandScheduler.getInstance().schedule(new AutoDriveToTagCommand(robot.camera, drive));
+                            default:
+                                switch (colorDistanceByte) {
+                                case 0B00: //blue far
+                                    switch (data) {
+                                        case "approach":
+                                            CommandScheduler.getInstance().schedule(new BlueApproachCommand(drive, GlobalVariables.Distance.FAR));
+                                        case "cycle stack":
+                                            CommandScheduler.getInstance().schedule(new AutoStackCommand(drive, GlobalVariables.Color.BLUE));
+                                    }
+                                case 0B01: //blue close
+                                    switch (data) {
+                                        case "approach":
+                                            CommandScheduler.getInstance().schedule(new BlueApproachCommand(drive, GlobalVariables.Distance.FAR));
+                                        case "cycle stack":
+                                            CommandScheduler.getInstance().schedule(new AutoStackCommand(drive, GlobalVariables.Color.BLUE));
+                                    }
+                                case 0B10: //red far
+
+                                case 0B11: //red close
+                            }
+                        }
                 }
             }
         } catch (FileNotFoundException e) {
@@ -120,7 +107,6 @@ public class InstructionInterpreter {
         }
     }
 }
-
 
 class CustomException extends Exception {
     public CustomException(String message) {

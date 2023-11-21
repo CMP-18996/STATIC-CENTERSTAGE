@@ -50,7 +50,7 @@ public class Camera extends SubsystemBase {
                 .setOutputUnits(DistanceUnit.INCH, AngleUnit.DEGREES)
                 .setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)
                 .build();
-        propProcessor = new PropProcessor(GlobalVariables.color); //causes error on init?
+        propProcessor = new PropProcessor(GlobalVariables.color);
         visionPortal = new VisionPortal.Builder()
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .setCameraResolution(new Size(640, 480))
@@ -59,14 +59,13 @@ public class Camera extends SubsystemBase {
                 .setAutoStopLiveView(true)
                 .addProcessor(aprilTag)
                 .build();
-        while (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
+        /*while (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
             try {
                 sleep(30);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }
-        setManualExposure(6, 250);
+        }*/
     }
 
     public void startPropProcessing() {
@@ -74,6 +73,7 @@ public class Camera extends SubsystemBase {
         if (propProcessor.objectDetected) {
             visionPortal.setProcessorEnabled(propProcessor, false);
         }
+        setManualExposure(6, 250);
     }
 
     // only use when stop is not requested

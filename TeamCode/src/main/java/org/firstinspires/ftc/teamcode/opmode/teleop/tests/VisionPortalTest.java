@@ -28,7 +28,6 @@ public class VisionPortalTest extends CommandOpMode {
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
     }
-
     @Override
     public void run() {
         camera.startPropProcessing();

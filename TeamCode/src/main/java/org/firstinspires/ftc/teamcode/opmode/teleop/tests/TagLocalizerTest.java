@@ -27,7 +27,7 @@ public class TagLocalizerTest extends CommandOpMode {
 
         schedule(new BlueApproachCommand(drive, GlobalVariables.Distance.CLOSE));
         schedule(new WaitCommand(2));
-        schedule(new AutoDriveToTagCommand(robot.camera, drive, 2));
+        schedule(new AutoDriveToTagCommand(robot.camera, drive));
 
         telemetry.addData("Status", "Initialized!");
         telemetry.update();

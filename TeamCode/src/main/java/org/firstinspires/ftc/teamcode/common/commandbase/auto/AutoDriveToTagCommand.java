@@ -19,11 +19,9 @@ public class AutoDriveToTagCommand extends CommandBase {
     boolean b = false;
     List<AprilTagDetection> currentDetections;
     private double[] stats = new double[]{999, 999, 999, 999, 999, 999};
-    private final int tagID;
-    public AutoDriveToTagCommand(Camera camera, MecanumDrive drive, int tagID) {
+    public AutoDriveToTagCommand(Camera camera, MecanumDrive drive) {
         this.camera = camera;
         this.drive = drive;
-        this.tagID = tagID;
         addRequirements(this.camera);
     }
     //turn complex coordinates into angle from 0-360
@@ -43,7 +41,7 @@ public class AutoDriveToTagCommand extends CommandBase {
         if (currentDetections != null) {
             if (currentDetections.size() > 0) {
                 for (AprilTagDetection tag : currentDetections) {
-                    if (tag.id == tagID) {
+                    if (tag.id == 2 || tag.id == 5) {
                         stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
                                 tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
                         Actions.runBlocking(drive.actionBuilder(drive.pose)
