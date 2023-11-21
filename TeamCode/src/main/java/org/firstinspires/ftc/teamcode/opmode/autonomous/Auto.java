@@ -7,6 +7,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables.Distance;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.AutoDriveToTagCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.AutoStackCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.BlueApproachCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.PropPixelCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.other.InstructionInterpreter;
 
@@ -28,38 +32,16 @@ public class Auto extends CommandOpMode {
 
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap, Robot.OpModes.AUTO);
-        drive = new MecanumDrive(hardwareMap, Distance.FAR.getP());
-        File f = new File("/sdcard/FIRST/instructions.txt");
-        try {
-            f.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            FileWriter myWriter = new FileWriter(f.getName());
-            myWriter.write("Variables\n" +
-                    "Team Blue\n" +
-                    "Distance Far\n" +
-                    "\n" +
-                    "Commands\n" +
-                    "Approach\n" +
-                    "Align\n" +
-                    "Deposit Prop Pixel\n" +
-                    "Cycle Stack\n" +
-                    "Align\n" +
-                    "Cycle Stack\n" +
-                    "Align\n" +
-                    "\n" +
-                    "End");
-            myWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            InstructionInterpreter i = new InstructionInterpreter(robot, drive, telemetry);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        drive = new MecanumDrive(hardwareMap, Distance.CLOSE.getP());
+
+        CommandScheduler.getInstance().schedule(
+                new BlueApproachCommand(drive, GlobalVariables.Distance.CLOSE),
+                new AutoDriveToTagCommand(robot.camera, drive),
+                new AutoStackCommand(drive, GlobalVariables.Color.BLUE),
+                new AutoDriveToTagCommand(robot.camera, drive),
+                new AutoStackCommand(drive, GlobalVariables.Color.BLUE),
+                new AutoDriveToTagCommand(robot.camera, drive));
+
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
     }
