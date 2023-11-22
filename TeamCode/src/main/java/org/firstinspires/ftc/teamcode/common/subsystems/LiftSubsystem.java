@@ -35,20 +35,25 @@ public class LiftSubsystem extends SubsystemBase{
     public enum LiftHeight {
         // Change the values for the actual robot, otherwise it'll probably crash
         // At least six states
-        BASE(0.0),
-        HEIGHTONE(1.0),
-        HEIGHTTWO(2.0),
-        HEIGHTTHREE(3.0),
-        HEIGHTFOUR(4.0),
-        HEIGHTFIVE(55.0);
+        BASE(0),
+        HEIGHTONE(1),
+        HEIGHTTWO(2),
+        HEIGHTTHREE(3),
+        HEIGHTFOUR(4),
+        HEIGHTFIVE(5),
+        HEIGHTSIX(6),
+        HEIGHTSEVEN(7),
+        HEIGHTEIGHT(8),
+        HEIGHTNINE(9),
+        HEIGHTTEN(10);
 
-        private final double height;
+        private final int height;
 
-        LiftHeight(double height) {
+        LiftHeight(int height) {
             this.height = height;
         }
 
-        public double getHeight() {
+        public int getHeight() {
             return height;
         }
     }
@@ -62,8 +67,11 @@ public class LiftSubsystem extends SubsystemBase{
         // Make sure to move to state
          */
     public void updateState(LiftHeight height) {
-        double error;
+        int error;
         error = height.getHeight() - this.getCurrentHeight().getHeight();
+       /* robot.liftOne.setMotorEnable
+        robot.liftOne.setTargetPosition(error);
+        robot.liftTwo.setTargetPosition(-1 * error);*/
 
     }
 
