@@ -42,6 +42,14 @@ public class Robot {
         rightRear = new MotorEx(hardwareMap,"rightRear");
         rightRear.setRunMode(Motor.RunMode.RawPower);
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+
+        /*liftOne = new MotorEx(hardwareMap, "liftOne");
+        liftOne.setRunMode(Motor.RunMode.RawPower);
+        liftOne.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+
+        liftTwo = new MotorEx(hardwareMap, "liftTwo");
+        liftTwo.setRunMode(Motor.RunMode.RawPower);
+        liftTwo.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);*/
         /*
         intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);

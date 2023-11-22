@@ -1,30 +1,44 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop.tests;
 
-import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitCommand;
+import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.arcrobotics.ftclib.hardware.motors.Motor.Encoder;
+import com.qualcomm.robotcore.hardware.PIDCoefficients;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.IntakeCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.IntakeWait;
-import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
+import java.util.concurrent.TimeUnit;
 
+@TeleOp(name="Encoder Test")
 public class EncoderTest extends LinearOpMode {
     Robot robot;
-    DcMotorEx encoder;
+    DcMotorEx encoderMotor;
+    Encoder encoder;
+    Timing.Timer timer = new Timing.Timer(1000, TimeUnit.MILLISECONDS);
 
     @Override
     public void runOpMode() throws InterruptedException {
-        encoder = hardwareMap.get(DcMotorEx.class, "encoderMotor");
+        encoderMotor = hardwareMap.get(DcMotorEx.class, "encoderMotor");
+//        PIDFCoefficients pidCoefficients = new PIDFCoefficients(0.5 , 0.5, 0, 0);
+        encoderMotor.setMotorEnable();
+        encoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        waitForStart();
 
+//            timer.start();
+        // 145.1 pulses per revolution
         while (opModeIsActive()) {
+            encoderMotor.setTargetPosition(145);
+            encoderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            telemetry.addData("Position: ", encoderMotor.getCurrentPosition());
+            encoderMotor.setPower(0.5);
+            encoderMotor.setTargetPosition(-145);
+            encoderMotor.setPower(0.5);
 
         }
     }
