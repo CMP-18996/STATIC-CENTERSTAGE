@@ -3,20 +3,19 @@ package org.firstinspires.ftc.teamcode.common.commandbase;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
-import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem.LowerHorizontalState;
 
-public class LowerHorizontalMoveCommand extends CommandBase {
-    LowerHorizontalState desiredState;
+public class UpperHorizontalMoveCommand extends CommandBase {
+    DepositSubsystem.UpperHorizontalState desiredState;
     DepositSubsystem deposit;
     double distanceTraveled = 0;
-    public LowerHorizontalMoveCommand(DepositSubsystem deposit, LowerHorizontalState horizontalState) {
+    public UpperHorizontalMoveCommand(DepositSubsystem deposit, DepositSubsystem.UpperHorizontalState horizontalState) {
         desiredState = horizontalState;
         this.deposit = deposit;
     }
 
     @Override
     public void initialize() {
-        deposit.setLowerHorizontalState(desiredState);
+        deposit.setUpperHorizontalState(desiredState);
     }
 
     @Override

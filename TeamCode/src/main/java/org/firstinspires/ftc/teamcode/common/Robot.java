@@ -1,22 +1,16 @@
 package org.firstinspires.ftc.teamcode.common;
 
-import android.provider.Settings;
-
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
 public class Robot {
     public Motor leftFront, rightFront, leftRear, rightRear, intakeMotor, xAdj;
-    public ServoEx coverServo1, coverServo2, fourBar, leftDeposit, rightDeposit, channel;
+    public ServoEx coverServo1, coverServo2, fourBar, leftDeposit, rightDeposit, depositExpansion;
     public Camera camera;
     public HardwareMap hardwareMap;
 
@@ -70,10 +64,12 @@ public class Robot {
         depositServo2 = new SimpleServo(hardwareMap, "deposit2", depositServoMinRot, depositServoMaxRot);
         depositServo2.setInverted(true);
 ````````*/
-        /*
+
         // Deposit
         xAdj = new MotorEx(hardwareMap, "xAdj");
-        xAdj.setRunMode(Motor.RunMode.VelocityControl);
+        xAdj.setRunMode(Motor.RunMode.PositionControl);
+        xAdj.setPositionTolerance(10.0);
+        
         xAdj.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
         double fourBarMinRot = 0.0;
@@ -87,6 +83,6 @@ public class Robot {
 
         double channelMinRot = 0.0;
         double channelMaxRot = 180.0;
-        channel = new SimpleServo(hardwareMap, "channel", channelMinRot, channelMaxRot);*/
+        depositExpansion = new SimpleServo(hardwareMap, "channel", channelMinRot, channelMaxRot);
     }
 }

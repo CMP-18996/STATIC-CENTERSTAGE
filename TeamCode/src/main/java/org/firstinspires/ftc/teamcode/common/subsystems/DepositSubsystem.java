@@ -14,6 +14,7 @@ public class DepositSubsystem extends SubsystemBase {
     FourBarState fourBarState = FourBarState.DOWN;
     GrabberState rightGrabberState = GrabberState.CLOSED;
     GrabberState leftGrabberState = GrabberState.CLOSED;
+    ExpandedState expandedState = ExpandedState.NOT_EXPANDED;
 
     public enum GrabberState {
         OPEN(40.0),
@@ -24,6 +25,13 @@ public class DepositSubsystem extends SubsystemBase {
     public enum GrabberPos {
         RIGHT,
         LEFT
+    }
+
+    public enum ExpandedState {
+        EXPANDED_STATE(20.0),
+        NOT_EXPANDED(0.0);
+        public double value;
+        ExpandedState(double val) { value = val; }
     }
     public enum UpperHorizontalState {
         A(centerVal - 2.5 * incrementVal),
@@ -77,6 +85,10 @@ public class DepositSubsystem extends SubsystemBase {
         lowerHorizontalState = state;
     }
 
+    public boolean horizontalFinishedMoving() {
+        return robot.xAdj.atTargetPosition();
+    }
+
     public void setUpperHorizontalState(UpperHorizontalState state) {
         robot.xAdj.setTargetDistance(upperHorizontalState.value - state.value);
         upperHorizontalState = state;
@@ -109,6 +121,11 @@ public class DepositSubsystem extends SubsystemBase {
 
     public LowerHorizontalState getLowerHorizontalState() {
         return lowerHorizontalState;
+    }
+
+    public void setExpandedState(ExpandedState expandedState) {
+        this.expandedState = expandedState;
+        robot.depositExpansion.setPosition(expandedState.value);
     }
 
     public DepositSubsystem(Robot robot) {
