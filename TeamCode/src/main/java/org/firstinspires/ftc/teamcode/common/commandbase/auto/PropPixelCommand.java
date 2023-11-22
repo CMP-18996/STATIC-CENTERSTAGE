@@ -1,3 +1,10 @@
+/**
+ * Purpose: Use prop location to drop the yellow pixel in the relative position.
+ * Dependencies (variables): POSITION
+ * Dependencies (subsystem): ...
+ * Most Likely Errors:
+ * - idk
+ */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
 import com.arcrobotics.ftclib.command.CommandBase;
@@ -19,12 +26,16 @@ public class PropPixelCommand extends CommandBase {
         switch (GlobalVariables.position) {
             case UNDETECTED:
                 telemetry.addData("Detected", "nothing");
+                break;
             case LEFT:
                 telemetry.addData("Detected", "left");
+                break;
             case MIDDLE:
                 telemetry.addData("Detected", "middle");
+                break;
             case RIGHT:
                 telemetry.addData("Detected", "right");
+                break;
         }
         telemetry.update();
         CommandScheduler.getInstance().schedule(t);
@@ -33,5 +44,4 @@ public class PropPixelCommand extends CommandBase {
     public void execute() {}
     @Override
     public boolean isFinished() { return t.isFinished();}
-
 }

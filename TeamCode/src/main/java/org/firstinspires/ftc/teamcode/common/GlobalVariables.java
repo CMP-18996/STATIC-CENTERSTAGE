@@ -3,19 +3,24 @@ package org.firstinspires.ftc.teamcode.common;
 import com.acmerobotics.roadrunner.Pose2d;
 
 public class GlobalVariables {
+    //team color (must be inputted)
     public enum Color {
         BLUE,
         RED
     }
+    //prop position (updated in run)
     public enum Position {
         UNDETECTED,
         LEFT,
         MIDDLE,
         RIGHT
     }
+    //robot position (ruh roh)
     public enum Distance {
-        CLOSE(new Pose2d(12.18, 64, Math.toRadians(-90))),
-        FAR(new Pose2d(-35.08, 64, Math.toRadians(-90)));
+        BLUECLOSE(new Pose2d(12.18, 64, Math.toRadians(-90))),
+        BLUEFAR(new Pose2d(-35.08, 64, Math.toRadians(-90))),
+        REDCLOSE(new Pose2d(12.18, -64, Math.toRadians(90))),
+        REDFAR(new Pose2d(-35.08, -64, Math.toRadians(90)));
         private final Pose2d p;
         Distance(Pose2d p) {
             this.p = p;
@@ -24,6 +29,7 @@ public class GlobalVariables {
             return p;
         }
     }
+    //opmode type (set in program type)
     public enum OpMode {
         AUTO,
         TELEOP

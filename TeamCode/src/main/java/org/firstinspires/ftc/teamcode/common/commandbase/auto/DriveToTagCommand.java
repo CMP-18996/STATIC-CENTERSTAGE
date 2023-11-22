@@ -1,5 +1,12 @@
 /**
- * ONLY WORKS FOR ONE SPECIFIED TAG
+ * Purpose: Align to a central apriltag with a trajectory
+ * to go right in front of and centered to a backdrop.
+ * Dependencies (variables): none
+ * Dependencies (subsystem): Camera, RR-drive
+ * Most Likely Errors:
+ * - Incorrect camera positioning leads to incorrect localization
+ * - Camera fails to see apriltag due to distance, blur, or lighting
+ * - Various camera crashes
  */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
@@ -13,13 +20,13 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;
 
-public class AutoDriveToTagCommand extends CommandBase {
+public class DriveToTagCommand extends CommandBase {
     private Camera camera;
     private MecanumDrive drive;
     int t = 0;
     List<AprilTagDetection> currentDetections;
-    private double[] stats = new double[]{999, 999, 999, 999, 999, 999};
-    public AutoDriveToTagCommand(Camera camera, MecanumDrive drive) {
+    private double[] stats = new double[]{0, 0, 0, 0, 0, 0};
+    public DriveToTagCommand(Camera camera, MecanumDrive drive) {
         this.camera = camera;
         this.drive = drive;
         addRequirements(this.camera);
@@ -45,8 +52,8 @@ public class AutoDriveToTagCommand extends CommandBase {
                         stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
                                 tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
                         Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                .splineTo(new Vector2d(drive.pose.position.y - stats[0],
-                                                drive.pose.position.x + stats[1]),
+                                .splineTo(new Vector2d(drive.pose.position.x - stats[0],
+                                                drive.pose.position.y + stats[1]),
                                         Math.toRadians(calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + stats[5]))
                                 .build());
                         t = 20;
