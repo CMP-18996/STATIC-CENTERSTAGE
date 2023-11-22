@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 
 @TeleOp
@@ -12,6 +13,7 @@ public class ColorTest extends LinearOpMode {
     // Define a variable for our color sensor
     ColorSensor colorSensor1;
     ColorSensor colorSensor2;
+    DcMotorEx intakeMotor;
     int r1, b1, g1, r2, b2, g2;
     public static String color1;
     public static String color2;
@@ -21,11 +23,13 @@ public class ColorTest extends LinearOpMode {
         // Get the color sensor from hardwareMap
         colorSensor1 = hardwareMap.get(ColorSensor.class, "color1");
         colorSensor2 = hardwareMap.get(ColorSensor.class, "color2");
+        intakeMotor = hardwareMap.get(DcMotorEx.class, "intake");
         colorSensor1.enableLed(false);
         colorSensor2.enableLed(false);
         // Wait for the Play button to be pressed
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         waitForStart();
+        intakeMotor.setPower(-0.8);
         // While the Op Mode is running, update the telemetry values.
         while (opModeIsActive()) {
             r1 = colorSensor1.red();
@@ -63,6 +67,9 @@ public class ColorTest extends LinearOpMode {
             g2 = colorSensor2.green();
             b2 = colorSensor2.blue();
 
+            telemetry.addData("red", r2);
+            telemetry.addData("blue", b2);
+            telemetry.addData("green", g2);
 
             if (g2 < 200 && b2 < 200 && r2 < 200) {
                 telemetry.addData("color2", "black");

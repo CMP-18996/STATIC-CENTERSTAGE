@@ -30,16 +30,18 @@ public class EncoderTest extends LinearOpMode {
         encoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         waitForStart();
 
-//            timer.start();
+//        timer.start();
         // 145.1 pulses per revolution
         while (opModeIsActive()) {
             encoderMotor.setTargetPosition(145);
             encoderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             telemetry.addData("Position: ", encoderMotor.getCurrentPosition());
             encoderMotor.setPower(0.5);
+            sleep(200);
             encoderMotor.setTargetPosition(-145);
             encoderMotor.setPower(0.5);
-
+            sleep(200);
+            break;
         }
     }
 }
