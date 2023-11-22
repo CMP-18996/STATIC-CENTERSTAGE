@@ -19,6 +19,7 @@ public class ps4Test extends CommandOpMode {
     public Drive drive;
     public double x,y;
     public int column, row;
+    boolean c = true;
     @Override
     public void initialize() {
         telemetry.addData("Status","Initalizing...");
@@ -51,9 +52,16 @@ public class ps4Test extends CommandOpMode {
         } else {
             drive.manualPower(0, 0, 0);
         }*/
-        if (row == 3) {
-            gamepad1.rumble(1000);
-        }
+        if (column == 3) {
+            if (c) {
+                gamepad1.rumble(500);
+                sleep(500);
+                gamepad1.rumble(500);
+                c = false;
+            }
+        } else {
+            c = true;
+        } //aft both pixels detected
         telemetry.addData("Status", "Rumning...");
         telemetry.addData("Touchpad X, Y", x + " , " + y);
         telemetry.addData("Row, Column", row + " x " + column);
