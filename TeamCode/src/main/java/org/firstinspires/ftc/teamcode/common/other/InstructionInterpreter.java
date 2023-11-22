@@ -1,3 +1,12 @@
+/*
+
+----------------------
+CURRENTLY DISCONTINUED
+----------------------
+
+ */
+
+
 package org.firstinspires.ftc.teamcode.common.other;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
