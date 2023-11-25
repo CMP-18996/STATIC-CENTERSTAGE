@@ -16,12 +16,12 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class LiftSubsystem extends SubsystemBase{
-    private int upPower, downPower;
+    private double power = .4;
     private Encoder encoderUp, encoderDown;
     private Robot robot;
     private LiftHeight currentHeight;
-    private Timing.Timer timer;
     private double proportionalConstant, integralConstant, derivativeConstant;
+    private Timing.Timer timer;
     /* Honestly at this point we should get rid of this stuff
     private double baseHeight, heightLevelOne, heightLevelTwo, heightLevelThree, heightLevelFour, heightLevelFive;
     // May or may not need the height detector, could use potentiometer or encoding
@@ -36,18 +36,18 @@ public class LiftSubsystem extends SubsystemBase{
         // Change the values for the actual robot, otherwise it'll probably crash
         // At least six states
         BASE(0),
-        HEIGHTONE(1),
-        HEIGHTTWO(2),
-        HEIGHTTHREE(3),
-        HEIGHTFOUR(4),
-        HEIGHTFIVE(5),
-        HEIGHTSIX(6),
-        HEIGHTSEVEN(7),
-        HEIGHTEIGHT(8),
-        HEIGHTNINE(9),
-        HEIGHTTEN(10),
-        HEIGHTELEVEN(11),
-        PICKUPHEIGHT(12);
+        HEIGHTONE(10),
+        HEIGHTTWO(20),
+        HEIGHTTHREE(30),
+        HEIGHTFOUR(40),
+        HEIGHTFIVE(50),
+        HEIGHTSIX(60),
+        HEIGHTSEVEN(70),
+        HEIGHTEIGHT(80),
+        HEIGHTNINE(90),
+        HEIGHTTEN(100),
+        HEIGHTELEVEN(110),
+        PICKUPHEIGHT(120);
 
         private final int height;
 
@@ -72,16 +72,32 @@ public class LiftSubsystem extends SubsystemBase{
         int error;
         error = height.getHeight() - this.getCurrentHeight().getHeight();
         robot.liftOne.setTargetPosition(error);
-        robot.liftTwo.setTargetPosition(-1 * error);
+        robot.liftTwo.setTargetPosition(error);
         robot.liftOne.setRunMode(Motor.RunMode.PositionControl);
         robot.liftTwo.setRunMode(Motor.RunMode.PositionControl);
-        robot.liftOne.set(1);
-        robot.liftTwo.set(1);
+        robot.liftOne.set(power);
+        robot.liftTwo.set(power);
     }
 
-
-
-    public void periodic() {
+    public void updateStatePID(LiftHeight height) {
 
     }
 }
+
+
+/*
+doubles
+kP = 0
+kI = 0
+kD = 0
+
+input -> error
+eP = error * kP * dt
+eI = eI + error * kI * dt
+eD = (error - prev error) * kD * dt
+error * (eP + eI * dt + eD)
+
+
+ */
+
+
