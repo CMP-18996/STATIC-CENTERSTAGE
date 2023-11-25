@@ -45,7 +45,9 @@ public class LiftSubsystem extends SubsystemBase{
         HEIGHTSEVEN(7),
         HEIGHTEIGHT(8),
         HEIGHTNINE(9),
-        HEIGHTTEN(10);
+        HEIGHTTEN(10),
+        HEIGHTELEVEN(11),
+        PICKUPHEIGHT(12);
 
         private final int height;
 
