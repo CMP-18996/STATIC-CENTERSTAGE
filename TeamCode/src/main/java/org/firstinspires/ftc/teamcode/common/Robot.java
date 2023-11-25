@@ -4,12 +4,14 @@ import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
 public class Robot {
-    public Motor leftFront, rightFront, leftRear, rightRear, intakeMotor, xAdj;
+    public Motor leftFront, rightFront, leftRear, rightRear, intakeMotor, xAdj, liftOne, liftTwo;
     public ServoEx coverServo1, coverServo2, fourBar, leftDeposit, rightDeposit, depositExpansion;
     public Camera camera;
     public HardwareMap hardwareMap;
@@ -37,13 +39,13 @@ public class Robot {
         rightRear.setRunMode(Motor.RunMode.RawPower);
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
-        /*liftOne = new MotorEx(hardwareMap, "liftOne");
+        liftOne = new Motor(hardwareMap, "liftOne");
         liftOne.setRunMode(Motor.RunMode.RawPower);
         liftOne.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
-        liftTwo = new MotorEx(hardwareMap, "liftTwo");
+        liftTwo = new Motor(hardwareMap, "liftTwo");
         liftTwo.setRunMode(Motor.RunMode.RawPower);
-        liftTwo.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);*/
+        liftTwo.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         /*
         intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);

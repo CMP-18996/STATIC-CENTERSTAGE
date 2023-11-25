@@ -71,10 +71,12 @@ public class LiftSubsystem extends SubsystemBase{
     public void updateState(LiftHeight height) {
         int error;
         error = height.getHeight() - this.getCurrentHeight().getHeight();
-       /* robot.liftOne.setMotorEnable
         robot.liftOne.setTargetPosition(error);
-        robot.liftTwo.setTargetPosition(-1 * error);*/
-
+        robot.liftTwo.setTargetPosition(-1 * error);
+        robot.liftOne.setRunMode(Motor.RunMode.PositionControl);
+        robot.liftTwo.setRunMode(Motor.RunMode.PositionControl);
+        robot.liftOne.set(1);
+        robot.liftTwo.set(1);
     }
 
 
