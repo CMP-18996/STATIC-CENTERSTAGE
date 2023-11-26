@@ -10,7 +10,6 @@
  */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
-import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.command.CommandBase;
@@ -18,10 +17,10 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
-public class StackCommand extends CommandBase {
+public class DriveToStackCommand extends CommandBase {
     private MecanumDrive drive;
     boolean t = false;
-    public StackCommand(MecanumDrive drive) {
+    public DriveToStackCommand(MecanumDrive drive) {
         this.drive = drive;
     }
     @Override
