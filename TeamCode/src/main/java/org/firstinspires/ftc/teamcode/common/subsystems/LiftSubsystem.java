@@ -80,7 +80,21 @@ public class LiftSubsystem extends SubsystemBase{
     }
 
     public void updateStatePID(LiftHeight height) {
+        int error;
+        error = height.getHeight() - this.getCurrentHeight().getHeight();
+        robot.liftOne.setVeloCoefficients(0.7, 0.2, 0.5);
+        robot.liftTwo.setVeloCoefficients(0.7, 0.2, 0.5);
+        robot.liftOne.setTargetPosition(error);
+        robot.liftTwo.setTargetPosition(error);
+        robot.liftOne.setRunMode(Motor.RunMode.PositionControl);
+        robot.liftTwo.setRunMode(Motor.RunMode.PositionControl);
+        robot.liftOne.set(0.4);
+        robot.liftTwo.set(0.4);
+    }
 
+    public void resetPid() {
+        robot.liftOne.setVeloCoefficients(1, 0, 0);
+        robot.liftTwo.setVeloCoefficients(1, 0, 0);
     }
 }
 

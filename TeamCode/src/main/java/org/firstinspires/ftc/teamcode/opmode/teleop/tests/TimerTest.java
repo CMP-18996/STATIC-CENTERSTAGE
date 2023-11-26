@@ -19,6 +19,7 @@ public class TimerTest extends LinearOpMode {
         elapsedTime.startTime();
         while (opModeIsActive()) {
             telemetry.addData("Elapsed time", elapsedTime.toString());
+            telemetry.update();
         }
     }
 }

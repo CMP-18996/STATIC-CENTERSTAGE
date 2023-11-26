@@ -24,14 +24,14 @@ public class ColorTest extends LinearOpMode {
         colorSensor1 = hardwareMap.get(ColorSensor.class, "color1");
         colorSensor2 = hardwareMap.get(ColorSensor.class, "color2");
         // Use for intake test
-        // intakeMotor = hardwareMap.get(DcMotorEx.class, "intake");
+        intakeMotor = hardwareMap.get(DcMotorEx.class, "intake");
         colorSensor1.enableLed(false);
         colorSensor2.enableLed(false);
         // Wait for the Play button to be pressed
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         waitForStart();
         // Use if you want to kill someone
-        // intakeMotor.setPower(-0.8);
+        intakeMotor.setPower(-0.8);
         // While the Op Mode is running, update the telemetry values.
         while (opModeIsActive()) {
             r1 = colorSensor1.red();
