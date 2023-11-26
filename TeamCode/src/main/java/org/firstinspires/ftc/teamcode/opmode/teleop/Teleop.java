@@ -21,8 +21,6 @@ public class Teleop extends CommandOpMode {
     private TouchpadSubsystem touchpad;
     @Override
     public void initialize() {
-        telemetry.addData("Status", "Initializing...");
-        telemetry.update();
         CommandScheduler.getInstance().reset();
         GlobalVariables.opMode = GlobalVariables.OpMode.TELEOP;
 
@@ -36,7 +34,7 @@ public class Teleop extends CommandOpMode {
         liftPad.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(() -> schedule(new InstantCommand(() -> touchpad.deleteLastInput())));
 
-        telemetry.addData("Status", "Initialized!");
+        telemetry.addData("Status", "Ready!");
         telemetry.update();
     }
 
@@ -46,7 +44,6 @@ public class Teleop extends CommandOpMode {
 
         drive.manualPower(-drivePad.getLeftX(), drivePad.getLeftY(), -drivePad.getRightX());
 
-        telemetry.addData("Status", "Running...");
         telemetry.addData("Lift Positions", touchpad.getHistory());
         telemetry.update();
     }
