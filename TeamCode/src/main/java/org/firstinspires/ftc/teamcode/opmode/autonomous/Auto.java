@@ -23,40 +23,39 @@ import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 public class Auto extends CommandOpMode {
     public Robot robot;
     public MecanumDrive drive;
-    public IntakeSubsystem intakeSubsystem;
+    /*public IntakeSubsystem intakeSubsystem;
     public DepositSubsystem depositSubsystem;
-    public LiftSubsystem liftSubsystem;
+    public LiftSubsystem liftSubsystem;*/
     @Override
     public void initialize() {
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
-        IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robot);
-        DepositSubsystem depositSubsystem = new DepositSubsystem(robot);
-        LiftSubsystem liftSubsystem = new LiftSubsystem(robot);
-
         GlobalVariables.color = GlobalVariables.Color.RED;
-        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
+        GlobalVariables.distance = GlobalVariables.Distance.REDFAR;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
 
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
         drive = new MecanumDrive(hardwareMap, GlobalVariables.distance.getP());
-        super.register(robot.camera);
+        /*intakeSubsystem = new IntakeSubsystem(robot);
+        depositSubsystem = new DepositSubsystem(robot);
+        liftSubsystem = new LiftSubsystem(robot);
+        super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);*/
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new ApproachCommand(drive),
-                        new WaitCommand(500),
                         new DriveToTagCommand(robot.camera, drive),
                         new PropPixelCommand(telemetry),
                         new ParallelCommandGroup(
-                                new DriveToStackCommand(drive),
-                                new SequentialCommandGroup(
+                                new DriveToStackCommand(drive)
+                                /*new SequentialCommandGroup(
                                         new WaitCommand(2000), // subject to change
                                         new TakeFromDepositCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
-                                )
+                                )*/
                         ),
+                        new DriveToTagCommand(robot.camera, drive),
                         new DriveToStackCommand(drive),
                         new DriveToTagCommand(robot.camera, drive)
                 )
