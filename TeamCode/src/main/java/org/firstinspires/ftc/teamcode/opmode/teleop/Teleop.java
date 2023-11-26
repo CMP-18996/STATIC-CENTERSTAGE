@@ -44,7 +44,7 @@ public class Teleop extends CommandOpMode {
 
         drive.manualPower(-drivePad.getLeftX(), drivePad.getLeftY(), -drivePad.getRightX());
 
-        telemetry.addData("Lift Positions", touchpad.getHistory());
+        telemetry.addData("Recorded Positions", touchpad.getHistory());
         telemetry.update();
     }
 }
