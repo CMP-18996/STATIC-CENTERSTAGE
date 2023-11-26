@@ -27,6 +27,7 @@ public class ps4Test extends CommandOpMode {
         touchpad = new TouchpadSubsystem(gamepad1);
         super.register(touchpad);
 
+
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
     }
