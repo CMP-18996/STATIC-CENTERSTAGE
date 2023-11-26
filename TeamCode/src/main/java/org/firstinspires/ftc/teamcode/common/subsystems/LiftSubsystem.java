@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.IntakeWait;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class LiftSubsystem extends SubsystemBase{
+public class LiftSubsystem extends SubsystemBase {
     private double power = .4;
     private Encoder encoderUp, encoderDown;
     private Robot robot;
@@ -97,6 +97,10 @@ public class LiftSubsystem extends SubsystemBase{
 
     public void resetPid() {
         pidfController.setPIDF(0.7, 0.2, 0.5, 0);
+    }
+
+    public boolean motorsFinished() {
+        return robot.liftOne.atTargetPosition() && robot.liftTwo.atTargetPosition();
     }
 }
 

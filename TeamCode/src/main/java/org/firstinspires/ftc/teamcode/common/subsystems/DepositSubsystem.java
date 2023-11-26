@@ -15,6 +15,74 @@ public class DepositSubsystem extends SubsystemBase {
     GrabberState rightGrabberState = GrabberState.CLOSED;
     GrabberState leftGrabberState = GrabberState.CLOSED;
     ExpandedState expandedState = ExpandedState.NOT_EXPANDED;
+    DepositRotationState depositRotationState = DepositRotationState.PARALLEL;
+
+
+    public void setLowerHorizontalState(LowerHorizontalState state) {
+        robot.xAdj.setTargetDistance(lowerHorizontalState.value - state.value);
+        lowerHorizontalState = state;
+    }
+
+    public boolean horizontalFinishedMoving() {
+        return robot.xAdj.atTargetPosition();
+    }
+
+    public void setUpperHorizontalState(UpperHorizontalState state) {
+        robot.xAdj.setTargetDistance(upperHorizontalState.value - state.value);
+        upperHorizontalState = state;
+    }
+
+    public void setFourBarState(FourBarState state) {
+        robot.fourBar.setPosition(state.value);
+        fourBarState = state;
+    }
+
+    public void setGrabberState(GrabberState grabberState, GrabberPos grabberPos) {
+        switch (grabberPos) {
+            case LEFT:
+                leftGrabberState = grabberState;
+                robot.leftGrabber.setPosition(leftGrabberState.value);
+                break;
+            case RIGHT:
+                rightGrabberState = grabberState;
+                robot.rightGrabber.setPosition(rightGrabberState.value);
+                break;
+        }
+    }
+    public FourBarState getFourBarState() {
+        return fourBarState;
+    }
+
+    public UpperHorizontalState getUpperHorizontalState() {
+        return upperHorizontalState;
+    }
+
+    public LowerHorizontalState getLowerHorizontalState() {
+        return lowerHorizontalState;
+    }
+
+    public void setExpandedState(ExpandedState expandedState) {
+        this.expandedState = expandedState;
+        robot.depositExpansion.setPosition(expandedState.value);
+    }
+
+    public void setDepositRotationState(DepositRotationState depositRotationState) {
+        this.depositRotationState = depositRotationState;
+        robot.depositRotator.setPosition(depositRotationState.value);
+    }
+
+    public DepositSubsystem(Robot robot) {
+        this.robot = robot;
+    }
+
+
+    public enum DepositRotationState {
+        PICKING_UP(20.0),
+        PARALLEL(30.0),
+        DROPPING_GROUND(40.0);
+        public double value;
+        DepositRotationState(double val) { value = val; }
+    }
 
     public enum GrabberState {
         OPEN(40.0),
@@ -80,57 +148,4 @@ public class DepositSubsystem extends SubsystemBase {
         this.parityState = parityState;
     }
     */
-
-    public void setLowerHorizontalState(LowerHorizontalState state) {
-        robot.xAdj.setTargetDistance(lowerHorizontalState.value - state.value);
-        lowerHorizontalState = state;
-    }
-
-    public boolean horizontalFinishedMoving() {
-        return robot.xAdj.atTargetPosition();
-    }
-
-    public void setUpperHorizontalState(UpperHorizontalState state) {
-        robot.xAdj.setTargetDistance(upperHorizontalState.value - state.value);
-        upperHorizontalState = state;
-    }
-
-    public void setFourBarState(FourBarState state) {
-        robot.fourBar.setPosition(state.value);
-        fourBarState = state;
-    }
-
-    public void setGrabberState(GrabberState grabberState, GrabberPos grabberPos) {
-        switch (grabberPos) {
-            case LEFT:
-                leftGrabberState = grabberState;
-                robot.leftDeposit.setPosition(leftGrabberState.value);
-                break;
-            case RIGHT:
-                rightGrabberState = grabberState;
-                robot.rightDeposit.setPosition(rightGrabberState.value);
-                break;
-        }
-    }
-    public FourBarState getFourBarState() {
-        return fourBarState;
-    }
-
-    public UpperHorizontalState getUpperHorizontalState() {
-        return upperHorizontalState;
-    }
-
-    public LowerHorizontalState getLowerHorizontalState() {
-        return lowerHorizontalState;
-    }
-
-    public void setExpandedState(ExpandedState expandedState) {
-        this.expandedState = expandedState;
-        robot.depositExpansion.setPosition(expandedState.value);
-    }
-
-    public DepositSubsystem(Robot robot) {
-        this.robot = robot;
-    }
-
 }
