@@ -4,20 +4,16 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.TakeFromDepositCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.DriveToTagCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.DriveToStackCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ApproachCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.PropPixelCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.PropPixelCommandGroup;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.PropPixelGroundCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
-import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
-import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
-import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 
 @Autonomous(name = "Auto")
 public class Auto extends CommandOpMode {
@@ -45,9 +41,7 @@ public class Auto extends CommandOpMode {
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new ApproachCommand(drive),
-                        new DriveToTagCommand(robot.camera, drive),
-                        new PropPixelCommand(telemetry),
+                        new PropPixelCommandGroup(drive, robot.camera, telemetry),
                         new ParallelCommandGroup(
                                 new DriveToStackCommand(drive)
                                 /*new SequentialCommandGroup(

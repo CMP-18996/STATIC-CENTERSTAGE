@@ -14,11 +14,11 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 
-public class PropPixelCommand extends CommandBase {
+public class PropPixelBoardCommand extends CommandBase {
     public Telemetry telemetry;
     WaitCommand t = new WaitCommand(5);
     //TODO: add the other subsystems and their respective commands
-    public PropPixelCommand(Telemetry telemetry) {
+    public PropPixelBoardCommand(Telemetry telemetry) {
         this.telemetry = telemetry;
     }
     @Override
