@@ -5,7 +5,9 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 
 public class SampleLiftCommand extends InstantCommand { // change this to CommandBase (probably)
-    public SampleLiftCommand(LiftSubsystem liftSubsystem) {
-        // TODO
+    public SampleLiftCommand(LiftSubsystem liftSubsystem, LiftSubsystem.LiftHeight height) {
+        super(
+                () -> liftSubsystem.updateState(height)
+        );
     }
 }

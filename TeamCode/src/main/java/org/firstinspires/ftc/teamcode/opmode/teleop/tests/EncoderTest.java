@@ -20,7 +20,7 @@ public class EncoderTest extends LinearOpMode {
     Robot robot;
     DcMotorEx encoderMotor;
     Encoder encoder;
-    Timing.Timer timer = new Timing.Timer(1000, TimeUnit.MILLISECONDS);
+//    Timing.Timer timer = new Timing.Timer(1000, TimeUnit.MILLISECONDS);
 
     @Override
     public void runOpMode() throws InterruptedException {
