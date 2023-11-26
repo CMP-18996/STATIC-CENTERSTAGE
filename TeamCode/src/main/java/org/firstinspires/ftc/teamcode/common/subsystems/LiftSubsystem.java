@@ -28,7 +28,7 @@ public class LiftSubsystem extends SubsystemBase{
     private DistanceSensor heightDetector;
      */
 
-    LiftSubsystem(Robot robot) {
+    public LiftSubsystem(Robot robot) {
         this.robot = robot;
     }
 

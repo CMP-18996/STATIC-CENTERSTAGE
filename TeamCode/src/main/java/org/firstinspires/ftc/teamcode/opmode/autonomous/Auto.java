@@ -15,15 +15,25 @@ import org.firstinspires.ftc.teamcode.common.commandbase.auto.DriveToStackComman
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ApproachCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.PropPixelCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
+import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
+import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 
 @Autonomous(name = "Auto")
 public class Auto extends CommandOpMode {
     public Robot robot;
     public MecanumDrive drive;
+    public IntakeSubsystem intakeSubsystem;
+    public DepositSubsystem depositSubsystem;
+    public LiftSubsystem liftSubsystem;
     @Override
     public void initialize() {
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
+
+        IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robot);
+        DepositSubsystem depositSubsystem = new DepositSubsystem(robot);
+        LiftSubsystem liftSubsystem = new LiftSubsystem(robot);
 
         GlobalVariables.color = GlobalVariables.Color.RED;
         GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
@@ -43,8 +53,8 @@ public class Auto extends CommandOpMode {
                         new ParallelCommandGroup(
                                 new DriveToStackCommand(drive),
                                 new SequentialCommandGroup(
-                                        new WaitCommand(2000)
-                                        //n/ew TakeFromDepositCommand(),
+                                        new WaitCommand(2000), // subject to change
+                                        new TakeFromDepositCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
                                 )
                         ),
                         new DriveToStackCommand(drive),

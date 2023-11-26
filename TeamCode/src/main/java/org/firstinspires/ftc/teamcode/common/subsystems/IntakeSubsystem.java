@@ -164,18 +164,12 @@ public class IntakeSubsystem extends SubsystemBase {
                 break;
             default:
                 twoFilled = true;
-
-
         }
-        if(oneFilled == twoFilled && oneFilled == true){
+
+        if (oneFilled && twoFilled)
             return true;
-        }
         else
             return false;
-    }
-
-    public void periodic() {
-
     }
 
     public IntakeSubsystem(Robot robot) {
