@@ -21,7 +21,7 @@ public class LiftSubsystem extends SubsystemBase{
     private Robot robot;
     private LiftHeight currentHeight;
     private double proportionalConstant, integralConstant, derivativeConstant;
-    private Timing.Timer timer;
+    private PIDFController pidfController = new PIDFController(0.7, 0.2, 0.5, 0);
     /* Honestly at this point we should get rid of this stuff
     private double baseHeight, heightLevelOne, heightLevelTwo, heightLevelThree, heightLevelFour, heightLevelFive;
     // May or may not need the height detector, could use potentiometer or encoding
@@ -82,6 +82,7 @@ public class LiftSubsystem extends SubsystemBase{
     public void updateStatePID(LiftHeight height) {
         int error;
         error = height.getHeight() - this.getCurrentHeight().getHeight();
+        /*
         robot.liftOne.setVeloCoefficients(0.7, 0.2, 0.5);
         robot.liftTwo.setVeloCoefficients(0.7, 0.2, 0.5);
         robot.liftOne.setTargetPosition(error);
@@ -90,11 +91,12 @@ public class LiftSubsystem extends SubsystemBase{
         robot.liftTwo.setRunMode(Motor.RunMode.PositionControl);
         robot.liftOne.set(0.4);
         robot.liftTwo.set(0.4);
+         */
+
     }
 
     public void resetPid() {
-        robot.liftOne.setVeloCoefficients(1, 0, 0);
-        robot.liftTwo.setVeloCoefficients(1, 0, 0);
+        pidfController.setPIDF(0.7, 0.2, 0.5, 0);
     }
 }
 
