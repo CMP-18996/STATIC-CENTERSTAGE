@@ -93,7 +93,6 @@ public class IntakeSubsystem extends SubsystemBase {
     public void identifyColor() {
         ColorSensor colorSensor1;
         ColorSensor colorSensor2;
-        DcMotorEx intakeMotor;
         int r1, b1, g1, r2, b2, g2;
         colorSensor1 = hardwareMap.get(ColorSensor.class, "color1");
         colorSensor2 = hardwareMap.get(ColorSensor.class, "color2");
