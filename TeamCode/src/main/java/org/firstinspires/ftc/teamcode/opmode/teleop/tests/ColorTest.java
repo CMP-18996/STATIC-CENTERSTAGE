@@ -7,6 +7,10 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+// move to function in intakesubsystem that updates color enum slot1 and slot2
+// create a function in intakesubsystem that returns a true/false if both slots are occupied
+// create a command that does nothing but ends when there are 2 pixels
+
 
 @TeleOp
 public class ColorTest extends LinearOpMode {
@@ -48,7 +52,7 @@ public class ColorTest extends LinearOpMode {
                 telemetry.addData("color1", "black");
                 color1 = "BLACK";
             } else if (g1 > b1 && b1 > r1) {
-                if (g1 > 7000) {
+                if (g1 > 9000) {
                     telemetry.addData("color1", "white");
                     color1 = "WHITE";
                 } else {
@@ -64,7 +68,6 @@ public class ColorTest extends LinearOpMode {
             } else {
                 telemetry.addData("color1", "none");
                 color1 = "NONE";
-
             }
 
 

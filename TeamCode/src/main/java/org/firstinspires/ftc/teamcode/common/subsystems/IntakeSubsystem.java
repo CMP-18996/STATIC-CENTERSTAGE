@@ -19,8 +19,8 @@ public class IntakeSubsystem extends SubsystemBase {
     private double intakePower = .6;
     private double repelPower = .8; // keep positive
     private CoverState coverState = CoverState.CLOSED;
-    private ColorState slotOne;
-    private ColorState slotTwo;
+    public ColorState slotOne;
+    public ColorState slotTwo;
 
     // color1, color2, both strings
     // ColorSensor colorSensor1 = hardwareMap.get(ColorSensor.class, "Color1");
