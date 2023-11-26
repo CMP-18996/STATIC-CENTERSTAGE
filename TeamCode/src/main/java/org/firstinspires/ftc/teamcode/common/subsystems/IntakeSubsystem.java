@@ -155,7 +155,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public boolean checkFilled() {
-
+        return true;
     }
 
     public void periodic() {

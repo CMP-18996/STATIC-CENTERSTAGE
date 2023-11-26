@@ -1,18 +1,8 @@
 package org.firstinspires.ftc.teamcode.common.commandbase;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
-public class TransferCommand extends CommandBase {
-    @Override
-    public void initialize() {
-    }
+public class TransferCommand extends SequentialCommandGroup {
 
-    @Override
-    public void execute() {
-    }
-
-    @Override
-    public boolean isFinished() {
-        return true; // TODO
-    }
 }
