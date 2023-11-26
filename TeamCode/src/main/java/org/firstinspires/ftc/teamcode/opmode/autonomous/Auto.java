@@ -32,7 +32,7 @@ public class Auto extends CommandOpMode {
         telemetry.update();
 
         GlobalVariables.color = GlobalVariables.Color.RED;
-        GlobalVariables.distance = GlobalVariables.Distance.REDFAR;
+        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
 
         CommandScheduler.getInstance().reset();

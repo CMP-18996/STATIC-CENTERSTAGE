@@ -21,7 +21,7 @@ public class MeepMeepTesting {
                             .splineTo(new Vector2d(-24, -36), Math.toRadians(180))
                             .splineTo(new Vector2d(-62, -12), Math.toRadians(180))
                             .setReversed(true)
-                            .splineTo(new Vector2d(0, -12), Math.toRadians(0))
+                            .splineTo(new Vector2d(-24, -36), Math.toRadians(0))
                             .splineTo(new Vector2d(55, -36), Math.toRadians(0))
                         .build()
                 );
