@@ -19,7 +19,7 @@ public class TouchpadSubsystem extends SubsystemBase {
         if (g.touchpad) {
             if (b) {
                 history.add(column + 5 * (row - 1));
-                if (history.size() > 2) {
+                if (history.size() > 4) {
                     history.remove(0);
                 }
                 b = false;
@@ -34,7 +34,12 @@ public class TouchpadSubsystem extends SubsystemBase {
         }
     }
     //note that the latest entry will be second
-    public ArrayList<Integer> getHistory() {return history;}
+    public ArrayList<Integer> getHistory() {
+        ArrayList<Integer> i = new ArrayList<>();
+        i.add(history.get(history.size() - 2));
+        i.add(history.get(history.size() - 1));
+        return i;
+    }
     public Gamepad getGamepad() {return g;}
     public void rumble(int ms) {g.rumble(ms);}
 }
