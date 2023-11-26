@@ -60,6 +60,7 @@ public class DepositSubsystem extends SubsystemBase {
 
     public enum FourBarState {
         DOWN(0.0),
+        STASIS(20.0),
         HIGH(50.0),
         LOW(80.0);
 

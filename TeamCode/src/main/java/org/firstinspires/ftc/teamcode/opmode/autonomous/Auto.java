@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
@@ -22,16 +23,17 @@ public class Auto extends CommandOpMode {
         telemetry.update();
 
         GlobalVariables.color = GlobalVariables.Color.RED;
-        GlobalVariables.distance = GlobalVariables.Distance.REDFAR;
+        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
 
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
         drive = new MecanumDrive(hardwareMap, GlobalVariables.distance.getP());
-        register(robot.camera);
+        super.register(robot.camera);
 
         CommandScheduler.getInstance().schedule(
                 new ApproachCommand(drive),
+                new WaitCommand(500),
                 new DriveToTagCommand(robot.camera, drive),
                 new PropPixelCommand(telemetry),
                 new StackCommand(drive),
