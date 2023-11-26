@@ -94,8 +94,8 @@ public class PropProcessor implements VisionProcessor {
         largestContour = findLargestContour(contours);
         if (contours != null && largestContour != null) {
             boundingRect = Imgproc.boundingRect(largestContour);
-            //arbitrary = new ArrayList<>();
-            //arbitrary.add(largestContour);
+            // arbitrary = new ArrayList<>();
+            // arbitrary.add(largestContour);
             pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
             //Imgproc.drawContours(frame, arbitrary, 0, new Scalar(42, 42, 129), -1, Imgproc.LINE_8, fillerMat, 0);
             telemetryTestVal = pixelVal;

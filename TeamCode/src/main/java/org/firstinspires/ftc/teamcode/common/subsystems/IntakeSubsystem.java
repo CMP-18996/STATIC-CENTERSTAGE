@@ -1,25 +1,11 @@
 package org.firstinspires.ftc.teamcode.common.subsystems;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-import static org.firstinspires.ftc.teamcode.opmode.teleop.tests.ColorTest.color1;
-import static org.firstinspires.ftc.teamcode.opmode.teleop.tests.ColorTest.color2;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.IntakeWait;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -36,9 +22,10 @@ public class IntakeSubsystem extends SubsystemBase {
     // ColorSensor colorSensor2 = hardwareMap.get(ColorSensor.class, "Color2");
 
     public enum CoverState {
-        OPENED,
-        OPENING,
-        CLOSED
+        OPEN(180.0),
+        CLOSED(0.0);
+        public double value;
+        CoverState(double val) { value = val; }
     }
 
     public enum SweepingState {
@@ -79,13 +66,10 @@ public class IntakeSubsystem extends SubsystemBase {
         int closedPosition = 0;
 
         switch(coverState) {
-            case OPENED:
-                break;
-            case OPENING:
-                robot.coverServo1.setPosition(openPosition);
-                break;
+            case OPEN:
+                robot.coverServo.setPosition(openPosition);
             case CLOSED:
-                robot.coverServo1.setPosition(closedPosition);
+                robot.coverServo.setPosition(closedPosition);
                 break;
         }
     }
@@ -143,12 +127,13 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
     public boolean checkFilled() {
+        identifyColor();
         boolean oneFilled;
         boolean twoFilled;
         switch (slotOne) {
+
+            // this works as intended
             case NONE:
-                oneFilled = false;
-                break;
             case BLACK:
                 oneFilled = false;
                 break;
@@ -157,8 +142,6 @@ public class IntakeSubsystem extends SubsystemBase {
         }
         switch (slotTwo) {
             case NONE:
-                twoFilled = false;
-                break;
             case BLACK:
                 twoFilled = false;
                 break;
