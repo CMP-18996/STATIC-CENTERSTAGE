@@ -1,17 +1,17 @@
-package org.firstinspires.ftc.teamcode.opmode.teleop.tests;
+package org.firstinspires.ftc.teamcode.opmode.tests;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.WaitCommand;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.DriveToTagCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ApproachCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.DriveToTagCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
-@TeleOp(name = "tag localizer")
+@TeleOp(name = "tag localizer", group="test")
 public class TagLocalizerTest extends CommandOpMode {
     public Robot robot;
     public MecanumDrive drive;
@@ -19,17 +19,19 @@ public class TagLocalizerTest extends CommandOpMode {
     public void initialize() {
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
+
         GlobalVariables.color = GlobalVariables.Color.RED;
-        GlobalVariables.distance = GlobalVariables.Distance.BLUECLOSE;
+        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
 
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
-        drive = new MecanumDrive(hardwareMap, GlobalVariables.Distance.BLUECLOSE.getP());
+        drive = new MecanumDrive(hardwareMap, GlobalVariables.distance.getP());
 
-        schedule(new ApproachCommand(drive));
-        schedule(new WaitCommand(2));
-        schedule(new DriveToTagCommand(robot.camera, drive));
+        schedule(new SequentialCommandGroup(
+                new ApproachCommand(drive),
+                new DriveToTagCommand(robot.camera, drive)
+        ));
 
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
@@ -37,6 +39,8 @@ public class TagLocalizerTest extends CommandOpMode {
     @Override
     public void run() {
         CommandScheduler.getInstance().run();
-        sleep(20);
+
+        telemetry.addData("Status", "Running...");
+        telemetry.update();
     }
 }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.teleop.finalized;
+package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;

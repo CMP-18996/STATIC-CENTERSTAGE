@@ -1,19 +1,17 @@
-package org.firstinspires.ftc.teamcode.opmode.teleop.tests;
+package org.firstinspires.ftc.teamcode.opmode.tests;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
 
-@TeleOp(name = "defaultDriveTest")
+@TeleOp(name = "defaultDriveTest",group="Official")
 public class defaultDriveTest extends CommandOpMode {
     public Robot robot;
     public Drive drive;
-    public DcMotorEx asjdaosjd;
     @Override
     public void initialize() {
         telemetry.addData("Status","Initalizing...");

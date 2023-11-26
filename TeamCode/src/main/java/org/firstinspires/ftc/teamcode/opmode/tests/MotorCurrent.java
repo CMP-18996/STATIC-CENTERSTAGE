@@ -1,14 +1,15 @@
-package org.firstinspires.ftc.teamcode.opmode.teleop.tests;
+package org.firstinspires.ftc.teamcode.opmode.tests;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
-@TeleOp(name="Current test")
+@Disabled
+@TeleOp(name="Current test",group="test")
 public class MotorCurrent extends LinearOpMode {
     DcMotorEx leftFront, rightFront, leftRear, rightRear;
     double x1, y1, x2;

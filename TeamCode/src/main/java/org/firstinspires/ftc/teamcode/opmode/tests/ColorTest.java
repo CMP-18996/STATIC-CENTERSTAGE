@@ -1,5 +1,5 @@
-package org.firstinspires.ftc.teamcode.opmode.teleop.tests;
-import com.acmerobotics.dashboard.config.Config;
+package org.firstinspires.ftc.teamcode.opmode.tests;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 // create a command that does nothing but ends when there are 2 pixels
 
 
-@TeleOp
+@TeleOp(name="colortest",group="test")
 public class ColorTest extends LinearOpMode {
     // Define a variable for our color sensor
     ColorSensor colorSensor1;

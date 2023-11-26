@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.teleop.tests;
+package org.firstinspires.ftc.teamcode.opmode.tests;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.IntakeWait;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 
-@TeleOp(name = "IntakeWaitTest")
+@TeleOp(name = "IntakeWaitTest",group="test")
 public class IntakeWaitTest extends CommandOpMode {
     Robot robot;
     IntakeSubsystem intake;

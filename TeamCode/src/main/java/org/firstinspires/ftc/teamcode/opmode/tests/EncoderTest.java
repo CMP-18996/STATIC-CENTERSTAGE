@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.teleop.tests;
+package org.firstinspires.ftc.teamcode.opmode.tests;
 
 import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -15,7 +15,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.har
 
 import java.util.concurrent.TimeUnit;
 
-@TeleOp(name="Encoder Test")
+@TeleOp(name="Encoder Test",group="test")
 public class EncoderTest extends LinearOpMode {
     Robot robot;
     DcMotorEx encoderMotor;

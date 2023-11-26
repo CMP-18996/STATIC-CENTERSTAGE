@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.teleop.tests;
+package org.firstinspires.ftc.teamcode.opmode.tests;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
@@ -9,14 +9,12 @@ import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
-import com.arcrobotics.ftclib.gamepad.GamepadKeys;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.sun.tools.javac.util.BasicDiagnosticFormatter;
 
-@TeleOp(name="Field Centric Drive")
+@Disabled
+@TeleOp(name="Field Centric Drive",group="test")
 public class FieldCentric extends CommandOpMode {
     enum HeadingSource {
         ODO,

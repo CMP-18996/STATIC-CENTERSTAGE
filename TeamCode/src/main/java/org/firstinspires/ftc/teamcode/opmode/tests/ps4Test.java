@@ -3,16 +3,19 @@ columns: 1 2 3 4 5
 rows: 1
       2
  */
-package org.firstinspires.ftc.teamcode.opmode.teleop.tests;
+package org.firstinspires.ftc.teamcode.opmode.tests;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
 
-@TeleOp(name = "ps4Test")
+@Disabled
+@TeleOp(name = "ps4Test",group="test")
 public class ps4Test extends CommandOpMode {
     public TouchpadSubsystem touchpad;
     boolean f, g;
