@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -31,15 +32,16 @@ public class Auto extends CommandOpMode {
         drive = new MecanumDrive(hardwareMap, GlobalVariables.distance.getP());
         super.register(robot.camera);
 
-        CommandScheduler.getInstance().schedule(
+        CommandScheduler.getInstance().schedule(new SequentialCommandGroup(
                 new ApproachCommand(drive),
-                new WaitCommand(500),
+                new WaitCommand(1000),
                 new DriveToTagCommand(robot.camera, drive),
                 new PropPixelCommand(telemetry),
                 new StackCommand(drive),
                 new DriveToTagCommand(robot.camera, drive),
                 new StackCommand(drive),
-                new DriveToTagCommand(robot.camera, drive));
+                new DriveToTagCommand(robot.camera, drive)
+        ));
 
         robot.camera.startPropProcessing();
         telemetry.addData("Status", "Initialized!");
