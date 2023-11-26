@@ -52,7 +52,7 @@ public class IntakeSubsystem extends SubsystemBase {
         GREEN,
         PURPLE,
         YELLOW,
-        BlACK,
+        BLACK,
         NONE;
     }
 
@@ -91,7 +91,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void identifyColor() {
-        /*ColorSensor colorSensor1;
+        ColorSensor colorSensor1;
         ColorSensor colorSensor2;
         DcMotorEx intakeMotor;
         int r1, b1, g1, r2, b2, g2;
@@ -104,58 +104,75 @@ public class IntakeSubsystem extends SubsystemBase {
             g1 = colorSensor1.green();
             b1 = colorSensor1.blue();
             if (g1 < 200 && b1 < 200 && r1 < 200) {
-                slotOne = ColorState.BlACK;
+                slotOne = ColorState.BLACK;
             } else if (g1 > b1 && b1 > r1) {
                 if (g1 > 9000) {
                     slotOne = ColorState.WHITE;
                 } else {
-                    telemetry.addData("color1", "green");
-                    color1 = "GREEN";
+                    slotOne = ColorState.GREEN;
                 }
             } else if (g1 > r1 && r1 > b1) {
-                telemetry.addData("color1", "yellow");
-                color1 = "YELLOW";
+                slotOne = ColorState.YELLOW;
             } else if (b1 > g1 && g1 > r1) {
-                telemetry.addData("color1", "purple");
-                color1 = "PURPLE";
+                slotOne = ColorState.PURPLE;
             } else {
-                telemetry.addData("color1", "none");
-                color1 = "NONE";
+                slotOne = ColorState.NONE;
             }
             r2 = colorSensor2.red();
             g2 = colorSensor2.green();
             b2 = colorSensor2.blue();
             if (g2 < 200 && b2 < 200 && r2 < 200) {
-                telemetry.addData("color2", "black");
-                color2 = "BLACK";
+                slotTwo = ColorState.BLACK;
             } else if (g2 > b2 && b2 > r2) {
                 if (g2 >9000) {
-                    telemetry.addData("color2", "white");
-                    color2 = "WHITE";
+                slotTwo = ColorState.WHITE;
                 } else {
-                    telemetry.addData("color2", "green");
-                    color2 = "GREEN";
+                    slotTwo = ColorState.GREEN;
                 }
             } else if (g2 > r2 && r2 > b2) {
-                telemetry.addData("color2", "yellow");
-                color2 = "YELLOW";
+                slotTwo = ColorState.YELLOW;
             } else if (b2 > g2 && g2 > r2) {
-                telemetry.addData("color2", "purple");
-                color2 = "PURPLE";
+                slotTwo = ColorState.PURPLE;
             } else {
-                telemetry.addData("color2", "none");
-                color2 = "NONE";
+                slotTwo = ColorState.NONE;
 
             }
-            telemetry.update();
-            sleep(20);
 
 
-        }*/
-    }
+
+        }
+
 
     public boolean checkFilled() {
+        boolean oneFilled;
+        boolean twoFilled;
+        switch (slotOne) {
+            case NONE:
+                oneFilled = false;
+                break;
+            case BLACK:
+                oneFilled = false;
+                break;
+            default:
+                oneFilled = true;
+        }
+        switch (slotTwo) {
+            case NONE:
+                twoFilled = false;
+                break;
+            case BLACK:
+                twoFilled = false;
+                break;
+            default:
+                twoFilled = true;
 
+
+        }
+        if(oneFilled == twoFilled && oneFilled == true){
+            return true;
+        }
+        else
+            return false;
     }
 
     public void periodic() {
