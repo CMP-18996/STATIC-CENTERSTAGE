@@ -83,7 +83,7 @@ public class ColorTest extends LinearOpMode {
                 telemetry.addData("color2", "black");
                 color2 = "BLACK";
             } else if (g2 > b2 && b2 > r2) {
-                if (g2 > 400) {
+                if (g2 >9000) {
                     telemetry.addData("color2", "white");
                     color2 = "WHITE";
                 } else {
