@@ -7,6 +7,10 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+// move to function in intakesubsystem that updates color enum slot1 and slot2
+// create a function in intakesubsystem that returns a true/false if both slots are occupied
+// create a command that does nothing but ends when there are 2 pixels
+
 
 @TeleOp
 public class ColorTest extends LinearOpMode {
@@ -24,14 +28,14 @@ public class ColorTest extends LinearOpMode {
         colorSensor1 = hardwareMap.get(ColorSensor.class, "color1");
         colorSensor2 = hardwareMap.get(ColorSensor.class, "color2");
         // Use for intake test
-        // intakeMotor = hardwareMap.get(DcMotorEx.class, "intake");
+        intakeMotor = hardwareMap.get(DcMotorEx.class, "intake");
         colorSensor1.enableLed(false);
         colorSensor2.enableLed(false);
         // Wait for the Play button to be pressed
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         waitForStart();
         // Use if you want to kill someone
-        // intakeMotor.setPower(-0.8);
+        intakeMotor.setPower(-0.8);
         // While the Op Mode is running, update the telemetry values.
         while (opModeIsActive()) {
             r1 = colorSensor1.red();
@@ -48,7 +52,7 @@ public class ColorTest extends LinearOpMode {
                 telemetry.addData("color1", "black");
                 color1 = "BLACK";
             } else if (g1 > b1 && b1 > r1) {
-                if (g1 > 7000) {
+                if (g1 > 9000) {
                     telemetry.addData("color1", "white");
                     color1 = "WHITE";
                 } else {
@@ -64,7 +68,6 @@ public class ColorTest extends LinearOpMode {
             } else {
                 telemetry.addData("color1", "none");
                 color1 = "NONE";
-
             }
 
 
@@ -80,7 +83,7 @@ public class ColorTest extends LinearOpMode {
                 telemetry.addData("color2", "black");
                 color2 = "BLACK";
             } else if (g2 > b2 && b2 > r2) {
-                if (g2 > 400) {
+                if (g2 >9000) {
                     telemetry.addData("color2", "white");
                     color2 = "WHITE";
                 } else {

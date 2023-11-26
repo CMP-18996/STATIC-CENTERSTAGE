@@ -44,6 +44,7 @@ public class Robot {
         liftOne.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
         liftTwo = new Motor(hardwareMap, "liftTwo");
+        liftTwo.setInverted(true);
         liftTwo.setRunMode(Motor.RunMode.PositionControl);
         liftTwo.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
