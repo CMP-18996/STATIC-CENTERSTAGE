@@ -53,18 +53,14 @@ public class ApproachCommand extends CommandBase {
                  switch (GlobalVariables.distance) {
                      case REDCLOSE:
                          Actions.runBlocking(drive.actionBuilder(REDCLOSE.getP())
-                                 .setReversed(false)
-                                 .splineTo(new Vector2d(0, -35), Math.toRadians(180))
                                  .setReversed(true)
                                  .splineTo(new Vector2d(55, -36), Math.toRadians(0))
                                  .build());
                          break;
                      case REDFAR:
                          Actions.runBlocking(drive.actionBuilder(REDFAR.getP())
-                                 .setReversed(false)
-                                 .splineTo(new Vector2d(-35, -48), Math.toRadians(90))
-                                 .splineTo(new Vector2d(-52, -35), Math.toRadians(180))
                                  .setReversed(true)
+                                 .splineTo(new Vector2d(-24, -36), Math.toRadians(0))
                                  .splineToSplineHeading(new Pose2d(55, -36, Math.toRadians(180)), Math.toRadians(0))
                                  .build());
                  }
