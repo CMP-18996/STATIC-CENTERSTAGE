@@ -38,7 +38,7 @@ public class Robot {
         rightRear = new MotorEx(hardwareMap,"rightRear");
         rightRear.setRunMode(Motor.RunMode.RawPower);
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-
+        /*
         liftOne = new Motor(hardwareMap, "liftOne");
         liftOne.setRunMode(Motor.RunMode.PositionControl);
         liftOne.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
@@ -46,7 +46,7 @@ public class Robot {
         liftTwo = new Motor(hardwareMap, "liftTwo");
         liftTwo.setRunMode(Motor.RunMode.PositionControl);
         liftTwo.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        /*
+
         intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);
         intakeMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
@@ -65,7 +65,7 @@ public class Robot {
         depositServo1.setInverted(false);
         depositServo2 = new SimpleServo(hardwareMap, "deposit2", depositServoMinRot, depositServoMaxRot);
         depositServo2.setInverted(true);
-````````*/
+````````
 
         // Deposit
         xAdj = new MotorEx(hardwareMap, "xAdj");
@@ -86,5 +86,6 @@ public class Robot {
         double channelMinRot = 0.0;
         double channelMaxRot = 180.0;
         depositExpansion = new SimpleServo(hardwareMap, "channel", channelMinRot, channelMaxRot);
+         */
     }
 }

@@ -31,24 +31,24 @@ public class StackCommand extends CommandBase {
         switch (GlobalVariables.color) {
             case BLUE:
                 Actions.runBlocking(
-                        drive.actionBuilder(new Pose2d(51, 36,0))
-                                .setReversed(true)
-                                .splineToSplineHeading(new Pose2d(12, 12, Math.toRadians(0)), Math.toRadians(180))
-                                .splineToSplineHeading(new Pose2d(-62, 12, Math.toRadians(0)), Math.toRadians(180))
+                        drive.actionBuilder(drive.pose)
                                 .setReversed(false)
-                                .splineTo(new Vector2d(12, 12), Math.toRadians(0))
-                                .splineTo(new Vector2d(51, 36), Math.toRadians(0))
+                                .splineTo(new Vector2d(-16, 35), Math.toRadians(180))
+                                .splineTo(new Vector2d(-62, 12), Math.toRadians(180))
+                                .setReversed(true)
+                                .splineTo(new Vector2d(0, 12), Math.toRadians(0))
+                                .splineTo(new Vector2d(55, 36), Math.toRadians(0))
                                 .build());
                 break;
             case RED:
                 Actions.runBlocking(
-                        drive.actionBuilder(new Pose2d(51, -36,0))
-                                .setReversed(true)
-                                .splineToSplineHeading(new Pose2d(12, -12, Math.toRadians(0)), Math.toRadians(180))
-                                .splineToSplineHeading(new Pose2d(-62, -12, Math.toRadians(0)), Math.toRadians(180))
+                        drive.actionBuilder(drive.pose)
                                 .setReversed(false)
-                                .splineTo(new Vector2d(12, -12), Math.toRadians(0))
-                                .splineTo(new Vector2d(51, -36), Math.toRadians(0))
+                                .splineTo(new Vector2d(-16, -35), Math.toRadians(180))
+                                .splineTo(new Vector2d(-62, -12), Math.toRadians(180))
+                                .setReversed(true)
+                                .splineTo(new Vector2d(0, -12), Math.toRadians(0))
+                                .splineTo(new Vector2d(55, -36), Math.toRadians(0))
                                 .build());
         }
         t = true;
