@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.auto.DepositRotatorComm
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
+import org.firstinspires.ftc.teamcode.opmode.tests.TwoSlotDetectedCommand;
 
 public class TakeFromDepositCommand extends SequentialCommandGroup {
     public TakeFromDepositCommand(LiftSubsystem liftSubsystem, DepositSubsystem depositSubsystem, IntakeSubsystem intakeSubsystem) {
