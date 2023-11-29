@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.common.commandbase;
+package org.firstinspires.ftc.teamcode.opmode.tests;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
