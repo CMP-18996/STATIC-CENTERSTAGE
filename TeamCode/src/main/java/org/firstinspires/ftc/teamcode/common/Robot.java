@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
 public class Robot {
-    public Motor leftFront, rightFront, leftRear, rightRear, intakeMotor, xAdj, liftOne, liftTwo;
+    public MotorEx leftFront, rightFront, leftRear, rightRear, intakeMotor, xAdj, liftOne, liftTwo;
     public ServoEx coverServo, fourBar, leftGrabber, rightGrabber, depositExpansion,
             depositRotator, droneServo, hangServo1, hangServo2;
     public Camera camera;
@@ -38,11 +38,11 @@ public class Robot {
         rightRear.setRunMode(Motor.RunMode.RawPower);
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
-        liftOne = new Motor(hardwareMap, "liftOne");
+        liftOne = new MotorEx(hardwareMap, "liftOne");
         liftOne.setRunMode(Motor.RunMode.PositionControl);
         liftOne.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
-        liftTwo = new Motor(hardwareMap, "liftTwo");
+        liftTwo = new MotorEx(hardwareMap, "liftTwo");
         liftTwo.setInverted(true);
         liftTwo.setRunMode(Motor.RunMode.PositionControl);
         liftTwo.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
