@@ -78,7 +78,7 @@ public class InstructionInterpreter {
                             case "wait":
                                 CommandScheduler.getInstance().schedule(new WaitCommand(500));
                             case "deposit prop pixel":
-                                CommandScheduler.getInstance().schedule(new ToSpikeMarkCommand(telemetry));
+                                CommandScheduler.getInstance().schedule(new ToSpikeMarkCommand(drive));
                             case "align":
                                 CommandScheduler.getInstance().schedule(new ToTagCommand(robot.camera, drive));
                             default:

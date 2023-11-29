@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
@@ -26,8 +27,8 @@ public class Auto extends CommandOpMode {
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
-        GlobalVariables.color = GlobalVariables.Color.RED;
-        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
+        GlobalVariables.color = GlobalVariables.Color.BLUE;
+        GlobalVariables.distance = GlobalVariables.Distance.BLUECLOSE;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
 
         CommandScheduler.getInstance().reset();
@@ -40,7 +41,8 @@ public class Auto extends CommandOpMode {
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new ToSpikeMarkCommand(telemetry),
+                        new ToSpikeMarkCommand(drive),
+                        new WaitCommand(5000),
                         new ToBoardCommand(drive),
                         new ToTagCommand(robot.camera, drive),
                         new ParallelCommandGroup(
@@ -62,6 +64,7 @@ public class Auto extends CommandOpMode {
     }
     @Override
     public void run() {
+        GlobalVariables.position = GlobalVariables.Position.LEFT;
         CommandScheduler.getInstance().run();
         telemetry.addData("Status", "Running...");
         telemetry.update();
