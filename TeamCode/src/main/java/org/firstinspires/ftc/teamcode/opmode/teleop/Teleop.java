@@ -12,6 +12,10 @@ import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
 import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
 
+/**
+ * Triggers intake reverse
+ * Bumpers, deposit
+ */
 @TeleOp(name="Final TeleOp", group="Official")
 public class Teleop extends CommandOpMode {
     private Robot robot;
@@ -19,6 +23,8 @@ public class Teleop extends CommandOpMode {
     private GamepadEx drivePad;
     private GamepadEx liftPad;
     private TouchpadSubsystem touchpad;
+    private int row;
+    private int column;
     @Override
     public void initialize() {
         CommandScheduler.getInstance().reset();
@@ -33,6 +39,9 @@ public class Teleop extends CommandOpMode {
 
         liftPad.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(() -> schedule(new InstantCommand(() -> touchpad.deleteLastInput())));
+
+        row = touchpad.getHistory().get(touchpad.getHistory().size() - 2);
+        column = touchpad.getHistory().get(touchpad.getHistory().size() - 1);
 
         telemetry.addData("Status", "Ready!");
         telemetry.update();
