@@ -14,10 +14,10 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.DriveToTagCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.DriveToStackCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.ApproachCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.PropPixelGroundCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToTagCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToStackCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToBoardCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
 import java.io.File;
@@ -78,24 +78,24 @@ public class InstructionInterpreter {
                             case "wait":
                                 CommandScheduler.getInstance().schedule(new WaitCommand(500));
                             case "deposit prop pixel":
-                                CommandScheduler.getInstance().schedule(new PropPixelGroundCommand(telemetry));
+                                CommandScheduler.getInstance().schedule(new ToSpikeMarkCommand(telemetry));
                             case "align":
-                                CommandScheduler.getInstance().schedule(new DriveToTagCommand(robot.camera, drive));
+                                CommandScheduler.getInstance().schedule(new ToTagCommand(robot.camera, drive));
                             default:
                                 switch (colorDistanceByte) {
                                 case 0B00: //blue far
                                     switch (data) {
                                         case "approach":
-                                            CommandScheduler.getInstance().schedule(new ApproachCommand(drive));
+                                            CommandScheduler.getInstance().schedule(new ToBoardCommand(drive));
                                         case "cycle stack":
-                                            CommandScheduler.getInstance().schedule(new DriveToStackCommand(drive));
+                                            CommandScheduler.getInstance().schedule(new ToStackCommand(drive));
                                     }
                                 case 0B01: //blue close
                                     switch (data) {
                                         case "approach":
-                                            CommandScheduler.getInstance().schedule(new ApproachCommand(drive));
+                                            CommandScheduler.getInstance().schedule(new ToBoardCommand(drive));
                                         case "cycle stack":
-                                            CommandScheduler.getInstance().schedule(new DriveToStackCommand(drive));
+                                            CommandScheduler.getInstance().schedule(new ToStackCommand(drive));
                                     }
                                 case 0B10: //red far
 

@@ -8,11 +8,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.DriveToTagCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.DriveToStackCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.ApproachCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.PropPixelCommandGroup;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.PropPixelGroundCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToTagCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToStackCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToBoardCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
 @Autonomous(name = "Auto")
@@ -41,17 +40,19 @@ public class Auto extends CommandOpMode {
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new PropPixelCommandGroup(drive, robot.camera, telemetry),
+                        new ToSpikeMarkCommand(telemetry),
+                        new ToBoardCommand(drive),
+                        new ToTagCommand(robot.camera, drive),
                         new ParallelCommandGroup(
-                                new DriveToStackCommand(drive)
+                                new ToStackCommand(drive)
                                 /*new SequentialCommandGroup(
                                         new WaitCommand(2000), // subject to change
                                         new TakeFromDepositCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
                                 )*/
                         ),
-                        new DriveToTagCommand(robot.camera, drive),
-                        new DriveToStackCommand(drive),
-                        new DriveToTagCommand(robot.camera, drive)
+                        new ToTagCommand(robot.camera, drive),
+                        new ToStackCommand(drive),
+                        new ToTagCommand(robot.camera, drive)
                 )
         );
 

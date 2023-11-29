@@ -9,10 +9,9 @@ import org.firstinspires.ftc.teamcode.common.vision.Camera;
 public class PropPixelCommandGroup extends SequentialCommandGroup {
     public PropPixelCommandGroup(MecanumDrive drive, Camera camera, Telemetry telemetry) {
         super(
-                new PropPixelGroundCommand(telemetry),
-                new ApproachCommand(drive),
-                new DriveToTagCommand(camera, drive),
-                new PropPixelBoardCommand(telemetry)
+                new ToSpikeMarkCommand(telemetry),
+                new ToBoardCommand(drive),
+                new ToTagCommand(camera, drive)
         );
     }
 }

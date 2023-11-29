@@ -14,26 +14,23 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 
-public class PropPixelBoardCommand extends CommandBase {
+public class ToSpikeMarkCommand extends CommandBase {
     public Telemetry telemetry;
     WaitCommand t = new WaitCommand(5);
     //TODO: add the other subsystems and their respective commands
-    public PropPixelBoardCommand(Telemetry telemetry) {
+    public ToSpikeMarkCommand(Telemetry telemetry) {
         this.telemetry = telemetry;
     }
     @Override
     public void initialize() {
         switch (GlobalVariables.position) {
-            case UNDETECTED:
-                telemetry.addData("Detected", "nothing");
-                break;
             case LEFT:
                 telemetry.addData("Detected", "left");
                 break;
             case MIDDLE:
                 telemetry.addData("Detected", "middle");
                 break;
-            case RIGHT:
+            default:
                 telemetry.addData("Detected", "right");
                 break;
         }

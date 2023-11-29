@@ -17,11 +17,11 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
-public class ApproachCommand extends CommandBase {
+public class ToBoardCommand extends CommandBase {
     private MecanumDrive drive;
     boolean t = false;
 
-    public ApproachCommand(MecanumDrive drive) {
+    public ToBoardCommand(MecanumDrive drive) {
         this.drive = drive;
     }
     @Override

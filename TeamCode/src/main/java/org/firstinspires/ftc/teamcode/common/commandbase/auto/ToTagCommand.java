@@ -20,13 +20,13 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;
 
-public class DriveToTagCommand extends CommandBase {
+public class ToTagCommand extends CommandBase {
     private Camera camera;
     private MecanumDrive drive;
     int t = 0;
     List<AprilTagDetection> currentDetections;
     private double[] stats = new double[]{0, 0, 0, 0, 0, 0};
-    public DriveToTagCommand(Camera camera, MecanumDrive drive) {
+    public ToTagCommand(Camera camera, MecanumDrive drive) {
         this.camera = camera;
         this.drive = drive;
         addRequirements(this.camera);

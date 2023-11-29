@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.ApproachCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.DriveToTagCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToBoardCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
 @TeleOp(name = "tag localizer", group="test")
@@ -29,8 +29,8 @@ public class TagLocalizerTest extends CommandOpMode {
         drive = new MecanumDrive(hardwareMap, GlobalVariables.distance.getP());
 
         schedule(new SequentialCommandGroup(
-                new ApproachCommand(drive),
-                new DriveToTagCommand(robot.camera, drive)
+                new ToBoardCommand(drive),
+                new ToTagCommand(robot.camera, drive)
         ));
 
         telemetry.addData("Status", "Initialized!");
