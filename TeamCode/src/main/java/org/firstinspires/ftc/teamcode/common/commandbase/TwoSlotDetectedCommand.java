@@ -28,8 +28,8 @@ public class TwoSlotDetectedCommand extends CommandBase {
             this.intakeSubsystem = intakeSubsystem;
         }
         @Override
-            public boolean isFinished() {
-            intakeSubsystem.checkFilled(); // return {function that returns true or false depending on if both slots are filled}
+        public boolean isFinished() {
+            return intakeSubsystem.checkFilled(); // return {function that returns true or false depending on if both slots are filled}
 
         }
 
