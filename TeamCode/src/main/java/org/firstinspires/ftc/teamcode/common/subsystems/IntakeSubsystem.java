@@ -59,6 +59,7 @@ public class IntakeSubsystem extends SubsystemBase {
                 break;
             case REPELLING:
                 // robot.intakeMotor.set(-repelPower);
+                CommandScheduler.getInstance().reset();
                 CommandScheduler.getInstance().schedule(
                         new SequentialCommandGroup(
                                 new IntakeWait(this)
