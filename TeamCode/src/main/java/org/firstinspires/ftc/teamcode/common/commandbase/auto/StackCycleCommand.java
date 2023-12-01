@@ -17,10 +17,10 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
-public class ToStackCommand extends CommandBase {
+public class StackCycleCommand extends CommandBase {
     private MecanumDrive drive;
     boolean t = false;
-    public ToStackCommand(MecanumDrive drive) {
+    public StackCycleCommand(MecanumDrive drive) {
         this.drive = drive;
     }
     @Override

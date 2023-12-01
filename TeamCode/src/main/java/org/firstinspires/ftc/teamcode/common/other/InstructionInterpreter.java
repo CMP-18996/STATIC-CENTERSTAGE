@@ -15,7 +15,7 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToTagCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToStackCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.StackCycleCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToBoardCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
@@ -88,14 +88,14 @@ public class InstructionInterpreter {
                                         case "approach":
                                             CommandScheduler.getInstance().schedule(new ToBoardCommand(drive));
                                         case "cycle stack":
-                                            CommandScheduler.getInstance().schedule(new ToStackCommand(drive));
+                                            CommandScheduler.getInstance().schedule(new StackCycleCommand(drive));
                                     }
                                 case 0B01: //blue close
                                     switch (data) {
                                         case "approach":
                                             CommandScheduler.getInstance().schedule(new ToBoardCommand(drive));
                                         case "cycle stack":
-                                            CommandScheduler.getInstance().schedule(new ToStackCommand(drive));
+                                            CommandScheduler.getInstance().schedule(new StackCycleCommand(drive));
                                     }
                                 case 0B10: //red far
 
