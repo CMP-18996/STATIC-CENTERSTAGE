@@ -20,7 +20,10 @@ public class MeepMeepTesting {
                             .waitSeconds(1)
                             .splineToSplineHeading(new Pose2d(-24, 59, Math.toRadians(180.1)), Math.toRadians(0))
                             .splineToSplineHeading(new Pose2d(52, 36, Math.toRadians(180)), Math.toRadians(0))
-                            .waitSeconds(1)
+                            .setReversed(false)
+                            .splineTo(new Vector2d(-62, 35), Math.toRadians(180))
+                            .setReversed(true)
+                            .splineTo(new Vector2d(53,  35), Math.toRadians(0))
                         .build()
                 );
 
