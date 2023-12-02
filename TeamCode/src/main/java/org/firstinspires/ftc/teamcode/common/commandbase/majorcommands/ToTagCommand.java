@@ -8,7 +8,7 @@
  * - Camera fails to see apriltag due to distance, blur, or lighting
  * - Various camera crashes
  */
-package org.firstinspires.ftc.teamcode.common.commandbase.auto;
+package org.firstinspires.ftc.teamcode.common.commandbase.majorcommands;
 
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
@@ -50,7 +50,7 @@ public class ToTagCommand extends CommandBase {
                 for (AprilTagDetection tag : currentDetections) {
                     if (tag.id == 2 || tag.id == 5) {
                         stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
-                                tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
+                                tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw };
                         Actions.runBlocking(drive.actionBuilder(drive.pose)
                                 .splineTo(new Vector2d(drive.pose.position.x - stats[0],
                                                 drive.pose.position.y + stats[1]),

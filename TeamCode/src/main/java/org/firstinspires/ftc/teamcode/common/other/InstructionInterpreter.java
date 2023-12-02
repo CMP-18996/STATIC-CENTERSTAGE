@@ -14,7 +14,7 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToTagCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.StackCycleCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToBoardCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand;

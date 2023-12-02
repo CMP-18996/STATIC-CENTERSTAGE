@@ -44,7 +44,6 @@ public class Camera extends SubsystemBase {
         aprilTag = new AprilTagProcessor
                 // I have no clue what this stuff does
                 .Builder()
-                .setLensIntrinsics(1430, 1430, 480, 620) // manually found values: 920.510, 921.306, 653.369, 354.512, these are worse
                 .setDrawAxes(true)
                 .setDrawTagOutline(true)
                 .setOutputUnits(DistanceUnit.INCH, AngleUnit.DEGREES)

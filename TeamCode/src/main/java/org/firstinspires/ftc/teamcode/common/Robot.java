@@ -16,9 +16,8 @@ public class Robot {
     public HardwareMap hardwareMap;
 
     public Robot(HardwareMap hardwareMap) {
-        if (GlobalVariables.opMode.equals(GlobalVariables.OpMode.AUTO)) {
-            camera = new Camera(hardwareMap);
-        }
+        camera = new Camera(hardwareMap);
+
         // drivetrain
         this.hardwareMap = hardwareMap;
         leftFront = new MotorEx(hardwareMap, "leftFront");
@@ -38,6 +37,9 @@ public class Robot {
         rightRear.setRunMode(Motor.RunMode.RawPower);
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
+
+        /*
+        // Lift
         liftOne = new MotorEx(hardwareMap, "liftOne");
         liftOne.setRunMode(Motor.RunMode.PositionControl);
         liftOne.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
@@ -47,11 +49,11 @@ public class Robot {
         liftTwo.setRunMode(Motor.RunMode.PositionControl);
         liftTwo.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
+        // Intake
         intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);
         intakeMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
-        // intake
         double coverServoMinRot = 0.0;
         double coverServoMaxRot = 180.0;
         coverServo = new SimpleServo(hardwareMap, "cover1", coverServoMinRot, coverServoMaxRot);
@@ -91,5 +93,7 @@ public class Robot {
         double handServoMaxRot = 10.0;
         hangServo1 = new SimpleServo(hardwareMap, "hangServo1", hangServoMinRot, handServoMaxRot);
         hangServo2 = new SimpleServo(hardwareMap, "hangServo2", hangServoMinRot, handServoMaxRot);
+
+         */
     }
 }
