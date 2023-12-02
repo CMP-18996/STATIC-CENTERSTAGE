@@ -67,8 +67,8 @@ public class DepositSubsystem extends SubsystemBase {
     }
 
     public void setDepositRotationState(DepositRotationState depositRotationState) {
+        robot.depositRotator.setPosition(this.depositRotationState.value - depositRotationState.value);
         this.depositRotationState = depositRotationState;
-        robot.depositRotator.setPosition(depositRotationState.value);
     }
 
     public DepositSubsystem(Robot robot) {
@@ -102,12 +102,13 @@ public class DepositSubsystem extends SubsystemBase {
         ExpandedState(double val) { value = val; }
     }
     public enum UpperHorizontalState {
-        A(centerVal - 2.5 * incrementVal),
-        B(centerVal - 1.5 * incrementVal),
-        C(centerVal - .5 * incrementVal),
-        D(centerVal + .5 * incrementVal),
-        E(centerVal + 1.5 * incrementVal),
-        F(centerVal + 2.5 * incrementVal);
+        A(centerVal - 3 * incrementVal),
+        B(centerVal - 2 * incrementVal),
+        C(centerVal - 1 * incrementVal),
+        D(centerVal),
+        E(centerVal + 1 * incrementVal),
+        F(centerVal + 2 * incrementVal),
+        G(centerVal + 3);
         public double value;
         UpperHorizontalState(double val) {
             value = val;
@@ -115,11 +116,13 @@ public class DepositSubsystem extends SubsystemBase {
     }
 
     public enum LowerHorizontalState {
-        A(centerVal - 2 * incrementVal),
-        B(centerVal - 1 * incrementVal),
-        C(centerVal),
-        D(centerVal + 1 * incrementVal),
-        E(centerVal + 2 * incrementVal);
+        A(centerVal - 2.5 * incrementVal),
+        B(centerVal - 1.5 * incrementVal),
+        C(centerVal - .5 * incrementVal),
+        D(centerVal + .5 * incrementVal),
+        E(centerVal + 1.5 * incrementVal),
+        F(centerVal + 2.5 * incrementVal);
+
         public double value;
         LowerHorizontalState(double val) {
             value = val;

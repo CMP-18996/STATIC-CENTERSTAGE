@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.common.subsystems;
 
+import androidx.annotation.NonNull;
+
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
@@ -26,6 +28,7 @@ public class LiftSubsystem extends SubsystemBase {
     public enum LiftHeight {
         // Change the values for the actual robot, otherwise it'll probably crash
         // At least six states
+        // Probably can only use up to eight total actual heights
         BASE(0),
         HEIGHTONE(10),
         HEIGHTTWO(20),
@@ -70,6 +73,7 @@ public class LiftSubsystem extends SubsystemBase {
         robot.liftTwo.set(power);
     }
 
+    @Deprecated
     public void updateStatePID(LiftHeight height) {
         int error;
         error = height.getHeight() - this.getCurrentHeight().getHeight();
@@ -86,12 +90,41 @@ public class LiftSubsystem extends SubsystemBase {
 
     }
 
+    @Deprecated
     public void resetPid() {
         pidfController.setPIDF(0.7, 0.2, 0.5, 0);
     }
 
     public boolean motorsFinished() {
         return robot.liftOne.atTargetPosition() && robot.liftTwo.atTargetPosition();
+    }
+
+    @Deprecated
+    public static LiftSubsystem.LiftHeight getHeightFromInt(int i) {
+        switch(i) {
+            case 1:
+                return LiftHeight.HEIGHTONE;
+            case 2:
+                return LiftHeight.HEIGHTTWO;
+            case 3:
+                return LiftHeight.HEIGHTTHREE;
+            case 4:
+                return LiftHeight.HEIGHTFOUR;
+            case 5:
+                return LiftHeight.HEIGHTFIVE;
+            case 6:
+                return LiftHeight.HEIGHTSIX;
+            case 7:
+                return LiftHeight.HEIGHTSEVEN;
+            case 8:
+                return LiftHeight.HEIGHTEIGHT;
+            case 9:
+                return LiftHeight.HEIGHTNINE;
+            case 10:
+                return LiftHeight.HEIGHTTEN;
+            default:
+                return LiftHeight.PICKUPHEIGHT;
+        }
     }
 }
 
