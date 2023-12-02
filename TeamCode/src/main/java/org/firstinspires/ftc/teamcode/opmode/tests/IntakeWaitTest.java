@@ -38,6 +38,8 @@ Stall/Move Back and Forwards Command
                         new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED),
                         new WaitCommand(1000),
                         new IntakeWait(intake),
+                        new WaitCommand(500),
+                        new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
                         new WaitCommand(500)
                 )
         );
