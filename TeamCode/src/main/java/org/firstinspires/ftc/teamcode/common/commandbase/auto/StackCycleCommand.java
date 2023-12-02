@@ -17,10 +17,10 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
-public class ToStackCommand extends CommandBase {
+public class StackCycleCommand extends CommandBase {
     private MecanumDrive drive;
     boolean t = false;
-    public ToStackCommand(MecanumDrive drive) {
+    public StackCycleCommand(MecanumDrive drive) {
         this.drive = drive;
     }
     @Override
@@ -32,10 +32,8 @@ public class ToStackCommand extends CommandBase {
                 Actions.runBlocking(
                         drive.actionBuilder(drive.pose)
                                 .setReversed(false)
-                                .splineTo(new Vector2d(-24, 35), Math.toRadians(180))
-                                .splineTo(new Vector2d(-62, 12), Math.toRadians(180))
+                                .splineTo(new Vector2d(-62, 36), Math.toRadians(180))
                                 .setReversed(true)
-                                .splineTo(new Vector2d(-24, 35), Math.toRadians(0))
                                 .splineTo(new Vector2d(53,  36), Math.toRadians(0))
                                 .build());
                 break;
@@ -43,10 +41,8 @@ public class ToStackCommand extends CommandBase {
                 Actions.runBlocking(
                         drive.actionBuilder(drive.pose)
                                 .setReversed(false)
-                                .splineTo(new Vector2d(-24, -36), Math.toRadians(180))
-                                .splineTo(new Vector2d(-62, -12), Math.toRadians(180))
+                                .splineTo(new Vector2d(-62, -36), Math.toRadians(180))
                                 .setReversed(true)
-                                .splineTo(new Vector2d(-24, -36), Math.toRadians(0))
                                 .splineTo(new Vector2d(53, -36), Math.toRadians(0))
                                 .build());
         }

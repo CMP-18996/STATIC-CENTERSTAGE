@@ -10,13 +10,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToTagCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToStackCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.StackCycleCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToBoardCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
-@Autonomous(name = "Auto")
-public class Auto extends CommandOpMode {
+@Autonomous(name = "Blue Close")
+public class BlueCloseAuto extends CommandOpMode {
     public Robot robot;
     public MecanumDrive drive;
     /*public IntakeSubsystem intakeSubsystem;
@@ -46,14 +46,14 @@ public class Auto extends CommandOpMode {
                         new ToBoardCommand(drive),
                         new ToTagCommand(robot.camera, drive),
                         new ParallelCommandGroup(
-                                new ToStackCommand(drive)
+                                new StackCycleCommand(drive)
                                 /*new SequentialCommandGroup(
                                         new WaitCommand(2000), // subject to change
                                         new TakeFromDepositCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
                                 )*/
                         ),
                         new ToTagCommand(robot.camera, drive),
-                        new ToStackCommand(drive),
+                        new StackCycleCommand(drive),
                         new ToTagCommand(robot.camera, drive)
                 )
         );

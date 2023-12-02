@@ -11,7 +11,6 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;
 
-@Disabled
 @TeleOp(name="VisionPortalTest",group="test")
 public class VisionPortalTest extends CommandOpMode {
     public Camera camera;
