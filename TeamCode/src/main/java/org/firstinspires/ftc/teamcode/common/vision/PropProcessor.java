@@ -38,7 +38,6 @@ public class PropProcessor implements VisionProcessor {
     private Mat hsvMat;
     private Mat mask;
     private Mat resized;
-    private Mat negMat;
     private List<MatOfPoint> contours;
     private Mat fillerMat;
     private MatOfPoint largestContour;
@@ -80,7 +79,6 @@ public class PropProcessor implements VisionProcessor {
         Imgproc.resize(frame, resized, dimensions);
 
         hsvMat = new Mat();
-        negMat = new Mat();
         mask = new Mat();
         fillerMat = new Mat();
         contours = new ArrayList<>();
@@ -99,9 +97,9 @@ public class PropProcessor implements VisionProcessor {
             pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
             //Imgproc.drawContours(frame, arbitrary, 0, new Scalar(42, 42, 129), -1, Imgproc.LINE_8, fillerMat, 0);
             telemetryTestVal = pixelVal;
-            if (pixelVal < width * scalePercent / 3) {
+            if (pixelVal < 130) {
                 leftPos++;
-            } else if (pixelVal < width * scalePercent * 2 / 3) {
+            } else if (pixelVal < 350) {
                 middlePos++;
             } else {
                 rightPos++;

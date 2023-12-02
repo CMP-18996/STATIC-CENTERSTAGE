@@ -1,19 +1,10 @@
 package org.firstinspires.ftc.teamcode.common.subsystems;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.Motor.Encoder;
-import com.arcrobotics.ftclib.util.Timing;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.controller.PIDFController;
-import com.arcrobotics.ftclib.util.Timing.Timer;
-import org.firstinspires.ftc.teamcode.common.commandbase.IntakeWait;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class LiftSubsystem extends SubsystemBase {
     private double power = .4;
@@ -47,7 +38,7 @@ public class LiftSubsystem extends SubsystemBase {
         HEIGHTNINE(90),
         HEIGHTTEN(100),
         HEIGHTELEVEN(110),
-        PICKUPHEIGHT(120);
+        PICKUPHEIGHT(5);
 
         private final int height;
 

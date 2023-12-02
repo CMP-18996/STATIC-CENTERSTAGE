@@ -1,16 +1,10 @@
-package org.firstinspires.ftc.teamcode.common.commandbase;
+package org.firstinspires.ftc.teamcode.common.commandbase.majorcommands;
 
-import com.arcrobotics.ftclib.command.CommandBase;
-import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.WaitCommand;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.arcrobotics.ftclib.util.Timing;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 
-import java.util.concurrent.TimeUnit;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
 public class IntakeWait extends SequentialCommandGroup {

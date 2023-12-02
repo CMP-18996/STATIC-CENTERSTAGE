@@ -12,8 +12,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.IntakeCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.IntakeWait;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.IntakeWait;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 
 @TeleOp(name = "IntakeWaitTest",group="test")

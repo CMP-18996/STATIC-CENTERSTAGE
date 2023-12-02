@@ -6,8 +6,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.IntakeCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.IntakeWait;
+import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.IntakeWait;
 
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -58,13 +57,7 @@ public class IntakeSubsystem extends SubsystemBase {
                 robot.intakeMotor.set(0);
                 break;
             case REPELLING:
-                // robot.intakeMotor.set(-repelPower);
-                CommandScheduler.getInstance().reset();
-                CommandScheduler.getInstance().schedule(
-                        new SequentialCommandGroup(
-                                new IntakeWait(this)
-                        )
-                );
+                robot.intakeMotor.set(-repelPower);
                 break;
         }
     }

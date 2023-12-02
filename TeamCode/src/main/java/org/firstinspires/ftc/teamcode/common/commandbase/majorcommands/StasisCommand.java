@@ -1,10 +1,13 @@
-package org.firstinspires.ftc.teamcode.common.commandbase;
+package org.firstinspires.ftc.teamcode.common.commandbase.majorcommands;
 
 //
 
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.DepositRotatorCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;

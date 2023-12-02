@@ -53,11 +53,11 @@ public class Camera extends SubsystemBase {
         propProcessor = new PropProcessor(GlobalVariables.color);
         visionPortal = new VisionPortal.Builder()
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
-                .setCameraResolution(new Size(640, 480))
-                .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
+                // .setCameraResolution(new Size(1080, 920))
+                // .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
                 .addProcessor(propProcessor)
-                .setAutoStopLiveView(true)
                 .addProcessor(aprilTag)
+                .setAutoStopLiveView(true)
                 .build();
         while (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
             try {
