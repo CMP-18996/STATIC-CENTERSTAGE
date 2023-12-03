@@ -27,38 +27,38 @@ public class ToSpikeMarkCommand extends CommandBase {
         if (imag == 0) imag += 0.000000000000001;
         double h = Math.atan(imag / real);
         if (real < 0) h += Math.PI;
+        if (h >= 2 * Math.PI) h -= 2 * Math.PI;
         return h;
     }
     @Override
-    public void initialize() {
-        p = drive.pose;
+    public void initialize() {p = drive.pose;}
+    @Override
+    public void execute() {
         switch (GlobalVariables.position) {
             case LEFT:
-                Actions.runBlocking(drive.actionBuilder(p)
+                Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .setReversed(true)
-                        .splineTo(new Vector2d(p.position.x + Math.signum(p.position.y) * 2, p.position.y - Math.signum(p.position.y) * 29),
+                        .splineTo(new Vector2d(p.position.x + Math.signum(p.position.y) * 2, p.position.y - Math.signum(p.position.y) * 25),
                                 calculateHeading(p.heading.real, p.heading.imag) - Math.PI / 2)
                         .build());
                 break;
             case RIGHT:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .setReversed(true)
-                        .splineTo(new Vector2d(p.position.x - Math.signum(p.position.y) * 2, p.position.y - Math.signum(p.position.y) * 2),
+                        .splineTo(new Vector2d(p.position.x - Math.signum(p.position.y) * 2, p.position.y - Math.signum(p.position.y) * 25),
                                 calculateHeading(p.heading.real, p.heading.imag) + Math.PI / 2)
                         .build());
                 break;
             default: //middle and nothing, bc average convenient position
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .setReversed(true)
-                        .splineTo(new Vector2d(p.position.x, p.position.y - Math.signum(p.position.y) * 29),
+                        .splineTo(new Vector2d(p.position.x, p.position.y - Math.signum(p.position.y) * 25),
                                 calculateHeading(p.heading.real, p.heading.imag))
                         .build());
                 break;
         }
         t = true;
     }
-    @Override
-    public void execute() {}
     @Override
     public boolean isFinished() { return t;}
 }

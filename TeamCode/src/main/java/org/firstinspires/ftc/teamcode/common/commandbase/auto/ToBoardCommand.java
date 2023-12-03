@@ -30,38 +30,18 @@ public class ToBoardCommand extends CommandBase {
     public void execute() {
         switch (GlobalVariables.color) {
              case BLUE:
-                switch (GlobalVariables.distance) {
-                    case BLUECLOSE:
-                        Actions.runBlocking(drive.actionBuilder(BLUECLOSE.getP())
-                                .setReversed(true)
-                                .turnTo(Math.toRadians(180))
-                                .splineToSplineHeading(new Pose2d(46, 36, Math.toRadians(180)), Math.toRadians(0))
-                                .build());
-                    break;
-                    case BLUEFAR:
-                        Actions.runBlocking(drive.actionBuilder(BLUEFAR.getP())
-                                .setReversed(true)
-                                .turnTo(Math.toRadians(180))
-                                .splineToSplineHeading(new Pose2d(46, 36, Math.toRadians(180)), Math.toRadians(0))
-                                .build());
-                }
+                 Actions.runBlocking(drive.actionBuilder(drive.pose)
+                         .setReversed(true)
+                         .turnTo(Math.toRadians(180))
+                         .splineToSplineHeading(new Pose2d(46, 36, Math.toRadians(180)), Math.toRadians(0))
+                         .build());
                 break;
              case RED:
-                 switch (GlobalVariables.distance) {
-                     case REDCLOSE:
-                         Actions.runBlocking(drive.actionBuilder(REDCLOSE.getP())
-                                 .setReversed(true)
-                                 .turnTo(Math.toRadians(180))
-                                 .splineToSplineHeading(new Pose2d(46, -36, Math.toRadians(180)), Math.toRadians(0))
-                                 .build());
-                         break;
-                     case REDFAR:
-                         Actions.runBlocking(drive.actionBuilder(REDFAR.getP())
-                                 .setReversed(true)
-                                 .turnTo(Math.toRadians(180))
-                                 .splineToSplineHeading(new Pose2d(46, 36, Math.toRadians(180)), Math.toRadians(0))
-                                 .build());
-                 }
+                 Actions.runBlocking(drive.actionBuilder(drive.pose)
+                         .setReversed(true)
+                         .turnTo(Math.toRadians(180))
+                         .splineToSplineHeading(new Pose2d(46, -36, Math.toRadians(180)), Math.toRadians(0))
+                         .build());
         }
         t = true;
     }

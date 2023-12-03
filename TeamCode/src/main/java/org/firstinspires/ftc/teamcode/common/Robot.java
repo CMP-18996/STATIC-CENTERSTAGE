@@ -17,7 +17,6 @@ public class Robot {
 
     public Robot(HardwareMap hardwareMap) {
         camera = new Camera(hardwareMap);
-
         // drivetrain
         this.hardwareMap = hardwareMap;
         leftFront = new MotorEx(hardwareMap, "leftFront");
@@ -40,7 +39,7 @@ public class Robot {
 
         /*
         // Lift
-        liftOne = new MotorEx(hardwareMap, "liftOne");
+        /*liftOne = new MotorEx(hardwareMap, "liftOne");
         liftOne.setRunMode(Motor.RunMode.PositionControl);
         liftOne.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
@@ -92,8 +91,6 @@ public class Robot {
         double hangServoMinRot = 0.0;
         double handServoMaxRot = 10.0;
         hangServo1 = new SimpleServo(hardwareMap, "hangServo1", hangServoMinRot, handServoMaxRot);
-        hangServo2 = new SimpleServo(hardwareMap, "hangServo2", hangServoMinRot, handServoMaxRot);
-
-         */
+        hangServo2 = new SimpleServo(hardwareMap, "hangServo2", hangServoMinRot, handServoMaxRot);*/
     }
 }

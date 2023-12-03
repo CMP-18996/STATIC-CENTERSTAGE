@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToBoardCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
+import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
 @Autonomous(name = "Red Far")
 public class RedFarAuto extends CommandOpMode {
@@ -24,7 +25,7 @@ public class RedFarAuto extends CommandOpMode {
     public LiftSubsystem liftSubsystem;*/
     @Override
     public void initialize() {
-        telemetry.addData("Status","Initalizing...");
+        telemetry.addData("Status","Initializing...");
         telemetry.update();
 
         GlobalVariables.color = GlobalVariables.Color.RED;
@@ -44,29 +45,27 @@ public class RedFarAuto extends CommandOpMode {
                         new ToSpikeMarkCommand(drive),
                         new WaitCommand(5000),
                         new ToBoardCommand(drive),
-                        new ToTagCommand(robot.camera, drive),
+                        //new ToTagCommand(robot.camera, drive),
                         new ParallelCommandGroup(
                                 new StackCycleCommand(drive)
-                                /*new SequentialCommandGroup(
-                                        new WaitCommand(2000), // subject to change
-                                        new TakeFromDepositCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
-                                )*/
+                                //new SequentialCommandGroup(
+                                    //    new WaitCommand(2000), // subject to change
+                                  //      new TakeFromDepositCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
+                                //)
                         ),
-                        new ToTagCommand(robot.camera, drive),
-                        new StackCycleCommand(drive),
-                        new ToTagCommand(robot.camera, drive)
+                        //new ToTagCommand(robot.camera, drive),
+                        new StackCycleCommand(drive)
+                        //new ToTagCommand(robot.camera, drive)
                 )
         );
-
-        robot.camera.startPropProcessing();
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
     }
     @Override
     public void run() {
-        GlobalVariables.position = GlobalVariables.Position.LEFT;
         CommandScheduler.getInstance().run();
         telemetry.addData("Status", "Running...");
         telemetry.update();
+        robot.camera.startPropProcessing();
     }
 }

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmode.tests;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToBoardCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
+@Disabled
 @TeleOp(name = "tag localizer", group="test")
 public class TagLocalizerTest extends CommandOpMode {
     public Robot robot;

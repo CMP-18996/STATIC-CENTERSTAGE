@@ -44,7 +44,7 @@ public class RedCloseAuto extends CommandOpMode {
                         new ToSpikeMarkCommand(drive),
                         new WaitCommand(5000),
                         new ToBoardCommand(drive),
-                        new ToTagCommand(robot.camera, drive),
+                        //new ToTagCommand(robot.camera, drive),
                         new ParallelCommandGroup(
                                 new StackCycleCommand(drive)
                                 /*new SequentialCommandGroup(
@@ -52,9 +52,9 @@ public class RedCloseAuto extends CommandOpMode {
                                         new TakeFromDepositCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
                                 )*/
                         ),
-                        new ToTagCommand(robot.camera, drive),
-                        new StackCycleCommand(drive),
-                        new ToTagCommand(robot.camera, drive)
+                        //new ToTagCommand(robot.camera, drive),
+                        new StackCycleCommand(drive)
+                        //new ToTagCommand(robot.camera, drive)
                 )
         );
 
@@ -64,7 +64,7 @@ public class RedCloseAuto extends CommandOpMode {
     }
     @Override
     public void run() {
-        GlobalVariables.position = GlobalVariables.Position.LEFT;
+        robot.camera.startPropProcessing();
         CommandScheduler.getInstance().run();
         telemetry.addData("Status", "Running...");
         telemetry.update();
