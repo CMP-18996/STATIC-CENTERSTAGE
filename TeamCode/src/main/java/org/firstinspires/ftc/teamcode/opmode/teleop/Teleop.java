@@ -99,13 +99,13 @@ public class Teleop extends CommandOpMode {
                         case CHOOSINGCOLUMN:
                             if (depositLower) {
                                 CommandScheduler.getInstance().schedule(new ParallelCommandGroup(
-                                        // new LiftCommand(liftSubsystem, liftHeights.get(rowNumber)),
+                                        new LiftCommand(liftSubsystem, liftHeights.get(rowNumber)),
                                         new LowerHorizontalMoveCommand(depositSubsystem, depositLowerColumns.get(columnNumber))
                                 ));
                             }
                             else {
                                 CommandScheduler.getInstance().schedule(new ParallelCommandGroup(
-                                        // new LiftCommand(liftSubsystem, liftHeights.get(rowNumber)),
+                                        new LiftCommand(liftSubsystem, liftHeights.get(rowNumber)),
                                         new UpperHorizontalMoveCommand(depositSubsystem, depositUpperColumns.get(columnNumber))
                                 ));
                             }

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.common.subsystems;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
+import com.arcrobotics.ftclib.command.CommandGroupBase;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.SubsystemBase;
@@ -57,7 +58,8 @@ public class IntakeSubsystem extends SubsystemBase {
                 robot.intakeMotor.set(0);
                 break;
             case REPELLING:
-                robot.intakeMotor.set(-repelPower);
+                 robot.intakeMotor.set(-repelPower);
+//                CommandScheduler.getInstance().schedule(new SequentialCommandGroup(new IntakeWait(this)));
                 break;
         }
     }
