@@ -14,7 +14,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
 
-@Disabled
 @TeleOp(name = "ps4Test",group="test")
 public class ps4Test extends CommandOpMode {
     public TouchpadSubsystem touchpad;

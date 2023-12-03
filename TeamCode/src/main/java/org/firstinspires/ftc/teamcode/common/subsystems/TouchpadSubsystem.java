@@ -36,8 +36,16 @@ public class TouchpadSubsystem extends SubsystemBase {
     //note that the latest entry will be second
     public ArrayList<Integer> getHistory() {
         ArrayList<Integer> i = new ArrayList<>();
-        i.add(history.get(history.size() - 2));
-        i.add(history.get(history.size() - 1));
+        if (history.size() == 0) {
+            i.add(0);
+            i.add(0);
+        } else if (history.size() == 1) {
+            i.add(history.get(0));
+            i.add(0);
+        } else {
+            i.add(history.get(history.size() - 2));
+            i.add(history.get(history.size() - 1));
+        }
         return i;
     }
     public Gamepad getGamepad() {return g;}
