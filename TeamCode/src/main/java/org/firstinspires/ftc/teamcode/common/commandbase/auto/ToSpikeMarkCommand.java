@@ -1,9 +1,10 @@
 /**
- * Purpose: Use prop location to drop the yellow pixel in the relative position.
+ * Purpose: Use prop location to drive robot into a position to drop purple pixel
  * Dependencies (variables): POSITION
- * Dependencies (subsystem): ...
+ * Dependencies (subsystem): RR-drive
  * Most Likely Errors:
- * - idk
+ * - Invalid/miscoordinated initial drive pose
+ * - Robot pushed off course
  */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
@@ -36,21 +37,22 @@ public class ToSpikeMarkCommand extends CommandBase {
     public void execute() {
         switch (GlobalVariables.position) {
             case LEFT:
-                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                //TODO: see if replacing runblocking with run does anything
+                Actions.run(drive.actionBuilder(drive.pose)
                         .setReversed(true)
                         .splineTo(new Vector2d(p.position.x + Math.signum(p.position.y) * 2, p.position.y - Math.signum(p.position.y) * 25),
                                 calculateHeading(p.heading.real, p.heading.imag) - Math.PI / 2)
                         .build());
                 break;
             case RIGHT:
-                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                Actions.run(drive.actionBuilder(drive.pose)
                         .setReversed(true)
                         .splineTo(new Vector2d(p.position.x - Math.signum(p.position.y) * 2, p.position.y - Math.signum(p.position.y) * 25),
                                 calculateHeading(p.heading.real, p.heading.imag) + Math.PI / 2)
                         .build());
                 break;
             default: //middle and nothing, bc average convenient position
-                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                Actions.run(drive.actionBuilder(drive.pose)
                         .setReversed(true)
                         .splineTo(new Vector2d(p.position.x, p.position.y - Math.signum(p.position.y) * 25),
                                 calculateHeading(p.heading.real, p.heading.imag))

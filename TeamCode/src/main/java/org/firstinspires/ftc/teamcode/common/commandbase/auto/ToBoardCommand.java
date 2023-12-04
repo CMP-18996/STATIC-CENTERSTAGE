@@ -1,9 +1,9 @@
 /**
- * Purpose: Drive from any starting position to corresponding backdrop.
- * Dependencies (variables): COLOR, DISTANCE
+ * Purpose: Drive from spike mark to board
+ * Dependencies (variables): COLOR
  * Dependencies (subsystem): RR-drive
  * Most Likely Errors:
- * - Dependent variables do not match in color
+ * - Wrong color set
  */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
@@ -30,14 +30,14 @@ public class ToBoardCommand extends CommandBase {
     public void execute() {
         switch (GlobalVariables.color) {
              case BLUE:
-                 Actions.runBlocking(drive.actionBuilder(drive.pose)
+                 Actions.run(drive.actionBuilder(drive.pose)
                          .setReversed(true)
                          .turnTo(Math.toRadians(180))
                          .splineToSplineHeading(new Pose2d(46, 36, Math.toRadians(180)), Math.toRadians(0))
                          .build());
                 break;
              case RED:
-                 Actions.runBlocking(drive.actionBuilder(drive.pose)
+                 Actions.run(drive.actionBuilder(drive.pose)
                          .setReversed(true)
                          .turnTo(Math.toRadians(180))
                          .splineToSplineHeading(new Pose2d(46, -36, Math.toRadians(180)), Math.toRadians(0))
