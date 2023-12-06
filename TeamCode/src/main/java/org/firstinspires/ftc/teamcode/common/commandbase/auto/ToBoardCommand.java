@@ -30,14 +30,14 @@ public class ToBoardCommand extends CommandBase {
     public void execute() {
         switch (GlobalVariables.color) {
              case BLUE:
-                 Actions.run(drive.actionBuilder(drive.pose)
+                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                          .setReversed(true)
                          .turnTo(Math.toRadians(180))
                          .splineToSplineHeading(new Pose2d(46, 36, Math.toRadians(180)), Math.toRadians(0))
                          .build());
                 break;
              case RED:
-                 Actions.run(drive.actionBuilder(drive.pose)
+                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                          .setReversed(true)
                          .turnTo(Math.toRadians(180))
                          .splineToSplineHeading(new Pose2d(46, -36, Math.toRadians(180)), Math.toRadians(0))
