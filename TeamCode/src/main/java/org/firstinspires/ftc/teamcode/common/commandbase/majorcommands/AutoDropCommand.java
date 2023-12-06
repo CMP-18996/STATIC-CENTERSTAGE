@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.SetReadyT
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
     public class AutoDropCommand extends SequentialCommandGroup {
-    AutoDropCommand(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem, LiftSubsystem.LiftHeight LiftHeight, Camera camera, MecanumDrive drive, DepositSubsystem.GrabberState grabberState, DepositSubsystem.GrabberPos grabberPos){
+    AutoDropCommand(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem, LiftSubsystem.LiftHeight LiftHeight, Camera camera, MecanumDrive drive, DepositSubsystem.GrabberPos grabberPos){
         addCommands(
                 new ParallelCommandGroup(
                         new SetReadyToDeposit(depositSubsystem, liftSubsystem, LiftHeight),
