@@ -52,7 +52,7 @@ public class ToSpikeMarkCommand extends CommandBase {
                         .build());
                 break;
             default: //middle and nothing, bc average convenient position
-                Actions.run(drive.actionBuilder(drive.pose)
+                Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .setReversed(true)
                         .splineTo(new Vector2d(p.position.x, p.position.y - Math.signum(p.position.y) * 25),
                                 calculateHeading(p.heading.real, p.heading.imag))
