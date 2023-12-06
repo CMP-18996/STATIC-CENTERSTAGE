@@ -9,11 +9,10 @@ import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 
 
 public class SetReadyToDeposit extends ParallelCommandGroup {
-    SetReadyToDeposit(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem, LiftSubsystem.LiftHeight LiftHeight) {
+    public SetReadyToDeposit(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem, LiftSubsystem.LiftHeight LiftHeight) {
        addCommands(
-               new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
-               new LiftCommand(liftSubsystem, LiftHeight)
-
+                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
+                new LiftCommand(liftSubsystem, LiftHeight)
        );
 
 

@@ -12,16 +12,24 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
+import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.AutoDropCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.IntakeWait;
+import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.SetReadyToDeposit;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.StasisCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.ToTagCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DroneCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.HangCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.UpperHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
+import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
+import org.firstinspires.ftc.teamcode.common.subsystems.MiscSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
+import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
 /**
  * Triggers intake reverse
@@ -37,6 +45,9 @@ public class Teleop extends CommandOpMode {
     private LiftSubsystem liftSubsystem;
     private DepositSubsystem depositSubsystem;
     private IntakeSubsystem intakeSubsystem;
+    private Camera camera;
+    private MiscSubsystem miscSubsystem;
+    private MecanumDrive mecanumDrive;
     private int rowNumber;
     private int columnNumber;
     // I'm sorry about the naming
@@ -71,6 +82,9 @@ public class Teleop extends CommandOpMode {
         liftSubsystem = new LiftSubsystem(robot);
         depositSubsystem = new DepositSubsystem(robot);
         intakeSubsystem = new IntakeSubsystem(robot);
+        camera = robot.camera;
+        miscSubsystem = new MiscSubsystem(robot);
+
         register(drive, touchpad);
 
         liftPad.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
@@ -127,11 +141,30 @@ public class Teleop extends CommandOpMode {
                                 new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem))
                         );
 
-        liftPad.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+        liftPad.getGamepadButton(GamepadKeys.Button.B)
                         .whenPressed(() -> CommandScheduler.getInstance().schedule(
                                 new IntakeWait(intakeSubsystem))
                         );
-//        liftPad.getGamepadButton(GamepadKeys.Button.)
+
+        liftPad.getGamepadButton(GamepadKeys.Button.X)
+                        .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                                )// new SetReadyToDeposit(depositSubsystem))
+                        );
+        /*liftPad.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                        .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                                new ToTagCommand(camera, drive))
+                        );
+         */
+        liftPad.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new DroneCommand(miscSubsystem))
+                );
+        liftPad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new HangCommand(miscSubsystem))
+                );
+
+        // Manually change the intake state
 
         telemetry.addData("Status", "Ready!");
         telemetry.update();
