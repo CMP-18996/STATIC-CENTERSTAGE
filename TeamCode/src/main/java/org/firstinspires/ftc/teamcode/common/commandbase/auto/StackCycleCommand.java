@@ -28,7 +28,7 @@ public class StackCycleCommand extends CommandBase {
     public void execute() {
         switch (GlobalVariables.color) {
             case BLUE:
-                Actions.run(
+                Actions.runBlocking(
                         drive.actionBuilder(drive.pose)
                                 .setReversed(false)
                                 .splineTo(new Vector2d(-62, 36), Math.toRadians(180))
@@ -38,7 +38,7 @@ public class StackCycleCommand extends CommandBase {
                                 .build());
                 break;
             case RED:
-                Actions.run(
+                Actions.runBlocking(
                         drive.actionBuilder(drive.pose)
                                 .setReversed(false)
                                 .splineTo(new Vector2d(-62, -36), Math.toRadians(180))
