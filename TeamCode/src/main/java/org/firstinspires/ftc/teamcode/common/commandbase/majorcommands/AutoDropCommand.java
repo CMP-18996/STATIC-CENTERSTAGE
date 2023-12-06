@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.common.vision.Camera;
                         new SetReadyToDeposit(depositSubsystem, liftSubsystem, LiftHeight),
                         new ToTagCommand(camera, drive)
                 ),
-                new GrabberGripCommand(depositSubsystem, grabberState, grabberPos)
+                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, grabberPos)
         );
     }
 }
