@@ -12,11 +12,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
+import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.IntakeWait;
+import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.StasisCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.UpperHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
+import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
 
@@ -33,6 +36,7 @@ public class Teleop extends CommandOpMode {
     private TouchpadSubsystem touchpad;
     private LiftSubsystem liftSubsystem;
     private DepositSubsystem depositSubsystem;
+    private IntakeSubsystem intakeSubsystem;
     private int rowNumber;
     private int columnNumber;
     // I'm sorry about the naming
@@ -66,6 +70,7 @@ public class Teleop extends CommandOpMode {
         touchpad = new TouchpadSubsystem(gamepad2);
         liftSubsystem = new LiftSubsystem(robot);
         depositSubsystem = new DepositSubsystem(robot);
+        intakeSubsystem = new IntakeSubsystem(robot);
         register(drive, touchpad);
 
         liftPad.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
@@ -117,7 +122,16 @@ public class Teleop extends CommandOpMode {
                     } catch (Exception e) {}
                 });
 
+        liftPad.getGamepadButton(GamepadKeys.Button.A)
+                        .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                                new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem))
+                        );
 
+        liftPad.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                        .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                                new IntakeWait(intakeSubsystem))
+                        );
+//        liftPad.getGamepadButton(GamepadKeys.Button.)
 
         telemetry.addData("Status", "Ready!");
         telemetry.update();
