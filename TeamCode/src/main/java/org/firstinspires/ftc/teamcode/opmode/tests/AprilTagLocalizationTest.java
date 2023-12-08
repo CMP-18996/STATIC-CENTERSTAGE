@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmode.tests;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -21,14 +22,13 @@ public class AprilTagLocalizationTest extends CommandOpMode {
     @Override
     public void initialize() {
         GlobalVariables.color = GlobalVariables.Color.RED;
-        GlobalVariables.distance = GlobalVariables.Distance.REDFAR;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
 
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
-        drive = new MecanumDrive(hardwareMap, GlobalVariables.distance.getP());
+        drive = new MecanumDrive(hardwareMap, new Pose2d(0,0, Math.toRadians(180)));
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new ToTagCommand(robot.camera, drive),
@@ -38,7 +38,7 @@ public class AprilTagLocalizationTest extends CommandOpMode {
                         })
                 )
         );
-
+        robot.camera.startPropProcessing();
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
     }

@@ -42,6 +42,7 @@ public class RedFarAuto extends CommandOpMode {
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
+                        new WaitCommand(2000),
                         new ToSpikeMarkCommand(drive),
                         new ToBoardCommand(drive),
                         //new ToTagCommand(robot.camera, drive),
@@ -56,15 +57,14 @@ public class RedFarAuto extends CommandOpMode {
                 )
         );
 
+        robot.camera.startPropProcessing();
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
     }
     @Override
     public void run() {
         CommandScheduler.getInstance().run();
-
         robot.camera.startPropProcessing();
-
         telemetry.addData("Status", "Running...");
         telemetry.update();
     }

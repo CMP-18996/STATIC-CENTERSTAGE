@@ -10,6 +10,7 @@
  */
 package org.firstinspires.ftc.teamcode.common.commandbase.majorcommands;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.command.CommandBase;
@@ -25,7 +26,7 @@ public class ToTagCommand extends CommandBase {
     private MecanumDrive drive;
     int t = 0;
     List<AprilTagDetection> currentDetections;
-    private double[] stats = new double[]{0, 0, 0, 0, 0, 0};
+
     public ToTagCommand(Camera camera, MecanumDrive drive) {
         this.camera = camera;
         this.drive = drive;
@@ -49,12 +50,18 @@ public class ToTagCommand extends CommandBase {
             if (currentDetections.size() > 0) {
                 for (AprilTagDetection tag : currentDetections) {
                     if (tag.id == 2 || tag.id == 5) {
-                        stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
-                                tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw };
+                        double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
+                                tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
                         Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                .splineTo(new Vector2d(drive.pose.position.x - stats[0],
-                                                drive.pose.position.y + stats[1]),
-                                        Math.toRadians(calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + stats[5]))
+                                .turnTo(calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]))
+                                .build());
+                        Actions.runBlocking(drive.actionBuilder(drive.pose)
+                                .setReversed(true)
+                                .splineToSplineHeading(new Pose2d(
+                                                drive.pose.position.x + stats[1] - 12,
+                                                drive.pose.position.y - stats[0],
+                                                calculateHeading(drive.pose.heading.real, drive.pose.heading.imag)),
+                                        calculateHeading(drive.pose.heading.real, drive.pose.heading.imag))
                                 .build());
                         t = 20;
                         break;
