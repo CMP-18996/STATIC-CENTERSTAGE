@@ -42,6 +42,7 @@ public class ToBoardCommand extends CommandBase {
                          .turnTo(Math.toRadians(180))
                          .splineToSplineHeading(new Pose2d(46, -36, Math.toRadians(180)), Math.toRadians(0))
                          .build());
+                 break;
         }
         t = true;
     }

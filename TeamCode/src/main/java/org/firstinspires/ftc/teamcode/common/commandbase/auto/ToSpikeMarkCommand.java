@@ -37,21 +37,20 @@ public class ToSpikeMarkCommand extends CommandBase {
     public void execute() {
         switch (GlobalVariables.position) {
             case LEFT:
-                //TODO: see if replacing runblocking with run does anything
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .setReversed(true)
                         .splineTo(new Vector2d(p.position.x + Math.signum(p.position.y) * 2, p.position.y - Math.signum(p.position.y) * 25),
                                 calculateHeading(p.heading.real, p.heading.imag) - Math.PI / 2)
                         .build());
                 break;
-            case RIGHT:
+            default: //right and everything else
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .setReversed(true)
                         .splineTo(new Vector2d(p.position.x - Math.signum(p.position.y) * 2, p.position.y - Math.signum(p.position.y) * 25),
                                 calculateHeading(p.heading.real, p.heading.imag) + Math.PI / 2)
                         .build());
                 break;
-            default: //middle and nothing, bc average convenient position
+            case MIDDLE:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .setReversed(true)
                         .splineTo(new Vector2d(p.position.x, p.position.y - Math.signum(p.position.y) * 25),

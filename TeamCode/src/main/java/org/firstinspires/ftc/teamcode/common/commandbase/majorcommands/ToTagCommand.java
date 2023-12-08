@@ -53,15 +53,12 @@ public class ToTagCommand extends CommandBase {
                         double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
                                 tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
                         Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                .turnTo(calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]))
-                                .build());
-                        Actions.runBlocking(drive.actionBuilder(drive.pose)
                                 .setReversed(true)
                                 .splineToSplineHeading(new Pose2d(
                                                 drive.pose.position.x + stats[1] - 12,
                                                 drive.pose.position.y - stats[0],
-                                                calculateHeading(drive.pose.heading.real, drive.pose.heading.imag)),
-                                        calculateHeading(drive.pose.heading.real, drive.pose.heading.imag))
+                                                calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5])),
+                                        calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]))
                                 .build());
                         t = 20;
                         break;

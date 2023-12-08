@@ -46,6 +46,7 @@ public class StackCycleCommand extends CommandBase {
                                 .setReversed(true)
                                 .splineTo(new Vector2d(46, -36), Math.toRadians(0))
                                 .build());
+                break;
         }
         t = true;
     }
