@@ -81,55 +81,51 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void identifyColor() {
-        ColorSensor colorSensor1;
-        ColorSensor colorSensor2;
         int r1, b1, g1, r2, b2, g2;
-        colorSensor1 = hardwareMap.get(ColorSensor.class, "color1");
-        colorSensor2 = hardwareMap.get(ColorSensor.class, "color2");
-        colorSensor1.enableLed(false);
-        colorSensor2.enableLed(false);
 
-            r1 = colorSensor1.red();
-            g1 = colorSensor1.green();
-            b1 = colorSensor1.blue();
-            if (g1 < 200 && b1 < 200 && r1 < 200) {
-                slotOne = ColorState.BLACK;
-            } else if (g1 > b1 && b1 > r1) {
-                if (g1 > 9000) {
-                    slotOne = ColorState.WHITE;
-                } else {
-                    slotOne = ColorState.GREEN;
-                }
-            } else if (g1 > r1 && r1 > b1) {
-                slotOne = ColorState.YELLOW;
-            } else if (b1 > g1 && g1 > r1) {
-                slotOne = ColorState.PURPLE;
+
+
+        r1 = robot.colorSensor1.red();
+        g1 = robot.colorSensor1.green();
+        b1 = robot.colorSensor1.blue();
+        if (g1 < 200 && b1 < 200 && r1 < 200) {
+            slotOne = ColorState.BLACK;
+        } else if (g1 > b1 && b1 > r1) {
+            if (g1 > 9000) {
+                slotOne = ColorState.WHITE;
             } else {
-                slotOne = ColorState.NONE;
+                slotOne = ColorState.GREEN;
             }
-            r2 = colorSensor2.red();
-            g2 = colorSensor2.green();
-            b2 = colorSensor2.blue();
-            if (g2 < 200 && b2 < 200 && r2 < 200) {
-                slotTwo = ColorState.BLACK;
-            } else if (g2 > b2 && b2 > r2) {
-                if (g2 >9000) {
-                slotTwo = ColorState.WHITE;
-                } else {
-                    slotTwo = ColorState.GREEN;
-                }
-            } else if (g2 > r2 && r2 > b2) {
-                slotTwo = ColorState.YELLOW;
-            } else if (b2 > g2 && g2 > r2) {
-                slotTwo = ColorState.PURPLE;
+        } else if (g1 > r1 && r1 > b1) {
+            slotOne = ColorState.YELLOW;
+        } else if (b1 > g1 && g1 > r1) {
+            slotOne = ColorState.PURPLE;
+        } else {
+            slotOne = ColorState.NONE;
+        }
+        r2 = robot.colorSensor2.red();
+        g2 = robot.colorSensor2.green();
+        b2 = robot.colorSensor2.blue();
+        if (g2 < 200 && b2 < 200 && r2 < 200) {
+            slotTwo = ColorState.BLACK;
+        } else if (g2 > b2 && b2 > r2) {
+            if (g2 >9000) {
+            slotTwo = ColorState.WHITE;
             } else {
-                slotTwo = ColorState.NONE;
-
+                slotTwo = ColorState.GREEN;
             }
-
-
+        } else if (g2 > r2 && r2 > b2) {
+            slotTwo = ColorState.YELLOW;
+        } else if (b2 > g2 && g2 > r2) {
+            slotTwo = ColorState.PURPLE;
+        } else {
+            slotTwo = ColorState.NONE;
 
         }
+
+
+
+    }
 
 
     public boolean checkFilled() {

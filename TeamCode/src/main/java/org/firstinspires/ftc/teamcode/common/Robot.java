@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
@@ -13,6 +14,7 @@ public class Robot {
     public ServoEx coverServo, fourBar, leftGrabber, rightGrabber, depositExpansion,
             depositRotator, droneServo, hangServo1, hangServo2;
     public Camera camera;
+    public ColorSensor colorSensor1, colorSensor2;
     public HardwareMap hardwareMap;
 
     public Robot(HardwareMap hardwareMap) {
@@ -53,6 +55,13 @@ public class Robot {
         intakeMotor.setRunMode(Motor.RunMode.RawPower);
         intakeMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
+
+        ColorSensor colorSensor1 = hardwareMap.get(ColorSensor.class, "color1");
+        ColorSensor colorSensor2 = hardwareMap.get(ColorSensor.class, "color2");\
+        colorSensor1.enableLed(false);
+        colorSensor2.enableLed(false);
+         */
+
         double coverServoMinRot = 0.0;
         double coverServoMaxRot = 180.0;
         coverServo = new SimpleServo(hardwareMap, "cover1", coverServoMinRot, coverServoMaxRot);
@@ -91,6 +100,6 @@ public class Robot {
         double hangServoMinRot = 0.0;
         double handServoMaxRot = 10.0;
         hangServo1 = new SimpleServo(hardwareMap, "hangServo1", hangServoMinRot, handServoMaxRot);
-        hangServo2 = new SimpleServo(hardwareMap, "hangServo2", hangServoMinRot, handServoMaxRot);*/
+        hangServo2 = new SimpleServo(hardwareMap, "hangServo2", hangServoMinRot, handServoMaxRot);
     }
 }

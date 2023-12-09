@@ -105,6 +105,10 @@ public class PropProcessor implements VisionProcessor {
                 rightPos++;
             }
         }
+        hsvMat.release();
+        mask.release();
+        fillerMat.release();
+        resized.release();
         return mask;
     }
 
