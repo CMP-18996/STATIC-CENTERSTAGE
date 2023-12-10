@@ -13,8 +13,35 @@ import com.qualcomm.robotcore.util.TypeConversion;
 @DeviceProperties(name="Adafruit HT16K33 LED Screen", description="7 Segment Display", xmlTag="HT16K33")
 public class HT16K33 extends I2cDeviceSynchDevice<I2cDeviceSynch> {
     int testBit = 0x70;
-    public void writeCharacter(DeviceNumber deviceNumber, byte[] character) {
-        deviceClient.write(deviceNumber.address, character, I2cWaitControl.WRITTEN);
+    public void writeByteArr(DeviceNumber deviceNumber, byte[] character) {
+        this.deviceClient.setI2cAddress(deviceNumber.address);
+        deviceClient.write(new byte[] {
+                0x00,
+                character[0], character[1], character[2], character[3],
+                character[4], character[5], character[6], character[7],
+                character[8], character[9], character[10], character[11],
+                character[12], character[13], character[14], character[15]
+        });
+    }
+
+    public void writeCharacter(DeviceNumber deviceNumber, char character) {
+        switch (character) {
+
+        }
+    }
+
+    public enum AvailableCharacters {
+        EMPTY(new int[] {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00}),
+        FILLED(new int[] {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF});
+        byte[] charCode;
+        AvailableCharacters(int[] code) {
+            charCode = new byte[] {
+                    (byte) code[0], (byte) code[1], (byte) code[2], (byte) code[3],
+                    (byte) code[4], (byte) code[5], (byte) code[6], (byte) code[7],
+                    (byte) code[8], (byte) code[9], (byte) code[10], (byte) code[11],
+                    (byte) code[12], (byte) code[13], (byte) code[14], (byte) code[15],
+            };
+        }
     }
 
     public void testWriteChar() {
@@ -52,14 +79,10 @@ public class HT16K33 extends I2cDeviceSynchDevice<I2cDeviceSynch> {
         TWO(0x72),
         THREE(0x74),
         FOUR(0x76);
-        int address;
+        I2cAddr address;
         DeviceNumber(int address) {
-            this.address = address;
+            this.address = I2cAddr.create7bit(address);
         }
-    }
-
-    protected void writeShort(final DeviceNumber deviceNumber, short value) {
-        deviceClient.write(deviceNumber.address, TypeConversion.shortToByteArray(value));
     }
 
 
