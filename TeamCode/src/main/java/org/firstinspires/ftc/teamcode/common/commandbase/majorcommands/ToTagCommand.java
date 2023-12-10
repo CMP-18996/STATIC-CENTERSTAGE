@@ -15,6 +15,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.command.CommandBase;
 
+import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -49,18 +50,42 @@ public class ToTagCommand extends CommandBase {
         if (currentDetections != null) {
             if (currentDetections.size() > 0) {
                 for (AprilTagDetection tag : currentDetections) {
-                    if (tag.id == 2 || tag.id == 5) {
-                        double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
-                                tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
-                        Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                .setReversed(true)
-                                .splineToSplineHeading(new Pose2d(
-                                                drive.pose.position.x + stats[1] - 12,
-                                                drive.pose.position.y - stats[0],
-                                                calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5])),
-                                        calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]))
-                                .build());
-                        t = 20;
+                    double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
+                            tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
+                    double d = drive.pose.position.x + stats[1] * Math.cos(Math.toRadians(stats[5])) - 8;
+                    Actions.runBlocking(drive.actionBuilder(drive.pose)
+                            .turnTo(calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]))
+                            .build());
+                    if ((GlobalVariables.color.equals(GlobalVariables.Color.BLUE) && tag.id != 2) || (GlobalVariables.color.equals(GlobalVariables.Color.RED) && tag.id != 5)
+                            || -1 > stats[0] || stats[0] > 1 || 7 > stats[1] || stats[1] > 9 || -3 > stats[5] || stats[5] > 3) {
+                        try {
+                            switch (tag.id) {
+                                case 2: case 5:
+                                    Actions.runBlocking(drive.actionBuilder(drive.pose)
+                                            .setReversed(true)
+                                            .splineToConstantHeading(new Vector2d(d, drive.pose.position.y - stats[0]),
+                                                    calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]) - Math.PI)
+                                            .build());
+                                    break;
+                                case 1: case 4:
+                                    Actions.runBlocking(drive.actionBuilder(drive.pose)
+                                            .setReversed(true)
+                                            .splineToConstantHeading(new Vector2d(d, drive.pose.position.y - stats[0] - 6),
+                                                    calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]) - Math.PI)
+                                            .build());
+                                    break;
+                                case 3: case 6:
+                                    Actions.runBlocking(drive.actionBuilder(drive.pose)
+                                            .setReversed(true)
+                                            .splineToConstantHeading(new Vector2d(d, drive.pose.position.y - stats[0] + 6),
+                                                    calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]) - Math.PI)
+                                            .build());
+                                    break;
+                            }
+                        } catch (Exception e) {
+                            continue;
+                        }
+                        t += 4;
                         break;
                     }
                 }
@@ -69,7 +94,9 @@ public class ToTagCommand extends CommandBase {
         t++;
     }
     @Override
-    public boolean isFinished() {return t >= 20;}
+    public boolean isFinished() {
+        return t >= 20;
+    }
 }
 
 
