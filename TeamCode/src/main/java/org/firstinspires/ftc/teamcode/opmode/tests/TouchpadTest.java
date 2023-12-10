@@ -29,6 +29,20 @@ public class TouchpadTest extends LinearOpMode {
                 telemetry.addData("Button", " not pressed");
             }
 
+            if (touchpad.getGamepad().left_stick_button) {
+                telemetry.addData("Left Stick", "pressed");
+            }
+            else {
+                telemetry.addData("Left Stick", "not pressed");
+            }
+
+            if (touchpad.getGamepad().right_stick_button) {
+                telemetry.addData("Right Stick", "pressed");
+            }
+            else {
+                telemetry.addData("Right Stick", "not pressed");
+            }
+
             // This doesn't work, issue fixed
             telemetry.addData("Telemetry", " works");
             telemetry.addData("History", touchpad.getHistory());
