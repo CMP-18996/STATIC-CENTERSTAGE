@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.I2Cdisplay.HT16K33;
 
 @TeleOp
-public class DisplayAndColorTest extends CommandOpMode {
+public class DisplayTest extends CommandOpMode {
     HT16K33 display;
     ColorSensor colorSensor;
     @Override
@@ -20,12 +20,12 @@ public class DisplayAndColorTest extends CommandOpMode {
 
     @Override
     public void run() {
+        display.turnOff();
+        sleep(100);
         display.testWriteChar();
-        sleep(10);
-        telemetry.addData("Red Detected", colorSensor.red());
-        telemetry.addData("Green Detected", colorSensor.green());
-        telemetry.addData("Blue Detected", (byte) 0x70);
-        telemetry.addData("Blue Detected", 0x70);
+        display.turnOn();
+        sleep(100);
+        telemetry.addData("Red Detected", (byte) 0x1F);
         telemetry.update();
     }
 }
