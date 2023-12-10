@@ -60,7 +60,7 @@ public class Robot {
         ColorSensor colorSensor2 = hardwareMap.get(ColorSensor.class, "color2");\
         colorSensor1.enableLed(false);
         colorSensor2.enableLed(false);
-         */
+
 
         double coverServoMinRot = 0.0;
         double coverServoMaxRot = 180.0;
@@ -101,5 +101,6 @@ public class Robot {
         double handServoMaxRot = 10.0;
         hangServo1 = new SimpleServo(hardwareMap, "hangServo1", hangServoMinRot, handServoMaxRot);
         hangServo2 = new SimpleServo(hardwareMap, "hangServo2", hangServoMinRot, handServoMaxRot);
+        */
     }
 }

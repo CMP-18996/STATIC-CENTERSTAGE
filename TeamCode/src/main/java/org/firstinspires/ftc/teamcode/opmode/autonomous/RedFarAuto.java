@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.StackCycleCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToBoardCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.AutoDropCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
@@ -44,6 +45,7 @@ public class RedFarAuto extends CommandOpMode {
                 new SequentialCommandGroup(
                         new WaitCommand(2000),
                         new ToSpikeMarkCommand(drive),
+                        //new AutoDropCommand(),
                         new ToBoardCommand(drive),
                         //new ToTagCommand(robot.camera, drive),
                                 new StackCycleCommand(drive),

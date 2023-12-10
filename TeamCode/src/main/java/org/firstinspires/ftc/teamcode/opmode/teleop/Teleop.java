@@ -9,6 +9,7 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
@@ -16,8 +17,10 @@ import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.AutoDropC
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.IntakeWait;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.SetReadyToDeposit;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.StasisCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.TakeFromDepositCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DroneCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.HangCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
@@ -112,19 +115,22 @@ public class Teleop extends CommandOpMode {
 
                         case CHOOSINGROW:
                                  CommandScheduler.getInstance().schedule(new ParallelCommandGroup(
-                                     new LiftCommand(liftSubsystem, liftHeights.get(rowNumber))
+                                     // new LiftCommand(liftSubsystem, liftHeights.get(rowNumber)),
+                                     new SetReadyToDeposit(depositSubsystem, liftSubsystem, liftHeights.get(rowNumber))
                                  ));
                             break;
                         case CHOOSINGCOLUMN:
                             if (depositLower) {
                                 CommandScheduler.getInstance().schedule(new ParallelCommandGroup(
-                                        new LiftCommand(liftSubsystem, liftHeights.get(rowNumber)),
+                                        // new LiftCommand(liftSubsystem, liftHeights.get(rowNumber)),
+                                        new SetReadyToDeposit(depositSubsystem, liftSubsystem, liftHeights.get(rowNumber)),
                                         new LowerHorizontalMoveCommand(depositSubsystem, depositLowerColumns.get(columnNumber))
                                 ));
                             }
                             else {
                                 CommandScheduler.getInstance().schedule(new ParallelCommandGroup(
-                                        new LiftCommand(liftSubsystem, liftHeights.get(rowNumber)),
+                                        // new LiftCommand(liftSubsystem, liftHeights.get(rowNumber)),
+                                        new SetReadyToDeposit(depositSubsystem, liftSubsystem, liftHeights.get(rowNumber)),
                                         new UpperHorizontalMoveCommand(depositSubsystem, depositUpperColumns.get(columnNumber))
                                 ));
                             }
@@ -141,20 +147,16 @@ public class Teleop extends CommandOpMode {
                                 new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem))
                         );
 
-        liftPad.getGamepadButton(GamepadKeys.Button.B)
+        liftPad.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                         .whenPressed(() -> CommandScheduler.getInstance().schedule(
                                 new IntakeWait(intakeSubsystem))
                         );
 
         liftPad.getGamepadButton(GamepadKeys.Button.X)
                         .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                                )// new SetReadyToDeposit(depositSubsystem))
-                        );
-        /*liftPad.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                        .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                                new ToTagCommand(camera, drive))
-                        );
-         */
+                                new TakeFromDepositCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
+                        ));
+
         liftPad.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new DroneCommand(miscSubsystem))
@@ -164,7 +166,25 @@ public class Teleop extends CommandOpMode {
                         new HangCommand(miscSubsystem))
                 );
 
+        liftPad.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT)
+                ));
+
+        liftPad.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT)
+                ));
+
         // Manually change the intake state
+        /*
+        Already used buttons:
+        Touchpad, Y, A, X, dpad up, dpad right, dpad down, right bumper, left bumper
+
+        Commands used:
+        SetReadyToDeposit, both DepositXMove commands, StasisCommand, IntakeWait, TakeFromDeposit, DroneCommand, HangCommand
+        GrabberGripCommand,
+        */
 
         telemetry.addData("Status", "Ready!");
         telemetry.update();

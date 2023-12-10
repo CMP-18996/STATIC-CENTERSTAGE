@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.SetReadyToDeposit;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
-    public class AutoDropCommand extends SequentialCommandGroup {
-    AutoDropCommand(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem, Camera camera, MecanumDrive drive, DepositSubsystem.GrabberPos grabberPos, DepositSubsystem.LowerHorizontalState lowerHorizontalState){
+public class AutoDropCommand extends SequentialCommandGroup {
+    public AutoDropCommand(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem, Camera camera, MecanumDrive drive, DepositSubsystem.GrabberPos grabberPos, DepositSubsystem.LowerHorizontalState lowerHorizontalState){
         addCommands(
                 new ParallelCommandGroup(
                         new SetReadyToDeposit(depositSubsystem, liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTONE),
@@ -23,3 +23,4 @@ import org.firstinspires.ftc.teamcode.common.vision.Camera;
         );
     }
 }
+
