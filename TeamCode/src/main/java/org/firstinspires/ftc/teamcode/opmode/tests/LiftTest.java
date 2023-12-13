@@ -7,7 +7,11 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.I2cDevice;
+import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
+import com.qualcomm.robotcore.hardware.I2cDeviceSynchImplOnSimple;
 
+import org.firstinspires.ftc.teamcode.common.Drivers.HT16K33;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
@@ -18,25 +22,28 @@ import java.util.HashMap;
 
 @TeleOp(name="Lift Test")
 public class LiftTest extends CommandOpMode {
-    Robot robot;
-    LiftSubsystem liftSubsystem;
-    TouchpadSubsystem touchpadSubsystem;
-    GamepadEx gamepad;
-    HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights;
-    LiftSubsystem.LiftHeight liftHeight;
-    int rowNumber;
+    private Robot robot;
+    private LiftSubsystem liftSubsystem;
+    private TouchpadSubsystem touchpadSubsystem;
+    private GamepadEx gamepadEx;
+    private HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights;
+    private LiftSubsystem.LiftHeight liftHeight;
+    private HT16K33 display1;
+    private int rowNumber;
 
     @Override
     public void initialize() {
         GlobalVariables.opMode = GlobalVariables.OpMode.TELEOP;
         robot = new Robot(hardwareMap);
         liftSubsystem = new LiftSubsystem(robot);
-        touchpadSubsystem = new TouchpadSubsystem(gamepad1);
+        gamepadEx = new GamepadEx(gamepad1);
+        display1 = hardwareMap.get(HT16K33.class, "display1");
+        touchpadSubsystem = new TouchpadSubsystem(gamepad1, display1);
 
         this.fillMaps();
         CommandScheduler.getInstance().reset();
 
-        gamepad.getGamepadButton(GamepadKeys.Button.Y)
+        gamepadEx.getGamepadButton(GamepadKeys.Button.Y)
                 .whenPressed(() -> {
                     try {
                         rowNumber = touchpadSubsystem.getHistory().get(1);

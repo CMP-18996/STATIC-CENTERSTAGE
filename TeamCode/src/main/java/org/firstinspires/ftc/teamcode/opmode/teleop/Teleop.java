@@ -219,8 +219,8 @@ public class Teleop extends CommandOpMode {
         liftHeights.put(6, LiftSubsystem.LiftHeight.HEIGHTSIX);
         liftHeights.put(7, LiftSubsystem.LiftHeight.HEIGHTSEVEN);
         liftHeights.put(8, LiftSubsystem.LiftHeight.HEIGHTEIGHT);
-        liftHeights.put(9, LiftSubsystem.LiftHeight.HEIGHTNINE);
-        liftHeights.put(10, LiftSubsystem.LiftHeight.HEIGHTTEN);
+        liftHeights.put(9, LiftSubsystem.LiftHeight.PICKUPHEIGHT);
+        liftHeights.put(10, LiftSubsystem.LiftHeight.BASE);
 
         depositLowerColumns.put(1, DepositSubsystem.LowerHorizontalState.A);
         depositLowerColumns.put(2, DepositSubsystem.LowerHorizontalState.B);
