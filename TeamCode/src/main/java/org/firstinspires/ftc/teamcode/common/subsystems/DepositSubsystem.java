@@ -144,7 +144,7 @@ public class DepositSubsystem extends SubsystemBase {
         DOWN(0.0),
         STASIS(FOUR_BAR_STASIS),
         HIGH(FOUR_BAR_HIGH),
-        LOW(FOUR_BAR_STASIS);
+        LOW(FOUR_BAR_LOW);
 
         public double value;
         FourBarState(double val) { value = val; }
