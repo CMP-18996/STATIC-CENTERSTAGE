@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.common.subsystems;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 
 import org.firstinspires.ftc.teamcode.common.Robot;
-
+@Config
 public class DepositSubsystem extends SubsystemBase {
     Robot robot;
-    final static double incrementVal = 100;
-    final static double centerVal = 300;
+    public static double incrementVal = 100;
+    public static double centerVal = 300;
     //ParityState parityState = ParityState.LOWER;
     LowerHorizontalState lowerHorizontalState = LowerHorizontalState.C;
     UpperHorizontalState upperHorizontalState = UpperHorizontalState.C;
