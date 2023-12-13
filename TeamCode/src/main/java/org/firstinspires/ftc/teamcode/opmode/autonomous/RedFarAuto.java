@@ -47,15 +47,15 @@ public class RedFarAuto extends CommandOpMode {
                         new ToSpikeMarkCommand(drive),
                         //new AutoDropCommand(),
                         new ToBoardCommand(drive),
-                        //new ToTagCommand(robot.camera, drive),
+                        new ToTagCommand(robot.camera, drive),
                                 new StackCycleCommand(drive),
                                 //new SequentialCommandGroup(
                                     //    new WaitCommand(2000), // subject to change
                                   //      new TakeFromDepositCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
                                 //)
-                        //new ToTagCommand(robot.camera, drive),
-                        new StackCycleCommand(drive)
-                        //new ToTagCommand(robot.camera, drive)
+                        new ToTagCommand(robot.camera, drive),
+                        new StackCycleCommand(drive),
+                        new ToTagCommand(robot.camera, drive)
                 )
         );
 

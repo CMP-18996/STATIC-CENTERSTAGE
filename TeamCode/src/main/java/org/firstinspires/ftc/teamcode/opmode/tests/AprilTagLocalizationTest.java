@@ -19,6 +19,7 @@ public class AprilTagLocalizationTest extends CommandOpMode {
     public Robot robot;
 
     public MecanumDrive drive;
+    ToTagCommand t;
     @Override
     public void initialize() {
         GlobalVariables.color = GlobalVariables.Color.RED;
@@ -29,9 +30,11 @@ public class AprilTagLocalizationTest extends CommandOpMode {
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
         drive = new MecanumDrive(hardwareMap, new Pose2d(0,0, Math.toRadians(180)));
+        t = new ToTagCommand(robot.camera, drive);
+
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new ToTagCommand(robot.camera, drive),
+                        t,
                         new InstantCommand(() -> {
                             telemetry.addLine("Finished");
                             telemetry.update();
@@ -46,6 +49,9 @@ public class AprilTagLocalizationTest extends CommandOpMode {
     @Override
     public void run() {
         robot.camera.startPropProcessing();
+        if (!t.isFinished()) {
+            telemetry.addData("I see....", t.getSight());
+        }
         CommandScheduler.getInstance().run();
     }
 }

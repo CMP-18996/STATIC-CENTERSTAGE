@@ -14,12 +14,14 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ToTagCommand extends CommandBase {
@@ -52,19 +54,24 @@ public class ToTagCommand extends CommandBase {
                 for (AprilTagDetection tag : currentDetections) {
                     double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
                             tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
-                    double d = drive.pose.position.x + stats[1] * Math.cos(Math.toRadians(stats[5])) - 8;
-                    Actions.runBlocking(drive.actionBuilder(drive.pose)
-                            .turnTo(calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]))
-                            .build());
+                    double d = drive.pose.position.x + stats[1] - 9;
+                    if (t <= 1) {
+                        d -= 10;
+                    }
                     if ((GlobalVariables.color.equals(GlobalVariables.Color.BLUE) && tag.id != 2) || (GlobalVariables.color.equals(GlobalVariables.Color.RED) && tag.id != 5)
-                            || -1 > stats[0] || stats[0] > 1 || 7 > stats[1] || stats[1] > 9 || -3 > stats[5] || stats[5] > 3) {
+                            || -0.05 > stats[0] || stats[0] > 0.05 || 8.95 > stats[1] || stats[1] > 9.05 || -1 > stats[5] || stats[5] > 1) {
                         try {
+                            Actions.runBlocking(drive.actionBuilder(drive.pose)
+                                    .turnTo(calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]))
+                                    .waitSeconds(0.5)
+                                    .build());
                             switch (tag.id) {
                                 case 2: case 5:
                                     Actions.runBlocking(drive.actionBuilder(drive.pose)
                                             .setReversed(true)
                                             .splineToConstantHeading(new Vector2d(d, drive.pose.position.y - stats[0]),
                                                     calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]) - Math.PI)
+                                            .waitSeconds(1)
                                             .build());
                                     break;
                                 case 1: case 4:
@@ -72,6 +79,7 @@ public class ToTagCommand extends CommandBase {
                                             .setReversed(true)
                                             .splineToConstantHeading(new Vector2d(d, drive.pose.position.y - stats[0] - 6),
                                                     calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]) - Math.PI)
+                                            .waitSeconds(1)
                                             .build());
                                     break;
                                 case 3: case 6:
@@ -79,23 +87,37 @@ public class ToTagCommand extends CommandBase {
                                             .setReversed(true)
                                             .splineToConstantHeading(new Vector2d(d, drive.pose.position.y - stats[0] + 6),
                                                     calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]) - Math.PI)
+                                            .waitSeconds(1)
                                             .build());
                                     break;
                             }
-                        } catch (Exception e) {
-                            continue;
-                        }
-                        t += 4;
+                        } catch (Exception ignored) {}
                         break;
                     }
                 }
+            } else {
+                try {
+                    Actions.runBlocking(drive.actionBuilder(drive.pose)
+                            .splineTo(new Vector2d(drive.pose.position.x - 6, drive.pose.position.y),
+                                    calculateHeading(drive.pose.heading.real, drive.pose.heading.imag))
+                            .build());
+                } catch (Exception ignored) {}
             }
         }
         t++;
     }
     @Override
     public boolean isFinished() {
-        return t >= 20;
+        return t >= 10;
+    }
+    public List<Integer> getSight() {
+        List<Integer> i = new ArrayList<>();
+        if (currentDetections != null) {
+            for (AprilTagDetection tag : currentDetections) {
+                i.add(tag.id);
+            }
+        }
+        return i;
     }
 }
 
