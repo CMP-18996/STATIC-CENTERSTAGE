@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.common.subsystems;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.CommandGroupBase;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -12,23 +13,25 @@ import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.IntakeWai
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
-
+@Config
 public class IntakeSubsystem extends SubsystemBase {
     private Robot robot;
     private SweepingState sweepingState = SweepingState.STOPPED;
-    private double intakePower = .6;
-    private double repelPower = .8; // keep positive
+    public static double intakePower = .6;
+    public static double repelPower = .8; // keep positive
     private CoverState coverState = CoverState.CLOSED;
     public ColorState slotOne;
     public ColorState slotTwo;
 
+    public static double OPEN_COVER_VAL = 180.0;
+    public static double CLOSED_COVER_VAL = 180.0;
     // color1, color2, both strings
     // ColorSensor colorSensor1 = hardwareMap.get(ColorSensor.class, "Color1");
     // ColorSensor colorSensor2 = hardwareMap.get(ColorSensor.class, "Color2");
 
     public enum CoverState {
-        OPEN(180.0),
-        CLOSED(0.0);
+        OPEN(OPEN_COVER_VAL),
+        CLOSED(CLOSED_COVER_VAL);
         public double value;
         CoverState(double val) { value = val; }
     }
