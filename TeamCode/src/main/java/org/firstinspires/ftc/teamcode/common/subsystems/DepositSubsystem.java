@@ -9,6 +9,16 @@ public class DepositSubsystem extends SubsystemBase {
     Robot robot;
     public static double incrementVal = 100;
     public static double centerVal = 300;
+    public static double DEPOSIT_PICKING_UP_VALUE = 20.0;
+    public static double DEPOSIT_PARALLEL_VALUE = 30.0;
+    public static double DEPOSIT_DROPPING_OFF_VALUE = 40.0;
+    public static double GRABBER_OPEN_VALUE = 40.0;
+    public static double GRABBER_CLOSED_VALUE = 0.0;
+    public static double EXPANDED_STATE_VALUE = 20.0;
+    public static double FOUR_BAR_STASIS = 20.0;
+    public static double FOUR_BAR_HIGH = 50.0;
+    public static double FOUR_BAR_LOW = 80.0;
+
     //ParityState parityState = ParityState.LOWER;
     LowerHorizontalState lowerHorizontalState = LowerHorizontalState.C;
     UpperHorizontalState upperHorizontalState = UpperHorizontalState.C;
@@ -78,16 +88,16 @@ public class DepositSubsystem extends SubsystemBase {
 
 
     public enum DepositRotationState {
-        PICKING_UP(20.0),
-        PARALLEL(30.0),
-        DROPPING_GROUND(40.0);
+        PICKING_UP(DEPOSIT_PICKING_UP_VALUE),
+        PARALLEL(DEPOSIT_PARALLEL_VALUE),
+        DROPPING_GROUND(DEPOSIT_DROPPING_OFF_VALUE);
         public double value;
         DepositRotationState(double val) { value = val; }
     }
 
     public enum GrabberState {
-        OPEN(40.0),
-        CLOSED(0.0);
+        OPEN(GRABBER_OPEN_VALUE),
+        CLOSED(GRABBER_CLOSED_VALUE);
         public double value;
         GrabberState(double val) { value = val; }
     }
@@ -97,7 +107,7 @@ public class DepositSubsystem extends SubsystemBase {
     }
 
     public enum ExpandedState {
-        EXPANDED_STATE(20.0),
+        EXPANDED_STATE(EXPANDED_STATE_VALUE),
         NOT_EXPANDED(0.0);
         public double value;
         ExpandedState(double val) { value = val; }
@@ -132,9 +142,9 @@ public class DepositSubsystem extends SubsystemBase {
 
     public enum FourBarState {
         DOWN(0.0),
-        STASIS(20.0),
-        HIGH(50.0),
-        LOW(80.0);
+        STASIS(FOUR_BAR_STASIS),
+        HIGH(FOUR_BAR_HIGH),
+        LOW(FOUR_BAR_STASIS);
 
         public double value;
         FourBarState(double val) { value = val; }
