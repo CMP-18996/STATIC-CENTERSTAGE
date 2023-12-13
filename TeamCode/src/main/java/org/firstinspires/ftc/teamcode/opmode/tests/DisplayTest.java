@@ -4,8 +4,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
-import org.firstinspires.ftc.teamcode.common.GlobalVariables;
-import org.firstinspires.ftc.teamcode.common.I2Cdisplay.HT16K33;
+import org.firstinspires.ftc.teamcode.common.Drivers.HT16K33;
 
 @TeleOp
 public class DisplayTest extends CommandOpMode {
@@ -15,17 +14,31 @@ public class DisplayTest extends CommandOpMode {
     public void initialize() {
         display = hardwareMap.get(HT16K33.class, "display");
         colorSensor = hardwareMap.get(ColorSensor.class, "color1");
-        display.init();
     }
 
     @Override
     public void run() {
-        display.turnOff();
-        sleep(100);
-        display.testWriteChar();
-        display.turnOn();
-        sleep(100);
-        telemetry.addData("Red Detected", (byte) 0x1F);
-        telemetry.update();
+        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.EMPTY);
+        sleep(3000);
+        display.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.PLAY);
+        sleep(1500);
+        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.ASTERISK);
+        sleep(1500);
+        display.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.DASH);
+        sleep(1500);
+        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.UP_ARROW);
+        sleep(1500);
+        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.DOWN_ARROW);
+        sleep(1500);
+        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.RIGHT_ARROW);
+        sleep(1500);
+        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.LEFT_ARROW);
+        sleep(1500);
+        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.PAUSE);
+        sleep(1500);
+        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.HAPPY);
+        sleep(1500);
+        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.SAD);
+        sleep(1500);
     }
 }

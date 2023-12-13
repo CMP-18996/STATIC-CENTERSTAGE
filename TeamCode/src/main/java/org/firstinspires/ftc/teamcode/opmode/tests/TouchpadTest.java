@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.common.Drivers.HT16K33;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
 
@@ -11,9 +12,11 @@ import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
 public class TouchpadTest extends LinearOpMode {
     Robot robot;
     TouchpadSubsystem touchpad;
+    HT16K33 display;
     @Override
     public void runOpMode() {
-        touchpad = new TouchpadSubsystem(gamepad1);
+        display = hardwareMap.get(HT16K33.class, "display");
+        touchpad = new TouchpadSubsystem(gamepad1, display);
         // touchpad.register();
         waitForStart();
         while (opModeIsActive()) {

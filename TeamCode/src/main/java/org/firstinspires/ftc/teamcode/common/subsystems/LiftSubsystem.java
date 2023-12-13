@@ -2,18 +2,21 @@ package org.firstinspires.ftc.teamcode.common.subsystems;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.Motor.Encoder;
 import com.arcrobotics.ftclib.controller.PIDFController;
-
+@Config
 public class LiftSubsystem extends SubsystemBase {
-    private double power = .4;
+    public static double power = .4;
     private Encoder encoderUp, encoderDown;
     private Robot robot;
     private LiftHeight currentHeight;
     private double proportionalConstant, integralConstant, derivativeConstant;
+    public static int LIFT_HEIGHT_INCREMENT = 10;
+    public static int LIFT_PICKUP_HEIGHT = 5;
     private PIDFController pidfController = new PIDFController(0.7, 0.2, 0.5, 0);
     /* Honestly at this point we should get rid of this stuff
     private double baseHeight, heightLevelOne, heightLevelTwo, heightLevelThree, heightLevelFour, heightLevelFive;
@@ -30,18 +33,18 @@ public class LiftSubsystem extends SubsystemBase {
         // At least six states
         // Probably can only use up to eight total actual heights
         BASE(0),
-        HEIGHTONE(10),
-        HEIGHTTWO(20),
-        HEIGHTTHREE(30),
-        HEIGHTFOUR(40),
-        HEIGHTFIVE(50),
-        HEIGHTSIX(60),
-        HEIGHTSEVEN(70),
-        HEIGHTEIGHT(80),
-        HEIGHTNINE(90),
-        HEIGHTTEN(100),
-        HEIGHTELEVEN(110),
-        PICKUPHEIGHT(5);
+        HEIGHTONE(LIFT_HEIGHT_INCREMENT),
+        HEIGHTTWO(2*LIFT_HEIGHT_INCREMENT),
+        HEIGHTTHREE(3*LIFT_HEIGHT_INCREMENT),
+        HEIGHTFOUR(4*LIFT_HEIGHT_INCREMENT),
+        HEIGHTFIVE(5*LIFT_HEIGHT_INCREMENT),
+        HEIGHTSIX(6*LIFT_HEIGHT_INCREMENT),
+        HEIGHTSEVEN(7*LIFT_HEIGHT_INCREMENT),
+        HEIGHTEIGHT(8*LIFT_HEIGHT_INCREMENT),
+        HEIGHTNINE(9*LIFT_HEIGHT_INCREMENT),
+        HEIGHTTEN(10*LIFT_HEIGHT_INCREMENT),
+        HEIGHTELEVEN(11*LIFT_HEIGHT_INCREMENT),
+        PICKUPHEIGHT(LIFT_PICKUP_HEIGHT);
 
         private final int height;
 
