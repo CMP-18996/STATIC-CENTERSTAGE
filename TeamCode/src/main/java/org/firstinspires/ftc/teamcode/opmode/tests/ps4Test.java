@@ -11,12 +11,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
+import org.firstinspires.ftc.teamcode.common.Drivers.HT16K33;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
 
 @TeleOp(name = "ps4Test",group="test")
 public class ps4Test extends CommandOpMode {
     public TouchpadSubsystem touchpad;
+    private HT16K33 display;
     boolean f, g;
     @Override
     public void initialize() {
@@ -26,7 +28,8 @@ public class ps4Test extends CommandOpMode {
         GlobalVariables.opMode = GlobalVariables.OpMode.TELEOP;
         CommandScheduler.getInstance().reset();
 
-        touchpad = new TouchpadSubsystem(gamepad1);
+        display = hardwareMap.get(HT16K33.class, "display");
+        touchpad = new TouchpadSubsystem(gamepad1, display);
         super.register(touchpad);
 
 
@@ -50,7 +53,7 @@ public class ps4Test extends CommandOpMode {
         } else {
             g = true;
         }
-        telemetry.addData("Status", "Rumning...");
+        telemetry.addData("Status", "Running...");
         telemetry.addData("History", touchpad.getHistory());
         telemetry.update();
     }

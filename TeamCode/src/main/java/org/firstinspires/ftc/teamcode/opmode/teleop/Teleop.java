@@ -11,6 +11,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.common.Drivers.HT16K33;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.AutoDropCommand;
@@ -54,9 +55,11 @@ public class Teleop extends CommandOpMode {
     private int rowNumber;
     private int columnNumber;
     // I'm sorry about the naming
+    private HT16K33 display1;
+    private HT16K33 display2;
     private LiftSubsystem.LiftHeight liftHeight;
     private DepositSubsystem.LowerHorizontalState depositLowerColumn;
-    private DepositSubsystem.UpperHorizontalState depostUpperColumn;
+    private DepositSubsystem.UpperHorizontalState depositUpperColumn;
     private LeftRightChoiceState currentLeftRightChoice = LeftRightChoiceState.LEFT;
     private SelectionState currentSelectionState = SelectionState.CHOOSINGROW;
     private HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights = new HashMap<>();
@@ -81,7 +84,9 @@ public class Teleop extends CommandOpMode {
         drive = new Drive(robot);
         drivePad = new GamepadEx(gamepad1);
         liftPad = new GamepadEx(gamepad2);
-        touchpad = new TouchpadSubsystem(gamepad2);
+        display1 = hardwareMap.get(HT16K33.class, "display1");
+        display2 = hardwareMap.get(HT16K33.class, "display2");
+        touchpad = new TouchpadSubsystem(gamepad2, display1);
         liftSubsystem = new LiftSubsystem(robot);
         depositSubsystem = new DepositSubsystem(robot);
         intakeSubsystem = new IntakeSubsystem(robot);
@@ -103,7 +108,7 @@ public class Teleop extends CommandOpMode {
 
         liftHeight = liftHeights.get(rowNumber);
 
-        depostUpperColumn = depositUpperColumns.get(columnNumber);
+        depositUpperColumn = depositUpperColumns.get(columnNumber);
         liftPad.getGamepadButton(GamepadKeys.Button.Y)
                 .whenPressed(() -> {
                     try {
@@ -199,6 +204,11 @@ public class Teleop extends CommandOpMode {
         telemetry.addData("Recorded Positions", touchpad.getHistory());
         telemetry.update();
     }
+
+
+
+
+
 
     public void fillMaps() {
         liftHeights.put(1, LiftSubsystem.LiftHeight.HEIGHTONE);
