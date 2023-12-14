@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.common.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 
 import org.firstinspires.ftc.teamcode.common.Robot;
 @Config
@@ -31,6 +32,7 @@ public class DepositSubsystem extends SubsystemBase {
 
     public void setLowerHorizontalState(LowerHorizontalState state) {
         robot.xAdj.setTargetDistance(lowerHorizontalState.value - state.value);
+        robot.xAdj.setRunMode(Motor.RunMode.PositionControl);
         lowerHorizontalState = state;
     }
 
@@ -40,6 +42,7 @@ public class DepositSubsystem extends SubsystemBase {
 
     public void setUpperHorizontalState(UpperHorizontalState state) {
         robot.xAdj.setTargetDistance(upperHorizontalState.value - state.value);
+        robot.xAdj.setRunMode(Motor.RunMode.PositionControl);
         upperHorizontalState = state;
     }
 
