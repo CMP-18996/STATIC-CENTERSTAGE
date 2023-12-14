@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmode.tests;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
@@ -30,17 +31,26 @@ public class LiftTestTwo extends CommandOpMode {
         robot = new Robot(hardwareMap);
         liftSubsystem = new LiftSubsystem(robot);
 
+        // Change to sequential command group
         CommandScheduler.getInstance().schedule(
-                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTSEVEN),
-                new WaitCommand(1000),
-                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE),
-                new WaitCommand(1000),
-                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTFIVE),
-                new WaitCommand(1000),
-                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTONE),
-                new WaitCommand(1000)
+                new SequentialCommandGroup(
+                    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTSEVEN),
+                    new WaitCommand(1000),
+                    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE),
+                    new WaitCommand(1000),
+                    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTFIVE),
+                    new WaitCommand(1000),
+                    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTONE),
+                    new WaitCommand(1000)
+                )
         );
     }
 
-    public void run() {CommandScheduler.getInstance().run();}
+    public void run() {
+        CommandScheduler.getInstance().run();
+        telemetry.addData("LiftOne", robot.liftOne.getCurrentPosition());
+        telemetry.addData("LiftTwo", robot.liftTwo.getCurrentPosition());
+        telemetry.addData("Lift One Target", robot.liftOne.getDistance());
+        telemetry.update();
+    }
 }

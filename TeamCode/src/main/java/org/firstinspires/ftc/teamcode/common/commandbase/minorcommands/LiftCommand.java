@@ -12,11 +12,12 @@ public class LiftCommand extends CommandBase {
     public LiftCommand(LiftSubsystem liftSubsystem, LiftHeight height) {
         this.lift = liftSubsystem;
         this.height = height;
+        lift.updateState(height);
     }
 
     @Override
     public void initialize() {
-        lift.updateState(height); // change to updateStatePID later
+         // change to updateStatePID later
     }
 
     @Override
