@@ -34,20 +34,22 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+
 @TeleOp(name="X Axis Test")
 public class XAxisTest extends CommandOpMode {
      DepositSubsystem deposit;
      DepositSubsystem.LowerHorizontalState lowerDesiredState;
      DepositSubsystem.UpperHorizontalState upperDesiredState;
      Robot robot;
-
+    DcMotorEx xAdj;
     @Override
     public void initialize(){
         lowerDesiredState = DepositSubsystem.LowerHorizontalState.C;
         upperDesiredState = DepositSubsystem.UpperHorizontalState.C;
         CommandScheduler.getInstance().reset();
         deposit = new DepositSubsystem(robot);
-
+        xAdj = hardwareMap.get(DcMotorEx.class, "xAdj");
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                     new LowerHorizontalMoveCommand(deposit, lowerDesiredState),
