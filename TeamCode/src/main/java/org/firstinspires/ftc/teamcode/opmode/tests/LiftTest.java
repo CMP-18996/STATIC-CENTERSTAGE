@@ -26,7 +26,7 @@ public class LiftTest extends CommandOpMode {
     private LiftSubsystem liftSubsystem;
     private TouchpadSubsystem touchpadSubsystem;
     private GamepadEx gamepadEx;
-    private HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights;
+    private HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights = new HashMap<>();
     private LiftSubsystem.LiftHeight liftHeight;
     private HT16K33 display1;
     private int rowNumber;

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmode.tests;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
@@ -19,10 +20,15 @@ public class FourBarTest extends CommandOpMode {
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.DOWN),
+                        new WaitCommand(1000),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
+                        new WaitCommand(1000),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
+                        new WaitCommand(1000),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.LOW),
+                        new WaitCommand(1000),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
+                        new WaitCommand(1000),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS)
                 )
         );

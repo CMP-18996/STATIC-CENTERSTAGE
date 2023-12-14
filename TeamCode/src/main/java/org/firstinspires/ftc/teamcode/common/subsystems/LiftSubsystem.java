@@ -26,6 +26,7 @@ public class LiftSubsystem extends SubsystemBase {
 
     public LiftSubsystem(Robot robot) {
         this.robot = robot;
+        currentHeight = LiftHeight.BASE;
     }
 
     public enum LiftHeight {
@@ -53,7 +54,7 @@ public class LiftSubsystem extends SubsystemBase {
         }
 
         public int getHeight() {
-            return height;
+            return this.height;
         }
     }
 
@@ -74,6 +75,7 @@ public class LiftSubsystem extends SubsystemBase {
         robot.liftTwo.setRunMode(Motor.RunMode.PositionControl);
         robot.liftOne.set(power);
         robot.liftTwo.set(power);
+        // update current height
     }
 
     @Deprecated
