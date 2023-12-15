@@ -43,7 +43,7 @@ public class ToSpikeMarkCommand extends CommandBase {
                                 calculateHeading(p.heading.real, p.heading.imag) - Math.PI / 2)
                         .build());
                 break;
-            default: //right and everything else
+            case RIGHT:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .setReversed(true)
                         .splineTo(new Vector2d(p.position.x - Math.signum(p.position.y) * 2, p.position.y - Math.signum(p.position.y) * 25),
@@ -55,6 +55,13 @@ public class ToSpikeMarkCommand extends CommandBase {
                         .setReversed(true)
                         .splineTo(new Vector2d(p.position.x, p.position.y - Math.signum(p.position.y) * 25),
                                 calculateHeading(p.heading.real, p.heading.imag))
+                        .build());
+                break;
+            case UNDETECTED:
+                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                        .setReversed(true)
+                        .splineTo(new Vector2d(p.position.x - Math.signum(p.position.y) * 2, p.position.y - Math.signum(p.position.y) * 25),
+                                calculateHeading(p.heading.real, p.heading.imag) + Math.PI / 2)
                         .build());
                 break;
         }

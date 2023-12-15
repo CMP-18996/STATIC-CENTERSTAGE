@@ -20,7 +20,6 @@ import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 public class RedCloseAuto extends CommandOpMode {
     public Robot robot;
     public MecanumDrive drive;
-    ToTagCommand t;
     /*public IntakeSubsystem intakeSubsystem;
     public DepositSubsystem depositSubsystem;
     public LiftSubsystem liftSubsystem;*/
@@ -41,14 +40,13 @@ public class RedCloseAuto extends CommandOpMode {
         liftSubsystem = new LiftSubsystem(robot);
         super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);*/
 
-        t = new ToTagCommand(robot.camera, drive);
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new WaitCommand(2000),
+                        new WaitCommand(6000),
                         new ToSpikeMarkCommand(drive),
                         //new AutoDropCommand(),
                         new ToBoardCommand(drive),
-                        t,
+                        new ToTagCommand(robot.camera, drive),
                         new InstantCommand(() -> telemetry.addLine("Complete!"))
                 )
         );
@@ -60,9 +58,6 @@ public class RedCloseAuto extends CommandOpMode {
     @Override
     public void run() {
         CommandScheduler.getInstance().run();
-        if (!t.isFinished()) {
-            telemetry.addData("I see....", t.getSight());
-        }
         telemetry.addData("Status", "Running...");
         telemetry.update();
         robot.camera.startPropProcessing();

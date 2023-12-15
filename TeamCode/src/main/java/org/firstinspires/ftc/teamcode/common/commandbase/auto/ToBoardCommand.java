@@ -1,6 +1,6 @@
 /**
  * Purpose: Drive from spike mark to board
- * Dependencies (variables): COLOR
+ * Dependencies (variables): DISTANCE
  * Dependencies (subsystem): RR-drive
  * Most Likely Errors:
  * - Wrong color set
@@ -28,21 +28,21 @@ public class ToBoardCommand extends CommandBase {
     public void initialize() {}
     @Override
     public void execute() {
-        switch (GlobalVariables.color) {
-             case BLUE:
-                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                         .setReversed(true)
-                         .turnTo(Math.toRadians(180))
-                         .splineToSplineHeading(new Pose2d(46, 36, Math.toRadians(180)), Math.toRadians(0))
-                         .build());
-                break;
-             case RED:
-                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                         .setReversed(true)
-                         .turnTo(Math.toRadians(180))
-                         .splineToSplineHeading(new Pose2d(46, -36, Math.toRadians(180)), Math.toRadians(0))
-                         .build());
-                 break;
+        Actions.runBlocking(drive.actionBuilder(drive.pose)
+                .turnTo(Math.toRadians(180))
+                .build());
+        if (GlobalVariables.distance.equals(GlobalVariables.Distance.BLUEFAR)) {
+            Actions.runBlocking(drive.actionBuilder(drive.pose)
+                    .setReversed(true)
+                    .splineToSplineHeading(new Pose2d(-24, 36, Math.toRadians(180)), Math.toRadians(0))
+                    .splineToSplineHeading(new Pose2d(12, 36, Math.toRadians(180)), Math.toRadians(0))
+                    .build());
+        } else if (GlobalVariables.distance.equals(GlobalVariables.Distance.REDFAR)) {
+            Actions.runBlocking(drive.actionBuilder(drive.pose)
+                    .setReversed(true)
+                    .splineToSplineHeading(new Pose2d(-24, -36, Math.toRadians(180)), Math.toRadians(0))
+                    .splineToSplineHeading(new Pose2d(12, -36, Math.toRadians(180)), Math.toRadians(0))
+                    .build());
         }
         t = true;
     }
