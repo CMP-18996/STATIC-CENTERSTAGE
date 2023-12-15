@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -41,20 +42,12 @@ public class BlueFarAuto extends CommandOpMode {
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
+                        new WaitCommand(6000),
                         new ToSpikeMarkCommand(drive),
-                        new WaitCommand(5000),
+                        //new AutoDropCommand(),
                         new ToBoardCommand(drive),
-                        //new ToTagCommand(robot.camera, drive),
-                        new ParallelCommandGroup(
-                                new StackCycleCommand(drive)
-                                /*new SequentialCommandGroup(
-                                        new WaitCommand(2000), // subject to change
-                                        new TakeFromDepositCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
-                                )*/
-                        ),
-                        //new ToTagCommand(robot.camera, drive),
-                        new StackCycleCommand(drive)
-                        //new ToTagCommand(robot.camera, drive)
+                        new ToTagCommand(robot.camera, drive),
+                        new InstantCommand(() -> telemetry.addLine("Complete!"))
                 )
         );
 
@@ -64,9 +57,9 @@ public class BlueFarAuto extends CommandOpMode {
     }
     @Override
     public void run() {
-        robot.camera.startPropProcessing();
         CommandScheduler.getInstance().run();
         telemetry.addData("Status", "Running...");
         telemetry.update();
+        robot.camera.startPropProcessing();
     }
 }
