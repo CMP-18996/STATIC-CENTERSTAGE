@@ -19,7 +19,7 @@ public class LiftSubsystem extends SubsystemBase {
     private LiftHeight currentHeight;
     public int error;
     private double proportionalConstant, integralConstant, derivativeConstant;
-    public static int LIFT_HEIGHT_INCREMENT = 10;
+    public static int LIFT_HEIGHT_INCREMENT = 17;
     public static int LIFT_PICKUP_HEIGHT = 5;
     private PIDFController pidfController = new PIDFController(0.7, 0.2, 0.5, 0);
     /* Honestly at this point we should get rid of this stuff
