@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.common.subsystems;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+
 
 import org.firstinspires.ftc.teamcode.common.Robot;
 @Config
@@ -28,7 +30,7 @@ public class DepositSubsystem extends SubsystemBase {
     GrabberState leftGrabberState = GrabberState.CLOSED;
     ExpandedState expandedState = ExpandedState.NOT_EXPANDED;
     DepositRotationState depositRotationState = DepositRotationState.PARALLEL;
-
+   
 
     public void setLowerHorizontalState(LowerHorizontalState state) {
         robot.xAdj.setTargetDistance(lowerHorizontalState.value - state.value);
