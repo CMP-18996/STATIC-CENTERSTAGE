@@ -40,6 +40,20 @@ public class DumbCommand extends CommandBase {
                         .splineTo(new Vector2d(54, -58), Math.toRadians(0))
                         .build());
                 break;
+            case BLUECLOSE:
+                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                        .setReversed(true)
+                        .splineTo(new Vector2d(24, 58), Math.toRadians(0))
+                        .splineTo(new Vector2d(54, 58), Math.toRadians(0))
+                        .build());
+                break;
+            case BLUEFAR:
+                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                        .setReversed(true)
+                        .splineTo(new Vector2d(-24, 58), Math.toRadians(0))
+                        .splineTo(new Vector2d(54, 58), Math.toRadians(0))
+                        .build());
+                break;
         }
         t = true;
     }
