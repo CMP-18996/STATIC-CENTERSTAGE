@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -39,6 +40,7 @@ import org.firstinspires.ftc.teamcode.common.vision.Camera;
  * Triggers intake reverse
  * Bumpers, deposit
  */
+@Disabled
 @TeleOp(name="Final TeleOp", group="Official")
 public class Teleop extends CommandOpMode {
     private Robot robot;
