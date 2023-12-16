@@ -3,35 +3,25 @@ package org.firstinspires.ftc.teamcode.opmode.autonomous;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.StackCycleCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToBoardCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.AutoDropCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
-import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
-@Disabled
-@Autonomous(name = "Red Far")
-public class RedFarAuto extends CommandOpMode {
+@Autonomous(name = "OFFICIAL PUSHBOT AUTO")
+public class LameAuto extends CommandOpMode {
     public Robot robot;
     public MecanumDrive drive;
-    /*public IntakeSubsystem intakeSubsystem;
-    public DepositSubsystem depositSubsystem;
-    public LiftSubsystem liftSubsystem;*/
     @Override
     public void initialize() {
-        telemetry.addData("Status","Initializing...");
+        telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
+        //TODO: at competition change distance, color to actual location, color
         GlobalVariables.color = GlobalVariables.Color.RED;
         GlobalVariables.distance = GlobalVariables.Distance.REDFAR;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
@@ -39,18 +29,12 @@ public class RedFarAuto extends CommandOpMode {
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
         drive = new MecanumDrive(hardwareMap, GlobalVariables.distance.getP());
-        /*intakeSubsystem = new IntakeSubsystem(robot);
-        depositSubsystem = new DepositSubsystem(robot);
-        liftSubsystem = new LiftSubsystem(robot);
-        super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);*/
+        super.register(robot.camera);
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new WaitCommand(4000),
-                        new ToSpikeMarkCommand(drive),
-                        //new AutoDropCommand(),
-                        new ToBoardCommand(drive),
-                        new ToTagCommand(robot.camera, drive),
+                        new WaitCommand(4000), //wait at least 5 for box to be detected well
+                        new ToSpikeMarkCommand(drive), //drives to correct spike mark
                         new InstantCommand(() -> telemetry.addLine("Complete!"))
                 )
         );

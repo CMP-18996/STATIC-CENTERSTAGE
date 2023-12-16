@@ -33,6 +33,9 @@ public class MeepMeepTesting {
                             .waitSeconds(2)
                             .splineToSplineHeading(new Pose2d(-24, -36, Math.toRadians(180)), Math.toRadians(0))
                             .splineToSplineHeading(new Pose2d(12, -36, Math.toRadians(180)), Math.toRadians(0))
+                            .splineTo(new Vector2d(24, -24), Math.toRadians(90))
+                            .setReversed(false)
+                            .splineTo(new Vector2d(12, -36), Math.toRadians(180))
                         .build()
                 );
 

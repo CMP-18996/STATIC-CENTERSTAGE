@@ -44,6 +44,13 @@ public class ToBoardCommand extends CommandBase {
                     .splineToSplineHeading(new Pose2d(12, -36, Math.toRadians(180)), Math.toRadians(0))
                     .build());
         }
+        if (GlobalVariables.position.equals(GlobalVariables.Position.RIGHT)) {
+            Actions.runBlocking(drive.actionBuilder(drive.pose)
+                    .splineTo(new Vector2d(24, -24), Math.toRadians(90))
+                    .setReversed(false)
+                    .splineTo(new Vector2d(12, -36), Math.toRadians(180))
+                    .build());
+        }
         t = true;
     }
     @Override

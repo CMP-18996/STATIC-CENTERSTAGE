@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
@@ -16,6 +17,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToBoardCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
+@Disabled
 @Autonomous(name = "Blue Close")
 public class BlueCloseAuto extends CommandOpMode {
     public Robot robot;
