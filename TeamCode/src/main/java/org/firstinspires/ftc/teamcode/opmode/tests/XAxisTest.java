@@ -44,6 +44,7 @@ public class XAxisTest extends CommandOpMode {
      DcMotorEx xAdj;
      Robot robot;
 
+
     @Override
     public void initialize(){
         lowerDesiredState = DepositSubsystem.LowerHorizontalState.C;
@@ -51,6 +52,8 @@ public class XAxisTest extends CommandOpMode {
         CommandScheduler.getInstance().reset();
         deposit = new DepositSubsystem(robot);
         xAdj = hardwareMap.get(DcMotorEx.class, "xAdj");
+        GlobalVariables.opMode = GlobalVariables.OpMode.TELEOP;
+        robot = new Robot(hardwareMap);
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                     new LowerHorizontalMoveCommand(deposit, lowerDesiredState),
