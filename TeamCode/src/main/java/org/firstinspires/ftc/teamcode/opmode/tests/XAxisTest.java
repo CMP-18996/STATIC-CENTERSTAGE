@@ -47,8 +47,8 @@ public class XAxisTest extends CommandOpMode {
 
     @Override
     public void initialize(){
-        lowerDesiredState = DepositSubsystem.LowerHorizontalState.C;
-        upperDesiredState = DepositSubsystem.UpperHorizontalState.C;
+        lowerDesiredState = DepositSubsystem.LowerHorizontalState.D;
+        upperDesiredState = DepositSubsystem.UpperHorizontalState.D;
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
         deposit = new DepositSubsystem(robot);
