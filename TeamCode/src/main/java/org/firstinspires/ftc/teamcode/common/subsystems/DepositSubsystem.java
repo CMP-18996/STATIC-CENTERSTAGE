@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.common.subsystems;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 
@@ -33,18 +34,18 @@ public class DepositSubsystem extends SubsystemBase {
    
 
     public void setLowerHorizontalState(LowerHorizontalState state) {
-        robot.xAdj.setTargetDistance(lowerHorizontalState.value - state.value);
-        robot.xAdj.setRunMode(Motor.RunMode.PositionControl);
+        robot.xAdj.setTargetPosition((int)lowerHorizontalState.value - (int)state.value);
+        robot.xAdj.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         lowerHorizontalState = state;
     }
 
     public boolean horizontalFinishedMoving() {
-        return robot.xAdj.atTargetPosition();
+        return robot.xAdj.isBusy();
     }
 
     public void setUpperHorizontalState(UpperHorizontalState state) {
-        robot.xAdj.setTargetDistance(upperHorizontalState.value - state.value);
-        robot.xAdj.setRunMode(Motor.RunMode.PositionControl);
+        robot.xAdj.setTargetPosition((int)upperHorizontalState.value - (int)state.value);
+        robot.xAdj.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         upperHorizontalState = state;
     }
 

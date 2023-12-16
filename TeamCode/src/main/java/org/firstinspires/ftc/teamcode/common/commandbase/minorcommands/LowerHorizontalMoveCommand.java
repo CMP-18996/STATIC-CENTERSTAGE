@@ -21,6 +21,6 @@ public class LowerHorizontalMoveCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return deposit.horizontalFinishedMoving();
+        return !deposit.horizontalFinishedMoving();
     }
 }
