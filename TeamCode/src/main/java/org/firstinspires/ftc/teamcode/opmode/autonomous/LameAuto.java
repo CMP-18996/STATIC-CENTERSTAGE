@@ -23,7 +23,7 @@ public class LameAuto extends CommandOpMode {
 
         //TODO: at competition change distance, color to actual location, color
         GlobalVariables.color = GlobalVariables.Color.RED;
-        GlobalVariables.distance = GlobalVariables.Distance.REDFAR;
+        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
 
         CommandScheduler.getInstance().reset();
@@ -33,7 +33,7 @@ public class LameAuto extends CommandOpMode {
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new WaitCommand(5000), //wait at least 5 for box to be detected well
+                        new WaitCommand(6000), //wait at least 5 for box to be detected well
                         new ToSpikeMarkCommand(drive), //drives to correct spike mark
                         new InstantCommand(() -> telemetry.addLine("Complete!"))
                 )
