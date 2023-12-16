@@ -9,6 +9,7 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.Motor.Encoder;
 import com.arcrobotics.ftclib.controller.PIDFController;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @Config
 public class LiftSubsystem extends SubsystemBase {
@@ -18,7 +19,7 @@ public class LiftSubsystem extends SubsystemBase {
     private LiftHeight currentHeight;
     public int error;
     private double proportionalConstant, integralConstant, derivativeConstant;
-    public static int LIFT_HEIGHT_INCREMENT = 10;
+    public static int LIFT_HEIGHT_INCREMENT = 17;
     public static int LIFT_PICKUP_HEIGHT = 5;
     private PIDFController pidfController = new PIDFController(0.7, 0.2, 0.5, 0);
     /* Honestly at this point we should get rid of this stuff
@@ -72,10 +73,12 @@ public class LiftSubsystem extends SubsystemBase {
     public void updateState(LiftHeight height) {
         // int error;
         error = height.getHeight() - this.getCurrentHeight().getHeight();
+        robot.liftOne.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.liftTwo.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         robot.liftOne.setTargetPosition(error);
         robot.liftTwo.setTargetPosition(error);
-        robot.liftOne.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.liftTwo.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.liftOne.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        robot.liftTwo.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.liftOne.setPower(power);
         robot.liftTwo.setPower(power);
         // update current height
