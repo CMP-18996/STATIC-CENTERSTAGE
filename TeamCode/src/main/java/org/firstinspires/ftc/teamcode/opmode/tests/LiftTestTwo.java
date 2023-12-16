@@ -54,8 +54,8 @@ public class LiftTestTwo extends CommandOpMode {
         /*telemetry.addData("Lift One Target", robot.liftOne.getDistance());
         telemetry.addData("Lift Two Target", robot.liftTwo.getDistance());
         telemetry.addData("Lift height", liftSubsystem.getCurrentHeight());
-        telemetry.addData("Lift height in numbers", liftSubsystem.getCurrentHeight().getHeight());
-        telemetry.addData("Lift error", liftSubsystem.error);*/
+        telemetry.addData("Lift height in numbers", liftSubsystem.getCurrentHeight().getHeight());*/
+        telemetry.addData("Lift error", liftSubsystem.error);
         telemetry.update();
     }
 }

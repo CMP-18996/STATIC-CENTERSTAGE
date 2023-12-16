@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.opmode.tests;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -45,7 +47,7 @@ public class LiftTest extends CommandOpMode {
 
         gamepadEx.getGamepadButton(GamepadKeys.Button.Y)
                 .whenPressed(() -> {
-                    try {
+                    /*try {
                         rowNumber = touchpadSubsystem.getHistory().get(1);
                         liftHeight = liftHeights.get(rowNumber);
                         telemetry.addData("Row", rowNumber);
@@ -54,8 +56,19 @@ public class LiftTest extends CommandOpMode {
                         );
                     }
                     catch (Exception e) {telemetry.addData("Wow", " something probably happened");}
-                        }
-                );
+                        }*/
+                    CommandScheduler.getInstance().schedule(
+                            new SequentialCommandGroup(
+                                    new InstantCommand(() -> {
+                                        rowNumber = touchpadSubsystem.getHistory().get(1);
+                                        liftHeight = liftHeights.get(rowNumber);
+                                        telemetry.addData("Row", rowNumber);
+                                    }
+                                    ),
+                                    new LiftCommand(liftSubsystem, liftHeight)
+                            )
+                    );
+                });
     }
 
     @Override

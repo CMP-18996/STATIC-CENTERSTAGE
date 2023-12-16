@@ -46,7 +46,6 @@ public class Robot {
 
         // Lift
 
-        /*
         liftOne = hardwareMap.get(DcMotorEx.class, "liftOne");
 //        liftOne.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftOne.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -58,8 +57,6 @@ public class Robot {
         liftTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //        liftTwo.setMotorEnable();
         liftOne.setTargetPositionTolerance(2);
-        */
-
         /*
         // Intake
         intakeMotor = new MotorEx(hardwareMap, "intake");
@@ -79,19 +76,14 @@ public class Robot {
         coverServo.setInverted(false);
 //        coverServo2 = new SimpleServo(hardwareMap, "cover2", coverServoMinRot, coverServoMaxRot);
 //        coverServo2.setInverted(true);
-        */
 
-        /*
         // Deposit
 
         xAdj = hardwareMap.get(DcMotorEx.class, "xAdj");
-        xAdj.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        xAdj.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         xAdj.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         xAdj.setTargetPositionTolerance(2);
-        */
 
-
-        /*
         double fourBarMinRot = 0.0;
         double fourBarMaxRot = 180.0;
         fourBar = new SimpleServo(hardwareMap, "fourBar", fourBarMinRot, fourBarMaxRot);
