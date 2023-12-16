@@ -14,6 +14,10 @@ import org.firstinspires.ftc.teamcode.common.vision.Camera;
 public class AutoDropCommand extends SequentialCommandGroup {
     public AutoDropCommand(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem, Camera camera, MecanumDrive drive, DepositSubsystem.GrabberPos grabberPos, DepositSubsystem.LowerHorizontalState lowerHorizontalState){
         addCommands(
+                //extends arm
+                //drives to apriltag
+                //correct position of arm based on apriltag
+                //drop pixel on boarde
                 new ParallelCommandGroup(
                         new SetReadyToDeposit(depositSubsystem, liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTONE),
                         new ToTagCommand(camera, drive),
