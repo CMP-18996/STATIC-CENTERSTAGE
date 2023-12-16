@@ -21,6 +21,7 @@ public class Robot {
     public HardwareMap hardwareMap;
 
     public Robot(HardwareMap hardwareMap) {
+
         camera = new Camera(hardwareMap);
         // drivetrain
         this.hardwareMap = hardwareMap;
@@ -45,16 +46,21 @@ public class Robot {
 
         // Lift
 
-
+        /*
         liftOne = hardwareMap.get(DcMotorEx.class, "liftOne");
-        liftOne.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        liftOne.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftOne.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        liftOne.setMotorEnable();
         liftOne.setTargetPositionTolerance(2);
 
         liftTwo = hardwareMap.get(DcMotorEx.class, "liftTwo");
-        liftTwo.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        liftTwo.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        liftTwo.setMotorEnable();
         liftOne.setTargetPositionTolerance(2);
+        */
+
+        /*
         // Intake
         intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);
@@ -73,14 +79,19 @@ public class Robot {
         coverServo.setInverted(false);
 //        coverServo2 = new SimpleServo(hardwareMap, "cover2", coverServoMinRot, coverServoMaxRot);
 //        coverServo2.setInverted(true);
+        */
 
+        /*
         // Deposit
 
         xAdj = hardwareMap.get(DcMotorEx.class, "xAdj");
-        xAdj.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        xAdj.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         xAdj.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         xAdj.setTargetPositionTolerance(2);
+        */
 
+
+        /*
         double fourBarMinRot = 0.0;
         double fourBarMaxRot = 180.0;
         fourBar = new SimpleServo(hardwareMap, "fourBar", fourBarMinRot, fourBarMaxRot);
@@ -106,6 +117,6 @@ public class Robot {
         double handServoMaxRot = 10.0;
         hangServo1 = new SimpleServo(hardwareMap, "hangServo1", hangServoMinRot, handServoMaxRot);
         hangServo2 = new SimpleServo(hardwareMap, "hangServo2", hangServoMinRot, handServoMaxRot);
-
+        */
     }
 }
