@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.DumbCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
@@ -24,22 +25,19 @@ public class LameAuto extends CommandOpMode {
         //TODO: at competition change distance, color to actual location, color
         GlobalVariables.color = GlobalVariables.Color.BLUE;
         GlobalVariables.distance = GlobalVariables.Distance.BLUECLOSE;
-        GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
+        GlobalVariables.opMode = GlobalVariables.OpMode.TELEOP;
 
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
         drive = new MecanumDrive(hardwareMap, GlobalVariables.distance.getP());
-        super.register(robot.camera);
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new WaitCommand(6000), //wait at least 5 for box to be detected well
-                        new ToSpikeMarkCommand(drive), //drives to correct spike mark
+                        new WaitCommand(1), //wait at least 5 for box to be detected well
+                        new DumbCommand(drive), //drives to correct spike mark
                         new InstantCommand(() -> telemetry.addLine("Complete!"))
                 )
         );
-
-        robot.camera.startPropProcessing();
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
     }
@@ -48,6 +46,5 @@ public class LameAuto extends CommandOpMode {
         CommandScheduler.getInstance().run();
         telemetry.addData("Status", "Running...");
         telemetry.update();
-        robot.camera.startPropProcessing();
     }
 }

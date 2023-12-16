@@ -28,14 +28,10 @@ public class MeepMeepTesting {
                                     p.getHeading() - Math.PI / 2)*/
                             /*.splineTo(new Vector2d(p.getX(), p.getY() - Math.signum(p.getY()) * 28),
                                 p.getHeading())*/
-                            .splineTo(new Vector2d(p.getX() - Math.signum(p.getY()) * 4, p.getY() - Math.signum(p.getY()) * 30),
-                                    p.getHeading() + Math.PI / 2)
-                            .waitSeconds(2)
-                            .splineToSplineHeading(new Pose2d(-24, -36, Math.toRadians(180)), Math.toRadians(0))
-                            .splineToSplineHeading(new Pose2d(12, -36, Math.toRadians(180)), Math.toRadians(0))
-                            .splineTo(new Vector2d(24, -24), Math.toRadians(90))
-                            .setReversed(false)
-                            .splineTo(new Vector2d(12, -36), Math.toRadians(180))
+                            /*.splineTo(new Vector2d(p.getX() - Math.signum(p.getY()) * 4, p.getY() - Math.signum(p.getY()) * 30),
+                                    p.getHeading() + Math.PI / 2)*/
+                            .splineTo(new Vector2d(-24, -58), Math.toRadians(0))
+                            .splineTo(new Vector2d(54, -58), Math.toRadians(0))
                         .build()
                 );
 
