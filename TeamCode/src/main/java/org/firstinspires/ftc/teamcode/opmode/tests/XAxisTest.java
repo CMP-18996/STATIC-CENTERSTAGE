@@ -42,7 +42,7 @@ public class XAxisTest extends CommandOpMode {
      DepositSubsystem.LowerHorizontalState lowerDesiredState;
      DepositSubsystem.UpperHorizontalState upperDesiredState;
      Robot robot;
-    DcMotorEx xAdj;
+    public DcMotorEx xAdj;
     @Override
     public void initialize(){
         lowerDesiredState = DepositSubsystem.LowerHorizontalState.C;

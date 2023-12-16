@@ -8,12 +8,15 @@ import org.firstinspires.ftc.teamcode.common.Robot;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.Motor.Encoder;
 import com.arcrobotics.ftclib.controller.PIDFController;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
 @Config
 public class LiftSubsystem extends SubsystemBase {
     public static double power = .4;
     private Encoder encoderUp, encoderDown;
     private Robot robot;
     private LiftHeight currentHeight;
+    public int error;
     private double proportionalConstant, integralConstant, derivativeConstant;
     public static int LIFT_HEIGHT_INCREMENT = 10;
     public static int LIFT_PICKUP_HEIGHT = 5;
@@ -67,16 +70,14 @@ public class LiftSubsystem extends SubsystemBase {
         // Make sure to move to state
          */
     public void updateState(LiftHeight height) {
-        int error;
+        // int error;
         error = height.getHeight() - this.getCurrentHeight().getHeight();
-        robot.liftOne.resetEncoder();
-        robot.liftTwo.resetEncoder();
         robot.liftOne.setTargetPosition(error);
         robot.liftTwo.setTargetPosition(error);
-        robot.liftOne.setRunMode(Motor.RunMode.PositionControl);
-        robot.liftTwo.setRunMode(Motor.RunMode.PositionControl);
-        robot.liftOne.set(power);
-        robot.liftTwo.set(power);
+        robot.liftOne.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.liftTwo.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.liftOne.setPower(power);
+        robot.liftTwo.setPower(power);
         // update current height
         currentHeight = height;
     }
@@ -104,7 +105,7 @@ public class LiftSubsystem extends SubsystemBase {
     }
 
     public boolean motorsFinished() {
-        return robot.liftOne.atTargetPosition() && robot.liftTwo.atTargetPosition();
+        return robot.liftOne.getCurrentPosition() == error && robot.liftTwo.getCurrentPosition() == error;
     }
 
     @Deprecated

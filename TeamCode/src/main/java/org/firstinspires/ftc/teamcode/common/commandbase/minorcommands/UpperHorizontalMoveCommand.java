@@ -20,6 +20,6 @@ public class UpperHorizontalMoveCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return deposit.horizontalFinishedMoving();
+        return !deposit.horizontalFinishedMoving();
     }
 }

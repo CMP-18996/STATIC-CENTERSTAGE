@@ -5,12 +5,15 @@ import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
 public class Robot {
-    public MotorEx leftFront, rightFront, leftRear, rightRear, intakeMotor, xAdj, liftOne, liftTwo;
+    public MotorEx leftFront, rightFront, leftRear, rightRear, intakeMotor;
+    public DcMotorEx liftOne, liftTwo, xAdj;
     public ServoEx coverServo, fourBar, leftGrabber, rightGrabber, depositExpansion,
             depositRotator, droneServo, hangServo1, hangServo2;
     public Camera camera;
@@ -39,17 +42,19 @@ public class Robot {
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
 
-        /*
+
         // Lift
-        /*liftOne = new MotorEx(hardwareMap, "liftOne");
-        liftOne.setRunMode(Motor.RunMode.PositionControl);
-        liftOne.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
-        liftTwo = new MotorEx(hardwareMap, "liftTwo");
-        liftTwo.setInverted(true);
-        liftTwo.setRunMode(Motor.RunMode.PositionControl);
-        liftTwo.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
+        liftOne = hardwareMap.get(DcMotorEx.class, "liftOne");
+        liftOne.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        liftOne.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftOne.setTargetPositionTolerance(2);
+
+        liftTwo = hardwareMap.get(DcMotorEx.class, "liftTwo");
+        liftTwo.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        liftTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftOne.setTargetPositionTolerance(2);
         // Intake
         intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);
@@ -57,7 +62,7 @@ public class Robot {
 
 
         ColorSensor colorSensor1 = hardwareMap.get(ColorSensor.class, "color1");
-        ColorSensor colorSensor2 = hardwareMap.get(ColorSensor.class, "color2");\
+        ColorSensor colorSensor2 = hardwareMap.get(ColorSensor.class, "color2");
         colorSensor1.enableLed(false);
         colorSensor2.enableLed(false);
 
@@ -70,11 +75,11 @@ public class Robot {
 //        coverServo2.setInverted(true);
 
         // Deposit
-        xAdj = new MotorEx(hardwareMap, "xAdj");
-        xAdj.setRunMode(Motor.RunMode.PositionControl);
-        xAdj.setPositionTolerance(10.0);
-        
-        xAdj.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+
+        xAdj = hardwareMap.get(DcMotorEx.class, "xAdj");
+        xAdj.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        xAdj.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        xAdj.setTargetPositionTolerance(2);
 
         double fourBarMinRot = 0.0;
         double fourBarMaxRot = 180.0;
@@ -101,6 +106,6 @@ public class Robot {
         double handServoMaxRot = 10.0;
         hangServo1 = new SimpleServo(hardwareMap, "hangServo1", hangServoMinRot, handServoMaxRot);
         hangServo2 = new SimpleServo(hardwareMap, "hangServo2", hangServoMinRot, handServoMaxRot);
-        */
+
     }
 }
