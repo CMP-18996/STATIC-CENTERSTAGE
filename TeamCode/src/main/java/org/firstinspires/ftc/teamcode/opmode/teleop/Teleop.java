@@ -40,7 +40,6 @@ import org.firstinspires.ftc.teamcode.common.vision.Camera;
  * Triggers intake reverse
  * Bumpers, deposit
  */
-@Disabled
 @TeleOp(name="Final TeleOp", group="Official")
 public class Teleop extends CommandOpMode {
     private Robot robot;

@@ -19,7 +19,6 @@ import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.ToTagComm
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
-@Disabled
 @Autonomous(name = "Red Far")
 public class RedFarAuto extends CommandOpMode {
     public Robot robot;

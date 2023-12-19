@@ -17,7 +17,6 @@ import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
-@Disabled
 @Autonomous(name = "Red Close")
 public class RedCloseAuto extends CommandOpMode {
     public Robot robot;
