@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
@@ -36,7 +37,7 @@ public class BlueCloseAuto extends CommandOpMode {
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
         drive = new MecanumDrive(hardwareMap, GlobalVariables.distance.getP());
-        /*intakeSubsystem = new IntakeSubsystem(robot);
+       /* intakeSubsystem = new IntakeSubsystem(robot);
         depositSubsystem = new DepositSubsystem(robot);
         liftSubsystem = new LiftSubsystem(robot);
         super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);*/
@@ -51,6 +52,19 @@ public class BlueCloseAuto extends CommandOpMode {
                         new InstantCommand(() -> telemetry.addLine("Complete!"))
                 )
         );
+        /*drive.leftFront.setTargetPosition(442);
+        drive.rightFront.setTargetPosition(442);
+        drive.leftBack.setTargetPosition(442);
+        drive.rightBack.setTargetPosition(442);
+        drive.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        drive.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        drive.leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        drive.rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        drive.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        drive.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        drive.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        drive.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);*/
+
 
         robot.camera.startPropProcessing();
         telemetry.addData("Status", "Initialized!");

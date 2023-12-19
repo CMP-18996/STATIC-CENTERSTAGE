@@ -25,8 +25,8 @@ public class LameAuto extends CommandOpMode {
         telemetry.update();
 
         //TODO: at competition change distance, color to actual location, color
-        GlobalVariables.color = GlobalVariables.Color.BLUE;
-        GlobalVariables.distance = GlobalVariables.Distance.BLUECLOSE;
+        GlobalVariables.color = GlobalVariables.Color.RED;
+        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
         GlobalVariables.opMode = GlobalVariables.OpMode.TELEOP;
 
         CommandScheduler.getInstance().reset();
