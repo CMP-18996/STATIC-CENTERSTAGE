@@ -42,6 +42,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.common.drive.localizer.Localizer;
 import org.firstinspires.ftc.teamcode.common.drive.localizer.PoseMessage;
 import org.firstinspires.ftc.teamcode.common.drive.localizer.ThreeDeadWheelLocalizer;
+import org.firstinspires.ftc.teamcode.common.drive.localizer.TwoDeadWheelLocalizer;
 
 import java.lang.Math;
 import java.util.Arrays;
@@ -199,7 +200,7 @@ public final class MecanumDrive {
 
         voltageSensor = hardwareMap.voltageSensor.iterator().next();
 
-        localizer = new ThreeDeadWheelLocalizer(hardwareMap, PARAMS.inPerTick);
+        localizer = new TwoDeadWheelLocalizer(hardwareMap, imu, PARAMS.inPerTick);
 
         FlightRecorder.write("MECANUM_PARAMS", PARAMS);
     }
