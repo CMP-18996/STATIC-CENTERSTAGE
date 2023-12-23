@@ -52,7 +52,7 @@ public class XAxisTest extends CommandOpMode {
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
         deposit = new DepositSubsystem(robot);
-        xAdj = hardwareMap.get(DcMotorEx.class, "xAdj");
+        // xAdj = hardwareMap.get(DcMotorEx.class, "xAdj");
         GlobalVariables.opMode = GlobalVariables.OpMode.TELEOP;
 
         CommandScheduler.getInstance().schedule(
