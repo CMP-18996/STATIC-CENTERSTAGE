@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.common.subsystems;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.checkerframework.checker.units.qual.A;
 import org.firstinspires.ftc.teamcode.common.Drivers.HT16K33;
 
 import java.util.ArrayList;
@@ -234,5 +235,13 @@ public class TouchpadSubsystem extends SubsystemBase {
         //TODO ADD THIS WHEN POSSIBLE
         display2.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.DASH);
         display2.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.DASH);
+    }
+
+    public void reset() {
+        clearArray();
+        leftRightState = LeftRightState.LEFT;
+        currentOption = ChoosingOptions.ROW;
+        isChosen = false;
+        history = new ArrayList<>();
     }
 }
