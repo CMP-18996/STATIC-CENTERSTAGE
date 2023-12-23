@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.common.subsystems;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.checkerframework.checker.units.qual.A;
 import org.firstinspires.ftc.teamcode.common.Drivers.HT16K33;
 
 import java.util.ArrayList;
@@ -241,5 +242,6 @@ public class TouchpadSubsystem extends SubsystemBase {
         leftRightState = LeftRightState.LEFT;
         currentOption = ChoosingOptions.ROW;
         isChosen = false;
+        history = new ArrayList<>();
     }
 }

@@ -53,30 +53,15 @@ public class Teleop extends CommandOpMode {
     private LiftSubsystem liftSubsystem;
     private DepositSubsystem depositSubsystem;
     private IntakeSubsystem intakeSubsystem;
-    private Camera camera;
     private MiscSubsystem miscSubsystem;
-    private MecanumDrive mecanumDrive;
-    private int rowNumber;
-    private int columnNumber;
-    // I'm sorry about the naming
     private HT16K33 display1;
     private HT16K33 display2;
-    private LiftSubsystem.LiftHeight liftHeight;
-    private DepositSubsystem.LowerHorizontalState depositLowerColumn;
-    private DepositSubsystem.UpperHorizontalState depositUpperColumn;
     private HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights = new HashMap<>();
     // Lower deposit enum when row odd
     public HashMap<Integer, DepositSubsystem.LowerHorizontalState> depositLowerColumns = new HashMap<>();
     // Upper deposit enum when row even
     public HashMap<Integer, DepositSubsystem.UpperHorizontalState> depositUpperColumns = new HashMap<>();
-    public enum LeftRightChoiceState {
-        LEFT,
-        RIGHT
-    }
-    public enum SelectionState {
-        CHOOSINGROW,
-        CHOOSINGCOLUMN
-    }
+
     @Override
     public void initialize() {
         CommandScheduler.getInstance().reset();
@@ -92,55 +77,15 @@ public class Teleop extends CommandOpMode {
         liftSubsystem = new LiftSubsystem(robot);
         depositSubsystem = new DepositSubsystem(robot);
         intakeSubsystem = new IntakeSubsystem(robot);
-        camera = robot.camera;
         miscSubsystem = new MiscSubsystem(robot);
 
         register(drive, touchpad);
-
         this.fillMaps();
-
-        liftHeight = liftHeights.get(rowNumber);
-
-        depositUpperColumn = depositUpperColumns.get(columnNumber);
         liftPad.getGamepadButton(GamepadKeys.Button.Y)
                 .whenPressed(() -> {
-                    /*try {
-                        rowNumber = touchpad.getHistory().get(0);
-                        columnNumber = touchpad.getHistory().get(1);
-                        boolean depositLower = rowNumber % 2 == 1;
-
-                        switch (currentSelectionState) {
-
-                        case CHOOSINGROW:
-                                 CommandScheduler.getInstance().schedule(new ParallelCommandGroup(
-                                     // new LiftCommand(liftSubsystem, liftHeights.get(rowNumber)),
-                                     new SetReadyToDeposit(depositSubsystem, liftSubsystem, liftHeights.get(rowNumber))
-                                 ));
-                            break;
-                        case CHOOSINGCOLUMN:
-                            if (depositLower) {
-                                CommandScheduler.getInstance().schedule(new ParallelCommandGroup(
-                                        // new LiftCommand(liftSubsystem, liftHeights.get(rowNumber)),
-                                        new SetReadyToDeposit(depositSubsystem, liftSubsystem, liftHeights.get(rowNumber)),
-                                        new LowerHorizontalMoveCommand(depositSubsystem, depositLowerColumns.get(columnNumber))
-                                ));
-                            }
-                            else {
-                                CommandScheduler.getInstance().schedule(new ParallelCommandGroup(
-                                        // new LiftCommand(liftSubsystem, liftHeights.get(rowNumber)),
-                                        new SetReadyToDeposit(depositSubsystem, liftSubsystem, liftHeights.get(rowNumber)),
-                                        new UpperHorizontalMoveCommand(depositSubsystem, depositUpperColumns.get(columnNumber))
-                                ));
-                            }
-                            break;
-                        }
-
-                        currentSelectionState = SelectionState.CHOOSINGCOLUMN;
-
-                    } catch (Exception e) {}*/
                     if (touchpad.isChosen) {
                         int leftRow = touchpad.getLeftRow();
-                        int leftColumn = touchpad.getRightColumn();
+                        int leftColumn = touchpad.getLeftColumn();
                         int rightRow = touchpad.getRightRow();
                         int rightColumn = touchpad.getRightColumn();
                         CommandScheduler.getInstance().schedule(new SequentialCommandGroup(
@@ -148,8 +93,8 @@ public class Teleop extends CommandOpMode {
                                         new SetReadyToDeposit(depositSubsystem, liftSubsystem, liftHeights.get(leftRow)),
                                         // TODO: MAKE SURE THIS CODE WORKS IT IS SO SKETCHY
                                         (leftColumn % 2 == 1) ?
-                                        new LowerHorizontalMoveCommand(depositSubsystem, depositLowerColumns.get(leftColumn))
-                                      : new UpperHorizontalMoveCommand(depositSubsystem, depositUpperColumns.get(leftColumn))
+                                                new LowerHorizontalMoveCommand(depositSubsystem, depositLowerColumns.get(leftColumn))
+                                                : new UpperHorizontalMoveCommand(depositSubsystem, depositUpperColumns.get(leftColumn))
                                 ),
                                 new ParallelCommandGroup(
                                         new WaitCommand(250),
@@ -160,8 +105,8 @@ public class Teleop extends CommandOpMode {
                                         new SetReadyToDeposit(depositSubsystem, liftSubsystem, liftHeights.get(rightRow)),
                                         // TODO: MAKE SURE THIS CODE WORKS IT IS SO SKETCHY
                                         (rightColumn % 2 == 1) ?
-                                        new LowerHorizontalMoveCommand(depositSubsystem, depositLowerColumns.get(rightColumn))
-                                      : new UpperHorizontalMoveCommand(depositSubsystem, depositUpperColumns.get(rightColumn))
+                                                new LowerHorizontalMoveCommand(depositSubsystem, depositLowerColumns.get(rightColumn))
+                                                : new UpperHorizontalMoveCommand(depositSubsystem, depositUpperColumns.get(rightColumn))
                                 ),
                                 new ParallelCommandGroup(
                                         new WaitCommand(250),
@@ -175,19 +120,19 @@ public class Teleop extends CommandOpMode {
                 });
 
         liftPad.getGamepadButton(GamepadKeys.Button.A)
-                        .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                                new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem))
-                        );
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem))
+                );
 
         liftPad.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                        .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                                new IntakeWait(intakeSubsystem))
-                        );
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new IntakeWait(intakeSubsystem))
+                );
 
         liftPad.getGamepadButton(GamepadKeys.Button.X)
-                        .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                                new TakeFromDepositCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
-                        ));
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new TakeFromDepositCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
+                ));
 
         liftPad.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
@@ -207,7 +152,6 @@ public class Teleop extends CommandOpMode {
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT)
                 ));
-
         // Manually change the intake state
         /*
         Already used buttons:
