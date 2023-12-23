@@ -235,4 +235,11 @@ public class TouchpadSubsystem extends SubsystemBase {
         display2.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.DASH);
         display2.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.DASH);
     }
+
+    public void reset() {
+        clearArray();
+        leftRightState = LeftRightState.LEFT;
+        currentOption = ChoosingOptions.ROW;
+        isChosen = false;
+    }
 }

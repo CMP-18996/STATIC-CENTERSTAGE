@@ -152,7 +152,7 @@ public class Teleop extends CommandOpMode {
                                       : new UpperHorizontalMoveCommand(depositSubsystem, depositUpperColumns.get(leftColumn))
                                 ),
                                 new ParallelCommandGroup(
-                                        new WaitCommand(200),
+                                        new WaitCommand(250),
                                         new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT)
                                 ),
                                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
@@ -164,12 +164,13 @@ public class Teleop extends CommandOpMode {
                                       : new UpperHorizontalMoveCommand(depositSubsystem, depositUpperColumns.get(rightColumn))
                                 ),
                                 new ParallelCommandGroup(
-                                        new WaitCommand(200),
+                                        new WaitCommand(250),
                                         new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT)
                                 ),
                                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT),
                                 new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
                         ));
+                        touchpad.reset();
                     }
                 });
 
