@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
 @TeleOp(name = "ps4Test",group="test")
 public class ps4Test extends CommandOpMode {
     public TouchpadSubsystem touchpad;
-    private HT16K33 display;
+    private HT16K33 display1, display2;
     boolean f, g;
     @Override
     public void initialize() {
@@ -28,8 +28,9 @@ public class ps4Test extends CommandOpMode {
         GlobalVariables.opMode = GlobalVariables.OpMode.TELEOP;
         CommandScheduler.getInstance().reset();
 
-        display = hardwareMap.get(HT16K33.class, "display");
-        touchpad = new TouchpadSubsystem(gamepad1, display);
+        display1 = hardwareMap.get(HT16K33.class, "display1");
+        display2 = hardwareMap.get(HT16K33.class, "display2");
+        touchpad = new TouchpadSubsystem(gamepad1, display1, display2);
         super.register(touchpad);
 
 
@@ -55,6 +56,8 @@ public class ps4Test extends CommandOpMode {
         }
         telemetry.addData("Status", "Running...");
         telemetry.addData("History", touchpad.getHistory());
+        telemetry.addData("LeftRight State:", touchpad.getLeftRightState());
+        telemetry.addData("Option State:", touchpad.getOptionState());
         telemetry.update();
     }
 }

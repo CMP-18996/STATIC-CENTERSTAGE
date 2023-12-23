@@ -30,7 +30,7 @@ public class LiftTest extends CommandOpMode {
     private GamepadEx gamepadEx;
     private HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights = new HashMap<>();
     private LiftSubsystem.LiftHeight liftHeight;
-    private HT16K33 display1;
+    private HT16K33 display1, display2;
     private int rowNumber;
 
     @Override
@@ -40,7 +40,8 @@ public class LiftTest extends CommandOpMode {
         liftSubsystem = new LiftSubsystem(robot);
         gamepadEx = new GamepadEx(gamepad1);
         display1 = hardwareMap.get(HT16K33.class, "display1");
-        touchpadSubsystem = new TouchpadSubsystem(gamepad1, display1);
+        display2 = hardwareMap.get(HT16K33.class, "display2");
+        touchpadSubsystem = new TouchpadSubsystem(gamepad1, display1, display2);
 
         this.fillMaps();
         CommandScheduler.getInstance().reset();

@@ -12,11 +12,12 @@ import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
 public class TouchpadTest extends LinearOpMode {
     Robot robot;
     TouchpadSubsystem touchpad;
-    HT16K33 display;
+    HT16K33 display1, display2;
     @Override
     public void runOpMode() {
-        display = hardwareMap.get(HT16K33.class, "display");
-        touchpad = new TouchpadSubsystem(gamepad1, display);
+        display1 = hardwareMap.get(HT16K33.class, "display1");
+        display1 = hardwareMap.get(HT16K33.class, "display2");
+        touchpad = new TouchpadSubsystem(gamepad1, display1, display2);
         // touchpad.register();
         waitForStart();
         while (opModeIsActive()) {

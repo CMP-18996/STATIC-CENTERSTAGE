@@ -14,8 +14,5 @@ public class SetReadyToDeposit extends ParallelCommandGroup {
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
                 new LiftCommand(liftSubsystem, LiftHeight)
        );
-
-
-
     }
 }

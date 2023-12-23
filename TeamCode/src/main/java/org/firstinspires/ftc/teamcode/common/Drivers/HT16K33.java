@@ -38,6 +38,29 @@ public class HT16K33 extends I2cDeviceSynchDevice<I2cDeviceSynch> {
         writeByteArr(deviceNumber, character.charCode);
     }
 
+    public void startFlashing() {
+        this.deviceClient.setI2cAddress(DeviceNumber.ONE.address);
+        deviceClient.write8(0x85);
+        this.deviceClient.setI2cAddress(DeviceNumber.TWO.address);
+        deviceClient.write8(0x85);
+    }
+    public void stopFlashing() {
+        this.deviceClient.setI2cAddress(DeviceNumber.ONE.address);
+        deviceClient.write8(0x81);
+        this.deviceClient.setI2cAddress(DeviceNumber.TWO.address);
+        deviceClient.write8(0x81);
+    }
+
+    public void writeUnderlinedCharacter(DeviceNumber deviceNumber, AvailableCharacters characters) {
+        byte[] usedCharCode = characters.charCode;
+        writeByteArr(deviceNumber, new byte[] {
+                usedCharCode[0], (byte) (usedCharCode[1] + 0x80), usedCharCode[2], (byte) (usedCharCode[3] + 0x80),
+                usedCharCode[4], (byte) (usedCharCode[5] + 0x80), usedCharCode[6], (byte) (usedCharCode[7] + 0x80),
+                usedCharCode[8], (byte) (usedCharCode[9] + 0x80), usedCharCode[10], (byte) (usedCharCode[11] + 0x80),
+                usedCharCode[12], (byte) (usedCharCode[13] + 0x80), usedCharCode[14], (byte) (usedCharCode[15] + 0x80)
+        });
+    }
+
 
     private static byte[] reverseBitsInByteArr(byte[] arr) {
         for (int i = 0; i < 16; i++) {
