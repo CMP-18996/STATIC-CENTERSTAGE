@@ -12,7 +12,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;
 
-@TeleOp(name="dumb",group="test")
+@TeleOp(name="visiontest",group="test")
 public class VisionTeste extends CommandOpMode {
     public Camera camera;
 
