@@ -36,10 +36,10 @@ public class GlobalVariables {
         AUTO,
         TELEOP
     }
-    public static Color color;
+    public static Color color = Color.RED;
     public static Position position = Position.UNDETECTED;
-    public static Distance distance;
-    public static OpMode opMode;
+    public static Distance distance = Distance.REDFAR;
+    public static OpMode opMode = OpMode.TELEOP;
     public GlobalVariables(Color color) {
         this.color = color;
     }

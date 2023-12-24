@@ -17,6 +17,7 @@ public class defaultDriveTest extends CommandOpMode {
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
+        GlobalVariables.color = GlobalVariables.Color.RED;
         GlobalVariables.opMode = GlobalVariables.OpMode.TELEOP;
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
