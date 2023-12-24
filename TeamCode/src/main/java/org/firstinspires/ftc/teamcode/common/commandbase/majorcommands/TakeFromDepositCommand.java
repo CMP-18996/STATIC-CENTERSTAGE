@@ -4,7 +4,7 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.DepositRotatorCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DepositRotatorCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.CoverCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DepositExpansionCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;

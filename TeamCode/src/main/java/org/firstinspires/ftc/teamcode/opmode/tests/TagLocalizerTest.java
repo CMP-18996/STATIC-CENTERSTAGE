@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToBoardCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.ToTagCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
 @Disabled

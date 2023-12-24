@@ -4,7 +4,7 @@ package org.firstinspires.ftc.teamcode.common.commandbase.majorcommands;
 
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.DepositRotatorCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DepositRotatorCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;

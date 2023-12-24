@@ -8,7 +8,7 @@
  * - Camera fails to see apriltag due to distance, blur, or lighting
  * - Various camera crashes
  */
-package org.firstinspires.ftc.teamcode.common.commandbase.majorcommands;
+package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
