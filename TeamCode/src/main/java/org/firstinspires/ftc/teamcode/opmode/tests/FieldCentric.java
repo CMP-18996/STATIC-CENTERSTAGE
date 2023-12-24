@@ -22,7 +22,6 @@ public class FieldCentric extends CommandOpMode {
     private MecanumDrive drive;
     double heading = 0;
     double y, x;
-    GamepadEx gp;
     HeadingSource hs = HeadingSource.ODO;
     public double calculateHeading(double real, double imag) {
         if (real == 0) real += 0.0000000000000000001;
@@ -38,10 +37,13 @@ public class FieldCentric extends CommandOpMode {
 
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
         drive.imu.resetYaw();
+
+        telemetry.addData("Status", "Initialized!");
+        telemetry.update();
     }
     @Override
     public void run() {
-        super.run();
+        CommandScheduler.getInstance().run();
         if (gamepad1.x) hs = HeadingSource.ODO;
         if (gamepad1.y) hs = HeadingSource.IMU;
         switch (hs) {
