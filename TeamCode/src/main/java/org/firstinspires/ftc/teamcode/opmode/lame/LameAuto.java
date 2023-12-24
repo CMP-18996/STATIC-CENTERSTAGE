@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.autonomous;
+package org.firstinspires.ftc.teamcode.opmode.lame;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
