@@ -21,7 +21,6 @@ public class Robot {
     public HardwareMap hardwareMap;
 
     public Robot(HardwareMap hardwareMap) {
-
         camera = new Camera(hardwareMap);
         // drivetrain
         this.hardwareMap = hardwareMap;
@@ -43,9 +42,8 @@ public class Robot {
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
 
-
-        // Lift
         /*
+        // Lift
         liftOne = hardwareMap.get(DcMotorEx.class, "liftOne");
 //        liftOne.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftOne.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -80,7 +78,6 @@ public class Robot {
         // Deposit
 
         xAdj = hardwareMap.get(DcMotorEx.class, "xAdj");
-        xAdj.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         xAdj.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         xAdj.setTargetPositionTolerance(2);
 

@@ -35,8 +35,8 @@ public class DepositSubsystem extends SubsystemBase {
 
     public void setLowerHorizontalState(LowerHorizontalState state) {
         robot.xAdj.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.xAdj.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.xAdj.setTargetPosition((int)lowerHorizontalState.value - (int)state.value);
+        robot.xAdj.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.xAdj.setMotorEnable();
         robot.xAdj.setPower(0.4);
         lowerHorizontalState = state;
@@ -48,8 +48,8 @@ public class DepositSubsystem extends SubsystemBase {
 
     public void setUpperHorizontalState(UpperHorizontalState state) {
         robot.xAdj.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.xAdj.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.xAdj.setTargetPosition((int)upperHorizontalState.value - (int)state.value);
+        robot.xAdj.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.xAdj.setMotorEnable();
         robot.xAdj.setPower(0.4);
         upperHorizontalState = state;
