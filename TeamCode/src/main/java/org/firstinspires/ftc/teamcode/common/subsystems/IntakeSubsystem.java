@@ -15,6 +15,9 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 
 @Config
 public class IntakeSubsystem extends SubsystemBase {
+    /*
+    Two more servos for intake, apparently they control the bar in front
+     */
     private Robot robot;
     private SweepingState sweepingState = SweepingState.STOPPED;
     public static double intakePower = .6;

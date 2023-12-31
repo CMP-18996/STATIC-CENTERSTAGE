@@ -41,7 +41,8 @@ public class LiftTestTwo extends CommandOpMode {
                     new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTFIVE),
                     new WaitCommand(1000),
                     new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTONE),
-                    new WaitCommand(1000)
+                    new WaitCommand(1000),
+                    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTFIVE)
                 )
                 //    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTSEVEN)
         );

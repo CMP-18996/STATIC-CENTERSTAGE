@@ -16,6 +16,8 @@ public class Robot {
     public DcMotorEx liftOne, liftTwo, xAdj;
     public ServoEx coverServo, fourBar, leftGrabber, rightGrabber, depositExpansion,
             depositRotator, droneServo, hangServo1, hangServo2;
+    // Two new servos for intake, need to figure out where to use them
+    public ServoEx frontBar1, frontBar2;
     public Camera camera;
     public ColorSensor colorSensor1, colorSensor2;
     public HardwareMap hardwareMap;
@@ -42,7 +44,7 @@ public class Robot {
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
 
-        /*
+        /* */
         // Lift
         liftOne = hardwareMap.get(DcMotorEx.class, "liftOne");
 //        liftOne.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -50,6 +52,7 @@ public class Robot {
 //        liftOne.setMotorEnable();
         liftOne.setTargetPositionTolerance(2);
 
+        /*
         liftTwo = hardwareMap.get(DcMotorEx.class, "liftTwo");
 //        liftTwo.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
