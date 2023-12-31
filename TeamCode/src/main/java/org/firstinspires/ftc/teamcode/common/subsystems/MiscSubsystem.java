@@ -19,4 +19,8 @@ public class MiscSubsystem extends SubsystemBase {
         robot.hangServo1.setPosition(1);
         robot.hangServo2.setPosition(1);
     }
+
+    public void droneMotorTest() {
+        robot.droneMotor.setPower(1);
+    }
 }

@@ -30,22 +30,24 @@ public class LiftTestTwo extends CommandOpMode {
         GlobalVariables.opMode = GlobalVariables.OpMode.TELEOP;
         robot = new Robot(hardwareMap);
         liftSubsystem = new LiftSubsystem(robot);
-
         // Change to sequential command group
+        // Change polarity, red wire -> red wire, black wire -> black wire DUMBASS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                     new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTSEVEN),
-                    new WaitCommand(1000),
-                    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE),
-                    new WaitCommand(1000),
+                    new WaitCommand(5000),
+                    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE)
+                    /* new WaitCommand(1000),
                     new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTFIVE),
                     new WaitCommand(1000),
                     new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTONE),
                     new WaitCommand(1000),
-                    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTFIVE)
+                    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTFIVE)*/
                 )
                 //    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTSEVEN)
         );
+//        telemetry.addData("Iteration", LiftCommand.i);
+        telemetry.update();
     }
 
     public void run() {
@@ -57,6 +59,8 @@ public class LiftTestTwo extends CommandOpMode {
         telemetry.addData("Lift height", liftSubsystem.getCurrentHeight());
         telemetry.addData("Lift height in numbers", liftSubsystem.getCurrentHeight().getHeight());*/
         telemetry.addData("Lift error", liftSubsystem.error);
+        telemetry.addData("Target position 1", robot.liftOne.getTargetPosition());
+        telemetry.addData("Target position 2", robot.liftTwo.getTargetPosition());
         telemetry.update();
     }
 }

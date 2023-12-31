@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.common.vision.Camera;
 public class Robot {
     public MotorEx leftFront, rightFront, leftRear, rightRear, intakeMotor;
     public DcMotorEx liftOne, liftTwo, xAdj;
+    public DcMotorEx droneMotor;
     public ServoEx coverServo, fourBar, leftGrabber, rightGrabber, depositExpansion,
             depositRotator, droneServo, hangServo1, hangServo2;
     // Two new servos for intake, need to figure out where to use them
@@ -23,6 +25,7 @@ public class Robot {
     public HardwareMap hardwareMap;
 
     public Robot(HardwareMap hardwareMap) {
+
         camera = new Camera(hardwareMap);
         // drivetrain
         this.hardwareMap = hardwareMap;
@@ -44,7 +47,7 @@ public class Robot {
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
 
-        /* */
+        /*
         // Lift
         liftOne = hardwareMap.get(DcMotorEx.class, "liftOne");
 //        liftOne.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -52,12 +55,15 @@ public class Robot {
 //        liftOne.setMotorEnable();
         liftOne.setTargetPositionTolerance(2);
 
-        /*
+
         liftTwo = hardwareMap.get(DcMotorEx.class, "liftTwo");
 //        liftTwo.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //        liftTwo.setMotorEnable();
-        liftTwo.setTargetPositionTolerance(2);*/
+        liftTwo.setTargetPositionTolerance(2);
+//        liftTwo.setDirection(DcMotorSimple.Direction.REVERSE);
+        */
+
         /*
         // Intake
         intakeMotor = new MotorEx(hardwareMap, "intake");
@@ -110,5 +116,10 @@ public class Robot {
         hangServo1 = new SimpleServo(hardwareMap, "hangServo1", hangServoMinRot, handServoMaxRot);
         hangServo2 = new SimpleServo(hardwareMap, "hangServo2", hangServoMinRot, handServoMaxRot);
         */
+        /*
+        droneMotor = hardwareMap.get(DcMotorEx.class, "droneMotor");
+        droneMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        droneMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+         */
     }
 }
