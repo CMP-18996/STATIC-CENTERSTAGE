@@ -31,7 +31,8 @@ public class EncoderTest extends LinearOpMode {
         waitForStart();
 
 //        timer.start();
-        // 145.1 pulses per revolution
+        // 145.1 pulses per revolution for the 5202 motors
+        // 384.5 pulses for revolution for the 5203 motors
         while (opModeIsActive()) {
             encoderMotor.setTargetPosition(145);
             encoderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);

@@ -1,22 +1,14 @@
 package org.firstinspires.ftc.teamcode.common.subsystems;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.acmerobotics.dashboard.config.Config;
-import com.arcrobotics.ftclib.command.CommandGroupBase;
-import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.IntakeWait;
-
-import com.arcrobotics.ftclib.command.WaitCommand;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
 @Config
 public class IntakeSubsystem extends SubsystemBase {
     /*
     Two more servos for intake, apparently they control the bar in front
+    Still need to set them up in robot class
      */
     private Robot robot;
     private SweepingState sweepingState = SweepingState.STOPPED;
@@ -25,9 +17,14 @@ public class IntakeSubsystem extends SubsystemBase {
     private CoverState coverState = CoverState.CLOSED;
     public ColorState slotOne;
     public ColorState slotTwo;
+    private FrontBarState frontBarState = FrontBarState.HIGHER;
 
     public static double OPEN_COVER_VAL = 180.0;
     public static double CLOSED_COVER_VAL = 180.0;
+
+    public static double FRONT_BAR_LOWER = 0;
+    public static double FRONT_BAR_MIDDLE = 1;
+    public static double FRONT_BAR_HIGHER = 2;
     // color1, color2, both strings
     // ColorSensor colorSensor1 = hardwareMap.get(ColorSensor.class, "Color1");
     // ColorSensor colorSensor2 = hardwareMap.get(ColorSensor.class, "Color2");
@@ -52,6 +49,18 @@ public class IntakeSubsystem extends SubsystemBase {
         YELLOW,
         BLACK,
         NONE;
+    }
+
+    public enum FrontBarState {
+        LOWER(FRONT_BAR_LOWER),
+        MIDDLE(FRONT_BAR_MIDDLE),
+        HIGHER(FRONT_BAR_HIGHER);
+
+        double barState;
+        FrontBarState(double barState) {
+            this.barState = barState;
+        }
+        public double getBarHeight() {return barState;}
     }
 
     public void updateSweepingState(SweepingState setState) {
@@ -159,6 +168,17 @@ public class IntakeSubsystem extends SubsystemBase {
             return true;
         else
             return false;
+    }
+
+    public void updateFrontBarState(FrontBarState frontBarState) {
+        robot.frontBar1.setPosition(frontBarState.getBarHeight());
+        robot.frontBar2.setPosition(-frontBarState.getBarHeight());
+        this.frontBarState = frontBarState;
+    }
+
+    public boolean frontBarFinished() {
+        return (robot.frontBar1.getPosition() == frontBarState.getBarHeight())
+                && (robot.frontBar2.getPosition() == frontBarState.getBarHeight());
     }
 
     public IntakeSubsystem(Robot robot) {

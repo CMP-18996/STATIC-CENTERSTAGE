@@ -34,10 +34,11 @@ public class LiftTestTwo extends CommandOpMode {
         // Change polarity, red wire -> red wire, black wire -> black wire DUMBASS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTSEVEN),
+                    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTNINE)
+                    /*new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTSEVEN),
                     new WaitCommand(5000),
                     new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE)
-                    /* new WaitCommand(1000),
+                    new WaitCommand(1000),
                     new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTFIVE),
                     new WaitCommand(1000),
                     new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTONE),
