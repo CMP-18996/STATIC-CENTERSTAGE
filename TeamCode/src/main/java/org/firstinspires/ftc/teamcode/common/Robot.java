@@ -61,7 +61,7 @@ public class Robot {
         liftTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //        liftTwo.setMotorEnable();
         liftTwo.setTargetPositionTolerance(2);
-//        liftTwo.setDirection(DcMotorSimple.Direction.REVERSE);
+        liftTwo.setDirection(DcMotorSimple.Direction.REVERSE);
         */
 
         /*
