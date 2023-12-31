@@ -57,7 +57,7 @@ public class Robot {
 //        liftTwo.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //        liftTwo.setMotorEnable();
-        liftOne.setTargetPositionTolerance(2);*/
+        liftTwo.setTargetPositionTolerance(2);*/
         /*
         // Intake
         intakeMotor = new MotorEx(hardwareMap, "intake");
