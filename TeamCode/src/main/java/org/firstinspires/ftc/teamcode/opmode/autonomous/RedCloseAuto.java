@@ -42,8 +42,6 @@ public class RedCloseAuto extends CommandOpMode {
                 new SequentialCommandGroup(
                         new WaitCommand(6000), //wait at least 5 for box to be detected well
                         new ToSpikeMarkCommand(drive), //drives to correct spike mark
-                        //TODO: figure out how to get purple in right place
-                        //TODO: fix box crashing problem on left
                         new ToBoardCommand(drive), //drive from spike mark to board
                         //new AutoDropCommand(), //drop yellow on board
                         new ToTagCommand(robot.camera, drive), //drives to apriltag, maybe

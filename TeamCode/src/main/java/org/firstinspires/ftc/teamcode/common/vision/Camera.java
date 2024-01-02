@@ -26,7 +26,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Camera extends SubsystemBase {
     private VisionPortal visionPortal;
-    private boolean exposureSet = false;
     private AprilTagProcessor aprilTag;
     private PropProcessor propProcessor;
 
@@ -58,14 +57,8 @@ public class Camera extends SubsystemBase {
                 .addProcessor(aprilTag)
                 .setAutoStopLiveView(true)
                 .build();
-        while (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
-            try {
-                sleep(30);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        setManualExposure(6, 250);
+        /*while (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {}
+        setManualExposure(6, 250);*/
     }
 
     public void startPropProcessing() {
@@ -84,7 +77,7 @@ public class Camera extends SubsystemBase {
         if (exposureControl.getMode() != ExposureControl.Mode.Manual) {
             exposureControl.setMode(ExposureControl.Mode.Manual);
         }
-        exposureControl.setExposure((long)exposureMS, TimeUnit.MILLISECONDS);
+        exposureControl.setExposure((long) exposureMS, TimeUnit.MILLISECONDS);
         GainControl gainControl = visionPortal.getCameraControl(GainControl.class);
         gainControl.setGain(gain);
     }
