@@ -84,6 +84,16 @@ public class Robot {
 //        coverServo2 = new SimpleServo(hardwareMap, "cover2", coverServoMinRot, coverServoMaxRot);
 //        coverServo2.setInverted(true);
 
+
+        double frontBarMinRot = 0.0;
+        double frontBarMaxRot = 180.0;
+        frontBar1 = new SimpleServo(hardwareMap, "frontBar1", frontBarMinRot, frontBarMaxRot);
+        frontBar1.setInverted(false);
+        frontBar2 = new SimpleServo(hardwareMap, "frontBar2", frontBarMinRot, frontBarMaxRot);
+        frontBar2.setInverted(true);
+         */
+
+        /*
         // Deposit
 
         xAdj = hardwareMap.get(DcMotorEx.class, "xAdj");
@@ -116,10 +126,11 @@ public class Robot {
         hangServo1 = new SimpleServo(hardwareMap, "hangServo1", hangServoMinRot, handServoMaxRot);
         hangServo2 = new SimpleServo(hardwareMap, "hangServo2", hangServoMinRot, handServoMaxRot);
         */
+
         /*
         droneMotor = hardwareMap.get(DcMotorEx.class, "droneMotor");
         droneMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        droneMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        // droneMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
          */
     }
 }
