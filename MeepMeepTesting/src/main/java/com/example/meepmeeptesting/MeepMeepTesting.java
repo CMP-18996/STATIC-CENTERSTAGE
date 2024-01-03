@@ -24,10 +24,10 @@ public class MeepMeepTesting {
                 .followTrajectorySequence(drive ->
                     drive.trajectorySequenceBuilder(p)
                             .splineTo(new Vector2d(p.getX(), p.getY() - Math.signum(p.getY()) * 15.5), p.getHeading())
-                            .splineTo(new Vector2d(p.getX() + Math.signum(p.getY()) * 2, p.getY() - Math.signum(p.getY()) * 33),
-                                    p.getHeading() + Math.PI / 2)
-                            /*.splineTo(new Vector2d(p.getX(), p.getY() - Math.signum(p.getY()) * 30),
-                                p.getHeading())*/
+                            /*.splineTo(new Vector2d(p.getX(), p.getY() - Math.signum(p.getY()) * 33),
+                                    p.getHeading() + Math.PI / 2)*/
+                            .splineTo(new Vector2d(p.getX(), p.getY() - Math.signum(p.getY()) * 27),
+                                p.getHeading())
                             /*.splineTo(new Vector2d(p.getX() - Math.signum(p.getY()) * 2, p.getY() - Math.signum(p.getY()) * 33),
                                     p.getHeading() - Math.PI / 2)*/
                             .turn(Math.toRadians(180))

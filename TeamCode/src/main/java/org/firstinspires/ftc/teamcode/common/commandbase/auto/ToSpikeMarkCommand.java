@@ -47,22 +47,19 @@ public class ToSpikeMarkCommand extends CommandBase {
             case LEFT:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h)
-                        .splineTo(new Vector2d(x + Math.signum(y) * 2, y - Math.signum(y) * 33),
-                                h + Math.PI / 2)
+                        .splineTo(new Vector2d(x, y - Math.signum(y) * 33),h + Math.PI / 2)
                         .build());
                 break;
             case RIGHT:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h)
-                        .splineTo(new Vector2d(x - Math.signum(y) * 2, y - Math.signum(y) * 33),
-                                h - Math.PI / 2)
+                        .splineTo(new Vector2d(x, y - Math.signum(y) * 33),h - Math.PI / 2)
                         .build());
                 break;
             case MIDDLE:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h)
-                        .splineTo(new Vector2d(x, y - Math.signum(y) * 30),
-                                h)
+                        .splineTo(new Vector2d(x, y - Math.signum(y) * 27), h)
                         .build());
                 break;
             case UNDETECTED:
@@ -70,15 +67,13 @@ public class ToSpikeMarkCommand extends CommandBase {
                     case RED: //right
                         Actions.runBlocking(drive.actionBuilder(drive.pose)
                                 .splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h)
-                                .splineTo(new Vector2d(x - Math.signum(y) * 2, y - Math.signum(y) * 33),
-                                        h - Math.PI / 2)
+                                .splineTo(new Vector2d(x, y - Math.signum(y) * 33),h - Math.PI / 2)
                                 .build());
                         break;
                     case BLUE: //left
                         Actions.runBlocking(drive.actionBuilder(drive.pose)
                                 .splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h)
-                                .splineTo(new Vector2d(x + Math.signum(y) * 2, y - Math.signum(y) * 33),
-                                        h + Math.PI / 2)
+                                .splineTo(new Vector2d(x, y - Math.signum(y) * 33),h + Math.PI / 2)
                                 .build());
                         break;
                 }
