@@ -47,9 +47,6 @@ public class AprilTagLocalizationTest extends CommandOpMode {
     @Override
     public void run() {
         robot.camera.startPropProcessing();
-        if (!t.isFinished()) {
-            telemetry.addData("I see....", t.getSight());
-        }
         CommandScheduler.getInstance().run();
     }
 }

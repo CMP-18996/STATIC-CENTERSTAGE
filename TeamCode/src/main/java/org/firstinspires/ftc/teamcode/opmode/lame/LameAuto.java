@@ -10,8 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.DumbCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand;
+import org.firstinspires.ftc.teamcode.common.other.DumbCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
 @Disabled

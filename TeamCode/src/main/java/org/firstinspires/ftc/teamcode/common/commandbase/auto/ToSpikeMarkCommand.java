@@ -23,6 +23,9 @@ public class ToSpikeMarkCommand extends CommandBase {
         this.drive = drive;
     }
     public Pose2d p;
+    public double x;
+    public double y;
+    public double h;
     public double calculateHeading(double real, double imag) {
         if (real == 0) real += 0.000000000000001;
         if (imag == 0) imag += 0.000000000000001;
@@ -32,43 +35,57 @@ public class ToSpikeMarkCommand extends CommandBase {
         return h;
     }
     @Override
-    public void initialize() {p = drive.pose;}
+    public void initialize() {
+        p = drive.pose;
+        x = p.position.x;
+        y = p.position.y;
+        h = calculateHeading(p.heading.real, p.heading.imag);
+    }
     @Override
     public void execute() {
         switch (GlobalVariables.position) {
             case LEFT:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .setReversed(true)
-                        .splineTo(new Vector2d(p.position.x + Math.signum(p.position.y) * 4,
-                                    p.position.y - Math.signum(p.position.y) * 30),
-                                calculateHeading(p.heading.real, p.heading.imag) - Math.PI / 2)
+                        .splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h)
+                        .splineTo(new Vector2d(x + Math.signum(y) * 2, y - Math.signum(y) * 33),
+                                h + Math.PI / 2)
                         .build());
                 break;
             case RIGHT:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .setReversed(true)
-                        .splineTo(new Vector2d(p.position.x - Math.signum(p.position.y) * 4,
-                                    p.position.y - Math.signum(p.position.y) * 30),
-                                calculateHeading(p.heading.real, p.heading.imag) + Math.PI / 2)
+                        .splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h)
+                        .splineTo(new Vector2d(x - Math.signum(y) * 2, y - Math.signum(y) * 33),
+                                h - Math.PI / 2)
                         .build());
                 break;
             case MIDDLE:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .setReversed(true)
-                        .splineTo(new Vector2d(p.position.x, p.position.y - Math.signum(p.position.y) * 28),
-                                calculateHeading(p.heading.real, p.heading.imag))
+                        .splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h)
+                        .splineTo(new Vector2d(x, y - Math.signum(y) * 30),
+                                h)
                         .build());
                 break;
-            case UNDETECTED: //middle
-                Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .setReversed(true)
-                        .splineTo(new Vector2d(p.position.x, p.position.y - Math.signum(p.position.y) * 28),
-                                calculateHeading(p.heading.real, p.heading.imag))
-                        .build());
+            case UNDETECTED:
+                switch (GlobalVariables.color) {
+                    case RED: //right
+                        Actions.runBlocking(drive.actionBuilder(drive.pose)
+                                .splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h)
+                                .splineTo(new Vector2d(x - Math.signum(y) * 2, y - Math.signum(y) * 33),
+                                        h - Math.PI / 2)
+                                .build());
+                        break;
+                    case BLUE: //left
+                        Actions.runBlocking(drive.actionBuilder(drive.pose)
+                                .splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h)
+                                .splineTo(new Vector2d(x + Math.signum(y) * 2, y - Math.signum(y) * 33),
+                                        h + Math.PI / 2)
+                                .build());
+                        break;
+                }
                 break;
         }
         t = true;
     }
     @Override
-    public boolean isFinished() { return t;}
+    public boolean isFinished() {return t;}
 }

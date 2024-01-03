@@ -68,9 +68,8 @@ public class ToTagCommand extends CommandBase {
                             switch (tag.id) {
                                 case 2: case 5:
                                     Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                            .setReversed(true)
                                             .splineToConstantHeading(new Vector2d(d, drive.pose.position.y - stats[0]),
-                                                    calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]) - Math.PI)
+                                                    calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]))
                                             .waitSeconds(1)
                                             .build());
                                     break;
@@ -78,15 +77,13 @@ public class ToTagCommand extends CommandBase {
                                     Actions.runBlocking(drive.actionBuilder(drive.pose)
                                             .setReversed(true)
                                             .splineToConstantHeading(new Vector2d(d, drive.pose.position.y - stats[0] - 6),
-                                                    calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]) - Math.PI)
-                                            .waitSeconds(1)
+                                                    calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]))
                                             .build());
                                     break;
                                 case 3: case 6:
                                     Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                            .setReversed(true)
                                             .splineToConstantHeading(new Vector2d(d, drive.pose.position.y - stats[0] + 6),
-                                                    calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]) - Math.PI)
+                                                    calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]))
                                             .waitSeconds(1)
                                             .build());
                                     break;
@@ -109,15 +106,6 @@ public class ToTagCommand extends CommandBase {
     @Override
     public boolean isFinished() {
         return t >= 10;
-    }
-    public List<Integer> getSight() {
-        List<Integer> i = new ArrayList<>();
-        if (currentDetections != null) {
-            for (AprilTagDetection tag : currentDetections) {
-                i.add(tag.id);
-            }
-        }
-        return i;
     }
 }
 

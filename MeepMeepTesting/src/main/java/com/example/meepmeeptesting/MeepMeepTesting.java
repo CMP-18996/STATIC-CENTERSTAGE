@@ -17,21 +17,28 @@ public class MeepMeepTesting {
     }
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(600);
-        Pose2d p = new Pose2d(-35, 63.5, Math.toRadians(90));
+        Pose2d p = new Pose2d(12, -63.5, Math.toRadians(90));
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(40, 30, Math.toRadians(180) / 2, Math.toRadians(180) / 3, 13.69)
                 .followTrajectorySequence(drive ->
                     drive.trajectorySequenceBuilder(p)
-                            .setReversed(true)
-                            /*.splineTo(new Vector2d(p.getX() + Math.signum(p.getY()) * 1, p.getY() - Math.signum(p.getY()) * 30),
-                                    p.getHeading() - Math.PI / 2)*/
-                            /*.splineTo(new Vector2d(p.getX(), p.getY() - Math.signum(p.getY()) * 28),
+                            .splineTo(new Vector2d(p.getX(), p.getY() - Math.signum(p.getY()) * 15.5), p.getHeading())
+                            .splineTo(new Vector2d(p.getX() + Math.signum(p.getY()) * 2, p.getY() - Math.signum(p.getY()) * 33),
+                                    p.getHeading() + Math.PI / 2)
+                            /*.splineTo(new Vector2d(p.getX(), p.getY() - Math.signum(p.getY()) * 30),
                                 p.getHeading())*/
-                            /*.splineTo(new Vector2d(p.getX() - Math.signum(p.getY()) * 4, p.getY() - Math.signum(p.getY()) * 30),
-                                    p.getHeading() + Math.PI / 2)*/
-                            .splineTo(new Vector2d(-24, 58), Math.toRadians(0))
-                            .splineTo(new Vector2d(54, 58), Math.toRadians(0))
+                            /*.splineTo(new Vector2d(p.getX() - Math.signum(p.getY()) * 2, p.getY() - Math.signum(p.getY()) * 33),
+                                    p.getHeading() - Math.PI / 2)*/
+                            .turn(Math.toRadians(180))
+                            //.splineTo(new Vector2d(-24, -36), Math.toRadians(0))
+                            .splineTo(new Vector2d(20, -36), Math.toRadians(0))
+                            .setReversed(true)
+                            .splineTo(new Vector2d(-62, -36), Math.toRadians(180))
+                            .waitSeconds(0.5)
+                            .setReversed(false)
+                            .splineTo(new Vector2d(20, -36), Math.toRadians(0))
+                            .waitSeconds(2)
                         .build()
                 );
 

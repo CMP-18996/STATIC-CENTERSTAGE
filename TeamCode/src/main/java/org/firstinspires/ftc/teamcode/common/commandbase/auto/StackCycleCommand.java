@@ -30,21 +30,21 @@ public class StackCycleCommand extends CommandBase {
             case BLUE:
                 Actions.runBlocking(
                         drive.actionBuilder(drive.pose)
-                                .setReversed(false)
+                                .setReversed(true)
                                 .splineTo(new Vector2d(-62, 36), Math.toRadians(180))
                                 .waitSeconds(0.5)
-                                .setReversed(true)
-                                .splineTo(new Vector2d(46,  36), Math.toRadians(0))
+                                .setReversed(false)
+                                .splineTo(new Vector2d(20,  36), Math.toRadians(0))
                                 .build());
                 break;
             case RED:
                 Actions.runBlocking(
                         drive.actionBuilder(drive.pose)
-                                .setReversed(false)
+                                .setReversed(true)
                                 .splineTo(new Vector2d(-62, -36), Math.toRadians(180))
                                 .waitSeconds(0.5)
-                                .setReversed(true)
-                                .splineTo(new Vector2d(46, -36), Math.toRadians(0))
+                                .setReversed(false)
+                                .splineTo(new Vector2d(20, -36), Math.toRadians(0))
                                 .build());
                 break;
         }
