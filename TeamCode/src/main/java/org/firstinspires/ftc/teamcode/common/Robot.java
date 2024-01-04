@@ -106,7 +106,7 @@ public class Robot {
 
         double xAdjMinRot = 0.0;
         double xAdjMaxRot = 180.0;
-        xAdj = new SimpleServo(hardwareMap, "xAdj", xAdjMinRot, xAdjMaxRot)
+        xAdj = new SimpleServo(hardwareMap, "xAdj", xAdjMinRot, xAdjMaxRot);
 
         double fourBarMinRot = 0.0;
         double fourBarMaxRot = 180.0;
