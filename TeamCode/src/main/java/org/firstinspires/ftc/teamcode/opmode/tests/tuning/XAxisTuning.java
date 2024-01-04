@@ -3,11 +3,13 @@ package org.firstinspires.ftc.teamcode.opmode.tests.tuning;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 
+@TeleOp(name="X Axis Tuning")
 public class XAxisTuning extends CommandOpMode {
     Robot robot;
     DepositSubsystem deposit;
@@ -18,16 +20,16 @@ public class XAxisTuning extends CommandOpMode {
         CommandScheduler.getInstance().reset();
 
         CommandScheduler.getInstance().schedule(
-                new LowerHorizontalMoveCommand(deposit, DepositSubsystem.LowerHorizontalState.A),
-                new WaitCommand(1000),
-                new LowerHorizontalMoveCommand(deposit, DepositSubsystem.LowerHorizontalState.D),
-                new WaitCommand(1000),
-                new LowerHorizontalMoveCommand(deposit, DepositSubsystem.LowerHorizontalState.B)
+                // new LowerHorizontalMoveCommand(deposit, DepositSubsystem.LowerHorizontalState.A),
+                // new WaitCommand(1000),
+                new LowerHorizontalMoveCommand(deposit, DepositSubsystem.LowerHorizontalState.A)
+                // new WaitCommand(1000),
+                // new LowerHorizontalMoveCommand(deposit, DepositSubsystem.LowerHorizontalState.B)
         );
     }
 
     public void run() {
         waitForStart();
-
+        CommandScheduler.getInstance().run();
     }
 }
