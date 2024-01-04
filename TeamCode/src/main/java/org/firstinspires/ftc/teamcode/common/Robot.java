@@ -14,12 +14,15 @@ import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
 public class Robot {
     public MotorEx leftFront, rightFront, leftRear, rightRear, intakeMotor;
-    public DcMotorEx liftOne, liftTwo, xAdj;
+    // xAdj is now a servo
+    public DcMotorEx liftOne, liftTwo;
     public DcMotorEx droneMotor;
+    // Two servos for x axis, in a single port, so technically we only program one
     public ServoEx coverServo, fourBar, leftGrabber, rightGrabber, depositExpansion,
             depositRotator, droneServo, hangServo1, hangServo2;
     // Two new servos for intake, need to figure out where to use them
     public ServoEx frontBar1, frontBar2;
+    public ServoEx xAdj;
     public Camera camera;
     public ColorSensor colorSensor1, colorSensor2;
     public HardwareMap hardwareMap;
@@ -96,9 +99,14 @@ public class Robot {
         /*
         // Deposit
 
-        xAdj = hardwareMap.get(DcMotorEx.class, "xAdj");
-        xAdj.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        xAdj.setTargetPositionTolerance(2);
+        // Guess what? This is a servo now!
+        // xAdj = hardwareMap.get(DcMotorEx.class, "xAdj");
+        // xAdj.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        // xAdj.setTargetPositionTolerance(2);
+
+        double xAdjMinRot = 0.0;
+        double xAdjMaxRot = 180.0;
+        xAdj = new SimpleServo(hardwareMap, "xAdj", xAdjMinRot, xAdjMaxRot)
 
         double fourBarMinRot = 0.0;
         double fourBarMaxRot = 180.0;

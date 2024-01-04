@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.common.subsystems;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
@@ -34,24 +35,31 @@ public class DepositSubsystem extends SubsystemBase {
    
 
     public void setLowerHorizontalState(LowerHorizontalState state) {
+        /*
         robot.xAdj.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.xAdj.setTargetPosition((int)lowerHorizontalState.value - (int)state.value);
         robot.xAdj.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.xAdj.setMotorEnable();
         robot.xAdj.setPower(0.4);
+         */
+        robot.xAdj.setPosition(state.value);
         lowerHorizontalState = state;
     }
 
+    @Deprecated // Why? Because the f****** motor got changed from dc to a servo
     public boolean horizontalFinishedMoving() {
-        return robot.xAdj.isBusy();
+        return true;
     }
 
     public void setUpperHorizontalState(UpperHorizontalState state) {
+        /*
         robot.xAdj.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.xAdj.setTargetPosition((int)upperHorizontalState.value - (int)state.value);
         robot.xAdj.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         robot.xAdj.setMotorEnable();
         robot.xAdj.setPower(0.4);
+         */
+        robot.xAdj.setPosition(state.value);
         upperHorizontalState = state;
     }
 
