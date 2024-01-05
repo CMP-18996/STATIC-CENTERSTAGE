@@ -12,8 +12,8 @@ import org.firstinspires.ftc.teamcode.common.Robot;
 @Config
 public class DepositSubsystem extends SubsystemBase {
     Robot robot;
-    public static double incrementVal = 30;
-    public static double centerVal = 90;
+    public static double incrementVal = 0.025;
+    public static double centerVal = 0.83;
     public static double DEPOSIT_PICKING_UP_VALUE = 20.0;
     public static double DEPOSIT_PARALLEL_VALUE = 30.0;
     public static double DEPOSIT_DROPPING_OFF_VALUE = 40.0;
