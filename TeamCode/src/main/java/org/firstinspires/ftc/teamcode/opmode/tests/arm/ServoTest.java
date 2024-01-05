@@ -17,13 +17,13 @@ public class ServoTest extends LinearOpMode {
         robot.xAdj.setPosition(0.83);
         // robot.xAdj.turnToAngle(250);
         sleep(3000);
-        /*
+
         robot.xAdj.setPosition(0.8);
         // robot.xAdj.turnToAngle(1550);
         sleep(3000);
-        robot.xAdj.setPosition(0.5);
+        robot.xAdj.setPosition(0.75);
         // robot.xAdj.turnToAngle(900);
-         */
+
         telemetry.addData("Position", robot.xAdj.getAngle());
         telemetry.update();
         sleep(5000);
