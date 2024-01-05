@@ -4,41 +4,41 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
-import org.firstinspires.ftc.teamcode.common.Drivers.HT16K33;
+import org.firstinspires.ftc.teamcode.common.Drivers.AdaDisplay;
 
 @TeleOp
 public class DisplayTest extends CommandOpMode {
-    HT16K33 display;
+    AdaDisplay display;
     ColorSensor colorSensor;
     @Override
     public void initialize() {
-        display = hardwareMap.get(HT16K33.class, "display");
+        display = hardwareMap.get(AdaDisplay.class, "display");
         colorSensor = hardwareMap.get(ColorSensor.class, "color1");
     }
 
     @Override
     public void run() {
-        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.EMPTY);
+        display.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.EMPTY);
         sleep(3000);
-        display.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.PLAY);
+        display.writeCharacter(AdaDisplay.DeviceNumber.TWO, AdaDisplay.AvailableCharacters.PLAY);
         sleep(1500);
-        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.ASTERISK);
+        display.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.ASTERISK);
         sleep(1500);
-        display.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.DASH);
+        display.writeCharacter(AdaDisplay.DeviceNumber.TWO, AdaDisplay.AvailableCharacters.DASH);
         sleep(1500);
-        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.UP_ARROW);
+        display.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.UP_ARROW);
         sleep(1500);
-        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.DOWN_ARROW);
+        display.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.DOWN_ARROW);
         sleep(1500);
-        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.RIGHT_ARROW);
+        display.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.RIGHT_ARROW);
         sleep(1500);
-        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.LEFT_ARROW);
+        display.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.LEFT_ARROW);
         sleep(1500);
-        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.PAUSE);
+        display.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.PAUSE);
         sleep(1500);
-        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.HAPPY);
+        display.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.HAPPY);
         sleep(1500);
-        display.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.SAD);
+        display.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.SAD);
         sleep(1500);
     }
 }

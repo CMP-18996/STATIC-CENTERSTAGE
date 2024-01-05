@@ -1,19 +1,24 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
+import java.security.UnresolvedPermission;
 import java.util.HashMap;
 import java.lang.Integer;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.common.Drivers.HT16K33;
+import org.firstinspires.ftc.teamcode.common.Drivers.AdaDisplay;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
+import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.AutoDropCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.IntakeWait;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.SetReadyToDeposit;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.StasisCommand;
@@ -21,14 +26,17 @@ import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.TakeFromD
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DroneCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.HangCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.UpperHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
+import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.MiscSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
+import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
 /**
  * Triggers intake reverse
@@ -45,8 +53,8 @@ public class Teleop extends CommandOpMode {
     private DepositSubsystem depositSubsystem;
     private IntakeSubsystem intakeSubsystem;
     private MiscSubsystem miscSubsystem;
-    private HT16K33 display1;
-    private HT16K33 display2;
+    private AdaDisplay display1;
+    private AdaDisplay display2;
     private HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights = new HashMap<>();
     // Lower deposit enum when row odd
     public HashMap<Integer, DepositSubsystem.LowerHorizontalState> depositLowerColumns = new HashMap<>();
@@ -62,8 +70,8 @@ public class Teleop extends CommandOpMode {
         drive = new Drive(robot);
         drivePad = new GamepadEx(gamepad1);
         liftPad = new GamepadEx(gamepad2);
-        display1 = hardwareMap.get(HT16K33.class, "display1");
-        display2 = hardwareMap.get(HT16K33.class, "display2");
+        display1 = hardwareMap.get(AdaDisplay.class, "display1");
+        display2 = hardwareMap.get(AdaDisplay.class, "display2");
         touchpad = new TouchpadSubsystem(gamepad2, display1, display2);
         liftSubsystem = new LiftSubsystem(robot);
         depositSubsystem = new DepositSubsystem(robot);
@@ -80,7 +88,7 @@ public class Teleop extends CommandOpMode {
                         int rightRow = touchpad.getRightRow();
                         int rightColumn = touchpad.getRightColumn();
                         CommandScheduler.getInstance().schedule(new SequentialCommandGroup(
-                                new ParallelCommandGroup(
+                                new SequentialCommandGroup( // Consider Changing to -Parallel
                                         new SetReadyToDeposit(depositSubsystem, liftSubsystem, liftHeights.get(leftRow)),
                                         // TODO: MAKE SURE THIS CODE WORKS IT IS SO SKETCHY
                                         (leftColumn % 2 == 1) ?

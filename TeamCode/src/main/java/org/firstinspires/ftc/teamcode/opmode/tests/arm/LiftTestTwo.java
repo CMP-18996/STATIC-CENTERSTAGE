@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.I2cDevice;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynchImplOnSimple;
 
-import org.firstinspires.ftc.teamcode.common.Drivers.HT16K33;
+import org.firstinspires.ftc.teamcode.common.Drivers.AdaDisplay;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;

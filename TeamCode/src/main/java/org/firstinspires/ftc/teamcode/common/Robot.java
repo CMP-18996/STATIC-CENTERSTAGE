@@ -19,7 +19,7 @@ public class Robot {
     public DcMotorEx droneMotor;
     // Two servos for x axis, in a single port, so technically we only program one
     public ServoEx coverServo, fourBar, leftGrabber, rightGrabber, depositExpansion,
-            depositRotator, droneServo, hangServo1, hangServo2;
+            depositRotator, hangServo1, hangServo2;
     // Two new servos for intake, need to figure out where to use them
     public ServoEx frontBar1, frontBar2;
     public ServoEx xAdj;
