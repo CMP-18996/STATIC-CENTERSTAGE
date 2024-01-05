@@ -14,7 +14,7 @@ public class ServoTest extends LinearOpMode {
         robot = new Robot(hardwareMap);
         waitForStart();
         // setPosition 0 to 1
-        robot.xAdj.setPosition(0.8);
+        robot.xAdj.setPosition(0.83);
         // robot.xAdj.turnToAngle(250);
         sleep(3000);
         /*
@@ -29,13 +29,13 @@ public class ServoTest extends LinearOpMode {
         sleep(5000);
         while (opModeIsActive()) {
             if (gamepad1.dpad_up) {
-                currentPosition += 0.5;
+                currentPosition += 0.025;
                 // setPosition is percentage, five turn
                 robot.xAdj.setPosition(currentPosition);
             }
 
             if (gamepad1.dpad_down) {
-                currentPosition -= 0.5;
+                currentPosition -= 0.025;
                 robot.xAdj.setPosition(currentPosition);
             }
         }
