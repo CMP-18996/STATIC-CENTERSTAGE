@@ -28,23 +28,29 @@ public class ToBoardCommand extends CommandBase {
     public void initialize() {}
     @Override
     public void execute() {
-        Actions.runBlocking(drive.actionBuilder(drive.pose)
-                .turnTo(Math.toRadians(0))
-                .build());
-        if (GlobalVariables.distance.equals(GlobalVariables.Distance.BLUEFAR)) {
-            Actions.runBlocking(drive.actionBuilder(drive.pose)
-                    .splineTo(new Vector2d(-24, 36), Math.toRadians(0))
-                    .splineTo(new Vector2d(20, 36), Math.toRadians(0))
-                    .build());
-        } else if (GlobalVariables.distance.equals(GlobalVariables.Distance.REDFAR)) {
-            Actions.runBlocking(drive.actionBuilder(drive.pose)
-                    .splineTo(new Vector2d(-24, -36), Math.toRadians(0))
-                    .splineTo(new Vector2d(20, -36), Math.toRadians(0))
-                    .build());
-        } else {
-            Actions.runBlocking(drive.actionBuilder(drive.pose)
-                    .splineTo(new Vector2d(20, -36), Math.toRadians(0))
-                    .build());
+        switch (GlobalVariables.distance) {
+            case REDFAR:
+                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                        .splineTo(new Vector2d(-24, -36), Math.toRadians(0))
+                        .splineTo(new Vector2d(36, -36), Math.toRadians(0))
+                        .build());
+                break;
+            case BLUEFAR:
+                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                        .splineTo(new Vector2d(-24, 36), Math.toRadians(0))
+                        .splineTo(new Vector2d(36, 36), Math.toRadians(0))
+                        .build());
+                break;
+            case REDCLOSE:
+                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                        .splineTo(new Vector2d(36, -36), Math.toRadians(0))
+                        .build());
+                break;
+            case BLUECLOSE:
+                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                        .splineTo(new Vector2d(36, 36), Math.toRadians(0))
+                        .build());
+                break;
         }
         t = true;
     }
