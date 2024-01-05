@@ -34,9 +34,10 @@ public class TakeFromDepositCommand extends SequentialCommandGroup {
                 ),
                 new TwoSlotDetectedCommand(intakeSubsystem),
                 new ParallelCommandGroup(
-                        new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.STOPPED),
+                        new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.REPELLING),
                         new WaitCommand(600) // might need to be tuned
                 ),
+                new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.STOPPED),
                 new ParallelCommandGroup(
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.DOWN),
                         new WaitCommand(600)
