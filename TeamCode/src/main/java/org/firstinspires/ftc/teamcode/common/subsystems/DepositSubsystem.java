@@ -12,8 +12,11 @@ import org.firstinspires.ftc.teamcode.common.Robot;
 @Config
 public class DepositSubsystem extends SubsystemBase {
     Robot robot;
-    public static double incrementVal = 0.025;
-    public static double centerVal = 0.83;
+    public static double incrementVal = 0.067;
+    // Proposed centerVals, 0.8325 from indexing by eye, 0.82875 from averaging range
+    // 0.830625 from averaging them
+    public static double centerVal = 0.830625;
+    // end position on the right is 0.6575, bar ranges from 0.6575-1 on set position
     public static double DEPOSIT_PICKING_UP_VALUE = 20.0;
     public static double DEPOSIT_PARALLEL_VALUE = 30.0;
     public static double DEPOSIT_DROPPING_OFF_VALUE = 40.0;
@@ -133,13 +136,20 @@ public class DepositSubsystem extends SubsystemBase {
         ExpandedState(double val) { value = val; }
     }
     public enum UpperHorizontalState {
-        A(centerVal - 3 * incrementVal),
+        /*A(centerVal - 3 * incrementVal),
         B(centerVal - 2 * incrementVal),
         C(centerVal - 1 * incrementVal),
         D(centerVal),
         E(centerVal + 1 * incrementVal),
         F(centerVal + 2 * incrementVal),
-        G(centerVal + 3);
+        G(centerVal + 3);*/
+        A(centerVal + 2.5 * incrementVal),
+        B(centerVal + 1.5 * incrementVal),
+        C(centerVal + 0.5 * incrementVal),
+        D(centerVal - 0.5 * incrementVal),
+        E(centerVal - 1.5 * incrementVal),
+        F(centerVal - 2.5 * incrementVal);
+
         public double value;
         UpperHorizontalState(double val) {
             value = val;
@@ -147,12 +157,17 @@ public class DepositSubsystem extends SubsystemBase {
     }
 
     public enum LowerHorizontalState {
-        A(centerVal - 2.5 * incrementVal),
+        /*A(centerVal - 2.5 * incrementVal),
         B(centerVal - 1.5 * incrementVal),
         C(centerVal - .5 * incrementVal),
         D(centerVal + .5 * incrementVal),
         E(centerVal + 1.5 * incrementVal),
-        F(centerVal + 2.5 * incrementVal);
+        F(centerVal + 2.5 * incrementVal);*/
+        A(centerVal + 2 * incrementVal),
+        B(centerVal + incrementVal),
+        C(centerVal),
+        D(centerVal - incrementVal),
+        E(centerVal - 2 * incrementVal);
 
         public double value;
         LowerHorizontalState(double val) {

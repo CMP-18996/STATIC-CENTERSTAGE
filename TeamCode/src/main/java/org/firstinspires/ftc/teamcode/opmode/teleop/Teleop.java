@@ -197,7 +197,7 @@ public class Teleop extends CommandOpMode {
         depositLowerColumns.put(3, DepositSubsystem.LowerHorizontalState.C);
         depositLowerColumns.put(4, DepositSubsystem.LowerHorizontalState.D);
         depositLowerColumns.put(5, DepositSubsystem.LowerHorizontalState.E);
-        depositLowerColumns.put(6, DepositSubsystem.LowerHorizontalState.F);
+        // depositLowerColumns.put(6, DepositSubsystem.LowerHorizontalState.F);
 
         depositUpperColumns.put(1, DepositSubsystem.UpperHorizontalState.A);
         depositUpperColumns.put(2, DepositSubsystem.UpperHorizontalState.B);
@@ -205,7 +205,7 @@ public class Teleop extends CommandOpMode {
         depositUpperColumns.put(4, DepositSubsystem.UpperHorizontalState.D);
         depositUpperColumns.put(5, DepositSubsystem.UpperHorizontalState.E);
         depositUpperColumns.put(6, DepositSubsystem.UpperHorizontalState.F);
-        depositUpperColumns.put(7, DepositSubsystem.UpperHorizontalState.G);
+        // depositUpperColumns.put(7, DepositSubsystem.UpperHorizontalState.G);
     }
 }
 
