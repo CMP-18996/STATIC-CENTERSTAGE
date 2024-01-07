@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.common.commandbase.majorcommands;
 
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
+import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
@@ -34,7 +35,10 @@ public class TakeFromDepositCommand extends SequentialCommandGroup {
                         new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED),
                         new WaitCommand(1300) // might need to be tuned
                 ),
-                new TwoSlotDetectedCommand(intakeSubsystem),
+                new ParallelRaceGroup(
+                        new TwoSlotDetectedCommand(intakeSubsystem),
+                        new WaitCommand(4000)
+                ),
                 new ParallelCommandGroup(
                         new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.REPELLING),
                         new WaitCommand(600) // might need to be tuned
