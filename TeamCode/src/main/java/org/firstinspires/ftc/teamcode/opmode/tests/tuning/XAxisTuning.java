@@ -34,6 +34,7 @@ public class XAxisTuning extends CommandOpMode {
         }
 
         CommandScheduler.getInstance().schedule(
+                // Use a sequential command group
                 new LowerHorizontalMoveCommand(deposit, DepositSubsystem.LowerHorizontalState.A),
                 new TelemetryCommand("Step", "1"),
                 // new WaitCommand(1000),

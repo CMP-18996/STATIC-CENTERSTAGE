@@ -26,6 +26,7 @@ public class XAxisTuningTwo extends CommandOpMode {
         }
 
         CommandScheduler.getInstance().schedule(
+                // Use a sequential command group
                 new LowerHorizontalMoveCommand(deposit, DepositSubsystem.LowerHorizontalState.A),
                 new SleepCommand(2000),
                 new LowerHorizontalMoveCommand(deposit, DepositSubsystem.LowerHorizontalState.B),

@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCo
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.TwoSlotDetectedCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.UpperHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
@@ -24,7 +25,7 @@ public class TakeFromDepositCommand extends SequentialCommandGroup {
                         new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.PICKUPHEIGHT),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
                         new DepositExpansionCommand(depositSubsystem, DepositSubsystem.ExpandedState.EXPANDED_STATE),
-                        new UpperHorizontalMoveCommand(depositSubsystem, DepositSubsystem.UpperHorizontalState.D),
+                        new LowerHorizontalMoveCommand(depositSubsystem, DepositSubsystem.LowerHorizontalState.C),
                         new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
                         new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
                         new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.INTAKING),
