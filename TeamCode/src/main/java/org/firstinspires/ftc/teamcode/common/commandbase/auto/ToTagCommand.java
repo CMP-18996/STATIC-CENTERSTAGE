@@ -55,38 +55,28 @@ public class ToTagCommand extends CommandBase {
                     double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
                             tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
                     double d = drive.pose.position.x + stats[1] - 9;
-                    if (t <= 1) {
-                        d -= 10;
-                    }
-                    if ((GlobalVariables.color.equals(GlobalVariables.Color.BLUE) && tag.id != 2) || (GlobalVariables.color.equals(GlobalVariables.Color.RED) && tag.id != 5)
-                            || -0.05 > stats[0] || stats[0] > 0.05 || 8.95 > stats[1] || stats[1] > 9.05 || -1 > stats[5] || stats[5] > 1) {
-                        try {
-                            Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                    .turnTo(calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]))
-                                    .waitSeconds(0.5)
-                                    .build());
-                            switch (tag.id) {
-                                case 2: case 5:
-                                    Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                            .splineToConstantHeading(new Vector2d(d, drive.pose.position.y - stats[0]),
-                                                    calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]))
-                                            .waitSeconds(1)
-                                            .build());
-                                    break;
-                                case 1: case 4:
-                                    Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                            .setReversed(true)
-                                            .splineToConstantHeading(new Vector2d(d, drive.pose.position.y - stats[0] - 6),
-                                                    calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]))
-                                            .build());
-                                    break;
-                                case 3: case 6:
-                                    Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                            .splineToConstantHeading(new Vector2d(d, drive.pose.position.y - stats[0] + 6),
-                                                    calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]))
-                                            .waitSeconds(1)
-                                            .build());
-                                    break;
+                    double y = drive.pose.position.y - stats[0];
+                    double a = calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]);
+                    try {
+                        switch (tag.id) {
+                            case 2: case 5:
+                                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                                        .splineToConstantHeading(new Vector2d(d, y), a)
+                                        .waitSeconds(1)
+                                        .build());
+                                break;
+                            case 1: case 4:
+                                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                                        .splineToConstantHeading(new Vector2d(d, y - 6), a)
+                                        .waitSeconds(1)
+                                        .build());
+                                break;
+                            case 3: case 6:
+                                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                                        .splineToConstantHeading(new Vector2d(d, y + 6), a)
+                                        .waitSeconds(0.5)
+                                        .build());
+                                break;
                             }
                         } catch (Exception ignored) {}
                         break;
@@ -95,17 +85,16 @@ public class ToTagCommand extends CommandBase {
             } else {
                 try {
                     Actions.runBlocking(drive.actionBuilder(drive.pose)
-                            .splineTo(new Vector2d(drive.pose.position.x - 6, drive.pose.position.y),
+                            .splineTo(new Vector2d(drive.pose.position.x - 4, drive.pose.position.y),
                                     calculateHeading(drive.pose.heading.real, drive.pose.heading.imag))
                             .build());
                 } catch (Exception ignored) {}
             }
+            t++;
         }
-        t++;
-    }
     @Override
     public boolean isFinished() {
-        return t >= 10;
+        return t >= 2; //replaced by number of times you want to run
     }
 }
 
