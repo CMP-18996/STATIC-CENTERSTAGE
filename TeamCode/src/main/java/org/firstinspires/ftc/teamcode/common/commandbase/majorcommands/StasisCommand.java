@@ -5,6 +5,7 @@ package org.firstinspires.ftc.teamcode.common.commandbase.majorcommands;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 
 import org.checkerframework.checker.units.qual.C;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.CoverCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DepositRotatorCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
@@ -21,7 +22,8 @@ public class StasisCommand extends ParallelCommandGroup {
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
                 new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.STOPPED),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
-                new LowerHorizontalMoveCommand(depositSubsystem, DepositSubsystem.LowerHorizontalState.C)
+                new LowerHorizontalMoveCommand(depositSubsystem, DepositSubsystem.LowerHorizontalState.C),
+                new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED)
         );
     }
 }

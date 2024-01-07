@@ -45,29 +45,18 @@ public class LiftTest extends CommandOpMode {
         this.fillMaps();
         CommandScheduler.getInstance().reset();
 
-        gamepadEx.getGamepadButton(GamepadKeys.Button.Y)
-                .whenPressed(() -> {
-                    /*try {
-                        rowNumber = touchpadSubsystem.getHistory().get(1);
-                        liftHeight = liftHeights.get(rowNumber);
-                        telemetry.addData("Row", rowNumber);
-                        CommandScheduler.getInstance().schedule(
-                                new LiftCommand(liftSubsystem, liftHeight)
-                        );
-                    }
-                    catch (Exception e) {telemetry.addData("Wow", " something probably happened");}
-                        }*/
-                    CommandScheduler.getInstance().schedule(
-                            new SequentialCommandGroup(
-                                    new InstantCommand(() ->
-                                        {
-                                            liftHeight = liftHeights.get(val);
-                                        }
-                                    ),
-                                    new LiftCommand(liftSubsystem, liftHeight)
-                            )
-                    );
-                });
+        gamepadEx.getGamepadButton(GamepadKeys.Button.Y).whenPressed(() -> {
+            CommandScheduler.getInstance().schedule(
+                    new SequentialCommandGroup(
+                            new InstantCommand(() ->
+                                {
+                                    liftHeight = liftHeights.get(val);
+                                }
+                            ),
+                            new LiftCommand(liftSubsystem, liftHeight)
+                    )
+            );
+        });
     }
 
     @Override
@@ -88,7 +77,7 @@ public class LiftTest extends CommandOpMode {
         }
 
         telemetry.addData("Height:", val);
-        telemetry.addData("Associated Height:", liftHeights.get(val).getHeight());
+        telemetry.addData("Associated Height:", liftHeights.get(val).value);
         telemetry.update();
     }
 
