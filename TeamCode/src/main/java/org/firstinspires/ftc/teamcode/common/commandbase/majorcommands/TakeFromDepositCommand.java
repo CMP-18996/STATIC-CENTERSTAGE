@@ -26,6 +26,7 @@ public class TakeFromDepositCommand extends SequentialCommandGroup {
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
                         new DepositExpansionCommand(depositSubsystem, DepositSubsystem.ExpandedState.EXPANDED_STATE),
                         new LowerHorizontalMoveCommand(depositSubsystem, DepositSubsystem.LowerHorizontalState.C),
+                        // bitch
                         new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
                         new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
                         new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.INTAKING),
