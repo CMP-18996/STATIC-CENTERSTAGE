@@ -40,12 +40,12 @@ public class BlueCloseAuto extends CommandOpMode {
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new WaitCommand(6000),
                         new ToSpikeMarkCommand(drive),
+                        new WaitCommand(1000),
                         //new AutoDropCommand(),
                         new ToBoardCommand(drive),
                         new ToTagCommand(robot.camera, drive),
-                        new InstantCommand(() -> telemetry.addLine("Complete!"))
+                        new InstantCommand(() -> telemetry.addData("Status", "Complete!"))
                 )
         );
 
