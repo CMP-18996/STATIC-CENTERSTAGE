@@ -1,15 +1,10 @@
 package org.firstinspires.ftc.teamcode.common.subsystems;
 
-import androidx.annotation.NonNull;
-
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
-import com.arcrobotics.ftclib.hardware.motors.Motor.Encoder;
+
 import com.arcrobotics.ftclib.controller.PIDFController;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.Range;
 
 @Config
@@ -41,28 +36,26 @@ public class LiftSubsystem extends SubsystemBase {
         // At least six states
         // Probably can only use up to eight total actual heights
         BASE(30),
-        HEIGHTONE(LIFT_HEIGHT_INCREMENT),
-        HEIGHTTWO(2*LIFT_HEIGHT_INCREMENT),
-        HEIGHTTHREE(3*LIFT_HEIGHT_INCREMENT),
-        HEIGHTFOUR(4*LIFT_HEIGHT_INCREMENT),
-        HEIGHTFIVE(5*LIFT_HEIGHT_INCREMENT),
-        HEIGHTSIX(6*LIFT_HEIGHT_INCREMENT),
-        HEIGHTSEVEN(7*LIFT_HEIGHT_INCREMENT),
-        HEIGHTEIGHT(8*LIFT_HEIGHT_INCREMENT),
-        HEIGHTNINE(9*LIFT_HEIGHT_INCREMENT),
-        HEIGHTTEN(10*LIFT_HEIGHT_INCREMENT),
-        HEIGHTELEVEN(11*LIFT_HEIGHT_INCREMENT),
-        PICKUPHEIGHT(LIFT_PICKUP_HEIGHT);
+        HEIGHTONE(300),
+        HEIGHTTWO(600),
+        HEIGHTTHREE(900),
+        HEIGHTFOUR(1200),
+        HEIGHTFIVE(1500),
+        HEIGHTSIX(1800),
+        HEIGHTSEVEN(2100),
+        HEIGHTEIGHT(2400),
+        HEIGHTNINE(2700),
+        HEIGHTTEN(3000),
+        HEIGHTELEVEN(3300),
+        PICKUPHEIGHT(100);
 
-        private final int height;
+        public final int value;
+
 
         LiftHeight(int height) {
-            this.height = height;
+            this.value = height;
         }
 
-        public int getHeight() {
-            return this.height;
-        }
     }
 
     public LiftHeight getCurrentHeight() {
@@ -72,9 +65,9 @@ public class LiftSubsystem extends SubsystemBase {
     // do not use outside of command - probably bad idea
     public void updateState(LiftHeight height) {
         // int error;
-        error = height.getHeight() - this.getCurrentHeight().getHeight();
+        error = height.value - this.getCurrentHeight().value;
         if (error > 10) {
-            error = height.height - robot.liftOne.getCurrentPosition();
+            error = height.value - robot.liftOne.getCurrentPosition();
 
             double power = Range.clip(P * error + F, -maxDesc, 1);
             robot.liftOne.setPower(power);
@@ -89,8 +82,6 @@ public class LiftSubsystem extends SubsystemBase {
 
     @Deprecated
     public void updateStatePID(LiftHeight height) {
-        int error;
-        error = height.getHeight() - this.getCurrentHeight().getHeight();
         /*
         robot.liftOne.setVeloCoefficients(0.7, 0.2, 0.5);
         robot.liftTwo.setVeloCoefficients(0.7, 0.2, 0.5);
