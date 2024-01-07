@@ -13,6 +13,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private Robot robot;
     private SweepingState sweepingState = SweepingState.STOPPED;
     public static double intakePower = .6;
+    //different speeds for picking up from each pixel from the stack and on the ground
     public static double repelPower = .8; // keep positive
     private CoverState coverState = CoverState.CLOSED;
     public ColorState slotOne;
