@@ -1,24 +1,19 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
-import java.security.UnresolvedPermission;
 import java.util.HashMap;
 import java.lang.Integer;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.common.Drivers.AdaDisplay;
+import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.AutoDropCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.IntakeWait;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.SetReadyToDeposit;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.StasisCommand;
@@ -26,17 +21,14 @@ import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.TakeFromD
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DroneCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.HangCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.UpperHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
-import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.MiscSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
-import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
 /**
  * Triggers intake reverse

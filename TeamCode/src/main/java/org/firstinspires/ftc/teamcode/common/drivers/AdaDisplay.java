@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.common.Drivers;
+package org.firstinspires.ftc.teamcode.common.drivers;
 
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynch;

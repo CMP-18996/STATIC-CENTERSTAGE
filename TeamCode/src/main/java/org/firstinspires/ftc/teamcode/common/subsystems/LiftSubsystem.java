@@ -10,17 +10,20 @@ import com.arcrobotics.ftclib.hardware.motors.Motor.Encoder;
 import com.arcrobotics.ftclib.controller.PIDFController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.util.Range;
 
 @Config
 public class LiftSubsystem extends SubsystemBase {
     public static double power = .4;
-    private Encoder encoderUp, encoderDown;
     private Robot robot;
     private LiftHeight currentHeight;
     public int error;
     private double proportionalConstant, integralConstant, derivativeConstant;
-    public static int LIFT_HEIGHT_INCREMENT = 17;
-    public static int LIFT_PICKUP_HEIGHT = 5;
+    public static int LIFT_HEIGHT_INCREMENT = 300;
+    public static int LIFT_PICKUP_HEIGHT = 100;
+    public static double F = 0.05;
+    public static double P = 0.005;
+    public static double maxDesc = 0.5;
     private PIDFController pidfController = new PIDFController(0.7, 0.2, 0.5, 0);
     /* Honestly at this point we should get rid of this stuff
     private double baseHeight, heightLevelOne, heightLevelTwo, heightLevelThree, heightLevelFour, heightLevelFive;
@@ -37,7 +40,7 @@ public class LiftSubsystem extends SubsystemBase {
         // Change the values for the actual robot, otherwise it'll probably crash
         // At least six states
         // Probably can only use up to eight total actual heights
-        BASE(0),
+        BASE(30),
         HEIGHTONE(LIFT_HEIGHT_INCREMENT),
         HEIGHTTWO(2*LIFT_HEIGHT_INCREMENT),
         HEIGHTTHREE(3*LIFT_HEIGHT_INCREMENT),
@@ -66,21 +69,20 @@ public class LiftSubsystem extends SubsystemBase {
         return currentHeight;
     }
 
-    /* Set state
-        // States are accurate
-        // Make sure to move to state
-         */
+    // do not use outside of command - probably bad idea
     public void updateState(LiftHeight height) {
         // int error;
         error = height.getHeight() - this.getCurrentHeight().getHeight();
-        robot.liftOne.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.liftTwo.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.liftOne.setTargetPosition(error);
-        robot.liftTwo.setTargetPosition(error);
-        robot.liftOne.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        robot.liftTwo.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        robot.liftOne.setPower(power);
-        robot.liftTwo.setPower(power);
+        if (error > 10) {
+            error = height.height - robot.liftOne.getCurrentPosition();
+
+            double power = Range.clip(P * error + F, -maxDesc, 1);
+            robot.liftOne.setPower(power);
+            robot.liftTwo.setPower(power);
+        } else {
+            robot.liftOne.setPower(0);
+            robot.liftTwo.setPower(0);
+        }
         // update current height
         currentHeight = height;
     }

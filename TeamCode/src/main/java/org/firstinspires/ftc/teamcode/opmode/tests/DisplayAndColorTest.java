@@ -4,7 +4,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
-import org.firstinspires.ftc.teamcode.common.Drivers.AdaDisplay;
+import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
 
 @TeleOp
 public class DisplayAndColorTest extends CommandOpMode {

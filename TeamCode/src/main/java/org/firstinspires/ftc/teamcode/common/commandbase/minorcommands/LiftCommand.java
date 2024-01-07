@@ -15,14 +15,13 @@ public class LiftCommand extends CommandBase {
     public LiftCommand(LiftSubsystem liftSubsystem, LiftHeight height) {
         this.lift = liftSubsystem;
         this.height = height;
-        lift.updateState(height);
 //        telemetry.addData("Iteration", i);
 //        i ++;
     }
 
     @Override
-    public void initialize() {
-         // change to updateStatePID later
+    public void execute() {
+        lift.updateState(height);
     }
 
     @Override
