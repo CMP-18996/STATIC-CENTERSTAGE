@@ -29,9 +29,12 @@ public class Robot {
 
     public Robot(HardwareMap hardwareMap) {
 
-        camera = new Camera(hardwareMap);
+        //camera = new Camera(hardwareMap);
         // drivetrain
         this.hardwareMap = hardwareMap;
+
+        /*
+        // Drive
         leftFront = new MotorEx(hardwareMap, "leftFront");
         leftFront.setRunMode(Motor.RunMode.RawPower);
         leftFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
@@ -48,24 +51,19 @@ public class Robot {
         rightRear = new MotorEx(hardwareMap,"rightRear");
         rightRear.setRunMode(Motor.RunMode.RawPower);
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-
-
-        /*
-        // Lift
-        liftOne = hardwareMap.get(DcMotorEx.class, "liftOne");
-//        liftOne.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        liftOne.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        liftOne.setMotorEnable();
-        liftOne.setTargetPositionTolerance(2);
-
-
-        liftTwo = hardwareMap.get(DcMotorEx.class, "liftTwo");
-//        liftTwo.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        liftTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        liftTwo.setMotorEnable();
-        liftTwo.setTargetPositionTolerance(2);
-        liftTwo.setDirection(DcMotorSimple.Direction.REVERSE);
         */
+
+
+        // Lift
+        liftOne = hardwareMap.get(DcMotorEx.class, "liftTwo"); // don't question this naming too much
+        liftOne.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftOne.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        liftTwo = hardwareMap.get(DcMotorEx.class, "liftOne");
+        liftTwo.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftTwo.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
         /*
         // Intake

@@ -8,12 +8,8 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.I2cDevice;
-import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
-import com.qualcomm.robotcore.hardware.I2cDeviceSynchImplOnSimple;
 
-import org.firstinspires.ftc.teamcode.common.Drivers.AdaDisplay;
+import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
@@ -25,6 +21,9 @@ import java.util.HashMap;
 @TeleOp(name="Lift Test")
 public class LiftTest extends CommandOpMode {
     private Robot robot;
+    private int val = 1;
+    private boolean upPressed = false;
+    private boolean downPressed = false;
     private LiftSubsystem liftSubsystem;
     private TouchpadSubsystem touchpadSubsystem;
     private GamepadEx gamepadEx;
@@ -60,11 +59,10 @@ public class LiftTest extends CommandOpMode {
                         }*/
                     CommandScheduler.getInstance().schedule(
                             new SequentialCommandGroup(
-                                    new InstantCommand(() -> {
-                                        rowNumber = touchpadSubsystem.getHistory().get(1);
-                                        liftHeight = liftHeights.get(rowNumber);
-                                        telemetry.addData("Row", rowNumber);
-                                    }
+                                    new InstantCommand(() ->
+                                        {
+                                            liftHeight = liftHeights.get(val);
+                                        }
                                     ),
                                     new LiftCommand(liftSubsystem, liftHeight)
                             )
@@ -73,7 +71,26 @@ public class LiftTest extends CommandOpMode {
     }
 
     @Override
-    public void run() {CommandScheduler.getInstance().run();}
+    public void run() {
+        CommandScheduler.getInstance().run();
+        if (gamepad1.dpad_up && !upPressed) {
+            val = Math.min(val + 1, 10);
+            upPressed = true;
+        } else if (!gamepad1.dpad_up) {
+            upPressed = false;
+        }
+
+        if (gamepad1.dpad_down && !downPressed) {
+            val = Math.max(val - 1, 1);
+            downPressed = true;
+        } else if (!gamepad1.dpad_down) {
+            downPressed = false;
+        }
+
+        telemetry.addData("Height:", val);
+        telemetry.addData("Associated Height:", liftHeights.get(val).getHeight());
+        telemetry.update();
+    }
 
     public void fillMaps() {
         liftHeights.put(1, LiftSubsystem.LiftHeight.HEIGHTONE);

@@ -10,7 +10,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
-import org.firstinspires.ftc.teamcode.common.Drivers.AdaDisplay;
+import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
 

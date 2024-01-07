@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.common.subsystems;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.common.Drivers.AdaDisplay;
+import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
 
 import java.util.ArrayList;
 
@@ -166,14 +166,14 @@ public class TouchpadSubsystem extends SubsystemBase {
                         }
                         currentOption = ChoosingOptions.ROW;
                         break;
-                    }
+                }
 
-                    history.add(num);
+                history.add(num);
 
-                    if (history.size() > 4) {
-                        history.remove(0);
-                    }
-                    b = false;
+                if (history.size() > 4) {
+                    history.remove(0);
+                }
+                b = false;
 
             }
         } else {
