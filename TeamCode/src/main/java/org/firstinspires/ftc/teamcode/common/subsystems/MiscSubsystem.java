@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.common.Robot;
 public class MiscSubsystem extends SubsystemBase {
     public Robot robot;
 
-    private static double dronePower = 0.7;
+    private static double dronePower = 0.8;
 
     public MiscSubsystem(Robot robot) {
         this.robot = robot;
