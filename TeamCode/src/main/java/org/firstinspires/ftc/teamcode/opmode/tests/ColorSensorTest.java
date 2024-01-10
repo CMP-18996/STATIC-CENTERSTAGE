@@ -40,13 +40,17 @@ public class ColorSensorTest extends CommandOpMode {
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
         intakeSubsystem = new IntakeSubsystem(robot);
+        colorSensor1 = hardwareMap.get(ColorSensor.class, "color1");
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new InstantCommand(() ->intakeSubsystem.identifyColor()),
                         new TelemetryCommand("Slot One", intakeSubsystem.slotOne.toString()),
                         new TelemetryCommand("Slot Two", intakeSubsystem.slotTwo.toString()),
-                        new WaitCommand(20)
-
+                        new WaitCommand(20),
+                        new WaitCommand(1000)
+                       // new TelemetryCommand(String.valueOf(colorSensor1.red()), "maybe"),
+                       // new TelemetryCommand(String.valueOf(colorSensor1.blue()), "maybe blue"),
+                       // new TelemetryCommand(String.valueOf(colorSensor1.green()), "maybe green")
                 )
                 );
 

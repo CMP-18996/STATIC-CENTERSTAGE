@@ -65,9 +65,9 @@ public class Robot {
         liftTwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftTwo.setDirection(DcMotorSimple.Direction.REVERSE);
+        */
 
-
-
+        /*
         // Intake
         intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);
@@ -94,7 +94,7 @@ public class Robot {
         frontBar1.setInverted(false);
         frontBar2 = new SimpleServo(hardwareMap, "frontBar2", frontBarMinRot, frontBarMaxRot);
         frontBar2.setInverted(true);
-         */
+        */
 
         /*
         // Deposit
@@ -124,7 +124,9 @@ public class Robot {
         double depositRotatorMinRot = 0.0;
         double depositRotatorMaxRot = 1800.0;
         depositRotator = new SimpleServo(hardwareMap, "depositRotator", depositRotatorMinRot, depositRotatorMaxRot);
+        */
 
+        /*
         double droneServoMinRot = 0.0;
         double droneServoMaxRot = 1800.0;
         droneServo = new SimpleServo(hardwareMap, "drone", droneServoMinRot, droneServoMaxRot);

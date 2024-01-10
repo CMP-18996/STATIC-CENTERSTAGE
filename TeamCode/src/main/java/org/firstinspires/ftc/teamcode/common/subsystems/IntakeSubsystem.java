@@ -16,8 +16,8 @@ public class IntakeSubsystem extends SubsystemBase {
     //different speeds for picking up from each pixel from the stack and on the ground
     public static double repelPower = .3; // keep positive, subject to change more
     private CoverState coverState = CoverState.CLOSED;
-    public ColorState slotOne;
-    public ColorState slotTwo;
+    public ColorState slotOne = ColorState.GREEN;
+    public ColorState slotTwo = ColorState.PURPLE;
     private FrontBarState frontBarState = FrontBarState.GROUND;
 
     public static double OPEN_COVER_VAL = 180.0;
@@ -50,7 +50,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
         String name;
         ColorState(String name) {this.name = name;}
-        public String toString() {return name;}
+        @Override
+        public String toString() {return this.name;}
     }
 
     public enum FrontBarState {
