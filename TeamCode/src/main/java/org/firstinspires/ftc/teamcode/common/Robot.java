@@ -74,8 +74,8 @@ public class Robot {
         intakeMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
 
-        ColorSensor colorSensor1 = hardwareMap.get(ColorSensor.class, "color1");
-        ColorSensor colorSensor2 = hardwareMap.get(ColorSensor.class, "color2");
+        colorSensor1 = hardwareMap.get(ColorSensor.class, "color1");
+        colorSensor2 = hardwareMap.get(ColorSensor.class, "color2");
         colorSensor1.enableLed(false);
         colorSensor2.enableLed(false);
 
