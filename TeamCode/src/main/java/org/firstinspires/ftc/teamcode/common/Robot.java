@@ -138,7 +138,7 @@ public class Robot {
         /*
         droneMotor = hardwareMap.get(DcMotorEx.class, "droneMotor");
         droneMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        // droneMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        droneMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
          */
     }
 }
