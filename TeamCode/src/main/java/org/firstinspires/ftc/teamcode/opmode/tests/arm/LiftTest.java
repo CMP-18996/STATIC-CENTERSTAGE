@@ -3,11 +3,12 @@ package org.firstinspires.ftc.teamcode.opmode.tests.arm;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.button.Button;
+import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
@@ -45,18 +46,13 @@ public class LiftTest extends CommandOpMode {
         this.fillMaps();
         CommandScheduler.getInstance().reset();
 
-        gamepadEx.getGamepadButton(GamepadKeys.Button.Y).whenPressed(() -> {
-            CommandScheduler.getInstance().schedule(
-                    new SequentialCommandGroup(
-                            new InstantCommand(() ->
-                                {
-                                    liftHeight = liftHeights.get(val);
-                                }
-                            ),
-                            new LiftCommand(liftSubsystem, liftHeight)
-                    )
-            );
-        });
+        Button theThing = new GamepadButton(
+                gamepadEx, GamepadKeys.Button.Y
+        );
+
+        theThing.whenPressed(
+                        new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTFOUR)
+        );
     }
 
     @Override
@@ -77,7 +73,7 @@ public class LiftTest extends CommandOpMode {
         }
 
         telemetry.addData("Height:", val);
-        telemetry.addData("Associated Height:", liftHeights.get(val).value);
+        telemetry.addData("Associated Height:", liftHeights.get(val).target);
         telemetry.update();
     }
 

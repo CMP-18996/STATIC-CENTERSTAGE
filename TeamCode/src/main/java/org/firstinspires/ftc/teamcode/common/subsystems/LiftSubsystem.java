@@ -36,24 +36,24 @@ public class LiftSubsystem extends SubsystemBase {
         // At least six states
         // Probably can only use up to eight total actual heights
         BASE(30),
-        HEIGHTONE(300),
-        HEIGHTTWO(600),
-        HEIGHTTHREE(900),
-        HEIGHTFOUR(1200),
-        HEIGHTFIVE(1500),
-        HEIGHTSIX(1800),
-        HEIGHTSEVEN(2100),
-        HEIGHTEIGHT(2400),
-        HEIGHTNINE(2700),
-        HEIGHTTEN(3000),
-        HEIGHTELEVEN(3300),
-        PICKUPHEIGHT(100);
+        HEIGHTONE(100),
+        HEIGHTTWO(300),
+        HEIGHTTHREE(500),
+        HEIGHTFOUR(700),
+        HEIGHTFIVE(900),
+        HEIGHTSIX(1100),
+        HEIGHTSEVEN(1300),
+        HEIGHTEIGHT(1500),
+        HEIGHTNINE(1700),
+        HEIGHTTEN(1900),
+        HEIGHTELEVEN(2100),
+        PICKUPHEIGHT(30);
 
-        public final int value;
+        public final int target;
 
 
         LiftHeight(int height) {
-            this.value = height;
+            this.target = height;
         }
 
     }
@@ -64,20 +64,20 @@ public class LiftSubsystem extends SubsystemBase {
 
     // do not use outside of command - probably bad idea
     public void updateState(LiftHeight height) {
-        // int error;
-        error = height.value - this.getCurrentHeight().value;
-        if (error > 10) {
-            error = height.value - robot.liftOne.getCurrentPosition();
-
-            double power = Range.clip(P * error + F, -maxDesc, 1);
-            robot.liftOne.setPower(power);
-            robot.liftTwo.setPower(power);
-        } else {
-            robot.liftOne.setPower(0);
-            robot.liftTwo.setPower(0);
-        }
-        // update current height
         currentHeight = height;
+    }
+
+
+    @Override
+    public void periodic() {
+        error = this.currentHeight.target - robot.liftOne.getCurrentPosition();
+
+        double power = Range.clip(P * error + F, -maxDesc, 1);
+        robot.liftOne.setPower(power);
+        robot.liftTwo.setPower(power);
+    }
+    public boolean checkDone(LiftHeight height) {
+        return height.target - this.getCurrentHeight().target < 20;
     }
 
     @Deprecated
@@ -101,7 +101,11 @@ public class LiftSubsystem extends SubsystemBase {
     }
 
     public boolean motorsFinished() {
-        return robot.liftOne.getCurrentPosition() == error && robot.liftTwo.getCurrentPosition() == error;
+        return robot.liftOne.isBusy();
+    }
+
+    public boolean abovePosition(int position) {
+        return robot.liftOne.getCurrentPosition() >= position;
     }
 
     @Deprecated

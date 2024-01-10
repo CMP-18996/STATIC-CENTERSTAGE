@@ -20,12 +20,12 @@ public class LiftCommand extends CommandBase {
     }
 
     @Override
-    public void execute() {
+    public void initialize() {
         lift.updateState(height);
     }
 
     @Override
     public boolean isFinished() {
-        return lift.motorsFinished();
+        return lift.checkDone(height);
     }
 }

@@ -57,10 +57,12 @@ public class Robot {
         // Lift
         liftOne = hardwareMap.get(DcMotorEx.class, "liftTwo"); // don't question this naming too much
         liftOne.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftOne.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftOne.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         liftTwo = hardwareMap.get(DcMotorEx.class, "liftOne");
         liftTwo.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftTwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftTwo.setDirection(DcMotorSimple.Direction.REVERSE);
 
