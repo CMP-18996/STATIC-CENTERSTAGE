@@ -18,14 +18,11 @@ public class IntakeSubsystem extends SubsystemBase {
     private CoverState coverState = CoverState.CLOSED;
     public ColorState slotOne;
     public ColorState slotTwo;
-    private FrontBarState frontBarState = FrontBarState.HIGHER;
+    private FrontBarState frontBarState = FrontBarState.GROUND;
 
     public static double OPEN_COVER_VAL = 180.0;
     public static double CLOSED_COVER_VAL = 180.0;
 
-    public static double FRONT_BAR_LOWER = 0;
-    public static double FRONT_BAR_MIDDLE = 1;
-    public static double FRONT_BAR_HIGHER = 2;
     // color1, color2, both strings
     // ColorSensor colorSensor1 = hardwareMap.get(ColorSensor.class, "Color1");
     // ColorSensor colorSensor2 = hardwareMap.get(ColorSensor.class, "Color2");
@@ -53,29 +50,37 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public enum FrontBarState {
-        LOWER(FRONT_BAR_LOWER),
-        MIDDLE(FRONT_BAR_MIDDLE),
-        HIGHER(FRONT_BAR_HIGHER);
+        // five heights for the stack
+        GROUND(0, 1),
+        LEVEL1(1, 2),
+        LEVEL2(2, 3),
+        LEVEL3(3, 4),
+        LEVEL4(4, 5);
 
         double barState;
-        FrontBarState(double barState) {
+        double intakeSpeed;
+        FrontBarState(double barState, double intakeSpeed) {
             this.barState = barState;
+            this.intakeSpeed = intakeSpeed;
         }
         public double getBarHeight() {return barState;}
+        public double getIntakeSpeed() {return intakeSpeed;}
     }
 
     public void updateSweepingState(SweepingState setState) {
         sweepingState = setState;
         switch (sweepingState) {
             case INTAKING:
-                robot.intakeMotor.set(intakePower);
+                // robot.intakeMotor.set(intakePower);
+                robot.intakeMotor.set(frontBarState.getIntakeSpeed());
                 break;
             case STOPPED:
                 robot.intakeMotor.set(0);
                 break;
             case REPELLING:
-                 robot.intakeMotor.set(-repelPower);
-//                CommandScheduler.getInstance().schedule(new SequentialCommandGroup(new IntakeWait(this)));
+                // robot.intakeMotor.set(-repelPower);
+                robot.intakeMotor.set(-frontBarState.getIntakeSpeed());
+                // CommandScheduler.getInstance().schedule(new SequentialCommandGroup(new IntakeWait(this)));
                 break;
         }
     }
@@ -200,7 +205,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     public void updateFrontBarState(FrontBarState frontBarState) {
         robot.frontBar1.setPosition(frontBarState.getBarHeight());
-        robot.frontBar2.setPosition(-frontBarState.getBarHeight());
+        robot.frontBar2.setPosition(frontBarState.getBarHeight());
         this.frontBarState = frontBarState;
     }
 
