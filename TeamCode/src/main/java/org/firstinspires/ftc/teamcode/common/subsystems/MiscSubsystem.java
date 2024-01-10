@@ -15,12 +15,7 @@ public class MiscSubsystem extends SubsystemBase {
     }
 
     public void releaseDrone(double dronePower) {
-        // This code is obsolete
-        // robot.droneServo.setPosition(1);
-        // robot.droneMotor.setTargetPosition(2000);
         robot.droneMotor.setPower(dronePower);
-        // Could set this to run to a position so that it eventually stops running?
-        // Need at least 862 run position
     }
 
     public void hang() {
