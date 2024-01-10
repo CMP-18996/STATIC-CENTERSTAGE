@@ -41,12 +41,16 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public enum ColorState {
-        WHITE,
-        GREEN,
-        PURPLE,
-        YELLOW,
-        BLACK,
-        NONE;
+        WHITE("White"),
+        GREEN("Green"),
+        PURPLE("Purple"),
+        YELLOW("Yellow"),
+        BLACK("Black"),
+        NONE("None");
+
+        String name;
+        ColorState(String name) {this.name = name;}
+        public String toString() {return name;}
     }
 
     public enum FrontBarState {
@@ -175,6 +179,7 @@ public class IntakeSubsystem extends SubsystemBase {
         else
             return false;
     }
+
     public boolean slotOneColor(){
         boolean oneCheck;
         switch (slotOne) {
