@@ -25,6 +25,7 @@ public class DepositSubsystem extends SubsystemBase {
     public static double EXPANDED_STATE_VALUE = 20.0;
     public static double FOUR_BAR_STASIS = 20.0;
     public static double FOUR_BAR_HIGH = 50.0;
+    public static double FOUR_BAR_HIGH_DROP = 50.0;
     public static double FOUR_BAR_LOW = 80.0;
 
     //ParityState parityState = ParityState.LOWER;
@@ -179,6 +180,7 @@ public class DepositSubsystem extends SubsystemBase {
         DOWN(0.0),
         STASIS(FOUR_BAR_STASIS),
         HIGH(FOUR_BAR_HIGH),
+        HIGHDROP(FOUR_BAR_HIGH_DROP),
         LOW(FOUR_BAR_LOW);
 
         public double value;
