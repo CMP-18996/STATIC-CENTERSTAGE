@@ -41,37 +41,46 @@ public class ToSpikeMarkCommand extends CommandBase {
         y = p.position.y;
         h = calculateHeading(p.heading.real, p.heading.imag);
     }
+    
     @Override
     public void execute() {
         switch (GlobalVariables.position) {
             case LEFT:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .lineToYLinearHeading(y - Math.signum(y) * 15.5, h + Math.toRadians(45))
+                        .setReversed(false)
+                        .lineToYLinearHeading(y - Math.signum(y) * 17, h + Math.toRadians(30))
                         //.splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h + Math.toRadians(45))
                         //.turn(h + Math.toRadians(45))
                         .build());
                 break;
             case RIGHT:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h - Math.toRadians(45))
+                        .setReversed(false)
+                        .lineToYLinearHeading(y - Math.signum(y) * 17, h - Math.toRadians(30))
                         //.turn(h - Math.toRadians(45))
                         .build());
                 break;
             case MIDDLE:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .splineTo(new Vector2d(x, y - Math.signum(y) * 19), h)
+                        .setReversed(false)
+                        .lineToYLinearHeading(y - Math.signum(y) * 22, h)
+                        //.splineTo(new Vector2d(x, y - Math.signum(y) * 19), h)
                         .build());
                 break;
             case UNDETECTED:
                 switch (GlobalVariables.color) {
                     case RED: //right
                         Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                .splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h - Math.toRadians(45))
+                                .setReversed(false)
+                                .lineToYLinearHeading(y - Math.signum(y) * 17, h - Math.toRadians(30))
+                                //.splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h - Math.toRadians(45))
                                 //.turn(h - Math.toRadians(45))
                                 .build());
                         break;
                     case BLUE: //left
                         Actions.runBlocking(drive.actionBuilder(drive.pose)
+                                .setReversed(false)
+                                .lineToYLinearHeading(y - Math.signum(y) * 17, h + Math.toRadians(30))
                                 .splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h + Math.toRadians(45))
                                 //.turn(h + Math.toRadians(45))
                                 .build());
