@@ -17,20 +17,21 @@ public class MeepMeepTesting {
     }
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(600);
-        Pose2d p = new Pose2d(12, 63.5, Math.toRadians(-90));
+        Pose2d p = new Pose2d(12, 62, Math.toRadians(-90));
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(40, 30, Math.toRadians(180) / 2, Math.toRadians(180) / 3, 13.69)
+                .setConstraints(40, 30, Math.toRadians(180), Math.toRadians(180), 13.69)
                 .followTrajectorySequence(drive ->
                     drive.trajectorySequenceBuilder(p)
-                            .splineTo(new Vector2d(p.getX(), p.getY() - Math.signum(p.getY()) * 15.5), p.getHeading())
-                            .splineTo(new Vector2d(p.getX(), p.getY() - Math.signum(p.getY()) * 33),
-                                    p.getHeading() + Math.PI / 2)
+                            //.splineTo(new Vector2d(p.getX(), p.getY() - Math.signum(p.getY()) * 0), p.getHeading()+0.00001)
+                            .splineToConstantHeading(new Vector2d(p.getX(), p.getY() - Math.signum(p.getY()) * 15.5), p.getHeading() + Math.toRadians(45))
+                            /*.splineTo(new Vector2d(p.getX(), p.getY() - Math.signum(p.getY()) * 33),
+                                    p.getHeading() + Math.PI / 2)*/
                             /*.splineTo(new Vector2d(p.getX(), p.getY() - Math.signum(p.getY()) * 27),
                                 p.getHeading())*/
                             /*.splineTo(new Vector2d(p.getX() - Math.signum(p.getY()) * 2, p.getY() - Math.signum(p.getY()) * 33),
                                     p.getHeading() - Math.PI / 2)*/
-                            .turn(Math.toRadians(180))
+                            //.turn(Math.toRadians(180))
                             //.splineTo(new Vector2d(-24, -36), Math.toRadians(0))
                             .splineTo(new Vector2d(20, -36), Math.toRadians(0))
                             .setReversed(true)

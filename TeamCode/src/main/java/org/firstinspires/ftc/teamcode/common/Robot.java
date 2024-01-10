@@ -29,11 +29,11 @@ public class Robot {
 
     public Robot(HardwareMap hardwareMap) {
 
-        //camera = new Camera(hardwareMap);
+        camera = new Camera(hardwareMap);
         // drivetrain
         this.hardwareMap = hardwareMap;
 
-        /*
+
         // Drive
         leftFront = new MotorEx(hardwareMap, "leftFront");
         leftFront.setRunMode(Motor.RunMode.RawPower);
@@ -51,9 +51,9 @@ public class Robot {
         rightRear = new MotorEx(hardwareMap,"rightRear");
         rightRear.setRunMode(Motor.RunMode.RawPower);
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        */
 
 
+        /*
         // Lift
         liftOne = hardwareMap.get(DcMotorEx.class, "liftTwo"); // don't question this naming too much
         liftOne.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -67,7 +67,7 @@ public class Robot {
         liftTwo.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
-        /*
+
         // Intake
         intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);

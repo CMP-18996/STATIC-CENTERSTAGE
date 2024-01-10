@@ -14,7 +14,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private SweepingState sweepingState = SweepingState.STOPPED;
     public static double intakePower = .6;
     //different speeds for picking up from each pixel from the stack and on the ground
-    public static double repelPower = .8; // keep positive
+    public static double repelPower = .3; // keep positive, subject to change more
     private CoverState coverState = CoverState.CLOSED;
     public ColorState slotOne;
     public ColorState slotTwo;
@@ -170,7 +170,34 @@ public class IntakeSubsystem extends SubsystemBase {
         else
             return false;
     }
+    public boolean slotOneColor(){
+        boolean oneCheck;
+        switch (slotOne) {
 
+            // this works as intended
+            case NONE:
+            case BLACK:
+                oneCheck = false;
+                break;
+            default:
+                oneCheck = true;
+        }
+        return oneCheck;
+    }
+    public boolean slotTwoColor(){
+        boolean twoCheck;
+        switch (slotTwo) {
+
+            // this works as intended
+            case NONE:
+            case BLACK:
+                twoCheck = false;
+                break;
+            default:
+                twoCheck = true;
+        }
+        return twoCheck;
+    }
     public void updateFrontBarState(FrontBarState frontBarState) {
         robot.frontBar1.setPosition(frontBarState.getBarHeight());
         robot.frontBar2.setPosition(-frontBarState.getBarHeight());
