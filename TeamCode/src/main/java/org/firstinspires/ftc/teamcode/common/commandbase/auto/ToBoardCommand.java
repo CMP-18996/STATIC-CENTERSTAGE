@@ -33,18 +33,20 @@ public class ToBoardCommand extends CommandBase {
         switch (GlobalVariables.distance) {
             case REDFAR:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
+                        .lineToYLinearHeading(-58, Math.toRadians(0))
                         .setReversed(false)
-                        .splineTo(new Vector2d(-35, -39), Math.toRadians(90))
-                        .splineTo(new Vector2d(-24, -36), Math.toRadians(0))
+                        .splineTo(new Vector2d(10, -58), Math.toRadians(0))
                         .splineTo(new Vector2d(36, -36), Math.toRadians(0))
+                        .waitSeconds(2)
                         .build());
                 break;
             case BLUEFAR:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
+                        .lineToYLinearHeading(58, Math.toRadians(0))
                         .setReversed(false)
-                        .splineTo(new Vector2d(-35, 39), Math.toRadians(-90))
-                        .splineTo(new Vector2d(-24, 36), Math.toRadians(0))
+                        .splineTo(new Vector2d(10, 58), Math.toRadians(0))
                         .splineTo(new Vector2d(36, 36), Math.toRadians(0))
+                        .waitSeconds(2)
                         .build());
                 break;
             case REDCLOSE:
