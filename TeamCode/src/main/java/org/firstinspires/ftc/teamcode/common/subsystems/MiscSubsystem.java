@@ -8,17 +8,16 @@ import org.firstinspires.ftc.teamcode.common.Robot;
 public class MiscSubsystem extends SubsystemBase {
     public Robot robot;
 
-    private static double dronePower = 0.8;
+    // private static double dronePower = 1.0;
 
     public MiscSubsystem(Robot robot) {
         this.robot = robot;
     }
 
-    public void releaseDrone() {
+    public void releaseDrone(double dronePower) {
         // This code is obsolete
         // robot.droneServo.setPosition(1);
-        robot.droneMotor.setTargetPosition(2000);
-        robot.droneMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        // robot.droneMotor.setTargetPosition(2000);
         robot.droneMotor.setPower(dronePower);
         // Could set this to run to a position so that it eventually stops running?
         // Need at least 862 run position
