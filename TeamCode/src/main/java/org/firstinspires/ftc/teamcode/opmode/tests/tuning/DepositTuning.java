@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmode.tests.tuning;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DepositRotatorCommand;
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCo
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 
+@TeleOp(name="Deposit Tuning")
 public class DepositTuning extends CommandOpMode {
     Robot robot;
     DepositSubsystem depositSubsystem;

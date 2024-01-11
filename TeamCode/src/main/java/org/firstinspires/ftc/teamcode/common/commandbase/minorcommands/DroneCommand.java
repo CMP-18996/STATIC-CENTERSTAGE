@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.common.subsystems.MiscSubsystem;
 public class DroneCommand extends SequentialCommandGroup {
     public DroneCommand(MiscSubsystem miscSubsystem) {
         addCommands(
-           new InstantCommand(() -> miscSubsystem.releaseDrone(.8)),
+           new InstantCommand(() -> miscSubsystem.releaseDrone(1)),
            new WaitCommand(2000),
            new InstantCommand(() -> miscSubsystem.releaseDrone(0.0))
         );
