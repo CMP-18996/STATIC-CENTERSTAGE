@@ -3,19 +3,16 @@ package org.firstinspires.ftc.teamcode.opmode.tests.arm;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.button.Button;
-import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
-import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
+import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadAndDisplaySubsystem;
 
 import java.util.HashMap;
 
@@ -26,7 +23,7 @@ public class LiftTest extends CommandOpMode {
     private boolean upPressed = false;
     private boolean downPressed = false;
     private LiftSubsystem liftSubsystem;
-    private TouchpadSubsystem touchpadSubsystem;
+    private TouchpadAndDisplaySubsystem touchpadAndDisplaySubsystem;
     private GamepadEx gamepadEx;
     private HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights = new HashMap<>();
     private LiftSubsystem.LiftHeight liftHeight;
@@ -35,29 +32,25 @@ public class LiftTest extends CommandOpMode {
 
     @Override
     public void initialize() {
+        CommandScheduler.getInstance().reset();
         GlobalVariables.opMode = GlobalVariables.OpMode.TELEOP;
         robot = new Robot(hardwareMap);
         liftSubsystem = new LiftSubsystem(robot);
         gamepadEx = new GamepadEx(gamepad1);
         display1 = hardwareMap.get(AdaDisplay.class, "display1");
         display2 = hardwareMap.get(AdaDisplay.class, "display2");
-        touchpadSubsystem = new TouchpadSubsystem(gamepad1, display1, display2);
+        touchpadAndDisplaySubsystem = new TouchpadAndDisplaySubsystem(gamepad1, display1, display2);
 
         this.fillMaps();
-        CommandScheduler.getInstance().reset();
 
-        Button theThing = new GamepadButton(
-                gamepadEx, GamepadKeys.Button.Y
-        );
-
-        theThing.whenPressed(
-                        new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTFOUR)
+        gamepadEx.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
+                () -> schedule(new LiftCommand(liftSubsystem, liftHeights.get(val)))
         );
     }
 
     @Override
     public void run() {
-        CommandScheduler.getInstance().run();
+        super.run();
         if (gamepad1.dpad_up && !upPressed) {
             val = Math.min(val + 1, 10);
             upPressed = true;

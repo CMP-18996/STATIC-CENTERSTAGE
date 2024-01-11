@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.lang.Integer;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -29,7 +30,7 @@ import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.MiscSubsystem;
-import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
+import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadAndDisplaySubsystem;
 
 /**
  * Triggers intake reverse
@@ -41,7 +42,7 @@ public class Teleop extends CommandOpMode {
     private Drive drive;
     private GamepadEx drivePad;
     private GamepadEx liftPad;
-    private TouchpadSubsystem touchpad;
+    private TouchpadAndDisplaySubsystem touchpad;
     private LiftSubsystem liftSubsystem;
     private DepositSubsystem depositSubsystem;
     private IntakeSubsystem intakeSubsystem;
@@ -65,22 +66,21 @@ public class Teleop extends CommandOpMode {
         liftPad = new GamepadEx(gamepad2);
         display1 = hardwareMap.get(AdaDisplay.class, "display1");
         display2 = hardwareMap.get(AdaDisplay.class, "display2");
-        touchpad = new TouchpadSubsystem(gamepad2, display1, display2);
+        touchpad = new TouchpadAndDisplaySubsystem(gamepad2, display1, display2);
         liftSubsystem = new LiftSubsystem(robot);
         depositSubsystem = new DepositSubsystem(robot);
         intakeSubsystem = new IntakeSubsystem(robot);
         miscSubsystem = new MiscSubsystem(robot);
 
-        register(drive, touchpad);
         this.fillMaps();
         liftPad.getGamepadButton(GamepadKeys.Button.Y)
-                .whenPressed(() -> {
+                .whenPressed(() -> schedule(new InstantCommand(() -> {
                     if (touchpad.isChosen) {
                         int leftRow = touchpad.getLeftRow();
                         int leftColumn = touchpad.getLeftColumn();
                         int rightRow = touchpad.getRightRow();
                         int rightColumn = touchpad.getRightColumn();
-                        CommandScheduler.getInstance().schedule(new SequentialCommandGroup(
+                        schedule(new SequentialCommandGroup(
                                 new ParallelCommandGroup( // Consider Changing to -Parallel
                                         new SetReadyToDeposit(depositSubsystem, liftSubsystem, liftHeights.get(leftRow)),
                                         // TODO: MAKE SURE THIS CODE WORKS IT IS SO SKETCHY
@@ -116,20 +116,20 @@ public class Teleop extends CommandOpMode {
                         ));
                         touchpad.reset();
                     }
-                });
+                })));
 
 
         liftPad.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                .whenPressed(() -> schedule(
                         new TakeFromIntakeCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
                 ));
 
         liftPad.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                .whenPressed(() -> schedule(
                         new DroneCommand(miscSubsystem))
                 );
         liftPad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                .whenPressed(() -> schedule(
                         new HangCommand(miscSubsystem))
                 );
         // Manually change the intake state

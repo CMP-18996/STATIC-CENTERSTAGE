@@ -6,18 +6,18 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
+import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadAndDisplaySubsystem;
 
 @TeleOp(name="Touchpad test")
 public class TouchpadTest extends LinearOpMode {
     Robot robot;
-    TouchpadSubsystem touchpad;
+    TouchpadAndDisplaySubsystem touchpad;
     AdaDisplay display1, display2;
     @Override
     public void runOpMode() {
         display1 = hardwareMap.get(AdaDisplay.class, "display1");
         display1 = hardwareMap.get(AdaDisplay.class, "display2");
-        touchpad = new TouchpadSubsystem(gamepad1, display1, display2);
+        touchpad = new TouchpadAndDisplaySubsystem(gamepad1, display1, display2);
         // touchpad.register();
         waitForStart();
         while (opModeIsActive()) {

@@ -100,7 +100,7 @@ public class AdaDisplay extends I2cDeviceSynchDevice<I2cDeviceSynch> {
 
     public enum DeviceNumber {
         ONE(0x70),
-        TWO(0x72),
+        TWO(0x74),
         THREE(0x74),
         FOUR(0x76);
         I2cAddr address;
@@ -124,7 +124,7 @@ public class AdaDisplay extends I2cDeviceSynchDevice<I2cDeviceSynch> {
         deviceClient.write8(0xEE, I2cWaitControl.WRITTEN);
         deviceClient.write8(0x81, I2cWaitControl.WRITTEN);
 
-        ADDRESS_I2C_DEFAULT = I2cAddr.create7bit(0x72);
+        ADDRESS_I2C_DEFAULT = I2cAddr.create7bit(0x74); // TODO: FIGURE OUT IF THIS IS 0x72 OR 0x74
 
         this.deviceClient.setI2cAddress(ADDRESS_I2C_DEFAULT);
         deviceClient.write8(0x21, I2cWaitControl.WRITTEN); // write8 is swapped(?)
