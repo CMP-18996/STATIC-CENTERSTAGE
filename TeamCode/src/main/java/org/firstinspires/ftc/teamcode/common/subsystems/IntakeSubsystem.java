@@ -16,8 +16,8 @@ public class IntakeSubsystem extends SubsystemBase {
     //different speeds for picking up from each pixel from the stack and on the ground
     public static double repelPower = .3; // keep positive, subject to change more
     private CoverState coverState = CoverState.CLOSED;
-    public ColorState slotOne = ColorState.GREEN;
-    public ColorState slotTwo = ColorState.PURPLE;
+    public ColorState slotOne = ColorState.NONE;
+    public ColorState slotTwo = ColorState.NONE;
     private FrontBarState frontBarState = FrontBarState.GROUND;
 
     public static double OPEN_COVER_VAL = 180.0;
@@ -56,11 +56,11 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public enum FrontBarState {
         // five heights for the stack
-        GROUND(0, 1),
-        LEVEL1(1, 2),
-        LEVEL2(2, 3),
-        LEVEL3(3, 4),
-        LEVEL4(4, 5);
+        GROUND(0, 0.4),
+        LEVEL1(0.1, 0.8),
+        LEVEL2(0.2, 0.8),
+        LEVEL3(0.3, 0.8),
+        LEVEL4(0.4, 0.8);
 
         double barState;
         double intakeSpeed;
@@ -117,7 +117,7 @@ public class IntakeSubsystem extends SubsystemBase {
         if (g1 < 200 && b1 < 200 && r1 < 200) {
             slotOne = ColorState.BLACK;
         } else if (g1 > b1 && b1 > r1) {
-            if (g1 > 9000) {
+            if (b1 > 2000) {
                 slotOne = ColorState.WHITE;
             } else {
                 slotOne = ColorState.GREEN;
@@ -135,7 +135,7 @@ public class IntakeSubsystem extends SubsystemBase {
         if (g2 < 200 && b2 < 200 && r2 < 200) {
             slotTwo = ColorState.BLACK;
         } else if (g2 > b2 && b2 > r2) {
-            if (g2 >9000) {
+            if (b2 > 2000) {
             slotTwo = ColorState.WHITE;
             } else {
                 slotTwo = ColorState.GREEN;
@@ -223,4 +223,9 @@ public class IntakeSubsystem extends SubsystemBase {
     public IntakeSubsystem(Robot robot) {
         this.robot = robot;
     }
+
+    /*
+    @Override
+    public void periodic() {this.identifyColor();}
+    */
 }

@@ -8,8 +8,11 @@ import java.util.logging.Handler;
 
 public class HangCommand extends InstantCommand {
     public HangCommand(MiscSubsystem miscSubsystem) {
+        /*
         super(
                 () -> miscSubsystem.hang()
         );
+         */
+        miscSubsystem.hang();
     }
 }
