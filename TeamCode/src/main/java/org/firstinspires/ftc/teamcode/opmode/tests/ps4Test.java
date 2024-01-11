@@ -12,11 +12,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
-import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
+import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadAndDisplaySubsystem;
 
 @TeleOp(name = "ps4Test",group="test")
 public class ps4Test extends CommandOpMode {
-    public TouchpadSubsystem touchpad;
+    public TouchpadAndDisplaySubsystem touchpad;
     private AdaDisplay display1, display2;
     boolean f, g;
     @Override
@@ -29,7 +29,7 @@ public class ps4Test extends CommandOpMode {
 
         display1 = hardwareMap.get(AdaDisplay.class, "display1");
         display2 = hardwareMap.get(AdaDisplay.class, "display2");
-        touchpad = new TouchpadSubsystem(gamepad1, display1, display2);
+        touchpad = new TouchpadAndDisplaySubsystem(gamepad1, display1, display2);
         super.register(touchpad);
 
 
@@ -61,6 +61,8 @@ public class ps4Test extends CommandOpMode {
         telemetry.addData("Left Column:", touchpad.getLeftColumn());
         telemetry.addData("Right Row:", touchpad.getRightRow());
         telemetry.addData("Right Column:", touchpad.getRightColumn());
+        telemetry.addData("Most Recently Pressed:", touchpad.getMostRecentlyPressed());
+
         telemetry.update();
     }
 }

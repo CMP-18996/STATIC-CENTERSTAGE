@@ -17,15 +17,15 @@ public class DepositSubsystem extends SubsystemBase {
     // 0.830625 from averaging them
     public static double centerVal = 0.830625;
     // end position on the right is 0.6575, bar ranges from 0.6575-1 on set position
-    public static double DEPOSIT_PICKING_UP_VALUE = 20.0;
-    public static double DEPOSIT_PARALLEL_VALUE = 30.0;
-    public static double DEPOSIT_DROPPING_OFF_VALUE = 40.0;
-    public static double GRABBER_OPEN_VALUE = 40.0;
-    public static double GRABBER_CLOSED_VALUE = 0.0;
-    public static double EXPANDED_STATE_VALUE = 20.0;
-    public static double FOUR_BAR_STASIS = 20.0;
-    public static double FOUR_BAR_HIGH = 50.0;
-    public static double FOUR_BAR_HIGH_DROP = 50.0;
+    public static double DEPOSIT_PICKING_UP_VALUE = .48;
+    public static double DEPOSIT_PARALLEL_VALUE = .37;
+    public static double DEPOSIT_DROPPING_OFF_VALUE = .50; // TODO: FIND THIS VALUE
+    public static double GRABBER_OPEN_VALUE = 0.75;
+    public static double GRABBER_CLOSED_VALUE = 0.25;
+    public static double EXPANDED_STATE_VALUE = 20.0; // TODO: CONSIDER ADDING THIS
+    public static double FOUR_BAR_STASIS = .25;
+    public static double FOUR_BAR_HIGH = .71;
+    public static double FOUR_BAR_HIGH_DROP = .71;
     public static double FOUR_BAR_LOW = 80.0;
 
     //ParityState parityState = ParityState.LOWER;
@@ -102,7 +102,7 @@ public class DepositSubsystem extends SubsystemBase {
     }
 
     public void setDepositRotationState(DepositRotationState depositRotationState) {
-        robot.depositRotator.setPosition(this.depositRotationState.value - depositRotationState.value);
+        robot.depositRotator.setPosition(depositRotationState.value);
         this.depositRotationState = depositRotationState;
     }
 
@@ -137,13 +137,6 @@ public class DepositSubsystem extends SubsystemBase {
         ExpandedState(double val) { value = val; }
     }
     public enum UpperHorizontalState {
-        /*A(centerVal - 3 * incrementVal),
-        B(centerVal - 2 * incrementVal),
-        C(centerVal - 1 * incrementVal),
-        D(centerVal),
-        E(centerVal + 1 * incrementVal),
-        F(centerVal + 2 * incrementVal),
-        G(centerVal + 3);*/
         A(centerVal + 2.5 * incrementVal),
         B(centerVal + 1.5 * incrementVal),
         C(centerVal + 0.5 * incrementVal),

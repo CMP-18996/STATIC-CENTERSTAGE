@@ -33,7 +33,7 @@ public class Robot {
         // drivetrain
         this.hardwareMap = hardwareMap;
 
-
+        /*
         // Drive
         leftFront = new MotorEx(hardwareMap, "leftFront");
         leftFront.setRunMode(Motor.RunMode.RawPower);
@@ -51,7 +51,7 @@ public class Robot {
         rightRear = new MotorEx(hardwareMap,"rightRear");
         rightRear.setRunMode(Motor.RunMode.RawPower);
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-
+        */
 
         /*
         // Lift
@@ -72,7 +72,7 @@ public class Robot {
         intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);
         intakeMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-
+        /*
 
         colorSensor1 = hardwareMap.get(ColorSensor.class, "color1");
         colorSensor2 = hardwareMap.get(ColorSensor.class, "color2");
@@ -96,18 +96,18 @@ public class Robot {
         frontBar2.setInverted(true);
         */
 
-        /*
+
         // Deposit
 
         // Guess what? This is a servo now!
         // xAdj = hardwareMap.get(DcMotorEx.class, "xAdj");
         // xAdj.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         // xAdj.setTargetPositionTolerance(2);
-
+        /*
         double xAdjMinRot = 0.0;
         double xAdjMaxRot = 1800.0;
         xAdj = new SimpleServo(hardwareMap, "xAdj", xAdjMinRot, xAdjMaxRot);
-
+        */
         double fourBarMinRot = 0.0;
         double fourBarMaxRot = 1800.0;
         fourBar = new SimpleServo(hardwareMap, "fourBar", fourBarMinRot, fourBarMaxRot);
@@ -119,12 +119,12 @@ public class Robot {
 
         double channelMinRot = 0.0;
         double channelMaxRot = 1800.0;
-        depositExpansion = new SimpleServo(hardwareMap, "channel", channelMinRot, channelMaxRot);
+        //depositExpansion = new SimpleServo(hardwareMap, "depositExpansion", channelMinRot, channelMaxRot);
 
         double depositRotatorMinRot = 0.0;
         double depositRotatorMaxRot = 1800.0;
         depositRotator = new SimpleServo(hardwareMap, "depositRotator", depositRotatorMinRot, depositRotatorMaxRot);
-        */
+
 
         /*
         double droneServoMinRot = 0.0;
