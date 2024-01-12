@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DepositRotatorCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 
@@ -23,6 +24,7 @@ public class GrabberTest extends CommandOpMode {
                 new SequentialCommandGroup(
                     new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT),
                     new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
+                    new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
                     new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL)
                 )
         );

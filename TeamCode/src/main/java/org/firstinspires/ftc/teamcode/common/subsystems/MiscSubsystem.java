@@ -17,11 +17,12 @@ public class MiscSubsystem extends SubsystemBase {
     public void releaseDrone(double dronePower) {
         robot.droneMotor.setPower(dronePower);
     }
-
+    /*
     public void hang() {
         robot.hangServo1.setPower(1);
         robot.hangServo2.setPower(1);
     }
+     */
 
     public void droneMotorTest() {
         robot.droneMotor.setPower(1);

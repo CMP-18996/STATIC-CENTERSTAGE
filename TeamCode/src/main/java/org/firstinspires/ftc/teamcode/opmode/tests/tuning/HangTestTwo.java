@@ -5,7 +5,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.HangCommand;
+// import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.HangCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.MiscSubsystem;
 
 @TeleOp(name="Hang Test Two")
@@ -20,7 +20,7 @@ public class HangTestTwo extends CommandOpMode {
         miscSubsystem = new MiscSubsystem(robot);
 
         CommandScheduler.getInstance().schedule(
-                new HangCommand(miscSubsystem)
+              //  new HangCommand(miscSubsystem)
         );
     }
 
