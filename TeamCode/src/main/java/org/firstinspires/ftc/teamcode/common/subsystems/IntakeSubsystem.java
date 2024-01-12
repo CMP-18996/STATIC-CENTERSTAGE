@@ -20,8 +20,8 @@ public class IntakeSubsystem extends SubsystemBase {
     public ColorState slotTwo = ColorState.NONE;
     private FrontBarState frontBarState = FrontBarState.GROUND;
 
-    public static double OPEN_COVER_VAL = 180.0;
-    public static double CLOSED_COVER_VAL = 180.0;
+    public static double OPEN_COVER_VAL = .0675;
+    public static double CLOSED_COVER_VAL = .7575;
 
     // color1, color2, both strings
     // ColorSensor colorSensor1 = hardwareMap.get(ColorSensor.class, "Color1");
@@ -57,10 +57,10 @@ public class IntakeSubsystem extends SubsystemBase {
     public enum FrontBarState {
         // five heights for the stack
         GROUND(0, 0.4),
-        LEVEL1(0.1, 0.8),
-        LEVEL2(0.2, 0.8),
-        LEVEL3(0.3, 0.8),
-        LEVEL4(0.4, 0.8);
+        LEVEL1(0.00875, 0.8),
+        LEVEL2(0.0175, 0.8),
+        LEVEL3(0.02625, 0.8),
+        LEVEL4(0.035, 0.8);
 
         double barState;
         double intakeSpeed;
@@ -94,14 +94,13 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void updateCoverState(CoverState setState) {
         coverState = setState;
-        int openPosition = 0;
-        int closedPosition = 0;
 
         switch(coverState) {
             case OPEN:
-                robot.coverServo.setPosition(openPosition);
+                robot.coverServo.setPosition(OPEN_COVER_VAL);
+                break;
             case CLOSED:
-                robot.coverServo.setPosition(closedPosition);
+                robot.coverServo.setPosition(CLOSED_COVER_VAL);
                 break;
         }
     }
@@ -213,11 +212,6 @@ public class IntakeSubsystem extends SubsystemBase {
         robot.frontBar1.setPosition(frontBarState.getBarHeight());
         robot.frontBar2.setPosition(frontBarState.getBarHeight());
         this.frontBarState = frontBarState;
-    }
-
-    public boolean frontBarFinished() {
-        return (robot.frontBar1.getPosition() == frontBarState.getBarHeight())
-                && (robot.frontBar2.getPosition() == frontBarState.getBarHeight());
     }
 
     public IntakeSubsystem(Robot robot) {

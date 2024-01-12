@@ -109,6 +109,40 @@ public class AdaDisplay extends I2cDeviceSynchDevice<I2cDeviceSynch> {
         }
     }
 
+    public void writeInt(DeviceNumber deviceNum, int input) {
+        switch (input) {
+            case 0:
+                writeCharacter(deviceNum, AvailableCharacters.ZERO);
+                break;
+            case 1:
+                writeCharacter(deviceNum, AvailableCharacters.ONE);
+                break;
+            case 2:
+                writeCharacter(deviceNum, AvailableCharacters.TWO);
+                break;
+            case 3:
+                writeCharacter(deviceNum, AvailableCharacters.THREE);
+                break;
+            case 4:
+                writeCharacter(deviceNum, AvailableCharacters.FOUR);
+                break;
+            case 5:
+                writeCharacter(deviceNum, AvailableCharacters.FIVE);
+                break;
+            case 6:
+                writeCharacter(deviceNum, AvailableCharacters.SIX);
+                break;
+            case 7:
+                writeCharacter(deviceNum, AvailableCharacters.SEVEN);
+                break;
+            case 8:
+                writeCharacter(deviceNum, AvailableCharacters.EIGHT);
+                break;
+            case 9:
+                writeCharacter(deviceNum, AvailableCharacters.NINE);
+                break;
+        }
+    }
 
     // INIT STUFF
     public AdaDisplay(I2cDeviceSynch i2cDeviceSynch, boolean deviceClientIsOwned) {

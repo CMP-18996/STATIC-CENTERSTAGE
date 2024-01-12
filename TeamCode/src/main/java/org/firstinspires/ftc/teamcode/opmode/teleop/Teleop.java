@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.StasisCom
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.TakeFromIntakeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DroneCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.HangCommand;
+// import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.HangCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.UpperHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
@@ -128,10 +128,10 @@ public class Teleop extends CommandOpMode {
                 .whenPressed(() -> schedule(
                         new DroneCommand(miscSubsystem))
                 );
-        liftPad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(() -> schedule(
-                        new HangCommand(miscSubsystem))
-                );
+        //liftPad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                //.whenPressed(() -> schedule(
+                    //    new HangCommand(miscSubsystem))
+               // );
         // Manually change the intake state
         /*
         Already used buttons:

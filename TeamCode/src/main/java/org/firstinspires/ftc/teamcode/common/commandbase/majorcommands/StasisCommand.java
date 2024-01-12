@@ -22,10 +22,10 @@ public class StasisCommand extends ParallelCommandGroup {
         addCommands(
                 new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.STOPPED),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
+                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE),
                 new SequentialCommandGroup(
                         new LowerHorizontalMoveCommand(depositSubsystem, DepositSubsystem.LowerHorizontalState.C),
-                        new WaitCommand(1000),
-                        new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE),
+                        new WaitCommand(1200),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS)
                 )
         );

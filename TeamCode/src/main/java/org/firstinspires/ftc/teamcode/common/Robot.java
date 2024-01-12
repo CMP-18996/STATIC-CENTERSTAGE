@@ -4,7 +4,6 @@ import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -20,8 +19,7 @@ public class Robot {
     public DcMotorEx droneMotor;
     // Two servos for x axis, in a single port, so technically we only program one
     public ServoEx coverServo, fourBar, leftGrabber, rightGrabber, depositExpansion,
-            depositRotator;
-    public CRServo hangServo1, hangServo2;
+            depositRotator, hangServo1, hangServo2;
     // Two new servos for intake, need to figure out where to use them
     public ServoEx frontBar1, frontBar2;
     public ServoEx xAdj;
@@ -35,7 +33,7 @@ public class Robot {
         // drivetrain
         this.hardwareMap = hardwareMap;
 
-
+        /*
         // Drive
         leftFront = new MotorEx(hardwareMap, "leftFront");
         leftFront.setRunMode(Motor.RunMode.RawPower);
@@ -53,9 +51,9 @@ public class Robot {
         rightRear = new MotorEx(hardwareMap,"rightRear");
         rightRear.setRunMode(Motor.RunMode.RawPower);
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        */
 
 
-        /*
         // Lift
         liftOne = hardwareMap.get(DcMotorEx.class, "liftTwo"); // don't question this naming too much
         liftOne.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -67,14 +65,13 @@ public class Robot {
         liftTwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftTwo.setDirection(DcMotorSimple.Direction.REVERSE);
-        */
+
 
         /*
         // Intake
         intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);
         intakeMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-
 
         colorSensor1 = hardwareMap.get(ColorSensor.class, "color1");
         colorSensor2 = hardwareMap.get(ColorSensor.class, "color2");
@@ -98,17 +95,12 @@ public class Robot {
         frontBar2.setInverted(true);
         */
 
-
         // Deposit
-        /*
-        // Guess what? This is a servo now!
-        // xAdj = hardwareMap.get(DcMotorEx.class, "xAdj");
-        // xAdj.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        // xAdj.setTargetPositionTolerance(2);
 
         double xAdjMinRot = 0.0;
         double xAdjMaxRot = 1800.0;
         xAdj = new SimpleServo(hardwareMap, "xAdj", xAdjMinRot, xAdjMaxRot);
+
 
         double fourBarMinRot = 0.0;
         double fourBarMaxRot = 1800.0;
@@ -126,20 +118,18 @@ public class Robot {
         double depositRotatorMinRot = 0.0;
         double depositRotatorMaxRot = 1800.0;
         depositRotator = new SimpleServo(hardwareMap, "depositRotator", depositRotatorMinRot, depositRotatorMaxRot);
-        */
+
 
         /*
         double droneServoMinRot = 0.0;
         double droneServoMaxRot = 1800.0;
         droneServo = new SimpleServo(hardwareMap, "drone", droneServoMinRot, droneServoMaxRot);
 
-        // double hangServoMinRot = 0.0;
-        // double handServoMaxRot = 1800.0;
-        // hangServo1 = new SimpleServo(hardwareMap, "hangServo1", hangServoMinRot, handServoMaxRot);
-        // hangServo2 = new SimpleServo(hardwareMap, "hangServo2", hangServoMinRot, handServoMaxRot);
-        hangServo1 = hardwareMap.get(CRServo.class, "hangServo1");
-        hangServo2 = hardwareMap.get(CRServo.class, "hangServo2");
-         */
+        double hangServoMinRot = 0.0;
+        double handServoMaxRot = 1800.0;
+        hangServo1 = new SimpleServo(hardwareMap, "hangServo1", hangServoMinRot, handServoMaxRot);
+        hangServo2 = new SimpleServo(hardwareMap, "hangServo2", hangServoMinRot, handServoMaxRot);
+        */
 
         /*
         droneMotor = hardwareMap.get(DcMotorEx.class, "droneMotor");
