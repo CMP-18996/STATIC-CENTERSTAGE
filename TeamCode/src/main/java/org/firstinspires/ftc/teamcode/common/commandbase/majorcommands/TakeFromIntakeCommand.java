@@ -22,7 +22,7 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                 new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.OPEN),
                 new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.STOPPED),
                 new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.PICKUPHEIGHT),
-                new WaitCommand(200),
+                new WaitCommand(1100),
 
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
                 new WaitCommand(1000),
@@ -39,7 +39,9 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                 new WaitCommand(200),
 
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
-                new WaitCommand(1000),
+                new WaitCommand(200),
+                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
+                new WaitCommand(600),
 
                 new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED),
                 new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
