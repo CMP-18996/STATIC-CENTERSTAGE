@@ -63,7 +63,7 @@ public class ToSpikeMarkCommand extends CommandBase {
             case MIDDLE:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .setReversed(false)
-                        .lineToYLinearHeading(y - Math.signum(y) * 19, h)
+                        .lineToYLinearHeading(y - Math.signum(y) * 19, h + Math.toRadians(7.5))
                         //.splineTo(new Vector2d(x, y - Math.signum(y) * 19), h)
                         .build());
                 break;
