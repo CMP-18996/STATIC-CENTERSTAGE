@@ -34,8 +34,8 @@ public class BlueCloseAuto extends CommandOpMode {
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
-        GlobalVariables.color = GlobalVariables.Color.BLUE;
-        GlobalVariables.distance = GlobalVariables.Distance.BLUEFAR;
+        GlobalVariables.color = GlobalVariables.Color.RED;
+        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
 
         CommandScheduler.getInstance().reset();
@@ -51,14 +51,14 @@ public class BlueCloseAuto extends CommandOpMode {
                         new TakeFromIntakeCommand(liftSubsystem, depositSubsystem, intakeSubsystem),
                         new GroundDropCommand(depositSubsystem, liftSubsystem),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
-                        /*new ToBoardCommand(drive),//switch with above if doing far side to go under chasis
+                        new ToBoardCommand(drive),//switch with above if doing far side to go under chasis
                         new WaitCommand(1000),//nessecary for camera to stabilize
                         new ConditionalCommand(new AutoDropCommand(depositSubsystem, liftSubsystem, robot.camera, drive, DepositSubsystem.LowerHorizontalState.A),
                                 new ConditionalCommand(new AutoDropCommand(depositSubsystem, liftSubsystem, robot.camera, drive, DepositSubsystem.LowerHorizontalState.E),
                                         new AutoDropCommand(depositSubsystem, liftSubsystem, robot.camera, drive, DepositSubsystem.LowerHorizontalState.C),
                                         () -> GlobalVariables.position == GlobalVariables.Position.RIGHT),
                                 () -> GlobalVariables.position == GlobalVariables.Position.LEFT),
-                        new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),*/
+                        new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
                         new InstantCommand(() -> telemetry.addData("Status", "Complete!"))
                 )
         );
