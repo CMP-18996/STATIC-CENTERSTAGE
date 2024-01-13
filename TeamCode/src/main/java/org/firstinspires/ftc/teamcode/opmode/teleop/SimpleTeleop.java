@@ -144,25 +144,17 @@ public class SimpleTeleop extends CommandOpMode {
         );
 
         drivePad.getGamepadButton(GamepadKeys.Button.A).whenPressed(
-                () -> schedule(
-                        new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.INTAKING)
-                )
+                () -> robot.intakeMotor.set(-.9)
         );
 
         drivePad.getGamepadButton(GamepadKeys.Button.B).whenPressed(
-                () -> schedule(
-                        new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.STOPPED)
-                )
+                () -> robot.intakeMotor.set(0)
         );
 
         drivePad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
                 () -> schedule(
                         new DroneCommand(miscSubsystem)
                 )
-        );
-
-        CommandScheduler.getInstance().schedule(
-                new ZeroLiftCommand(liftSubsystem)
         );
     }
 
@@ -174,8 +166,8 @@ public class SimpleTeleop extends CommandOpMode {
                 + (gamepad2.right_trigger * xAxisProportion)
                 - (gamepad2.left_trigger * xAxisProportion);
         robot.xAdj.setPosition(xAxisPosition);
-        display.writeInt(AdaDisplay.DeviceNumber.ONE, inputtedLiftHeight);
-        display.writeInt(AdaDisplay.DeviceNumber.TWO, inputtedIntakeHeight);
+        //display.writeInt(AdaDisplay.DeviceNumber.ONE, inputtedLiftHeight);
+        //display.writeInt(AdaDisplay.DeviceNumber.TWO, inputtedIntakeHeight);
 
         robot.hangServo1.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
         robot.hangServo2.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
