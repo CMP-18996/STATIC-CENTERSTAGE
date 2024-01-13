@@ -27,7 +27,7 @@ public class AprilTagLocalizationTest extends CommandOpMode {
         telemetry.update();
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
-        drive = new MecanumDrive(hardwareMap, new Pose2d(0,0, Math.toRadians(180)));
+        drive = new MecanumDrive(hardwareMap, new Pose2d(0,0, Math.toRadians(0)));
         t = new ToTagCommand(robot.camera, drive);
 
         CommandScheduler.getInstance().schedule(

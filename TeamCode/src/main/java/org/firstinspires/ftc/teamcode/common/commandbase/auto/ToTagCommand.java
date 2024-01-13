@@ -54,41 +54,46 @@ public class ToTagCommand extends CommandBase {
                 for (AprilTagDetection tag : currentDetections) {
                     double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
                             tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
-                    double d = drive.pose.position.x + stats[1] - 9;
+                    double d = drive.pose.position.x + stats[1] - 6;
                     double y = drive.pose.position.y - stats[0];
                     double a = calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]);
+                    if (t == 0) {
+                        try {
+                            Actions.runBlocking(drive.actionBuilder(drive.pose)
+                                    .turnTo(a)
+                                    .build());
+                        } catch (Exception ignored) {}
+                    }
                     try {
                         switch (tag.id) {
                             case 2: case 5:
                                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                        .splineToConstantHeading(new Vector2d(d, y), a)
+                                        .splineToSplineHeading(new Pose2d(d, y, a), a)
                                         .waitSeconds(1)
                                         .build());
                                 break;
                             case 1: case 4:
                                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                        .splineToConstantHeading(new Vector2d(d, y - 6), a)
+                                        .splineToSplineHeading(new Pose2d(d, y - 6, a), a)
                                         .waitSeconds(1)
                                         .build());
                                 break;
                             case 3: case 6:
                                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                        .splineToConstantHeading(new Vector2d(d, y + 6), a)
-                                        .waitSeconds(0.5)
+                                        .splineToSplineHeading(new Pose2d(d, y + 6, a), a)
+                                        .waitSeconds(1)
                                         .build());
                                 break;
                             }
                         } catch (Exception ignored) {}
                         break;
                     }
-                }
-            } else {
-                try {
+                } else {
                     Actions.runBlocking(drive.actionBuilder(drive.pose)
                             .splineTo(new Vector2d(drive.pose.position.x - 4, drive.pose.position.y),
                                     calculateHeading(drive.pose.heading.real, drive.pose.heading.imag))
                             .build());
-                } catch (Exception ignored) {}
+                }
             }
             t++;
         }
