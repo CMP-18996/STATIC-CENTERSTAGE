@@ -23,7 +23,7 @@ public class FourBarTest extends CommandOpMode {
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.DOWN),
+                        new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
                         new WaitCommand(1000),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
                         new WaitCommand(1000),
