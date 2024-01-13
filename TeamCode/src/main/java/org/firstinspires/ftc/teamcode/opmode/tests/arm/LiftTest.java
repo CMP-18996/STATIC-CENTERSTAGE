@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
@@ -16,6 +17,7 @@ import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadAndDisplaySubsys
 
 import java.util.HashMap;
 
+@Disabled
 @TeleOp(name="Lift Test")
 public class LiftTest extends CommandOpMode {
     private Robot robot;

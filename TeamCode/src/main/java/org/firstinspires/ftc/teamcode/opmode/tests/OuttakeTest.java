@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmode.tests;
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,6 +11,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import java.awt.font.NumericShaper;
 
+@Disabled
 @TeleOp
 @Config
 public class OuttakeTest extends LinearOpMode {

@@ -153,7 +153,7 @@ public class AdaDisplay extends I2cDeviceSynchDevice<I2cDeviceSynch> {
         super.registerArmingStateCallback(false);
         this.deviceClient.engage();
 
-        deviceClient.write8(0x21, I2cWaitControl.WRITTEN); // write8 is swapped(?)
+        deviceClient.write8(0x21, I2cWaitControl.WRITTEN);
         deviceClient.write8(0xA0, I2cWaitControl.WRITTEN);
         deviceClient.write8(0xEE, I2cWaitControl.WRITTEN);
         deviceClient.write8(0x81, I2cWaitControl.WRITTEN);
@@ -161,7 +161,7 @@ public class AdaDisplay extends I2cDeviceSynchDevice<I2cDeviceSynch> {
         ADDRESS_I2C_DEFAULT = I2cAddr.create7bit(0x74); // TODO: FIGURE OUT IF THIS IS 0x72 OR 0x74
 
         this.deviceClient.setI2cAddress(ADDRESS_I2C_DEFAULT);
-        deviceClient.write8(0x21, I2cWaitControl.WRITTEN); // write8 is swapped(?)
+        deviceClient.write8(0x21, I2cWaitControl.WRITTEN);
         deviceClient.write8(0xA0, I2cWaitControl.WRITTEN);
         deviceClient.write8(0xEE, I2cWaitControl.WRITTEN);
         deviceClient.write8(0x81, I2cWaitControl.WRITTEN);

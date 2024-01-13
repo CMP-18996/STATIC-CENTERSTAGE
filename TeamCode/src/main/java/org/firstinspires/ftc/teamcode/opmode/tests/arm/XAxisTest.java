@@ -10,9 +10,11 @@ import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+@Disabled
 @TeleOp(name="X Axis Test")
 public class XAxisTest extends CommandOpMode {
      DepositSubsystem deposit;

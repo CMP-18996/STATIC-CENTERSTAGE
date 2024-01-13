@@ -31,9 +31,6 @@ public class LowerHorizontalMoveCommand extends CommandBase {
 */
 
 public class LowerHorizontalMoveCommand extends InstantCommand {
-    LowerHorizontalState desiredState;
-    DepositSubsystem depositSubsystem;
-
     public LowerHorizontalMoveCommand(DepositSubsystem deposit, LowerHorizontalState horizontalState) {
         deposit.setLowerHorizontalState(horizontalState);
     }

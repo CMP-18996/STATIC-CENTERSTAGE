@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.R;
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.CoverComm
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FrontBarCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 
+@Disabled
 @TeleOp
 public class FrontBarTest extends CommandOpMode {
     Robot robot;

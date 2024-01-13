@@ -25,7 +25,7 @@ public class StasisCommand extends ParallelCommandGroup {
                 new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE),
                 new SequentialCommandGroup(
                         new LowerHorizontalMoveCommand(depositSubsystem, DepositSubsystem.LowerHorizontalState.C),
-                        new WaitCommand(1200),
+                        // new WaitCommand(800), TODO: CHANGE THIS
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS)
                 )
         );

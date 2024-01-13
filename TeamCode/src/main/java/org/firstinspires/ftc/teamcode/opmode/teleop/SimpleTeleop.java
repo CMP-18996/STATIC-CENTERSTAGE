@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -12,6 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.StasisCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.TakeFromIntakeCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DepositRotatorCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DroneCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FrontBarCommand;
@@ -19,6 +22,8 @@ import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGr
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.HangCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.ZeroLiftCommand;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
 import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
@@ -42,7 +47,8 @@ public class SimpleTeleop extends CommandOpMode {
     private AdaDisplay display;
     private MiscSubsystem miscSubsystem;
     private double xAxisPosition = 0.830625;
-    public static double xAxisProportion = .003;
+    private double centerPosition = 0.830625;
+    public static double xAxisProportion = .015;
     private HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights = new HashMap<>();
     private HashMap<Integer, IntakeSubsystem.FrontBarState> intakeHeights = new HashMap<>();
     int inputtedLiftHeight = 1;
@@ -56,7 +62,7 @@ public class SimpleTeleop extends CommandOpMode {
         depositSubsystem = new DepositSubsystem(robot);
         miscSubsystem = new MiscSubsystem(robot);
         drivePad = new GamepadEx(gamepad1);
-        // drive = new Drive(robot); TODO: UNCOMMENT
+        drive = new Drive(robot); 
         liftPad = new GamepadEx(gamepad2);
         display = hardwareMap.get(AdaDisplay.class, "display");
 
@@ -64,29 +70,34 @@ public class SimpleTeleop extends CommandOpMode {
 
         liftPad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
                 () -> {
-                    inputtedLiftHeight = Math.min(inputtedLiftHeight + 2, 9);
+                    inputtedLiftHeight = Math.min(inputtedLiftHeight + 1, 9);
                 }
         );
 
         liftPad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(
                 () -> {
-                    inputtedLiftHeight = Math.max(1, inputtedLiftHeight - 2);
+                    inputtedLiftHeight = Math.max(1, inputtedLiftHeight - 1);
                 }
         );
 
-        liftPad.getGamepadButton(GamepadKeys.Button.A).whenPressed(
-                () -> schedule(new TakeFromIntakeCommand(liftSubsystem, depositSubsystem, intakeSubsystem))
-        );
-
         liftPad.getGamepadButton(GamepadKeys.Button.X).whenPressed(
-                () -> schedule(new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem))
+                () -> schedule(
+                        new SequentialCommandGroup(
+                                new InstantCommand(() -> {
+                                    xAxisPosition = centerPosition;
+                                }),
+                                new WaitCommand(800),
+                                new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
+                        )
+                )
         );
 
         liftPad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
                 () -> schedule(
                         new SequentialCommandGroup(
                                 new LiftCommand(liftSubsystem, liftHeights.get(inputtedLiftHeight)),
-                                new WaitCommand(500),
+                                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
+                                new WaitCommand(400),
                                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH)
                         )
                 )
@@ -159,7 +170,7 @@ public class SimpleTeleop extends CommandOpMode {
         robot.hangServo1.setPower(drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
         robot.hangServo2.setPower(drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
-        // drive.manualPower(-drivePad.getLeftX(), drivePad.getLeftY(), -drivePad.getRightX()); TODO: UNCOMMENT
+        drive.manualPower(drivePad.getLeftX(), -drivePad.getLeftY(), -drivePad.getRightX());
         telemetry.addData("Lift Height:", inputtedLiftHeight);
         telemetry.addData("Front Bar Height:", inputtedIntakeHeight);
         telemetry.addData("xAxisPosition", xAxisPosition);
