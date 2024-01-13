@@ -2,12 +2,14 @@ package org.firstinspires.ftc.teamcode.opmode.tests.drive;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
 
+@Disabled
 @TeleOp(name = "defaultDriveTest",group="Official")
 public class defaultDriveTest extends CommandOpMode {
     public Robot robot;

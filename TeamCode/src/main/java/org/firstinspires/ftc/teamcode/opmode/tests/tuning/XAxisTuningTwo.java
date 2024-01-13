@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmode.tests.tuning;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHori
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.UpperHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 
+@Disabled
 @TeleOp(name="X Axis Tuning Two")
 public class XAxisTuningTwo extends CommandOpMode {
     Robot robot;

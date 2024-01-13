@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.opmode.tests.tuning;
 
 import com.arcrobotics.ftclib.hardware.ServoEx;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.Robot;
 
+@Disabled
 @TeleOp(name="Intake Bar Indexer")
 public class IntakeBarIndexer extends LinearOpMode {
     Robot robot;

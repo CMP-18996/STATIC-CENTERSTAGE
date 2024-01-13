@@ -20,7 +20,7 @@ public class DepositSubsystem extends SubsystemBase {
     public static double GRABBER_OPEN_VALUE = 0.75;
     public static double GRABBER_CLOSED_VALUE = 0.25;
     public static double EXPANDED_STATE_VALUE = 20.0; // TODO: CONSIDER ADDING THIS
-    public static double FOUR_BAR_STASIS = .305;
+    public static double FOUR_BAR_STASIS = .285;
     public static double FOUR_BAR_HIGH = .71;
     public static double FOUR_BAR_HIGH_DROP = .71;
     public static double FOUR_BAR_LOW = .9;

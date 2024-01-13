@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.Range;
 @Config
 public class LiftSubsystem extends SubsystemBase {
     public static double power = .4;
-    private Robot robot;
+    public Robot robot;
     private LiftHeight currentHeight;
     public int error;
     private double proportionalConstant, integralConstant, derivativeConstant;
@@ -19,6 +19,7 @@ public class LiftSubsystem extends SubsystemBase {
     public static double F = 0.05;
     public static double P = 0.005;
     public static double maxDesc = 0.5;
+    public boolean controlLift = true;
     private PIDFController pidfController = new PIDFController(0.7, 0.2, 0.5, 0);
     /* Honestly at this point we should get rid of this stuff
     private double baseHeight, heightLevelOne, heightLevelTwo, heightLevelThree, heightLevelFour, heightLevelFive;
@@ -70,11 +71,13 @@ public class LiftSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        error = this.currentHeight.target - robot.liftOne.getCurrentPosition();
+        if (controlLift) {
+            error = this.currentHeight.target - robot.liftOne.getCurrentPosition();
 
-        double power = Range.clip(P * error + F, -maxDesc, 1);
-        robot.liftOne.setPower(power);
-        robot.liftTwo.setPower(power);
+            double power = Range.clip(P * error + F, -maxDesc, 1);
+            robot.liftOne.setPower(power);
+            robot.liftTwo.setPower(power);
+        }
     }
     public boolean checkDone(LiftHeight height) {
         return height.target - this.getCurrentHeight().target < 20;

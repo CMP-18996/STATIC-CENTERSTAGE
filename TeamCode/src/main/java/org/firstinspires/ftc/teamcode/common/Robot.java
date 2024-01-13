@@ -35,7 +35,7 @@ public class Robot {
         // drivetrain
         this.hardwareMap = hardwareMap;
 
-        /*
+
         // Drive
         leftFront = new MotorEx(hardwareMap, "leftFront");
         leftFront.setRunMode(Motor.RunMode.RawPower);
@@ -53,7 +53,7 @@ public class Robot {
         rightRear = new MotorEx(hardwareMap,"rightRear");
         rightRear.setRunMode(Motor.RunMode.RawPower);
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        */
+
 
 
         // Lift
@@ -69,7 +69,7 @@ public class Robot {
         liftTwo.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
-        /*
+
         // Intake
         intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);
@@ -83,7 +83,7 @@ public class Robot {
 
         double coverServoMinRot = 0.0;
         double coverServoMaxRot = 1800.0;
-        coverServo = new SimpleServo(hardwareMap, "cover1", coverServoMinRot, coverServoMaxRot);
+        coverServo = new SimpleServo(hardwareMap, "cover", coverServoMinRot, coverServoMaxRot);
         coverServo.setInverted(false);
 //        coverServo2 = new SimpleServo(hardwareMap, "cover2", coverServoMinRot, coverServoMaxRot);
 //        coverServo2.setInverted(true);
@@ -95,7 +95,7 @@ public class Robot {
         frontBar1.setInverted(false);
         frontBar2 = new SimpleServo(hardwareMap, "frontBar2", frontBarMinRot, frontBarMaxRot);
         frontBar2.setInverted(true);
-        */
+
 
         // Deposit
 

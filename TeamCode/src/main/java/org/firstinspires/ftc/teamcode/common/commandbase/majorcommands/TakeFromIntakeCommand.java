@@ -16,8 +16,6 @@ import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 public class TakeFromIntakeCommand extends SequentialCommandGroup {
     public TakeFromIntakeCommand(LiftSubsystem liftSubsystem, DepositSubsystem depositSubsystem, IntakeSubsystem intakeSubsystem) {
         addCommands(
-                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
-                new WaitCommand(2000),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),

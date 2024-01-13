@@ -12,9 +12,6 @@ public class IntakeSubsystem extends SubsystemBase {
      */
     private Robot robot;
     private SweepingState sweepingState = SweepingState.STOPPED;
-    public static double intakePower = .6;
-    //different speeds for picking up from each pixel from the stack and on the ground
-    public static double repelPower = .3; // keep positive, subject to change more
     private CoverState coverState = CoverState.CLOSED;
     public ColorState slotOne = ColorState.NONE;
     public ColorState slotTwo = ColorState.NONE;
@@ -56,7 +53,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public enum FrontBarState {
         // five heights for the stack
-        GROUND(0, 0.4),
+        GROUND(0, 0.6),
         LEVEL1(0.00875, 0.8),
         LEVEL2(0.0175, 0.8),
         LEVEL3(0.02625, 0.8),
@@ -66,10 +63,14 @@ public class IntakeSubsystem extends SubsystemBase {
         double intakeSpeed;
         FrontBarState(double barState, double intakeSpeed) {
             this.barState = barState;
-            this.intakeSpeed = intakeSpeed;
+            this.intakeSpeed = -intakeSpeed;
         }
-        public double getBarHeight() {return barState;}
-        public double getIntakeSpeed() {return intakeSpeed;}
+        public double getBarHeight() {
+            return this.barState;
+        }
+        public double getIntakeSpeed() {
+            return this.intakeSpeed;
+        }
     }
 
     public void updateSweepingState(SweepingState setState) {
@@ -164,6 +165,7 @@ public class IntakeSubsystem extends SubsystemBase {
                 break;
             default:
                 oneFilled = true;
+                break;
         }
         switch (slotTwo) {
             case NONE:
@@ -172,6 +174,7 @@ public class IntakeSubsystem extends SubsystemBase {
                 break;
             default:
                 twoFilled = true;
+                break;
         }
 
         if (oneFilled && twoFilled)
@@ -191,6 +194,7 @@ public class IntakeSubsystem extends SubsystemBase {
                 break;
             default:
                 oneCheck = true;
+                break;
         }
         return oneCheck;
     }
@@ -205,6 +209,7 @@ public class IntakeSubsystem extends SubsystemBase {
                 break;
             default:
                 twoCheck = true;
+                break;
         }
         return twoCheck;
     }
