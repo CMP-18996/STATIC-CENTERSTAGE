@@ -134,10 +134,9 @@ public class Robot {
         hangServo2 = hardwareMap.get(CRServo.class, "hangServo2");
 
 
-        /*
+
         droneMotor = hardwareMap.get(DcMotorEx.class, "droneMotor");
         droneMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         droneMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-         */
     }
 }
