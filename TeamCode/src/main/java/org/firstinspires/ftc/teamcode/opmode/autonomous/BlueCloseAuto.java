@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.AutoDropCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.GroundDropCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.TakeFromIntakeCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
@@ -51,9 +52,10 @@ public class BlueCloseAuto extends CommandOpMode {
                 new SequentialCommandGroup(
                         new ToSpikeMarkCommand(drive),
                         new TakeFromIntakeCommand(liftSubsystem, depositSubsystem, intakeSubsystem),
-                        new WaitCommand(1000),
                         new GroundDropCommand(depositSubsystem, liftSubsystem),
+                        new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
                         new ToBoardCommand(drive),
+                        new WaitCommand(1000),
                         new ConditionalCommand(new AutoDropCommand(depositSubsystem, liftSubsystem, robot.camera, drive, DepositSubsystem.LowerHorizontalState.A),
                                 new ConditionalCommand(new AutoDropCommand(depositSubsystem, liftSubsystem, robot.camera, drive, DepositSubsystem.LowerHorizontalState.E),
                                         new AutoDropCommand(depositSubsystem, liftSubsystem, robot.camera, drive, DepositSubsystem.LowerHorizontalState.C),
