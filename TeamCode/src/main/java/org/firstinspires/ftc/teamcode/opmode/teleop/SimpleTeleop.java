@@ -80,7 +80,13 @@ public class SimpleTeleop extends CommandOpMode {
                 }
         );
 
-        liftPad.getGamepadButton(GamepadKeys.Button.X).whenPressed(
+        liftPad.getGamepadButton(GamepadKeys.Button.A).whenPressed(
+                () -> schedule(
+                        new TakeFromIntakeCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
+                )
+        );
+
+        liftPad.getGamepadButton(GamepadKeys.Button.B).whenPressed(
                 () -> schedule(
                         new SequentialCommandGroup(
                                 new InstantCommand(() -> {
@@ -154,6 +160,10 @@ public class SimpleTeleop extends CommandOpMode {
                         new DroneCommand(miscSubsystem)
                 )
         );
+
+        CommandScheduler.getInstance().schedule(
+                new ZeroLiftCommand(liftSubsystem)
+        );
     }
 
     @Override
@@ -161,14 +171,14 @@ public class SimpleTeleop extends CommandOpMode {
         CommandScheduler.getInstance().run();
 
         xAxisPosition = xAxisPosition
-                + (liftPad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) * xAxisProportion)
-                - (liftPad.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) * xAxisProportion);
+                + (gamepad2.right_trigger * xAxisProportion)
+                - (gamepad2.left_trigger * xAxisProportion);
         robot.xAdj.setPosition(xAxisPosition);
         display.writeInt(AdaDisplay.DeviceNumber.ONE, inputtedLiftHeight);
         display.writeInt(AdaDisplay.DeviceNumber.TWO, inputtedIntakeHeight);
 
-        robot.hangServo1.setPower(drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
-        robot.hangServo2.setPower(drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
+        robot.hangServo1.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
+        robot.hangServo2.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
 
         drive.manualPower(drivePad.getLeftX(), -drivePad.getLeftY(), -drivePad.getRightX());
         telemetry.addData("Lift Height:", inputtedLiftHeight);
