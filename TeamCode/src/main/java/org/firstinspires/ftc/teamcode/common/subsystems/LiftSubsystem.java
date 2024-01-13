@@ -13,7 +13,6 @@ public class LiftSubsystem extends SubsystemBase {
     public Robot robot;
     private LiftHeight currentHeight;
     public int error;
-    private double proportionalConstant, integralConstant, derivativeConstant;
     public static int LIFT_HEIGHT_INCREMENT = 300;
     public static int LIFT_PICKUP_HEIGHT = 100;
     public static double F = 0.05;
@@ -36,6 +35,7 @@ public class LiftSubsystem extends SubsystemBase {
         // Change the values for the actual robot, otherwise it'll probably crash
         // At least six states
         // Probably can only use up to eight total actual heights
+        GROUND(-5),
         BASE(30),
         HEIGHTONE(100),
         HEIGHTTWO(300),
@@ -74,7 +74,7 @@ public class LiftSubsystem extends SubsystemBase {
         if (controlLift) {
             error = this.currentHeight.target - robot.liftOne.getCurrentPosition();
 
-            double power = Range.clip(P * error + F, -maxDesc, 1);
+            double power = Range.clip(P * error + F, -maxDesc, .9);
             robot.liftOne.setPower(power);
             robot.liftTwo.setPower(power);
         }
