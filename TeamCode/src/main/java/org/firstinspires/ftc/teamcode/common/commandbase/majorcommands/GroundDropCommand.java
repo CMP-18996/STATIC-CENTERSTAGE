@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DepositRotatorCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
@@ -15,9 +16,10 @@ public class GroundDropCommand extends SequentialCommandGroup {
 
     public GroundDropCommand(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem){
         addCommands(
-                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
+                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.LOW),
+                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.DROPPING_GROUND),
                 new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE),
-                new WaitCommand(200),
+                new WaitCommand(1300),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT)
         );
     }

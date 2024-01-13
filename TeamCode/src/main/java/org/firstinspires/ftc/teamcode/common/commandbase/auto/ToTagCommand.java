@@ -60,7 +60,7 @@ public class ToTagCommand extends CommandBase {
                     if (t == 0) {
                         try {
                             Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                    .turnTo(a)
+                                    .turn(Math.toRadians(stats[5]))
                                     .build());
                         } catch (Exception ignored) {}
                     }
@@ -68,19 +68,19 @@ public class ToTagCommand extends CommandBase {
                         switch (tag.id) {
                             case 2: case 5:
                                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                        .splineToSplineHeading(new Pose2d(d, y, a), a)
+                                        .splineToConstantHeading(new Vector2d(d, y), a)
                                         .waitSeconds(1)
                                         .build());
                                 break;
                             case 1: case 4:
                                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                        .splineToSplineHeading(new Pose2d(d, y - 6, a), a)
+                                        .splineToConstantHeading(new Vector2d(d, y - 6), a)
                                         .waitSeconds(1)
                                         .build());
                                 break;
                             case 3: case 6:
                                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                        .splineToSplineHeading(new Pose2d(d, y + 6, a), a)
+                                        .splineToConstantHeading(new Vector2d(d, y + 6), a)
                                         .waitSeconds(1)
                                         .build());
                                 break;
@@ -89,10 +89,10 @@ public class ToTagCommand extends CommandBase {
                         break;
                     }
                 } else {
-                    Actions.runBlocking(drive.actionBuilder(drive.pose)
+                    /*Actions.runBlocking(drive.actionBuilder(drive.pose)
                             .splineTo(new Vector2d(drive.pose.position.x - 4, drive.pose.position.y),
                                     calculateHeading(drive.pose.heading.real, drive.pose.heading.imag))
-                            .build());
+                            .build());*/
                 }
             }
             t++;
