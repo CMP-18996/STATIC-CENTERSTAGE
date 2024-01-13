@@ -111,7 +111,7 @@ public class Robot {
 
         double depositRotatorMinRot = 0.0;
         double depositRotatorMaxRot = 1800.0;
-        depositRotator = new SimpleServo(hardwareMap, "depositRotator", depositRotatorMinRot, depositRotatorMaxRot);
+        depositRotator = new SimpleServo(hardwareMap,"depositRotator", depositRotatorMinRot, depositRotatorMaxRot);
 
         //double droneServoMinRot = 0.0;
         //double droneServoMaxRot = 1800.0;
