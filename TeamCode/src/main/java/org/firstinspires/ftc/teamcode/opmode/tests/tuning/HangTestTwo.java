@@ -21,7 +21,7 @@ public class HangTestTwo extends CommandOpMode {
         miscSubsystem = new MiscSubsystem(robot);
 
         CommandScheduler.getInstance().schedule(
-                new HangCommand(miscSubsystem)
+                new HangCommand(miscSubsystem, 1)
         );
     }
 
