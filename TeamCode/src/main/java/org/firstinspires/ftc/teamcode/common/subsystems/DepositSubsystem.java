@@ -2,10 +2,6 @@ package org.firstinspires.ftc.teamcode.common.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 
 import org.firstinspires.ftc.teamcode.common.Robot;
@@ -17,21 +13,24 @@ public class DepositSubsystem extends SubsystemBase {
     // 0.830625 from averaging them
     public static double centerVal = 0.830625;
     // end position on the right is 0.6575, bar ranges from 0.6575-1 on set position
-    public static double DEPOSIT_PICKING_UP_VALUE = .48;
+    public static double DEPOSIT_PICKING_UP_VALUE = .462;
     public static double DEPOSIT_PARALLEL_VALUE = .37;
+    public static double DEPOSIT_PICKING_UP_VALUE_ADDED = .475;
     public static double DEPOSIT_DROPPING_OFF_VALUE = .50; // TODO: FIND THIS VALUE
     public static double GRABBER_OPEN_VALUE = 0.75;
     public static double GRABBER_CLOSED_VALUE = 0.25;
     public static double EXPANDED_STATE_VALUE = 20.0; // TODO: CONSIDER ADDING THIS
-    public static double FOUR_BAR_STASIS = .25;
+    public static double FOUR_BAR_STASIS = .305;
     public static double FOUR_BAR_HIGH = .71;
     public static double FOUR_BAR_HIGH_DROP = .71;
     public static double FOUR_BAR_LOW = 80.0;
+    public static double PICK_UP_HEIGHT = 0.1;
+    public static double PICK_UP_HEIGHT_ADDED = 0.08;
 
     //ParityState parityState = ParityState.LOWER;
     LowerHorizontalState lowerHorizontalState = LowerHorizontalState.C;
     UpperHorizontalState upperHorizontalState = UpperHorizontalState.C;
-    FourBarState fourBarState = FourBarState.DOWN;
+    FourBarState fourBarState = FourBarState.PICKUP;
     GrabberState rightGrabberState = GrabberState.CLOSED;
     GrabberState leftGrabberState = GrabberState.CLOSED;
     ExpandedState expandedState = ExpandedState.NOT_EXPANDED;
@@ -113,6 +112,7 @@ public class DepositSubsystem extends SubsystemBase {
 
     public enum DepositRotationState {
         PICKING_UP(DEPOSIT_PICKING_UP_VALUE),
+        PICKING_UP_ADDED(DEPOSIT_PICKING_UP_VALUE_ADDED),
         PARALLEL(DEPOSIT_PARALLEL_VALUE),
         DROPPING_GROUND(DEPOSIT_DROPPING_OFF_VALUE);
         public double value;
@@ -170,7 +170,8 @@ public class DepositSubsystem extends SubsystemBase {
     }
 
     public enum FourBarState {
-        DOWN(0.0),
+        PICKUP(PICK_UP_HEIGHT),
+        PICKUP_ADDED(PICK_UP_HEIGHT_ADDED),
         STASIS(FOUR_BAR_STASIS),
         HIGH(FOUR_BAR_HIGH),
         HIGHDROP(FOUR_BAR_HIGH_DROP),
