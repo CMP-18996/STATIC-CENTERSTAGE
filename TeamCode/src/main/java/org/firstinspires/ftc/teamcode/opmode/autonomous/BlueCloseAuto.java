@@ -34,8 +34,8 @@ public class BlueCloseAuto extends CommandOpMode {
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
-        GlobalVariables.color = GlobalVariables.Color.BLUE;
-        GlobalVariables.distance = GlobalVariables.Distance.BLUECLOSE;
+        GlobalVariables.color = GlobalVariables.Color.RED;
+        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
 
         CommandScheduler.getInstance().reset();
@@ -59,7 +59,6 @@ public class BlueCloseAuto extends CommandOpMode {
                                         () -> GlobalVariables.position == GlobalVariables.Position.RIGHT),
                                 () -> GlobalVariables.position == GlobalVariables.Position.LEFT),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
-                        new ParkCommand(drive),
                         new InstantCommand(() -> telemetry.addData("Status", "Complete!"))
                 )
         );
