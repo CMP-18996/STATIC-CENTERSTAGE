@@ -48,7 +48,7 @@ public class ToSpikeMarkCommand extends CommandBase {
             case LEFT:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .setReversed(false)
-                        .lineToYLinearHeading(y - Math.signum(y) * 17, h + Math.toRadians(30))
+                        .lineToYLinearHeading(y - Math.signum(y) * 15.5, h + Math.toRadians(30))
                         //.splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h + Math.toRadians(45))
                         //.turn(h + Math.toRadians(45))
                         .build());
@@ -56,14 +56,14 @@ public class ToSpikeMarkCommand extends CommandBase {
             case RIGHT:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .setReversed(false)
-                        .lineToYLinearHeading(y - Math.signum(y) * 17, h - Math.toRadians(30))
+                        .lineToYLinearHeading(y - Math.signum(y) * 15.5, h - Math.toRadians(30))
                         //.turn(h - Math.toRadians(45))
                         .build());
                 break;
             case MIDDLE:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .setReversed(false)
-                        .lineToYLinearHeading(y - Math.signum(y) * 22, h)
+                        .lineToYLinearHeading(y - Math.signum(y) * 21, h)
                         //.splineTo(new Vector2d(x, y - Math.signum(y) * 19), h)
                         .build());
                 break;
@@ -72,7 +72,7 @@ public class ToSpikeMarkCommand extends CommandBase {
                     case RED: //right
                         Actions.runBlocking(drive.actionBuilder(drive.pose)
                                 .setReversed(false)
-                                .lineToYLinearHeading(y - Math.signum(y) * 17, h - Math.toRadians(30))
+                                .lineToYLinearHeading(y - Math.signum(y) * 15.5, h - Math.toRadians(30))
                                 //.splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h - Math.toRadians(45))
                                 //.turn(h - Math.toRadians(45))
                                 .build());
@@ -80,7 +80,7 @@ public class ToSpikeMarkCommand extends CommandBase {
                     case BLUE: //left
                         Actions.runBlocking(drive.actionBuilder(drive.pose)
                                 .setReversed(false)
-                                .lineToYLinearHeading(y - Math.signum(y) * 17, h + Math.toRadians(30))
+                                .lineToYLinearHeading(y - Math.signum(y) * 15.5, h + Math.toRadians(30))
                                 //.splineTo(new Vector2d(x, y - Math.signum(y) * 15.5), h + Math.toRadians(45))
                                 //.turn(h + Math.toRadians(45))
                                 .build());

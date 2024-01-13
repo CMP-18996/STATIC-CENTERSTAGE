@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToTagCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DepositRotatorCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
@@ -20,10 +21,13 @@ public class AutoDropCommand extends SequentialCommandGroup {
                 //drives to apriltag
                 //correct position of arm based on apriltag
                 //drop pixel on boarde
-                new ParallelCommandGroup(
+                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
+                new SequentialCommandGroup(
                         new ToTagCommand(camera, drive),
-                        new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
-                        new LowerHorizontalMoveCommand(depositSubsystem, lowerHorizontalState)
+                        new ParallelCommandGroup(
+                                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
+                                new LowerHorizontalMoveCommand(depositSubsystem, lowerHorizontalState)
+                        )
                 ),
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGHDROP),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT)

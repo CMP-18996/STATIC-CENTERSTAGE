@@ -19,7 +19,7 @@ public class Robot {
     public DcMotorEx droneMotor;
     // Two servos for x axis, in a single port, so technically we only program one
     public ServoEx coverServo, fourBar, leftGrabber, rightGrabber, depositExpansion,
-            depositRotator, hangServo1, hangServo2;
+            depositRotator, hangServo1, hangServo2, droneServo;
     // Two new servos for intake, need to figure out where to use them
     public ServoEx frontBar1, frontBar2;
     public ServoEx xAdj;
@@ -33,7 +33,6 @@ public class Robot {
         // drivetrain
         this.hardwareMap = hardwareMap;
 
-        /*
         // Drive
         leftFront = new MotorEx(hardwareMap, "leftFront");
         leftFront.setRunMode(Motor.RunMode.RawPower);
@@ -51,7 +50,6 @@ public class Robot {
         rightRear = new MotorEx(hardwareMap,"rightRear");
         rightRear.setRunMode(Motor.RunMode.RawPower);
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        */
 
 
         // Lift
@@ -67,7 +65,7 @@ public class Robot {
         liftTwo.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
-        /*
+
         // Intake
         intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);
@@ -81,7 +79,7 @@ public class Robot {
 
         double coverServoMinRot = 0.0;
         double coverServoMaxRot = 1800.0;
-        coverServo = new SimpleServo(hardwareMap, "cover1", coverServoMinRot, coverServoMaxRot);
+        coverServo = new SimpleServo(hardwareMap, "cover", coverServoMinRot, coverServoMaxRot);
         coverServo.setInverted(false);
 //        coverServo2 = new SimpleServo(hardwareMap, "cover2", coverServoMinRot, coverServoMaxRot);
 //        coverServo2.setInverted(true);
@@ -93,7 +91,6 @@ public class Robot {
         frontBar1.setInverted(false);
         frontBar2 = new SimpleServo(hardwareMap, "frontBar2", frontBarMinRot, frontBarMaxRot);
         frontBar2.setInverted(true);
-        */
 
         // Deposit
 
@@ -124,17 +121,15 @@ public class Robot {
         double droneServoMinRot = 0.0;
         double droneServoMaxRot = 1800.0;
         droneServo = new SimpleServo(hardwareMap, "drone", droneServoMinRot, droneServoMaxRot);
-
+        */
         double hangServoMinRot = 0.0;
         double handServoMaxRot = 1800.0;
         hangServo1 = new SimpleServo(hardwareMap, "hangServo1", hangServoMinRot, handServoMaxRot);
         hangServo2 = new SimpleServo(hardwareMap, "hangServo2", hangServoMinRot, handServoMaxRot);
-        */
 
-        /*
         droneMotor = hardwareMap.get(DcMotorEx.class, "droneMotor");
         droneMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         droneMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-         */
+
     }
 }
