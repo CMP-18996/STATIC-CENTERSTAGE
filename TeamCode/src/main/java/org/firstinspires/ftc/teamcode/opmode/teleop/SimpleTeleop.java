@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DroneComm
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FrontBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.HangCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
@@ -154,6 +155,9 @@ public class SimpleTeleop extends CommandOpMode {
         robot.xAdj.setPosition(xAxisPosition);
         display.writeInt(AdaDisplay.DeviceNumber.ONE, inputtedLiftHeight);
         display.writeInt(AdaDisplay.DeviceNumber.TWO, inputtedIntakeHeight);
+
+        robot.hangServo1.setPower(drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
+        robot.hangServo2.setPower(drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
         // drive.manualPower(-drivePad.getLeftX(), drivePad.getLeftY(), -drivePad.getRightX()); TODO: UNCOMMENT
         telemetry.addData("Lift Height:", inputtedLiftHeight);
