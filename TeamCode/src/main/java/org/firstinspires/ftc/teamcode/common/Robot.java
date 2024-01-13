@@ -33,7 +33,6 @@ public class Robot {
         // drivetrain
         this.hardwareMap = hardwareMap;
 
-        /*
         // Drive
         leftFront = new MotorEx(hardwareMap, "leftFront");
         leftFront.setRunMode(Motor.RunMode.RawPower);
@@ -51,8 +50,6 @@ public class Robot {
         rightRear = new MotorEx(hardwareMap,"rightRear");
         rightRear.setRunMode(Motor.RunMode.RawPower);
         rightRear.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        */
-
 
         // Lift
         liftOne = hardwareMap.get(DcMotorEx.class, "liftTwo"); // don't question this naming too much
@@ -66,8 +63,6 @@ public class Robot {
         liftTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftTwo.setDirection(DcMotorSimple.Direction.REVERSE);
 
-
-        /*
         // Intake
         intakeMotor = new MotorEx(hardwareMap, "intake");
         intakeMotor.setRunMode(Motor.RunMode.RawPower);
@@ -93,7 +88,6 @@ public class Robot {
         frontBar1.setInverted(false);
         frontBar2 = new SimpleServo(hardwareMap, "frontBar2", frontBarMinRot, frontBarMaxRot);
         frontBar2.setInverted(true);
-        */
 
         // Deposit
 
@@ -119,22 +113,17 @@ public class Robot {
         double depositRotatorMaxRot = 1800.0;
         depositRotator = new SimpleServo(hardwareMap, "depositRotator", depositRotatorMinRot, depositRotatorMaxRot);
 
-
-        /*
-        double droneServoMinRot = 0.0;
-        double droneServoMaxRot = 1800.0;
-        droneServo = new SimpleServo(hardwareMap, "drone", droneServoMinRot, droneServoMaxRot);
+        //double droneServoMinRot = 0.0;
+        //double droneServoMaxRot = 1800.0;
+        //droneServo = new SimpleServo(hardwareMap, "drone", droneServoMinRot, droneServoMaxRot);
 
         double hangServoMinRot = 0.0;
         double handServoMaxRot = 1800.0;
         hangServo1 = new SimpleServo(hardwareMap, "hangServo1", hangServoMinRot, handServoMaxRot);
         hangServo2 = new SimpleServo(hardwareMap, "hangServo2", hangServoMinRot, handServoMaxRot);
-        */
 
-        /*
         droneMotor = hardwareMap.get(DcMotorEx.class, "droneMotor");
         droneMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         droneMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-         */
     }
 }

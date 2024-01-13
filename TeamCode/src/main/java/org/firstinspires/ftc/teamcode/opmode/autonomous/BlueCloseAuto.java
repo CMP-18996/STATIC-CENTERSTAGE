@@ -37,7 +37,7 @@ public class BlueCloseAuto extends CommandOpMode {
         depositSubsystem = new DepositSubsystem(robot);
         liftSubsystem = new LiftSubsystem(robot);
         super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);*/
-
+        //parallel command group op
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new ToSpikeMarkCommand(drive),
