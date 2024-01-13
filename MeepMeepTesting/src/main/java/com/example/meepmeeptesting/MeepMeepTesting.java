@@ -31,7 +31,11 @@ public class MeepMeepTesting {
                 .setReversed(false)
                 .splineTo(new Vector2d(10, -58), Math.toRadians(0))
                 .splineTo(new Vector2d(36, -36), Math.toRadians(0))
+                        .waitSeconds(1)
+                .splineTo(new Vector2d(42, -36), Math.toRadians(0))
                 .waitSeconds(2)
+                .splineToConstantHeading(new Vector2d(40, -60), Math.toRadians(0))
+                        .splineTo(new Vector2d(54, -60), 0)
                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)

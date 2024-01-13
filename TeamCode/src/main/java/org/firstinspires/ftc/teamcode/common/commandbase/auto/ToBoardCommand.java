@@ -50,32 +50,18 @@ public class ToBoardCommand extends CommandBase {
                         .build());
                 break;
             case REDCLOSE:
-                if (GlobalVariables.position == GlobalVariables.Position.MIDDLE) {
-                    Actions.runBlocking(drive.actionBuilder(drive.pose)
-                            .setReversed(false)
-                            .lineToYLinearHeading(-40, Math.toRadians(90))
-                            .build());
-                } else {
-                    Actions.runBlocking(drive.actionBuilder(drive.pose)
-                            .strafeToLinearHeading(new Vector2d(30, -54), Math.toRadians(60))
-                            .setReversed(false)
-                            .splineTo(new Vector2d(42, -36), Math.toRadians(0))
-                            .build());
-                }
+                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                        .strafeToLinearHeading(new Vector2d(30, -54), Math.toRadians(60))
+                        .setReversed(false)
+                        .splineTo(new Vector2d(42, -36), Math.toRadians(0))
+                        .build());
                 break;
             case BLUECLOSE:
-                if (GlobalVariables.position == GlobalVariables.Position.MIDDLE) {
-                    Actions.runBlocking(drive.actionBuilder(drive.pose)
-                            .setReversed(false)
-                            .lineToYLinearHeading(40, Math.toRadians(-90))
-                            .build());
-                } else {
-                    Actions.runBlocking(drive.actionBuilder(drive.pose)
-                            .strafeToLinearHeading(new Vector2d(30, 54), Math.toRadians(-60))
-                            .setReversed(false)
-                            .splineTo(new Vector2d(42, 36), Math.toRadians(0))
-                            .build());
-                }
+                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                        .strafeToLinearHeading(new Vector2d(30, 54), Math.toRadians(-60))
+                        .setReversed(false)
+                        .splineTo(new Vector2d(42, 36), Math.toRadians(0))
+                        .build());
                 break;
         }
         t = true;
