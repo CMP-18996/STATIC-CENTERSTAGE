@@ -14,7 +14,7 @@ public class LiftSubsystem extends SubsystemBase {
     private LiftHeight currentHeight;
     public int error;
     public static int LIFT_HEIGHT_INCREMENT = 300;
-    public static int LIFT_PICKUP_HEIGHT = 100;
+    public static int LIFT_PICKUP_HEIGHT = 30;
     public static double F = 0.05;
     public static double P = 0.005;
     public static double maxDesc = 0.5;
@@ -35,8 +35,8 @@ public class LiftSubsystem extends SubsystemBase {
         // Change the values for the actual robot, otherwise it'll probably crash
         // At least six states
         // Probably can only use up to eight total actual heights
-        GROUND(-5),
-        BASE(30),
+        GROUND(20),
+        BASE(20),
         HEIGHTONE(100),
         HEIGHTTWO(300),
         HEIGHTTHREE(500),
@@ -48,7 +48,7 @@ public class LiftSubsystem extends SubsystemBase {
         HEIGHTNINE(1700),
         HEIGHTTEN(1900),
         HEIGHTELEVEN(2100),
-        PICKUPHEIGHT(43);
+        PICKUPHEIGHT(20);
 
         public final int target;
 
