@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.common.commandbase.majorcommands;
 
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DepositRotatorCommand;
@@ -30,7 +31,9 @@ public class AutoDropCommand extends SequentialCommandGroup {
                         )
                 ),
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGHDROP),
-                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT)
+                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
+                new WaitCommand(2000),
+                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS)
         );
     }
 }
