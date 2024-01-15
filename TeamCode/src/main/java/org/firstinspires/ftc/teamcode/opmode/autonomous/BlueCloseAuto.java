@@ -34,9 +34,10 @@ public class BlueCloseAuto extends CommandOpMode {
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
-        GlobalVariables.color = GlobalVariables.Color.RED;
-        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
+        GlobalVariables.color = GlobalVariables.Color.BLUE;
+        GlobalVariables.distance = GlobalVariables.Distance.BLUECLOSE;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
+        GlobalVariables.position = GlobalVariables.Position.UNDETECTED;
 
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
@@ -50,7 +51,6 @@ public class BlueCloseAuto extends CommandOpMode {
                         new ToSpikeMarkCommand(drive),
                         new TakeFromIntakeCommand(liftSubsystem, depositSubsystem, intakeSubsystem),
                         new GroundDropCommand(depositSubsystem, liftSubsystem),
-                        new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
                         new ToBoardCommand(drive),//switch with above if doing far side to go under chasis
                         new WaitCommand(1000),//nessecary for camera to stabilize
                         new ConditionalCommand(new AutoDropCommand(depositSubsystem, liftSubsystem, robot.camera, drive, DepositSubsystem.LowerHorizontalState.A),
@@ -58,7 +58,6 @@ public class BlueCloseAuto extends CommandOpMode {
                                         new AutoDropCommand(depositSubsystem, liftSubsystem, robot.camera, drive, DepositSubsystem.LowerHorizontalState.C),
                                         () -> GlobalVariables.position == GlobalVariables.Position.RIGHT),
                                 () -> GlobalVariables.position == GlobalVariables.Position.LEFT),
-                        new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
                         new InstantCommand(() -> telemetry.addData("Status", "Complete!"))
                 )
         );
@@ -97,6 +96,6 @@ public class BlueCloseAuto extends CommandOpMode {
         CommandScheduler.getInstance().run();
         telemetry.addData("Status", "Running...");
         telemetry.update();
-        robot.camera.startPropProcessing();
+        robot.camera.stopPropProcessing();
     }
 }

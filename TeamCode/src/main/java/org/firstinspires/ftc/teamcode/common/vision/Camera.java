@@ -64,10 +64,10 @@ public class Camera extends SubsystemBase {
     public void startPropProcessing() {
         if (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
             propProcessor.startDetecting = true;
-            if (propProcessor.objectDetected) {
-                visionPortal.setProcessorEnabled(propProcessor, false);
-            }
         }
+    }
+    public void stopPropProcessing() {
+        visionPortal.setProcessorEnabled(propProcessor, false);
     }
 
     // only use when stop is not requested

@@ -170,7 +170,7 @@ public class SimpleTeleop extends CommandOpMode {
         //display.writeInt(AdaDisplay.DeviceNumber.TWO, inputtedIntakeHeight);
 
         robot.hangServo1.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
-        robot.hangServo2.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
+        robot.hangServo2.setPower(-1* (gamepad1.right_trigger - gamepad1.left_trigger));
 
         drive.manualPower(drivePad.getLeftX(), -drivePad.getLeftY(), -drivePad.getRightX());
         telemetry.addData("Lift Height:", inputtedLiftHeight);

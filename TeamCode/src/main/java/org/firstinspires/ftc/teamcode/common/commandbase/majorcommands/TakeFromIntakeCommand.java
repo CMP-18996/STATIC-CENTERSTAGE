@@ -39,8 +39,8 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                 new WaitCommand(200),
 
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
-                new WaitCommand(200),
-                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
+                new WaitCommand(600),
+//                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
                 new WaitCommand(600),
 
                 new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED),

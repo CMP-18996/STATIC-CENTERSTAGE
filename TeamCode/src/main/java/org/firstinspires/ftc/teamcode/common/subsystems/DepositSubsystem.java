@@ -13,18 +13,18 @@ public class DepositSubsystem extends SubsystemBase {
     // 0.830625 from averaging them
     public static double centerVal = 0.830625;
     // end position on the right is 0.6575, bar ranges from 0.6575-1 on set position
-    public static double DEPOSIT_PICKING_UP_VALUE = .462;
+    public static double DEPOSIT_PICKING_UP_VALUE = .455;
     public static double DEPOSIT_PARALLEL_VALUE = .37;
-    public static double DEPOSIT_PICKING_UP_VALUE_ADDED = .475;
+    public static double DEPOSIT_PICKING_UP_VALUE_ADDED = .465;
     public static double DEPOSIT_DROPPING_OFF_VALUE = .2; // TODO: FIND THIS VALUE
     public static double GRABBER_OPEN_VALUE = 0.75;
     public static double GRABBER_CLOSED_VALUE = 0.25;
     public static double EXPANDED_STATE_VALUE = 20.0; // TODO: CONSIDER ADDING THIS
-    public static double FOUR_BAR_STASIS = .225;
+    public static double FOUR_BAR_STASIS = .325;
     public static double FOUR_BAR_HIGH = .71;
-    public static double FOUR_BAR_HIGH_DROP = .71;
+    public static double FOUR_BAR_HIGH_DROP = .72;
     public static double FOUR_BAR_LOW = .9;
-    public static double PICK_UP_HEIGHT = 0.1;
+    public static double PICK_UP_HEIGHT = 0.05;
     public static double PICK_UP_HEIGHT_ADDED = 0.08;
 
     //ParityState parityState = ParityState.LOWER;

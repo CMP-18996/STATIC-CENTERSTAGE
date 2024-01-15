@@ -13,21 +13,20 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;
 
-@Disabled
 @TeleOp(name="pure camera view",group="test")
 public class VisionTeste extends CommandOpMode {
     public Camera camera;
 
     @Override
     public void initialize() {
-        GlobalVariables.color = GlobalVariables.Color.RED;
+        GlobalVariables.color = GlobalVariables.Color.BLUE;
+        GlobalVariables.position = GlobalVariables.Position.UNDETECTED;
+
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
         CommandScheduler.getInstance().reset();
-        schedule(new SequentialCommandGroup(
-                new WaitCommand(5000)
-        ));
+
         camera = new Camera(hardwareMap);
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
@@ -54,6 +53,5 @@ public class VisionTeste extends CommandOpMode {
         telemetry.addLine("Prop Position Detected: " + GlobalVariables.position.toString());
         telemetry.addData("Detected Pixel Val:", camera.getTelemetryTestVal());
         telemetry.update();
-        sleep(20);
     }
 }

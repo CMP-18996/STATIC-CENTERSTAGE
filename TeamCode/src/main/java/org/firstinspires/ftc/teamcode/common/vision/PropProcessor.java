@@ -99,7 +99,7 @@ public class PropProcessor implements VisionProcessor {
             telemetryTestVal = pixelVal;
             if (pixelVal < 130) {
                 leftPos++;
-            } else if (pixelVal < 350) {
+            } else if (pixelVal < 375) {
                 middlePos++;
             } else {
                 rightPos++;
@@ -113,8 +113,8 @@ public class PropProcessor implements VisionProcessor {
     }
 
     private void checkFinish() {
-        if (leftPos + middlePos + rightPos >= 20) {
-            objectDetected = true;
+        if (leftPos + middlePos + rightPos >= 15) {
+            //objectDetected = true;
             if (leftPos > middlePos && leftPos > rightPos) {
                 GlobalVariables.position = GlobalVariables.Position.LEFT;
             }
@@ -127,6 +127,9 @@ public class PropProcessor implements VisionProcessor {
             else { // only happens in the case that it gets something like left 10 right 10 middle 0
                 objectDetected = false;
             }
+            leftPos = 0;
+            middlePos = 0;
+            rightPos = 0;
         }
     }
 

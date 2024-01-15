@@ -20,7 +20,9 @@ public class GroundDropCommand extends SequentialCommandGroup {
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.DROPPING_GROUND),
                 new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE),
                 new WaitCommand(1300),
-                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT)
+                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
+                new WaitCommand(300),
+                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS)
         );
     }
 
