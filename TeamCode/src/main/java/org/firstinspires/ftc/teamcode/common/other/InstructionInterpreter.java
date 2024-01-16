@@ -17,7 +17,6 @@ import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.StackCycleCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToBoardCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
 import java.io.File;
@@ -78,7 +77,7 @@ public class InstructionInterpreter {
                             case "wait":
                                 CommandScheduler.getInstance().schedule(new WaitCommand(500));
                             case "deposit prop pixel":
-                                CommandScheduler.getInstance().schedule(new ToSpikeMarkCommand(drive));
+                                //CommandScheduler.getInstance().schedule(new ToSpikeMarkCommand(drive));
                             case "align":
                                 CommandScheduler.getInstance().schedule(new ToTagCommand(robot.camera, drive));
                             default:

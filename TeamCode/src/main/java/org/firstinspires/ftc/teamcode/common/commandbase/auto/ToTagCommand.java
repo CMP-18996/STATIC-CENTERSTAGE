@@ -54,7 +54,7 @@ public class ToTagCommand extends CommandBase {
                 for (AprilTagDetection tag : currentDetections) {
                     double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
                             tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
-                    double d = drive.pose.position.x + stats[1] - 6;
+                    double d = drive.pose.position.x + stats[1] - 4.5;
                     double y = drive.pose.position.y - stats[0];
                     double a = calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]);
                     if (t == 0) {

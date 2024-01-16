@@ -24,18 +24,13 @@ public class MeepMeepTesting {
                 .build();
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-35, -62, Math.toRadians(90)))
+                .splineTo(new Vector2d(-37,-46), Math.toRadians(105))
+                .setReversed(true)
+                .splineTo(new Vector2d(-35,-58), Math.toRadians(180))
                         .setReversed(false)
-                .lineToYLinearHeading(-45, Math.toRadians(120))
-                .setReversed(false)
-                .lineToYLinearHeading(-58, Math.toRadians(0))
-                .setReversed(false)
                 .splineTo(new Vector2d(10, -58), Math.toRadians(0))
                 .splineTo(new Vector2d(36, -36), Math.toRadians(0))
-                        .waitSeconds(1)
-                .splineTo(new Vector2d(42, -36), Math.toRadians(0))
                 .waitSeconds(2)
-                .splineToConstantHeading(new Vector2d(40, -60), Math.toRadians(0))
-                        .splineTo(new Vector2d(54, -60), 0)
                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)

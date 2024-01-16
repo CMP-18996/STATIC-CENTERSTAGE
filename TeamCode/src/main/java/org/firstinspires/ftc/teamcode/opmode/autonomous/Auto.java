@@ -2,28 +2,18 @@ package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.ConditionalCommand;
-import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.ParkCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToBoardCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToSpikeMarkCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.AutoDropCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.GroundDropCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.TakeFromIntakeCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusZeroAuto;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 
 @Autonomous(name = "Autonomous")
-public class BlueCloseAuto extends CommandOpMode {
+public class Auto extends CommandOpMode {
     public Robot robot;
     public MecanumDrive drive;
     public IntakeSubsystem intakeSubsystem;
@@ -47,24 +37,12 @@ public class BlueCloseAuto extends CommandOpMode {
         liftSubsystem = new LiftSubsystem(robot);
         super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);
         CommandScheduler.getInstance().schedule(
-                new SequentialCommandGroup(
-                        new ToSpikeMarkCommand(drive),
-                        new TakeFromIntakeCommand(liftSubsystem, depositSubsystem, intakeSubsystem),
-                        new GroundDropCommand(depositSubsystem, liftSubsystem),
-                        new ToBoardCommand(drive),//switch with above if doing far side to go under chasis
-                        new WaitCommand(1000),//nessecary for camera to stabilize
-                        new ConditionalCommand(new AutoDropCommand(depositSubsystem, liftSubsystem, robot.camera, drive, DepositSubsystem.LowerHorizontalState.A),
-                                new ConditionalCommand(new AutoDropCommand(depositSubsystem, liftSubsystem, robot.camera, drive, DepositSubsystem.LowerHorizontalState.E),
-                                        new AutoDropCommand(depositSubsystem, liftSubsystem, robot.camera, drive, DepositSubsystem.LowerHorizontalState.C),
-                                        () -> GlobalVariables.position == GlobalVariables.Position.RIGHT),
-                                () -> GlobalVariables.position == GlobalVariables.Position.LEFT),
-                        new InstantCommand(() -> telemetry.addData("Status", "Complete!"))
-                )
+                new TwoPlusZeroAuto(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem)
         );
 
         robot.camera.startPropProcessing();
 
-        telemetry.addData("Status", "Initialized! Please wait a bit before playing.");
+        telemetry.addData("Status", "Initialized! Please wait for camera init before playing.");
         switch (GlobalVariables.distance) {
             case BLUECLOSE:
                 telemetry.addLine("You are registered for the blue close position.");
