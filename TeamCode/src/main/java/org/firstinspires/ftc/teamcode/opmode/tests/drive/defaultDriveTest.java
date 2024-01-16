@@ -9,11 +9,9 @@ import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
 
-@Disabled
 @TeleOp(name = "defaultDriveTest",group="Official")
 public class defaultDriveTest extends CommandOpMode {
     public Robot robot;
-    public Drive drive;
     @Override
     public void initialize() {
         telemetry.addData("Status","Initalizing...");
@@ -21,8 +19,6 @@ public class defaultDriveTest extends CommandOpMode {
 
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
-        drive = new Drive(robot);
-        register(drive);
 
         telemetry.addData("Status", "Initialized!");
         telemetry.update();
@@ -31,13 +27,21 @@ public class defaultDriveTest extends CommandOpMode {
     public void run() {
         CommandScheduler.getInstance().run();
 
-        drive.manualPower(-gamepad1.left_stick_x, gamepad1.left_stick_y, -gamepad1.right_stick_x);
+        double y = -gamepad1.left_stick_y; // Remember, Y stick is reversed!
+        double x = gamepad1.left_stick_x;
+        double rx = -gamepad1.right_stick_x;
 
-        telemetry.addData("Status", "Rumning...");
-        telemetry.addData("Current of rightFront", robot.rightFront.motor.getPower());
-        telemetry.addData("Current of leftFront", robot.leftFront.motor.getPower());
-        telemetry.addData("Current of rightRear", robot.rightRear.motor.getPower());
-        telemetry.addData("Current of leftRear", robot.leftRear.motor.getPower());
+        double lf = 100;
+        double lb = 65;
+        double rf = 130;
+        double rb = 95;
+        double max = Math.max(Math.max(lf, lb), Math.max(rf, rb));
+
+        robot.leftFront.set((y + x + rx) * lf / max);
+        robot.leftRear.set((y - x + rx) * lb / max);
+        robot.rightFront.set((y - x - rx) * rf / max);
+        robot.rightRear.set((y + x - rx) * rb / max);
+
         telemetry.update();
     }
 }

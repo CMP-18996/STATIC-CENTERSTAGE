@@ -22,7 +22,7 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                 new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.OPEN),
                 new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.STOPPED),
                 new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.PICKUPHEIGHT),
-                new WaitCommand(1100),
+                new WaitCommand(1500),
 
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
                 new WaitCommand(1000),

@@ -16,10 +16,10 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
-public class ToSpikeMarkCommand extends CommandBase {
+public class SpikePushCommand extends CommandBase {
     public MecanumDrive drive;
     boolean t = false;
-    public ToSpikeMarkCommand(MecanumDrive drive) {
+    public SpikePushCommand(MecanumDrive drive) {
         this.drive = drive;
     }
     public Pose2d p;
@@ -47,38 +47,23 @@ public class ToSpikeMarkCommand extends CommandBase {
         switch (GlobalVariables.position) {
             case LEFT:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .setReversed(false)
-                        .lineToYLinearHeading(y - Math.signum(y) * 13, h)
+                        .splineTo(new Vector2d(x + Math.signum(x) * 2, y - Math.signum(y) * 16), h - (Math.signum(y) * Math.signum(x) - 1) * Math.toRadians(17.5) + Math.toRadians(15))
                         .build());
                 break;
             case RIGHT:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .setReversed(false)
-                        .lineToYLinearHeading(y - Math.signum(y) * 10, h)
+                        .splineTo(new Vector2d(x + Math.signum(x) * 2, y - Math.signum(y) * 16), h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(17.5) - Math.toRadians(15))
                         .build());
                 break;
             case MIDDLE:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .setReversed(false)
-                        .lineToYLinearHeading(y - Math.signum(y) * 14, h)
-                        //.splineTo(new Vector2d(x, y - Math.signum(y) * 19), h)
+                        .splineTo(new Vector2d(x, y - Math.signum(y) * 18.5), h)
                         .build());
                 break;
-            case UNDETECTED:
-                switch (GlobalVariables.color) {
-                    case RED: //right
-                        Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                .setReversed(false)
-                                .lineToYLinearHeading(y - Math.signum(y) * 10, h)
-                                .build());
-                        break;
-                    case BLUE: //left
-                        Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                .setReversed(false)
-                                .lineToYLinearHeading(y - Math.signum(y) * 13, h)
-                                .build());
-                        break;
-                }
+            default:
+                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                        .splineTo(new Vector2d(x, y - Math.signum(y) * 14), h)
+                        .build());
                 break;
         }
         t = true;

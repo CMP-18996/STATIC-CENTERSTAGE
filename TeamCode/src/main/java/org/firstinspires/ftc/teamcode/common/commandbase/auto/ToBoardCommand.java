@@ -33,7 +33,8 @@ public class ToBoardCommand extends CommandBase {
         switch (GlobalVariables.distance) {
             case REDFAR:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .lineToYLinearHeading(-58, Math.toRadians(0))
+                        .setReversed(true)
+                        .splineTo(new Vector2d(-35,-58), Math.toRadians(180))
                         .setReversed(false)
                         .splineTo(new Vector2d(10, -58), Math.toRadians(0))
                         .splineTo(new Vector2d(36, -36), Math.toRadians(0))
@@ -42,7 +43,8 @@ public class ToBoardCommand extends CommandBase {
                 break;
             case BLUEFAR:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .lineToYLinearHeading(58, Math.toRadians(0))
+                        .setReversed(true)
+                        .splineTo(new Vector2d(-35,58), Math.toRadians(180))
                         .setReversed(false)
                         .splineTo(new Vector2d(10, 58), Math.toRadians(0))
                         .splineTo(new Vector2d(36, 36), Math.toRadians(0))
@@ -51,14 +53,16 @@ public class ToBoardCommand extends CommandBase {
                 break;
             case REDCLOSE:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .strafeToLinearHeading(new Vector2d(30, -54), Math.toRadians(60))
+                        .setReversed(true)
+                        .splineTo(new Vector2d(30, -54), Math.toRadians(240))
                         .setReversed(false)
                         .splineTo(new Vector2d(42, -36), Math.toRadians(0))
                         .build());
                 break;
             case BLUECLOSE:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .strafeToLinearHeading(new Vector2d(30, 54), Math.toRadians(-60))
+                        .setReversed(true)
+                        .splineTo(new Vector2d(30, 54), Math.toRadians(120))
                         .setReversed(false)
                         .splineTo(new Vector2d(42, 36), Math.toRadians(0))
                         .build());
