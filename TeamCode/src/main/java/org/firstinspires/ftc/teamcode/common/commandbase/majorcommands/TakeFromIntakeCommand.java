@@ -27,7 +27,7 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
                 new WaitCommand(1000),
 
-                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP_ADDED),
+//                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP_ADDED),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP_ADDED),
                 new WaitCommand(300),
 
@@ -38,10 +38,11 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
+                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP_ADDED),
                 new WaitCommand(200), // might need to be tuned
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
-//                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
+                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP_ADDED),
                 new WaitCommand(800), // might need to be tuned
 
 //                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
