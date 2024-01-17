@@ -19,10 +19,10 @@ public class GlobalVariables {
     }
     //robot position (ruh roh)
     public enum Distance {
-        BLUECLOSE(new Pose2d(12, 59, Math.toRadians(-90))),
-        BLUEFAR(new Pose2d(-35, 59, Math.toRadians(-90))),
-        REDCLOSE(new Pose2d(12, -59, Math.toRadians(90))),
-        REDFAR(new Pose2d(-35, -59, Math.toRadians(90)));
+        BLUECLOSE(new Pose2d(12, 62, Math.toRadians(-90))),
+        BLUEFAR(new Pose2d(-35, 62, Math.toRadians(-90))),
+        REDCLOSE(new Pose2d(12, -62, Math.toRadians(90))),
+        REDFAR(new Pose2d(-35, -62, Math.toRadians(90)));
         private final Pose2d p;
         Distance(Pose2d p) {
             this.p = p;
