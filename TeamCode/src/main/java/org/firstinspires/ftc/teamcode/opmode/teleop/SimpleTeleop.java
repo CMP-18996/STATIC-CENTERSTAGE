@@ -52,8 +52,8 @@ public class SimpleTeleop extends CommandOpMode {
     private double centerPosition = 0.830625;
     private HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights = new HashMap<>();
     private HashMap<Integer, IntakeSubsystem.FrontBarState> intakeHeights = new HashMap<>();
-    private HashMap<Integer, LowerHorizontalMoveCommand> lowerHorizontalMoveCommandHashMap = new HashMap<>();
-    private HashMap<Integer, UpperHorizontalMoveCommand> upperHorizontalMoveCommandHashMap = new HashMap<>();
+    private HashMap<Integer, DepositSubsystem.LowerHorizontalState> lowerHorizontalStateHashMap = new HashMap<>();
+    private HashMap<Integer, DepositSubsystem.UpperHorizontalState> upperHorizontalStateHashMap = new HashMap<>();
     int inputtedLiftHeight = 1;
     int inputtedXAxisLocation = 0;
     //int inputtedIntakeHeight = 1;
@@ -91,11 +91,33 @@ public class SimpleTeleop extends CommandOpMode {
         );
 
         liftPad.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(
-                () -> inputtedXAxisLocation = Math.min(inputtedLiftHeight + 1, 9)
+                () -> {
+                    inputtedXAxisLocation = Math.min(inputtedXAxisLocation + 1, 5);
+                    if (inputtedXAxisLocation % 2 == 0) {
+                        schedule(
+                                new LowerHorizontalMoveCommand(depositSubsystem, lowerHorizontalStateHashMap.get(inputtedXAxisLocation))
+                        );
+                    } else {
+                        schedule(
+                                new UpperHorizontalMoveCommand(depositSubsystem, upperHorizontalStateHashMap.get(inputtedXAxisLocation))
+                        );
+                    }
+                }
         );
 
-        liftPad.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(
-                () -> inputtedXAxisLocation = Math.max(1, inputtedLiftHeight - 1)
+        liftPad.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(
+                () -> {
+                    inputtedXAxisLocation = Math.max(inputtedXAxisLocation - 1, -5);
+                    if (inputtedXAxisLocation % 2 == 0) {
+                        schedule(
+                                new LowerHorizontalMoveCommand(depositSubsystem, lowerHorizontalStateHashMap.get(inputtedXAxisLocation))
+                        );
+                    } else {
+                        schedule(
+                                new UpperHorizontalMoveCommand(depositSubsystem, upperHorizontalStateHashMap.get(inputtedXAxisLocation))
+                        );
+                    }
+                }
         );
 
         liftPad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
@@ -211,5 +233,19 @@ public class SimpleTeleop extends CommandOpMode {
         intakeHeights.put(3, IntakeSubsystem.FrontBarState.LEVEL2);
         intakeHeights.put(4, IntakeSubsystem.FrontBarState.LEVEL3);
         intakeHeights.put(5, IntakeSubsystem.FrontBarState.LEVEL4);
+
+        lowerHorizontalStateHashMap.put(-4, DepositSubsystem.LowerHorizontalState.A);
+        lowerHorizontalStateHashMap.put(-2, DepositSubsystem.LowerHorizontalState.B);
+        lowerHorizontalStateHashMap.put(0, DepositSubsystem.LowerHorizontalState.C);
+        lowerHorizontalStateHashMap.put(2, DepositSubsystem.LowerHorizontalState.D);
+        lowerHorizontalStateHashMap.put(4, DepositSubsystem.LowerHorizontalState.E);
+
+        upperHorizontalStateHashMap.put(-5, DepositSubsystem.UpperHorizontalState.A);
+        upperHorizontalStateHashMap.put(-3, DepositSubsystem.UpperHorizontalState.B);
+        upperHorizontalStateHashMap.put(-1, DepositSubsystem.UpperHorizontalState.C);
+        upperHorizontalStateHashMap.put(1, DepositSubsystem.UpperHorizontalState.D);
+        upperHorizontalStateHashMap.put(3, DepositSubsystem.UpperHorizontalState.E);
+        upperHorizontalStateHashMap.put(5, DepositSubsystem.UpperHorizontalState.F);
+
     }
 }
