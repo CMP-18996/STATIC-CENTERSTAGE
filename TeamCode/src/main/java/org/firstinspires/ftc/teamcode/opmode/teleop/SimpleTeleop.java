@@ -44,7 +44,7 @@ public class SimpleTeleop extends CommandOpMode {
     private LiftSubsystem liftSubsystem;
     private DepositSubsystem depositSubsystem;
     private IntakeSubsystem intakeSubsystem;
-    private AdaDisplay display;
+    //private AdaDisplay display;
     private MiscSubsystem miscSubsystem;
     private double xAxisPosition = 0.830625;
     private double centerPosition = 0.830625;
@@ -64,7 +64,7 @@ public class SimpleTeleop extends CommandOpMode {
         drivePad = new GamepadEx(gamepad1);
         drive = new Drive(robot); 
         liftPad = new GamepadEx(gamepad2);
-        display = hardwareMap.get(AdaDisplay.class, "display");
+        //display = hardwareMap.get(AdaDisplay.class, "display");
 
         this.fillMaps();
 
@@ -92,7 +92,6 @@ public class SimpleTeleop extends CommandOpMode {
                                 new InstantCommand(() -> {
                                     xAxisPosition = centerPosition;
                                 }),
-                                new WaitCommand(800),
                                 new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
                         )
                 )
@@ -125,7 +124,7 @@ public class SimpleTeleop extends CommandOpMode {
                         () -> schedule(new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT))
                 );
 
-        drivePad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
+        /*drivePad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
                 () -> {
                     inputtedIntakeHeight = Math.min(inputtedLiftHeight + 1, 5);
                     schedule(
@@ -141,14 +140,18 @@ public class SimpleTeleop extends CommandOpMode {
                             new FrontBarCommand(intakeSubsystem, intakeHeights.get(inputtedIntakeHeight))
                     );
                 }
-        );
+        ); */
 
         drivePad.getGamepadButton(GamepadKeys.Button.A).whenPressed(
                 () -> robot.intakeMotor.set(-.9)
         );
 
         drivePad.getGamepadButton(GamepadKeys.Button.B).whenPressed(
-                () -> robot.intakeMotor.set(0)
+                () -> {
+                    robot.intakeMotor.set(.8);
+                    sleep(400);
+                    robot.intakeMotor.set(0);
+                }
         );
 
         drivePad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
@@ -156,6 +159,10 @@ public class SimpleTeleop extends CommandOpMode {
                         new DroneCommand(miscSubsystem)
                 )
         );
+
+//        CommandScheduler.getInstance().schedule(
+//                new ZeroLiftCommand(liftSubsystem)
+//        );
     }
 
     @Override
