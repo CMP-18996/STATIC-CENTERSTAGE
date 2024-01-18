@@ -22,34 +22,24 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                 new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.OPEN),
                 new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.STOPPED),
                 new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.PICKUPHEIGHT),
-                new WaitCommand(1500),
+                new WaitCommand(1100),
 
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
                 new WaitCommand(1000),
 
-//                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP_ADDED),
+                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP_ADDED),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP_ADDED),
                 new WaitCommand(300),
 
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
-//                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
-                new WaitCommand(600), // might need to be tuned
-                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
-                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
-                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
-                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP_ADDED),
-                new WaitCommand(200), // might need to be tuned
-                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT),
-                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
-                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP_ADDED),
-                new WaitCommand(800), // might need to be tuned
+                new WaitCommand(450), // might need to be tuned
 
-//                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
-//                new WaitCommand(200),
+                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
+                new WaitCommand(200),
 
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
-                new WaitCommand(600),
+                new WaitCommand(200),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
                 new WaitCommand(600),
 
