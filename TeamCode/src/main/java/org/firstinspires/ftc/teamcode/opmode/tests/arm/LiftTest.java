@@ -17,7 +17,6 @@ import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadAndDisplaySubsys
 
 import java.util.HashMap;
 
-@Disabled
 @TeleOp(name="Lift Test")
 public class LiftTest extends CommandOpMode {
     private Robot robot;
@@ -38,8 +37,8 @@ public class LiftTest extends CommandOpMode {
         robot = new Robot(hardwareMap);
         liftSubsystem = new LiftSubsystem(robot);
         gamepadEx = new GamepadEx(gamepad1);
-        display1 = hardwareMap.get(AdaDisplay.class, "display1");
-        display2 = hardwareMap.get(AdaDisplay.class, "display2");
+        //display1 = hardwareMap.get(AdaDisplay.class, "display1");
+        //display2 = hardwareMap.get(AdaDisplay.class, "display2");
         touchpadAndDisplaySubsystem = new TouchpadAndDisplaySubsystem(gamepad1, display1, display2);
 
         this.fillMaps();

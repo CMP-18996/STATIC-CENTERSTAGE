@@ -19,7 +19,7 @@ public class ZeroLiftCommand extends SequentialCommandGroup {
     public ZeroLiftCommand(LiftSubsystem liftSubsystem) {
         addCommands(
                 new ParallelDeadlineGroup(
-                        new WaitCommand(2000),
+                        new WaitCommand(1500),
                         new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.GROUND)
                 ),
                 new InstantCommand(() -> {
