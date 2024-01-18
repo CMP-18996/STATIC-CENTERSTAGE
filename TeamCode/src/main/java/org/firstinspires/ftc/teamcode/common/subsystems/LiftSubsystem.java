@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.common.subsystems;
 
+import static java.lang.Math.abs;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.common.Robot;
@@ -15,7 +17,7 @@ public class LiftSubsystem extends SubsystemBase {
     public int error;
     public static int LIFT_HEIGHT_INCREMENT = 300;
     public static int LIFT_PICKUP_HEIGHT = 100;
-    public static double F = 0.05;
+    public static double F = 0.07;
     public static double P = 0.005;
     public static double maxDesc = 0.5;
     public boolean controlLift = true;
@@ -47,7 +49,6 @@ public class LiftSubsystem extends SubsystemBase {
         HEIGHTEIGHT(1500),
         HEIGHTNINE(1700),
         HEIGHTTEN(1900),
-        HEIGHTELEVEN(2100),
         PICKUPHEIGHT(43);
 
         public final int target;
@@ -74,13 +75,13 @@ public class LiftSubsystem extends SubsystemBase {
         if (controlLift) {
             error = this.currentHeight.target - robot.liftOne.getCurrentPosition();
 
-            double power = Range.clip(P * error + F, -maxDesc, .9);
+            double power = Range.clip(P * error + F * (error / Math.max(abs(error), 0.01)), -maxDesc, .9); // CONSIDER REMOVING * (error / Math.max(abs(error), 0.01))
             robot.liftOne.setPower(power);
             robot.liftTwo.setPower(power);
         }
     }
     public boolean checkDone(LiftHeight height) {
-        return height.target - this.getCurrentHeight().target < 20;
+        return abs(height.target - this.getCurrentHeight().target) < 15;
     }
 
     @Deprecated
@@ -98,45 +99,12 @@ public class LiftSubsystem extends SubsystemBase {
 
     }
 
-    @Deprecated
-    public void resetPid() {
-        pidfController.setPIDF(0.7, 0.2, 0.5, 0);
-    }
-
     public boolean motorsFinished() {
         return robot.liftOne.isBusy();
     }
 
     public boolean abovePosition(int position) {
         return robot.liftOne.getCurrentPosition() >= position;
-    }
-
-    @Deprecated
-    public static LiftSubsystem.LiftHeight getHeightFromInt(int i) {
-        switch(i) {
-            case 1:
-                return LiftHeight.HEIGHTONE;
-            case 2:
-                return LiftHeight.HEIGHTTWO;
-            case 3:
-                return LiftHeight.HEIGHTTHREE;
-            case 4:
-                return LiftHeight.HEIGHTFOUR;
-            case 5:
-                return LiftHeight.HEIGHTFIVE;
-            case 6:
-                return LiftHeight.HEIGHTSIX;
-            case 7:
-                return LiftHeight.HEIGHTSEVEN;
-            case 8:
-                return LiftHeight.HEIGHTEIGHT;
-            case 9:
-                return LiftHeight.HEIGHTNINE;
-            case 10:
-                return LiftHeight.HEIGHTTEN;
-            default:
-                return LiftHeight.PICKUPHEIGHT;
-        }
     }
 }
 

@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCo
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.ZeroLiftCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
@@ -21,11 +22,11 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
                 new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.OPEN),
                 new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.STOPPED),
-                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.PICKUPHEIGHT),
-                new WaitCommand(1100),
+                new ZeroLiftCommand(liftSubsystem),
 
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
-                new WaitCommand(1000),
+                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.PICKUPHEIGHT),
+                new WaitCommand(700),
 
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP_ADDED),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP_ADDED),
@@ -36,7 +37,7 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                 new WaitCommand(450), // might need to be tuned
 
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
-                new WaitCommand(200),
+                new WaitCommand(400),
 
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
                 new WaitCommand(200),
