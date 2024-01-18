@@ -50,22 +50,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Config
-public final class MecanumDrive {
+public final class  MecanumDrive {
     public static class Params {
         // drive model parameters
-        public double inPerTick = 0.00052843828;
-        public double lateralInPerTick = 0.0003896626900685533;
-        public double trackWidthTicks = 23352.845322814872;
+        public double inPerTick = 0.001070234113712;
+        public double lateralInPerTick = 0.0005898636564410683;
+        public double trackWidthTicks = 22162.166196207127;
 
         // feedforward parameters (in tick units)
-        public double kS = 1.6649500893989355;
-        public double kV = 0.0000709992135435704;
-        public double kA = 0.00002;
+        public double kS = 1.5533711245338282;
+        public double kV = 0.00007407598539210191;
+        public double kA = 0.0000245;
 
         // path profile parameters (in inches)
-        public double maxWheelVel = 40;
-        public double minProfileAccel = -40;
-        public double maxProfileAccel = 40;
+        public double maxWheelVel = 100;
+        public double minProfileAccel = -100;
+        public double maxProfileAccel = 100;
 
         // turn profile parameters (in radians)
         public double maxAngVel = Math.PI / 1.5; // shared with path
