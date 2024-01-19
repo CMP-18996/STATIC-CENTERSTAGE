@@ -38,10 +38,8 @@ public class AdaDisplay extends I2cDeviceSynchDevice<I2cDeviceSynch> {
         writeByteArr(deviceNumber, character.charCode);
     }
 
-    public void startFlashing() {
-        this.deviceClient.setI2cAddress(DeviceNumber.ONE.address);
-        deviceClient.write8(0x85);
-        this.deviceClient.setI2cAddress(DeviceNumber.TWO.address);
+    public void startFlashing(DeviceNumber deviceNumber) {
+        this.deviceClient.setI2cAddress(deviceNumber.address);
         deviceClient.write8(0x85);
     }
     public void stopFlashing() {
