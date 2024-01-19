@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,6 +13,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
+
+import java.util.List;
 
 public class Robot {
     public MotorEx leftFront, rightFront, leftRear, rightRear, intakeMotor;
@@ -30,6 +33,7 @@ public class Robot {
     public HardwareMap hardwareMap;
 
     public Robot(HardwareMap hardwareMap) {
+        List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
 
         camera = new Camera(hardwareMap);
         // drivetrain
@@ -138,5 +142,9 @@ public class Robot {
         droneMotor = hardwareMap.get(DcMotorEx.class, "droneMotor");
         droneMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         droneMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        for (LynxModule hub : hubs) {
+            hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
+        }
     }
 }

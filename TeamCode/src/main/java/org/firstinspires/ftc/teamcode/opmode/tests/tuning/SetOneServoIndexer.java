@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.common.Robot;
 
 
-@Disabled
+
 @TeleOp
 public class SetOneServoIndexer extends LinearOpMode {
     Robot robot;

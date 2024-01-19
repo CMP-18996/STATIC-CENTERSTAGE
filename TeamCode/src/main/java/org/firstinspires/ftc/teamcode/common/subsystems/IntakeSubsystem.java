@@ -18,7 +18,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private FrontBarState frontBarState = FrontBarState.GROUND;
 
     public static double OPEN_COVER_VAL = .0675;
-    public static double CLOSED_COVER_VAL = .7575;
+    public static double CLOSED_COVER_VAL = .7775;
 
     // color1, color2, both strings
     // ColorSensor colorSensor1 = hardwareMap.get(ColorSensor.class, "Color1");
@@ -53,11 +53,11 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public enum FrontBarState {
         // five heights for the stack
-        GROUND(0, 0.6),
-        LEVEL1(0.00875, 0.8),
-        LEVEL2(0.0175, 0.8),
-        LEVEL3(0.02625, 0.8),
-        LEVEL4(0.035, 0.8);
+        GROUND(0, 0.9),
+        LEVEL1(0.00875, 0.9),
+        LEVEL2(0.0175, 0.9),
+        LEVEL3(0.02625, 0.9),
+        LEVEL4(0.035, 0.9);
 
         double barState;
         double intakeSpeed;
