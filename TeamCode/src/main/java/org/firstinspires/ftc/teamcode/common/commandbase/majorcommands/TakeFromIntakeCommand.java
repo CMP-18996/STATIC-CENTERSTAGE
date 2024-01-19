@@ -29,7 +29,7 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
 //                new WaitCommand(700),
 
 //                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
-                new WaitCommand(550),
+                new WaitCommand(650),
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
                 new WaitCommand(200),
 /*                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP_ADDED),
@@ -43,19 +43,7 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
                 new WaitCommand(60), // might need to be tuned
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT),
-                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
-                new WaitCommand(300), // might need to be tuned
-
-//                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
-//                new WaitCommand(400),
-
-                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
-                new WaitCommand(300),
-                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
-                new WaitCommand(500),
-
-                new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED),
-                new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
+                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT)
         );
     }
 }

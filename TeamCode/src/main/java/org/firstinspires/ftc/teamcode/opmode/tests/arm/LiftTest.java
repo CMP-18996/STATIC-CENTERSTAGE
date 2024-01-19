@@ -5,10 +5,9 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
+import org.firstinspires.ftc.teamcode.common.drivers.HT16K33;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
@@ -27,7 +26,7 @@ public class LiftTest extends CommandOpMode {
     private TouchpadAndDisplaySubsystem touchpadAndDisplaySubsystem;
     private GamepadEx gamepadEx;
     private HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights = new HashMap<>();
-    private AdaDisplay display1, display2;
+    private HT16K33 display1, display2;
     private int rowNumber;
 
     @Override
