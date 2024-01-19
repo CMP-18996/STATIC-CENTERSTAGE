@@ -165,7 +165,7 @@ public class TouchpadAndDisplaySubsystem extends SubsystemBase {
                 }
                 b = false;
 
-                switch (leftRightState) {
+                /* switch (leftRightState) {
                     case LEFT:
                         display1.startFlashing();
                         display2.stopFlashing();
@@ -178,7 +178,7 @@ public class TouchpadAndDisplaySubsystem extends SubsystemBase {
                         display1.stopFlashing();
                         display2.stopFlashing();
                         break;
-                }
+                } */
             }
         } else {
             b = true;

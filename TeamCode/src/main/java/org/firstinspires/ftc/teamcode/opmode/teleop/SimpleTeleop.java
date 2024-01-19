@@ -47,9 +47,8 @@ public class SimpleTeleop extends CommandOpMode {
     private LiftSubsystem liftSubsystem;
     private DepositSubsystem depositSubsystem;
     private IntakeSubsystem intakeSubsystem;
-    //private AdaDisplay display;
+    private AdaDisplay display;
     private MiscSubsystem miscSubsystem;
-    private double centerPosition = 0.830625;
     private HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights = new HashMap<>();
     private HashMap<Integer, IntakeSubsystem.FrontBarState> intakeHeights = new HashMap<>();
     private HashMap<Integer, DepositSubsystem.LowerHorizontalState> lowerHorizontalStateHashMap = new HashMap<>();
@@ -68,7 +67,7 @@ public class SimpleTeleop extends CommandOpMode {
         drivePad = new GamepadEx(gamepad1);
         drive = new Drive(robot); 
         liftPad = new GamepadEx(gamepad2);
-        //display = hardwareMap.get(AdaDisplay.class, "display");
+        display = hardwareMap.get(AdaDisplay.class, "display");
 
         this.fillMaps();
 
@@ -212,9 +211,7 @@ public class SimpleTeleop extends CommandOpMode {
         robot.hangServo2.setPower(-1* (gamepad1.right_trigger - gamepad1.left_trigger));
 
         drive.manualPower(drivePad.getLeftX(), -drivePad.getLeftY(), -drivePad.getRightX());
-        telemetry.addData("Lift Height:", inputtedLiftHeight);
-        //telemetry.addData("Front Bar Height:", inputtedIntakeHeight);
-        telemetry.update();
+        display.writeInt(AdaDisplay.DeviceNumber.ONE, inputtedLiftHeight);
     }
 
     public void fillMaps() {
