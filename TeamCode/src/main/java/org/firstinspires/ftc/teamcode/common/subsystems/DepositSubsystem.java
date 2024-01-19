@@ -15,7 +15,7 @@ public class DepositSubsystem extends SubsystemBase {
     // end position on the right is 0.6575, bar ranges from 0.6575-1 on set position
     public static double DEPOSIT_PICKING_UP_VALUE = .48;
     public static double DEPOSIT_PARALLEL_VALUE = .37;
-    public static double DEPOSIT_PICKING_UP_VALUE_ADDED = .482;
+    public static double DEPOSIT_PICKING_UP_VALUE_ADDED = .5;
     public static double DEPOSIT_DROPPING_OFF_VALUE = .2; // TODO: FIND THIS VALUE
     public static double GRABBER_OPEN_VALUE = 0.75;
     public static double GRABBER_CLOSED_VALUE = 0.25;
