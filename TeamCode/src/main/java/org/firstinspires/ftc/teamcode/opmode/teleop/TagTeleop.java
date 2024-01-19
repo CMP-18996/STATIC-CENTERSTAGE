@@ -23,9 +23,8 @@ import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCo
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FrontBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
-import org.firstinspires.ftc.teamcode.common.drive.Drive;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
-import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
+import org.firstinspires.ftc.teamcode.common.drivers.HT16K33;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
@@ -43,7 +42,7 @@ public class TagTeleop extends CommandOpMode {
     private LiftSubsystem liftSubsystem;
     private DepositSubsystem depositSubsystem;
     private IntakeSubsystem intakeSubsystem;
-    private AdaDisplay display;
+    private HT16K33 display;
     private MiscSubsystem miscSubsystem;
     private double xAxisPosition = 0.830625;
     private double centerPosition = 0.830625;
@@ -63,7 +62,7 @@ public class TagTeleop extends CommandOpMode {
         drivePad = new GamepadEx(gamepad1);
         drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
         liftPad = new GamepadEx(gamepad2);
-        display = hardwareMap.get(AdaDisplay.class, "display");
+        display = hardwareMap.get(HT16K33.class, "display");
 
         this.fillMaps();
 

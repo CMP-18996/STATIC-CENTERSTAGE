@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
-import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
+import org.firstinspires.ftc.teamcode.common.drivers.HT16K33;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadAndDisplaySubsystem;
 
@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadAndDisplaySubsys
 @TeleOp(name = "ps4Test",group="test")
 public class ps4Test extends CommandOpMode {
     public TouchpadAndDisplaySubsystem touchpad;
-    private AdaDisplay display1, display2;
+    private HT16K33 display1, display2;
     boolean f, g;
     @Override
     public void initialize() {
@@ -29,8 +29,8 @@ public class ps4Test extends CommandOpMode {
         GlobalVariables.opMode = GlobalVariables.OpMode.TELEOP;
         CommandScheduler.getInstance().reset();
 
-        display1 = hardwareMap.get(AdaDisplay.class, "display1");
-        display2 = hardwareMap.get(AdaDisplay.class, "display2");
+        display1 = hardwareMap.get(HT16K33.class, "display1");
+        display2 = hardwareMap.get(HT16K33.class, "display2");
         touchpad = new TouchpadAndDisplaySubsystem(gamepad1, display1, display2);
         super.register(touchpad);
 

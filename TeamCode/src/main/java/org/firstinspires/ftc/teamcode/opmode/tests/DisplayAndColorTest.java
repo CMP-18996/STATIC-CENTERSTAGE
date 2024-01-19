@@ -5,16 +5,16 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
-import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
+import org.firstinspires.ftc.teamcode.common.drivers.HT16K33;
 
 @Disabled
 @TeleOp
 public class DisplayAndColorTest extends CommandOpMode {
-    AdaDisplay display;
+    HT16K33 display;
     ColorSensor colorSensor;
     @Override
     public void initialize() {
-        display = hardwareMap.get(AdaDisplay.class, "display");
+        display = hardwareMap.get(HT16K33.class, "display");
         colorSensor = hardwareMap.get(ColorSensor.class, "color1");
     }
 

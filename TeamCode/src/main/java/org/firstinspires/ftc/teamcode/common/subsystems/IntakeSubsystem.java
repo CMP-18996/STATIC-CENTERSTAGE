@@ -53,7 +53,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public enum FrontBarState {
         // five heights for the stack
-        GROUND(0, 0.9),
+        GROUND(0.003, 0.9),
         LEVEL1(0.00875, 0.9),
         LEVEL2(0.0175, 0.9),
         LEVEL3(0.02625, 0.9),
@@ -117,7 +117,7 @@ public class IntakeSubsystem extends SubsystemBase {
         if (g1 < 200 && b1 < 200 && r1 < 200) {
             slotOne = ColorState.BLACK;
         } else if (g1 > b1 && b1 > r1) {
-            if (b1 > 2000) {
+            if (b1 > 2500) {
                 slotOne = ColorState.WHITE;
             } else {
                 slotOne = ColorState.GREEN;
@@ -219,6 +219,10 @@ public class IntakeSubsystem extends SubsystemBase {
         this.frontBarState = frontBarState;
     }
 
+
+    public CoverState getCoverState() {
+        return coverState;
+    }
     public IntakeSubsystem(Robot robot) {
         this.robot = robot;
     }

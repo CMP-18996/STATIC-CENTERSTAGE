@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.configuration.annotations.I2cDeviceType;
 @SuppressWarnings({"WeakerAccess", "unused"})
 @I2cDeviceType
 @DeviceProperties(name="Adafruit HT16K33 LED Screen", description="7 Segment Display", xmlTag="HT16K33")
-public class AdaDisplay extends I2cDeviceSynchDevice<I2cDeviceSynch> {
+public class HT16K33 extends I2cDeviceSynchDevice<I2cDeviceSynch> {
     int testBit = 0x70;
     public void writeByteArr(DeviceNumber deviceNumber, byte[] character) {
         this.deviceClient.setI2cAddress(deviceNumber.address);
@@ -143,7 +143,7 @@ public class AdaDisplay extends I2cDeviceSynchDevice<I2cDeviceSynch> {
     }
 
     // INIT STUFF
-    public AdaDisplay(I2cDeviceSynch i2cDeviceSynch, boolean deviceClientIsOwned) {
+    public HT16K33(I2cDeviceSynch i2cDeviceSynch, boolean deviceClientIsOwned) {
         super(i2cDeviceSynch, deviceClientIsOwned);
         I2cAddr ADDRESS_I2C_DEFAULT = I2cAddr.create7bit(0x70);
         this.deviceClient.setI2cAddress(ADDRESS_I2C_DEFAULT);
@@ -175,7 +175,7 @@ public class AdaDisplay extends I2cDeviceSynchDevice<I2cDeviceSynch> {
     public Manufacturer getManufacturer() {
         return Manufacturer.Adafruit;
     }
-    
+
 
     @Override
     public String getDeviceName() {

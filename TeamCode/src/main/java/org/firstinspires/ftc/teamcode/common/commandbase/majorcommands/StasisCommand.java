@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCo
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.ZeroLiftCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
@@ -22,11 +23,13 @@ public class StasisCommand extends ParallelCommandGroup {
         addCommands(
                 new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.STOPPED),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
-                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE),
+                new ZeroLiftCommand(liftSubsystem),
                 new SequentialCommandGroup(
-                        new LowerHorizontalMoveCommand(depositSubsystem, DepositSubsystem.LowerHorizontalState.C),
-                        // new WaitCommand(800), TODO: CHANGE THIS
-                        new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS)
+                        new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
+                        new WaitCommand(300),
+                        new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
+                        new WaitCommand(500),
+                        new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED)
                 )
         );
     }
