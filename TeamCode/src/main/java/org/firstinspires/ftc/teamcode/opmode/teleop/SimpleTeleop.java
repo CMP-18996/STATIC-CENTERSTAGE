@@ -73,7 +73,7 @@ public class SimpleTeleop extends CommandOpMode {
 
         liftPad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
                 () -> {
-                    inputtedLiftHeight = Math.min(inputtedLiftHeight + 1, 9);
+                    inputtedLiftHeight = Math.min(inputtedLiftHeight + 1, 11);
                     schedule(
                             new LiftCommand(liftSubsystem, liftHeights.get(inputtedLiftHeight))
                     );
@@ -156,8 +156,8 @@ public class SimpleTeleop extends CommandOpMode {
                         () -> schedule(new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT))
                 );
 
-        /*
-        drivePad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
+
+       /* drivePad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
                 () -> {
                     inputtedIntakeHeight = Math.min(inputtedLiftHeight + 1, 5);
                     schedule(
@@ -173,16 +173,16 @@ public class SimpleTeleop extends CommandOpMode {
                             new FrontBarCommand(intakeSubsystem, intakeHeights.get(inputtedIntakeHeight))
                     );
                 }
-        );
-        */
+        );*/
+
 
         drivePad.getGamepadButton(GamepadKeys.Button.A).whenPressed(
-                () -> robot.intakeMotor.set(-.9)
+                () -> robot.intakeMotor.set(-.5)
         );
 
         drivePad.getGamepadButton(GamepadKeys.Button.B).whenPressed(
                 () -> {
-                    robot.intakeMotor.set(.8);
+                    robot.intakeMotor.set(.5);
                     sleep(400);
                     robot.intakeMotor.set(0);
                 }
@@ -207,8 +207,8 @@ public class SimpleTeleop extends CommandOpMode {
         //display.writeInt(AdaDisplay.DeviceNumber.ONE, inputtedLiftHeight);
         //display.writeInt(AdaDisplay.DeviceNumber.TWO, inputtedIntakeHeight);
 
-        robot.hangServo1.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
-        robot.hangServo2.setPower(-1* (gamepad1.right_trigger - gamepad1.left_trigger));
+        robot.hangServo1.setPower(gamepad2.left_stick_y);
+        robot.hangServo2.setPower(-1* gamepad2.right_stick_y);
 
         drive.manualPower(drivePad.getLeftX(), -drivePad.getLeftY(), -drivePad.getRightX());
         display.writeInt(AdaDisplay.DeviceNumber.ONE, inputtedLiftHeight);
@@ -223,7 +223,8 @@ public class SimpleTeleop extends CommandOpMode {
         liftHeights.put(6, LiftSubsystem.LiftHeight.HEIGHTSIX);
         liftHeights.put(7, LiftSubsystem.LiftHeight.HEIGHTSEVEN);
         liftHeights.put(8, LiftSubsystem.LiftHeight.HEIGHTEIGHT);
-        liftHeights.put(9, LiftSubsystem.LiftHeight.PICKUPHEIGHT);
+        liftHeights.put(9, LiftSubsystem.LiftHeight.HEIGHTNINE);
+        liftHeights.put(10,LiftSubsystem.LiftHeight.HEIGHTTEN);
 
         intakeHeights.put(1, IntakeSubsystem.FrontBarState.GROUND);
         intakeHeights.put(2, IntakeSubsystem.FrontBarState.LEVEL1);
