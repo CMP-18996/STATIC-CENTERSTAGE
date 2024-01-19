@@ -24,15 +24,15 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                 new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.STOPPED),
                 new ZeroLiftCommand(liftSubsystem),
 
-                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
+//                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
 //                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.PICKUPHEIGHT),
-                new WaitCommand(700),
+//                new WaitCommand(700),
 
-                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
-                new WaitCommand(200),
+//                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
+                new WaitCommand(550),
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
-/*                new WaitCommand(300),
-                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP_ADDED),
+                new WaitCommand(200),
+/*                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP_ADDED),
                 new WaitCommand(300),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),*/
 
@@ -46,13 +46,13 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
                 new WaitCommand(300), // might need to be tuned
 
-                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
-                new WaitCommand(400),
+//                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
+//                new WaitCommand(400),
 
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
-                new WaitCommand(600),
+                new WaitCommand(300),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
-                new WaitCommand(1000),
+                new WaitCommand(500),
 
                 new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED),
                 new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
