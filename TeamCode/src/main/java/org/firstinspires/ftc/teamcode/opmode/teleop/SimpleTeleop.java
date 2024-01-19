@@ -177,7 +177,7 @@ public class SimpleTeleop extends CommandOpMode {
 
 
         drivePad.getGamepadButton(GamepadKeys.Button.A).whenPressed(
-                () -> robot.intakeMotor.set(-.5)
+                () -> robot.intakeMotor.set(-.7)
         );
 
         drivePad.getGamepadButton(GamepadKeys.Button.B).whenPressed(
