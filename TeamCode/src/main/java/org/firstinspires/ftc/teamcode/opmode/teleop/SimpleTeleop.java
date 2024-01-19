@@ -192,9 +192,9 @@ public class SimpleTeleop extends CommandOpMode {
                 () -> schedule(new DroneCommand(miscSubsystem))
         );
 
-        super.schedule(
+/*        super.schedule(
                 new ZeroLiftCommand(liftSubsystem)
-        );
+        );*/
 
 //        CommandScheduler.getInstance().schedule(
 //                new ZeroLiftCommand(liftSubsystem)
