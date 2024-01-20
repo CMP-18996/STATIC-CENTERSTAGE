@@ -219,6 +219,7 @@ public class SimpleTeleop extends CommandOpMode {
                 gamepad1.rumble(300);
                 gamepad2.rumble(300);
                 inputtedLiftHeight = 0;
+                sleep(250);
                 robot.intakeMotor.set(.5);
                 sleep(400);
                 robot.intakeMotor.set(0);
