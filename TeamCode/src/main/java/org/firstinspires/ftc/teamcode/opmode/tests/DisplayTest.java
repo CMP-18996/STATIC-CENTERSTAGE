@@ -4,12 +4,13 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
-import org.firstinspires.ftc.teamcode.common.Drivers.HT16K33;
+import org.firstinspires.ftc.teamcode.common.drivers.HT16K33;
 
 @TeleOp
 public class DisplayTest extends CommandOpMode {
     HT16K33 display;
     ColorSensor colorSensor;
+
     @Override
     public void initialize() {
         display = hardwareMap.get(HT16K33.class, "display");

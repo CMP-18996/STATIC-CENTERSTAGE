@@ -3,12 +3,11 @@ package org.firstinspires.ftc.teamcode.common.subsystems;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.checkerframework.checker.units.qual.A;
-import org.firstinspires.ftc.teamcode.common.Drivers.HT16K33;
+import org.firstinspires.ftc.teamcode.common.drivers.HT16K33;
 
 import java.util.ArrayList;
 
-public class TouchpadSubsystem extends SubsystemBase {
+public class TouchpadAndDisplaySubsystem extends SubsystemBase {
     public Gamepad g;
     private boolean b = true;
     public ArrayList<Integer> history = new ArrayList<>();
@@ -21,6 +20,8 @@ public class TouchpadSubsystem extends SubsystemBase {
     public int rightRow;
     public int rightColumn;
     public boolean isChosen = false;
+    private int mostRecentlyPressed = 0;
+    HT16K33 usedDisplay;
     public enum LeftRightState {
         LEFT,
         RIGHT,
@@ -31,7 +32,7 @@ public class TouchpadSubsystem extends SubsystemBase {
         COLUMN,
         CHOSEN
     }
-    public TouchpadSubsystem(Gamepad g, HT16K33 display1, HT16K33 display2) {
+    public TouchpadAndDisplaySubsystem(Gamepad g, HT16K33 display1, HT16K33 display2) {
 
         this.g = g;
         this.display1 = display1;
@@ -39,29 +40,16 @@ public class TouchpadSubsystem extends SubsystemBase {
     }
     @Override
     public void periodic() {
-        switch (leftRightState) {
-            case LEFT:
-                display1.startFlashing();
-                display2.stopFlashing();
-                break;
-            case RIGHT:
-                display1.stopFlashing();
-                display2.startFlashing();
-                break;
-            case CHOSEN:
-                display1.stopFlashing();
-                display2.stopFlashing();
-                break;
-        }
         int column = (int) Math.floor(2.5 * (g.touchpad_finger_1_x + 0.2) + 3);
         int row = (int) (-1 * Math.floor(0.5 * g.touchpad_finger_1_y) + 1);
         if (g.touchpad) {
             if (b) {
                 int num = column + 5 * (row - 1);
+                mostRecentlyPressed = num;
                 if (leftRightState == LeftRightState.CHOSEN && num == 10) {
                     clearArray();
                 }
-                HT16K33 usedDisplay = display1;
+                usedDisplay = display1;
 
                 switch (leftRightState) {
                     case LEFT:
@@ -69,20 +57,24 @@ public class TouchpadSubsystem extends SubsystemBase {
                         if (num == 10 && history.size() >= 1) {
                             if (currentOption == ChoosingOptions.ROW) {
                                 leftRow = history.get(1);
-                            } else {
                                 leftColumn = history.get(0);
+                            } else {
+                                leftColumn = history.get(1);
+                                leftRow = history.get(0);
                             }
                             currentOption = ChoosingOptions.ROW;
                             leftRightState = LeftRightState.RIGHT;
                         }
                         break;
                     case RIGHT:
-                        usedDisplay = display2; // TODO: CHANGE THIS SHIT BACK TO DISPLAY2
+                        usedDisplay = display2;
                         if (num == 10 && history.size() >= 1) {
                             if (currentOption == ChoosingOptions.ROW) {
                                 rightRow = history.get(1);
-                            } else {
                                 rightColumn = history.get(0);
+                            } else {
+                                rightRow = history.get(0);
+                                rightColumn = history.get(1);
                             }
                             isChosen = true;
                             leftRightState = LeftRightState.CHOSEN;
@@ -94,6 +86,7 @@ public class TouchpadSubsystem extends SubsystemBase {
                             isChosen = false;
                             currentOption = ChoosingOptions.ROW;
                             leftRightState = LeftRightState.LEFT;
+                            clearArray();
                         }
                         break;
                 }
@@ -132,50 +125,60 @@ public class TouchpadSubsystem extends SubsystemBase {
                             case 9:
                                 usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.NINE);
                                 break;
-                            case 10:
-                                break;
                         }
                         currentOption = ChoosingOptions.COLUMN;
                         break;
 
                     case COLUMN:
-                        //TODO : MAKE DEVICE TWO NOT ONE
+                        // TODO : MAKE DEVICE TWO NOT ONE
                         switch (num) {
                             case 0:
-                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.DASH);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.DASH);
                                 break;
                             case 1:
-                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.CHAR_A);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.CHAR_A);
                                 break;
                             case 2:
-                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.CHAR_B);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.CHAR_B);
                                 break;
                             case 3:
-                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.CHAR_C);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.CHAR_C);
                                 break;
                             case 4:
-                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.CHAR_D);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.CHAR_D);
                                 break;
                             case 5:
-                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.CHAR_E);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.CHAR_E);
                                 break;
                             case 6:
-                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.CHAR_F);
-                                break;
-                            case 10:
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.CHAR_F);
                                 break;
                         }
                         currentOption = ChoosingOptions.ROW;
                         break;
-                    }
+                }
 
-                    history.add(num);
+                history.add(num);
 
-                    if (history.size() > 4) {
-                        history.remove(0);
-                    }
-                    b = false;
+                if (history.size() > 4) {
+                    history.remove(0);
+                }
+                b = false;
 
+                /* switch (leftRightState) {
+                    case LEFT:
+                        display1.startFlashing();
+                        display2.stopFlashing();
+                        break;
+                    case RIGHT:
+                        display1.stopFlashing();
+                        display2.startFlashing();
+                        break;
+                    case CHOSEN:
+                        display1.stopFlashing();
+                        display2.stopFlashing();
+                        break;
+                } */
             }
         } else {
             b = true;
@@ -210,6 +213,8 @@ public class TouchpadSubsystem extends SubsystemBase {
         return i;
     }
 
+    public int getMostRecentlyPressed() { return mostRecentlyPressed; }
+
     public int getLeftRow() {
         return leftRow;
     }
@@ -226,13 +231,12 @@ public class TouchpadSubsystem extends SubsystemBase {
         return rightColumn;
     }
 
-    public Gamepad getGamepad() {return g;}
+    public Gamepad getGamepad() { return g; }
     public void rumble(int ms) {g.rumble(ms);}
 
     public void clearArray() {
         display1.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.DASH);
         display1.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.DASH);
-        //TODO ADD THIS WHEN POSSIBLE
         display2.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.DASH);
         display2.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.DASH);
     }
