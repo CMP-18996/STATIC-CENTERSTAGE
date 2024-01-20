@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.common.drivers.HT16K33;
 public class DisplayTest extends CommandOpMode {
     HT16K33 display;
     ColorSensor colorSensor;
+
     @Override
     public void initialize() {
         display = hardwareMap.get(HT16K33.class, "display");
