@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
-import static java.lang.Math.abs;
-
-import com.acmerobotics.dashboard.config.Config;
+import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
@@ -22,8 +20,9 @@ import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DroneComm
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FrontBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.UpperHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.ZeroLiftCommand;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
 import org.firstinspires.ftc.teamcode.common.drivers.HT16K33;
@@ -31,13 +30,13 @@ import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.MiscSubsystem;
+import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadAndDisplaySubsystem;
 
 import java.util.HashMap;
 
-@Config
-@TeleOp(name="Simple Final TeleOp", group="Official")
-public class SimpleTeleop extends CommandOpMode {
-    private Robot robot;
+@TeleOp(name="Experimental Touchpad TeleOP")
+public class ExperimentalTouchpadTeleOp extends CommandOpMode {
+    Robot robot;
     private Drive drive;
     private GamepadEx drivePad;
     private GamepadEx liftPad;
@@ -46,14 +45,20 @@ public class SimpleTeleop extends CommandOpMode {
     private IntakeSubsystem intakeSubsystem;
     private HT16K33 display;
     private MiscSubsystem miscSubsystem;
+    private TouchpadAndDisplaySubsystem touchpadAndDisplaySubsystem;
     private HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights = new HashMap<>();
     private HashMap<Integer, IntakeSubsystem.FrontBarState> intakeHeights = new HashMap<>();
     private HashMap<Integer, DepositSubsystem.LowerHorizontalState> lowerHorizontalStateHashMap = new HashMap<>();
     private HashMap<Integer, DepositSubsystem.UpperHorizontalState> upperHorizontalStateHashMap = new HashMap<>();
-    int inputtedLiftHeight = 1;
     double xAxisPosition = 0.830625;
     double incrementVal = 0.067;
     boolean intaking = false;
+
+    int column1 = 3;
+    int column2 = 3;
+    int row1 = 1;
+    int row2 = 1;
+
     @Override
     public void initialize() {
         CommandScheduler.getInstance().reset();
@@ -63,42 +68,68 @@ public class SimpleTeleop extends CommandOpMode {
         depositSubsystem = new DepositSubsystem(robot);
         miscSubsystem = new MiscSubsystem(robot);
         drivePad = new GamepadEx(gamepad1);
-        drive = new Drive(robot); 
+        drive = new Drive(robot);
         liftPad = new GamepadEx(gamepad2);
         display = hardwareMap.get(HT16K33.class, "display");
 
         this.fillMaps();
 
+        // Experimental stuff
+        touchpadAndDisplaySubsystem = new TouchpadAndDisplaySubsystem(gamepad2, display, display);
+
         liftPad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
-                () -> {
-                    inputtedLiftHeight = Math.min(inputtedLiftHeight + 1, 10);
-                    schedule(
-                            new LiftCommand(liftSubsystem, liftHeights.get(inputtedLiftHeight))
-                    );
-                }
-        );
-
-        liftPad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(
-                () -> {
-                    inputtedLiftHeight = Math.max(inputtedLiftHeight - 1, 1);
-                    schedule(
-                            new LiftCommand(liftSubsystem, liftHeights.get(inputtedLiftHeight))
-                    );
-                }
-        );
-
-        liftPad.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(
-                () -> {
-                    xAxisPosition += incrementVal;
-                    robot.xAdj.setPosition(xAxisPosition);
-                }
-        );
-
-        liftPad.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(
-                () -> {
-                    xAxisPosition -= incrementVal;
-                    robot.xAdj.setPosition(xAxisPosition);
-                }
+                () -> schedule(
+                        new InstantCommand(
+                                () -> {
+                                    CommandScheduler.getInstance().schedule(
+                                            new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH)
+                                    );
+                                    column1 = touchpadAndDisplaySubsystem.getLeftColumn();
+                                    row1 = touchpadAndDisplaySubsystem.getLeftRow();
+                                    column2 = touchpadAndDisplaySubsystem.getRightColumn();
+                                    row2 = touchpadAndDisplaySubsystem.getRightRow();
+                                    boolean lower1 = row1 % 2 == 1;
+                                    boolean lower2 = row2 % 2 == 1;
+                                    if (lower1) {
+                                        CommandScheduler.getInstance().schedule(
+                                                new SequentialCommandGroup(
+                                                        new LiftCommand(liftSubsystem, liftHeights.get(row1)),
+                                                        new LowerHorizontalMoveCommand(depositSubsystem, lowerHorizontalStateHashMap.get(Math.max(column1, 5))),
+                                                        new WaitCommand(3000)
+                                                )
+                                        );
+                                    }
+                                    else {
+                                        CommandScheduler.getInstance().schedule(
+                                                new SequentialCommandGroup(
+                                                        new LiftCommand(liftSubsystem, liftHeights.get(row1)),
+                                                        new UpperHorizontalMoveCommand(depositSubsystem, upperHorizontalStateHashMap.get(Math.max(column1, 6))),
+                                                        new WaitCommand(3000)
+                                                )
+                                        );
+                                    }
+                                    if (lower2) {
+                                        CommandScheduler.getInstance().schedule(
+                                                new SequentialCommandGroup(
+                                                        new LiftCommand(liftSubsystem, liftHeights.get(row2)),
+                                                        new LowerHorizontalMoveCommand(depositSubsystem, lowerHorizontalStateHashMap.get(Math.max(column2, 5))),
+                                                        new WaitCommand(3000)
+                                                )
+                                        );
+                                    }
+                                    else {
+                                        CommandScheduler.getInstance().schedule(
+                                                new SequentialCommandGroup(
+                                                        new LiftCommand(liftSubsystem, liftHeights.get(row2)),
+                                                        new UpperHorizontalMoveCommand(depositSubsystem, upperHorizontalStateHashMap.get(Math.max(column2, 6))),
+                                                        new WaitCommand(3000)
+                                                )
+                                        );
+                                    }
+                                    touchpadAndDisplaySubsystem.reset();
+                                }
+                        )
+                )
         );
 
         liftPad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
@@ -124,7 +155,6 @@ public class SimpleTeleop extends CommandOpMode {
 
         liftPad.getGamepadButton(GamepadKeys.Button.A).whenPressed(
                 () -> {
-                    inputtedLiftHeight = 0;
                     schedule(
                             new SequentialCommandGroup(
                                     new ConditionalCommand(
@@ -140,7 +170,6 @@ public class SimpleTeleop extends CommandOpMode {
 
         liftPad.getGamepadButton(GamepadKeys.Button.B).whenPressed(
                 () -> {
-                    inputtedLiftHeight = 0;
                     schedule(
                             new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
                     );
@@ -192,44 +221,11 @@ public class SimpleTeleop extends CommandOpMode {
         drivePad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(
                 new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.GROUND)
         );
-
-        super.schedule(
-                new ZeroLiftCommand(liftSubsystem),
-                // new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.GROUND),
-                new InstantCommand(() -> {
-                    robot.xAdj.setPosition(xAxisPosition);
-                }),
-                new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED)
-        );
     }
 
     @Override
     public void run() {
-        CommandScheduler.getInstance().run();
-        //display.writeInt(HT16K33.DeviceNumber.ONE, inputtedLiftHeight);
 
-        robot.hangServo1.setPower(gamepad2.left_stick_y);
-        robot.hangServo2.setPower(-1 * gamepad2.right_stick_y);
-
-        if (intaking) {
-            robot.intakeMotor.set(-.7 - (drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) * .3));
-            intakeSubsystem.identifyColor();
-            if (intakeSubsystem.slotOneColor() && intakeSubsystem.slotTwoColor()) {
-                intaking = false;
-                gamepad1.rumble(300);
-                gamepad2.rumble(300);
-                inputtedLiftHeight = 0;
-                robot.intakeMotor.set(.5);
-                sleep(400);
-                robot.intakeMotor.set(0);
-            }
-        }
-
-        drive.manualPower(drivePad.getLeftX(), -drivePad.getLeftY(), -drivePad.getRightX());
-
-        telemetry.addData("Color Detected in Slot 1:", intakeSubsystem.slotOne.toString());
-        telemetry.addData("Color Detected in Slot 2:", intakeSubsystem.slotTwo.toString());
-        telemetry.update();
     }
 
     public void fillMaps() {
@@ -250,18 +246,17 @@ public class SimpleTeleop extends CommandOpMode {
         intakeHeights.put(4, IntakeSubsystem.FrontBarState.LEVEL3);
         intakeHeights.put(5, IntakeSubsystem.FrontBarState.LEVEL4);
 
-        lowerHorizontalStateHashMap.put(-4, DepositSubsystem.LowerHorizontalState.A);
-        lowerHorizontalStateHashMap.put(-2, DepositSubsystem.LowerHorizontalState.B);
-        lowerHorizontalStateHashMap.put(0, DepositSubsystem.LowerHorizontalState.C);
-        lowerHorizontalStateHashMap.put(2, DepositSubsystem.LowerHorizontalState.D);
-        lowerHorizontalStateHashMap.put(4, DepositSubsystem.LowerHorizontalState.E);
+        lowerHorizontalStateHashMap.put(1, DepositSubsystem.LowerHorizontalState.A);
+        lowerHorizontalStateHashMap.put(2, DepositSubsystem.LowerHorizontalState.B);
+        lowerHorizontalStateHashMap.put(3, DepositSubsystem.LowerHorizontalState.C);
+        lowerHorizontalStateHashMap.put(4, DepositSubsystem.LowerHorizontalState.D);
+        lowerHorizontalStateHashMap.put(5, DepositSubsystem.LowerHorizontalState.E);
 
-        upperHorizontalStateHashMap.put(-5, DepositSubsystem.UpperHorizontalState.A);
-        upperHorizontalStateHashMap.put(-3, DepositSubsystem.UpperHorizontalState.B);
-        upperHorizontalStateHashMap.put(-1, DepositSubsystem.UpperHorizontalState.C);
-        upperHorizontalStateHashMap.put(1, DepositSubsystem.UpperHorizontalState.D);
-        upperHorizontalStateHashMap.put(3, DepositSubsystem.UpperHorizontalState.E);
-        upperHorizontalStateHashMap.put(5, DepositSubsystem.UpperHorizontalState.F);
-
+        upperHorizontalStateHashMap.put(1, DepositSubsystem.UpperHorizontalState.A);
+        upperHorizontalStateHashMap.put(2, DepositSubsystem.UpperHorizontalState.B);
+        upperHorizontalStateHashMap.put(3, DepositSubsystem.UpperHorizontalState.C);
+        upperHorizontalStateHashMap.put(4, DepositSubsystem.UpperHorizontalState.D);
+        upperHorizontalStateHashMap.put(5, DepositSubsystem.UpperHorizontalState.E);
+        upperHorizontalStateHashMap.put(6, DepositSubsystem.UpperHorizontalState.F);
     }
 }
