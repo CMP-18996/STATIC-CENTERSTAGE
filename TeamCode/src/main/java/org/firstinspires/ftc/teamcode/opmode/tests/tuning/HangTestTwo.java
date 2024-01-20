@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.tests.tuning;
+/*package org.firstinspires.ftc.teamcode.opmode.tests.tuning;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
@@ -23,7 +23,8 @@ public class HangTestTwo extends CommandOpMode {
         miscSubsystem = new MiscSubsystem(robot);
 
         CommandScheduler.getInstance().schedule(
-                new HangCommand(miscSubsystem, 1)
+                new HangCommand(miscSubsystem, 1),
+                new HangCommand(miscSubsystem, hangPower2)
         );
     }
 
@@ -31,3 +32,4 @@ public class HangTestTwo extends CommandOpMode {
         CommandScheduler.getInstance().run();
     }
 }
+*/

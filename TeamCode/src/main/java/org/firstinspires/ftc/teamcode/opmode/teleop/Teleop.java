@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.WaitForLiftHeight;
-import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
+import org.firstinspires.ftc.teamcode.common.drivers.HT16K33;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.SetReadyToDeposit;
@@ -49,8 +49,8 @@ public class Teleop extends CommandOpMode {
     private DepositSubsystem depositSubsystem;
     private IntakeSubsystem intakeSubsystem;
     private MiscSubsystem miscSubsystem;
-    private AdaDisplay display1;
-    private AdaDisplay display2;
+    private HT16K33 display1;
+    private HT16K33 display2;
     private HashMap<Integer, LiftSubsystem.LiftHeight> liftHeights = new HashMap<>();
     // Lower deposit enum when row odd
     public HashMap<Integer, DepositSubsystem.LowerHorizontalState> depositLowerColumns = new HashMap<>();
@@ -66,8 +66,8 @@ public class Teleop extends CommandOpMode {
         drive = new Drive(robot);
         drivePad = new GamepadEx(gamepad1);
         liftPad = new GamepadEx(gamepad2);
-        display1 = hardwareMap.get(AdaDisplay.class, "display1");
-        display2 = hardwareMap.get(AdaDisplay.class, "display2");
+        display1 = hardwareMap.get(HT16K33.class, "display1");
+        display2 = hardwareMap.get(HT16K33.class, "display2");
         touchpad = new TouchpadAndDisplaySubsystem(gamepad2, display1, display2);
         liftSubsystem = new LiftSubsystem(robot);
         depositSubsystem = new DepositSubsystem(robot);

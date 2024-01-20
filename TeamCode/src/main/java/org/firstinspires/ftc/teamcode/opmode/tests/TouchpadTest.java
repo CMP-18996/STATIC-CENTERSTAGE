@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
+import org.firstinspires.ftc.teamcode.common.drivers.HT16K33;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadAndDisplaySubsystem;
 
@@ -14,11 +14,11 @@ import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadAndDisplaySubsys
 public class TouchpadTest extends LinearOpMode {
     Robot robot;
     TouchpadAndDisplaySubsystem touchpad;
-    AdaDisplay display1, display2;
+    HT16K33 display1, display2;
     @Override
     public void runOpMode() {
-        display1 = hardwareMap.get(AdaDisplay.class, "display1");
-        display1 = hardwareMap.get(AdaDisplay.class, "display2");
+        display1 = hardwareMap.get(HT16K33.class, "display1");
+        display1 = hardwareMap.get(HT16K33.class, "display2");
         touchpad = new TouchpadAndDisplaySubsystem(gamepad1, display1, display2);
         // touchpad.register();
         waitForStart();

@@ -54,7 +54,7 @@ public class ToBoardCommand extends CommandBase {
             case REDCLOSE:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .setReversed(true)
-                        .splineTo(new Vector2d(30, -54), Math.toRadians(240))
+                        .splineTo(new Vector2d(36, -57), Math.toRadians(-90))
                         .setReversed(false)
                         .splineTo(new Vector2d(42, -36), Math.toRadians(0))
                         .build());
@@ -62,7 +62,7 @@ public class ToBoardCommand extends CommandBase {
             case BLUECLOSE:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
                         .setReversed(true)
-                        .splineTo(new Vector2d(30, 54), Math.toRadians(120))
+                        .splineTo(new Vector2d(20, 58), Math.toRadians(90))
                         .setReversed(false)
                         .splineTo(new Vector2d(42, 36), Math.toRadians(0))
                         .build());

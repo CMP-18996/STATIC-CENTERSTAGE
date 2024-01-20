@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
-@Disabled
 @TeleOp(name="drive with odo reading")
 public class LocalizationTest extends LinearOpMode {
     @Override

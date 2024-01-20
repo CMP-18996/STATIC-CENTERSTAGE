@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.common.subsystems;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.common.drivers.AdaDisplay;
+import org.firstinspires.ftc.teamcode.common.drivers.HT16K33;
 
 import java.util.ArrayList;
 
@@ -11,8 +11,8 @@ public class TouchpadAndDisplaySubsystem extends SubsystemBase {
     public Gamepad g;
     private boolean b = true;
     public ArrayList<Integer> history = new ArrayList<>();
-    private AdaDisplay display1;
-    private AdaDisplay display2;
+    private HT16K33 display1;
+    private HT16K33 display2;
     ChoosingOptions currentOption = ChoosingOptions.ROW;
     LeftRightState leftRightState = LeftRightState.LEFT;
     public int leftRow;
@@ -21,7 +21,7 @@ public class TouchpadAndDisplaySubsystem extends SubsystemBase {
     public int rightColumn;
     public boolean isChosen = false;
     private int mostRecentlyPressed = 0;
-    AdaDisplay usedDisplay;
+    HT16K33 usedDisplay;
     public enum LeftRightState {
         LEFT,
         RIGHT,
@@ -32,7 +32,7 @@ public class TouchpadAndDisplaySubsystem extends SubsystemBase {
         COLUMN,
         CHOSEN
     }
-    public TouchpadAndDisplaySubsystem(Gamepad g, AdaDisplay display1, AdaDisplay display2) {
+    public TouchpadAndDisplaySubsystem(Gamepad g, HT16K33 display1, HT16K33 display2) {
 
         this.g = g;
         this.display1 = display1;
@@ -93,37 +93,37 @@ public class TouchpadAndDisplaySubsystem extends SubsystemBase {
 
                 switch (currentOption) {
                     case ROW:
-                        usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.TWO, AdaDisplay.AvailableCharacters.DASH);
+                        usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.DASH);
                         switch (num) {
                             case 0:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.ZERO);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.ZERO);
                                 break;
                             case 1:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.ONE);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.ONE);
                                 break;
                             case 2:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.TWO);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.TWO);
                                 break;
                             case 3:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.THREE);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.THREE);
                                 break;
                             case 4:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.FOUR);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.FOUR);
                                 break;
                             case 5:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.FIVE);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.FIVE);
                                 break;
                             case 6:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.SIX);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.SIX);
                                 break;
                             case 7:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.SEVEN);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.SEVEN);
                                 break;
                             case 8:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.EIGHT);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.EIGHT);
                                 break;
                             case 9:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.NINE);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.NINE);
                                 break;
                         }
                         currentOption = ChoosingOptions.COLUMN;
@@ -133,25 +133,25 @@ public class TouchpadAndDisplaySubsystem extends SubsystemBase {
                         // TODO : MAKE DEVICE TWO NOT ONE
                         switch (num) {
                             case 0:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.TWO, AdaDisplay.AvailableCharacters.DASH);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.DASH);
                                 break;
                             case 1:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.TWO, AdaDisplay.AvailableCharacters.CHAR_A);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.CHAR_A);
                                 break;
                             case 2:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.TWO, AdaDisplay.AvailableCharacters.CHAR_B);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.CHAR_B);
                                 break;
                             case 3:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.TWO, AdaDisplay.AvailableCharacters.CHAR_C);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.CHAR_C);
                                 break;
                             case 4:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.TWO, AdaDisplay.AvailableCharacters.CHAR_D);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.CHAR_D);
                                 break;
                             case 5:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.TWO, AdaDisplay.AvailableCharacters.CHAR_E);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.CHAR_E);
                                 break;
                             case 6:
-                                usedDisplay.writeCharacter(AdaDisplay.DeviceNumber.TWO, AdaDisplay.AvailableCharacters.CHAR_F);
+                                usedDisplay.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.CHAR_F);
                                 break;
                         }
                         currentOption = ChoosingOptions.ROW;
@@ -235,10 +235,10 @@ public class TouchpadAndDisplaySubsystem extends SubsystemBase {
     public void rumble(int ms) {g.rumble(ms);}
 
     public void clearArray() {
-        display1.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.DASH);
-        display1.writeCharacter(AdaDisplay.DeviceNumber.TWO, AdaDisplay.AvailableCharacters.DASH);
-        display2.writeCharacter(AdaDisplay.DeviceNumber.ONE, AdaDisplay.AvailableCharacters.DASH);
-        display2.writeCharacter(AdaDisplay.DeviceNumber.TWO, AdaDisplay.AvailableCharacters.DASH);
+        display1.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.DASH);
+        display1.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.DASH);
+        display2.writeCharacter(HT16K33.DeviceNumber.ONE, HT16K33.AvailableCharacters.DASH);
+        display2.writeCharacter(HT16K33.DeviceNumber.TWO, HT16K33.AvailableCharacters.DASH);
     }
 
     public void reset() {

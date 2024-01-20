@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IdentifyColorCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 
-@Disabled
 @TeleOp(name="Color Sensor Test Three")
 public class ColorSensorTestThree extends CommandOpMode {
     Robot robot;
@@ -22,32 +22,17 @@ public class ColorSensorTestThree extends CommandOpMode {
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
         intakeSubsystem = new IntakeSubsystem(robot);
-
-        class TelemetryCommand extends CommandBase {
-            public TelemetryCommand(String partOne, String partTwo) {
-                telemetry.addData(partOne, partTwo);
-                // telemetry.update();
-            }
-        }
-        class TelemetryUpdate extends CommandBase {
-            public TelemetryUpdate() {
-                telemetry.update();
-            }
-        }
-
-        CommandScheduler.getInstance().schedule(
-                new IdentifyColorCommand(intakeSubsystem),
-                new TelemetryCommand("Slot One", intakeSubsystem.slotOne.toString()),
-                new TelemetryCommand("Slot Two", intakeSubsystem.slotTwo.toString()),
-                new TelemetryUpdate()
+        super.schedule(
+                new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.INTAKING)
         );
     }
 
     @Override
     public void run() {
-        while (opModeIsActive()) {
-            this.initialize();
-            CommandScheduler.getInstance().run();
-        }
+        CommandScheduler.getInstance().run();
+        intakeSubsystem.identifyColor();
+        telemetry.addData("Color Detected in Slot One:", intakeSubsystem.slotOne.toString());
+        telemetry.addData("Color Detected in Slot Two:", intakeSubsystem.slotTwo.toString());
+        telemetry.update();
     }
 }
