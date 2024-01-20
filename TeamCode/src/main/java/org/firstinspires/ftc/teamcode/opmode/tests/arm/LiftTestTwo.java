@@ -3,15 +3,24 @@ package org.firstinspires.ftc.teamcode.opmode.tests.arm;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.arcrobotics.ftclib.command.WaitCommand;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.I2cDevice;
+import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
+import com.qualcomm.robotcore.hardware.I2cDeviceSynchImplOnSimple;
 
+import org.firstinspires.ftc.teamcode.common.Drivers.HT16K33;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
+import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
 
-@Disabled
+import java.util.HashMap;
+
 @TeleOp(name="Lift Test Two")
 public class LiftTestTwo extends CommandOpMode {
     Robot robot;
@@ -25,8 +34,7 @@ public class LiftTestTwo extends CommandOpMode {
         // Change polarity, red wire -> red wire, black wire -> black wire DUMBASS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTSEVEN),
-                    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTFOUR)
+                    new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTNINE)
                     /*new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTSEVEN),
                     new WaitCommand(5000),
                     new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE)

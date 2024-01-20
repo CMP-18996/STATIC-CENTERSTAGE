@@ -4,26 +4,23 @@ import java.util.HashMap;
 import java.lang.Integer;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.WaitForLiftHeight;
-import org.firstinspires.ftc.teamcode.common.drivers.HT16K33;
+import org.firstinspires.ftc.teamcode.common.Drivers.HT16K33;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
+import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.IntakeWait;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.SetReadyToDeposit;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.StasisCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.TakeFromIntakeCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.TakeFromDepositCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DroneCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
-// import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.HangCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.HangCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.UpperHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
@@ -31,20 +28,19 @@ import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.MiscSubsystem;
-import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadAndDisplaySubsystem;
+import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadSubsystem;
 
 /**
  * Triggers intake reverse
  * Bumpers, deposit
  */
-@Disabled
 @TeleOp(name="Final TeleOp", group="Official")
 public class Teleop extends CommandOpMode {
     private Robot robot;
     private Drive drive;
     private GamepadEx drivePad;
     private GamepadEx liftPad;
-    private TouchpadAndDisplaySubsystem touchpad;
+    private TouchpadSubsystem touchpad;
     private LiftSubsystem liftSubsystem;
     private DepositSubsystem depositSubsystem;
     private IntakeSubsystem intakeSubsystem;
@@ -68,39 +64,33 @@ public class Teleop extends CommandOpMode {
         liftPad = new GamepadEx(gamepad2);
         display1 = hardwareMap.get(HT16K33.class, "display1");
         display2 = hardwareMap.get(HT16K33.class, "display2");
-        touchpad = new TouchpadAndDisplaySubsystem(gamepad2, display1, display2);
+        touchpad = new TouchpadSubsystem(gamepad2, display1, display2);
         liftSubsystem = new LiftSubsystem(robot);
         depositSubsystem = new DepositSubsystem(robot);
         intakeSubsystem = new IntakeSubsystem(robot);
         miscSubsystem = new MiscSubsystem(robot);
 
+        register(drive, touchpad);
         this.fillMaps();
         liftPad.getGamepadButton(GamepadKeys.Button.Y)
-                .whenPressed(() -> schedule(new InstantCommand(() -> {
+                .whenPressed(() -> {
                     if (touchpad.isChosen) {
                         int leftRow = touchpad.getLeftRow();
                         int leftColumn = touchpad.getLeftColumn();
                         int rightRow = touchpad.getRightRow();
                         int rightColumn = touchpad.getRightColumn();
-                        schedule(new SequentialCommandGroup(
-                                new ParallelCommandGroup( // Consider Changing to -Parallel
+                        CommandScheduler.getInstance().schedule(new SequentialCommandGroup(
+                                new ParallelCommandGroup(
                                         new SetReadyToDeposit(depositSubsystem, liftSubsystem, liftHeights.get(leftRow)),
                                         // TODO: MAKE SURE THIS CODE WORKS IT IS SO SKETCHY
-                                        new SequentialCommandGroup(
-                                                new WaitForLiftHeight(liftSubsystem, 140),
-                                                (leftColumn % 2 == 1) ?
-                                                        new LowerHorizontalMoveCommand(depositSubsystem, depositLowerColumns.get(leftColumn))
-                                                        : new UpperHorizontalMoveCommand(depositSubsystem, depositUpperColumns.get(leftColumn))
-                                        )
+                                        (leftColumn % 2 == 1) ?
+                                                new LowerHorizontalMoveCommand(depositSubsystem, depositLowerColumns.get(leftColumn))
+                                                : new UpperHorizontalMoveCommand(depositSubsystem, depositUpperColumns.get(leftColumn))
                                 ),
-                                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGHDROP),
-                                new WaitCommand(200),
                                 new ParallelCommandGroup(
                                         new WaitCommand(250),
                                         new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT)
                                 ),
-                                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
-                                new WaitCommand(200),
                                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
                                 new ParallelCommandGroup(
                                         new SetReadyToDeposit(depositSubsystem, liftSubsystem, liftHeights.get(rightRow)),
@@ -118,22 +108,41 @@ public class Teleop extends CommandOpMode {
                         ));
                         touchpad.reset();
                     }
-                })));
+                });
 
+        liftPad.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem))
+                );
+
+        liftPad.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new IntakeWait(intakeSubsystem))
+                );
 
         liftPad.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(() -> schedule(
-                        new TakeFromIntakeCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new TakeFromDepositCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
                 ));
 
         liftPad.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(() -> schedule(
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new DroneCommand(miscSubsystem))
                 );
-        //liftPad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                //.whenPressed(() -> schedule(
-                    //    new HangCommand(miscSubsystem))
-               // );
+        liftPad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new HangCommand(miscSubsystem))
+                );
+
+        liftPad.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT)
+                ));
+
+        liftPad.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT)
+                ));
         // Manually change the intake state
         /*
         Already used buttons:
@@ -180,7 +189,7 @@ public class Teleop extends CommandOpMode {
         depositLowerColumns.put(3, DepositSubsystem.LowerHorizontalState.C);
         depositLowerColumns.put(4, DepositSubsystem.LowerHorizontalState.D);
         depositLowerColumns.put(5, DepositSubsystem.LowerHorizontalState.E);
-        // depositLowerColumns.put(6, DepositSubsystem.LowerHorizontalState.F);
+        depositLowerColumns.put(6, DepositSubsystem.LowerHorizontalState.F);
 
         depositUpperColumns.put(1, DepositSubsystem.UpperHorizontalState.A);
         depositUpperColumns.put(2, DepositSubsystem.UpperHorizontalState.B);
@@ -188,7 +197,7 @@ public class Teleop extends CommandOpMode {
         depositUpperColumns.put(4, DepositSubsystem.UpperHorizontalState.D);
         depositUpperColumns.put(5, DepositSubsystem.UpperHorizontalState.E);
         depositUpperColumns.put(6, DepositSubsystem.UpperHorizontalState.F);
-        // depositUpperColumns.put(7, DepositSubsystem.UpperHorizontalState.G);
+        depositUpperColumns.put(7, DepositSubsystem.UpperHorizontalState.G);
     }
 }
 

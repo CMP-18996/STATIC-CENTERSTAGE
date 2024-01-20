@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.common.drivers;
+package org.firstinspires.ftc.teamcode.common.Drivers;
 
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
@@ -38,8 +38,10 @@ public class HT16K33 extends I2cDeviceSynchDevice<I2cDeviceSynch> {
         writeByteArr(deviceNumber, character.charCode);
     }
 
-    public void startFlashing(DeviceNumber deviceNumber) {
-        this.deviceClient.setI2cAddress(deviceNumber.address);
+    public void startFlashing() {
+        this.deviceClient.setI2cAddress(DeviceNumber.ONE.address);
+        deviceClient.write8(0x85);
+        this.deviceClient.setI2cAddress(DeviceNumber.TWO.address);
         deviceClient.write8(0x85);
     }
     public void stopFlashing() {
@@ -98,7 +100,7 @@ public class HT16K33 extends I2cDeviceSynchDevice<I2cDeviceSynch> {
 
     public enum DeviceNumber {
         ONE(0x70),
-        TWO(0x74),
+        TWO(0x72),
         THREE(0x74),
         FOUR(0x76);
         I2cAddr address;
@@ -107,40 +109,6 @@ public class HT16K33 extends I2cDeviceSynchDevice<I2cDeviceSynch> {
         }
     }
 
-    public void writeInt(DeviceNumber deviceNum, int input) {
-        switch (input) {
-            case 0:
-                writeCharacter(deviceNum, AvailableCharacters.ZERO);
-                break;
-            case 1:
-                writeCharacter(deviceNum, AvailableCharacters.ONE);
-                break;
-            case 2:
-                writeCharacter(deviceNum, AvailableCharacters.TWO);
-                break;
-            case 3:
-                writeCharacter(deviceNum, AvailableCharacters.THREE);
-                break;
-            case 4:
-                writeCharacter(deviceNum, AvailableCharacters.FOUR);
-                break;
-            case 5:
-                writeCharacter(deviceNum, AvailableCharacters.FIVE);
-                break;
-            case 6:
-                writeCharacter(deviceNum, AvailableCharacters.SIX);
-                break;
-            case 7:
-                writeCharacter(deviceNum, AvailableCharacters.SEVEN);
-                break;
-            case 8:
-                writeCharacter(deviceNum, AvailableCharacters.EIGHT);
-                break;
-            case 9:
-                writeCharacter(deviceNum, AvailableCharacters.NINE);
-                break;
-        }
-    }
 
     // INIT STUFF
     public HT16K33(I2cDeviceSynch i2cDeviceSynch, boolean deviceClientIsOwned) {
@@ -151,15 +119,15 @@ public class HT16K33 extends I2cDeviceSynchDevice<I2cDeviceSynch> {
         super.registerArmingStateCallback(false);
         this.deviceClient.engage();
 
-        deviceClient.write8(0x21, I2cWaitControl.WRITTEN);
+        deviceClient.write8(0x21, I2cWaitControl.WRITTEN); // write8 is swapped(?)
         deviceClient.write8(0xA0, I2cWaitControl.WRITTEN);
         deviceClient.write8(0xEE, I2cWaitControl.WRITTEN);
         deviceClient.write8(0x81, I2cWaitControl.WRITTEN);
 
-        ADDRESS_I2C_DEFAULT = I2cAddr.create7bit(0x74); // TODO: FIGURE OUT IF THIS IS 0x72 OR 0x74
+        ADDRESS_I2C_DEFAULT = I2cAddr.create7bit(0x72);
 
         this.deviceClient.setI2cAddress(ADDRESS_I2C_DEFAULT);
-        deviceClient.write8(0x21, I2cWaitControl.WRITTEN);
+        deviceClient.write8(0x21, I2cWaitControl.WRITTEN); // write8 is swapped(?)
         deviceClient.write8(0xA0, I2cWaitControl.WRITTEN);
         deviceClient.write8(0xEE, I2cWaitControl.WRITTEN);
         deviceClient.write8(0x81, I2cWaitControl.WRITTEN);
@@ -175,7 +143,7 @@ public class HT16K33 extends I2cDeviceSynchDevice<I2cDeviceSynch> {
     public Manufacturer getManufacturer() {
         return Manufacturer.Adafruit;
     }
-
+    
 
     @Override
     public String getDeviceName() {
