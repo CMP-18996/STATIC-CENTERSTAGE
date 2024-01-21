@@ -76,6 +76,8 @@ public class ColorSensorTest extends CommandOpMode {
     @Override
     public void run() {
         CommandScheduler.getInstance().run();
+
+
     }
 
 
