@@ -77,6 +77,7 @@ public class ExperimentalTouchpadTeleOp extends CommandOpMode {
         // Experimental stuff
         touchpadAndDisplaySubsystem = new TouchpadAndDisplaySubsystem(gamepad2, display, display);
 
+        // Hypothetical, most likely doesn't work, be prepared to stop the program
         liftPad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
                 () -> schedule(
                         new InstantCommand(
@@ -93,8 +94,8 @@ public class ExperimentalTouchpadTeleOp extends CommandOpMode {
                                     if (lower1) {
                                         CommandScheduler.getInstance().schedule(
                                                 new SequentialCommandGroup(
-                                                        new LiftCommand(liftSubsystem, liftHeights.get(row1)),
-                                                        new LowerHorizontalMoveCommand(depositSubsystem, lowerHorizontalStateHashMap.get(Math.max(column1, 5))),
+                                                        // new LiftCommand(liftSubsystem, liftHeights.get(row1)),
+                                                        new LowerHorizontalMoveCommand(depositSubsystem, lowerHorizontalStateHashMap.get(Math.min(column1, 5))),
                                                         new WaitCommand(3000)
                                                 )
                                         );
@@ -102,17 +103,18 @@ public class ExperimentalTouchpadTeleOp extends CommandOpMode {
                                     else {
                                         CommandScheduler.getInstance().schedule(
                                                 new SequentialCommandGroup(
-                                                        new LiftCommand(liftSubsystem, liftHeights.get(row1)),
-                                                        new UpperHorizontalMoveCommand(depositSubsystem, upperHorizontalStateHashMap.get(Math.max(column1, 6))),
+                                                        // new LiftCommand(liftSubsystem, liftHeights.get(row1)),
+                                                        new UpperHorizontalMoveCommand(depositSubsystem, upperHorizontalStateHashMap.get(Math.min(column1, 6))),
                                                         new WaitCommand(3000)
                                                 )
                                         );
                                     }
+                                    CommandScheduler.getInstance().schedule(new WaitCommand(3000));
                                     if (lower2) {
                                         CommandScheduler.getInstance().schedule(
                                                 new SequentialCommandGroup(
-                                                        new LiftCommand(liftSubsystem, liftHeights.get(row2)),
-                                                        new LowerHorizontalMoveCommand(depositSubsystem, lowerHorizontalStateHashMap.get(Math.max(column2, 5))),
+                                                        // new LiftCommand(liftSubsystem, liftHeights.get(row2)),
+                                                        new LowerHorizontalMoveCommand(depositSubsystem, lowerHorizontalStateHashMap.get(Math.min(column2, 5))),
                                                         new WaitCommand(3000)
                                                 )
                                         );
@@ -120,13 +122,24 @@ public class ExperimentalTouchpadTeleOp extends CommandOpMode {
                                     else {
                                         CommandScheduler.getInstance().schedule(
                                                 new SequentialCommandGroup(
-                                                        new LiftCommand(liftSubsystem, liftHeights.get(row2)),
-                                                        new UpperHorizontalMoveCommand(depositSubsystem, upperHorizontalStateHashMap.get(Math.max(column2, 6))),
+                                                        // new LiftCommand(liftSubsystem, liftHeights.get(row2)),
+                                                        new UpperHorizontalMoveCommand(depositSubsystem, upperHorizontalStateHashMap.get(Math.min(column2, 6))),
                                                         new WaitCommand(3000)
                                                 )
                                         );
                                     }
-                                    touchpadAndDisplaySubsystem.reset();
+                                    // touchpadAndDisplaySubsystem.reset();
+                                    try {
+                                        telemetry.addData("Column 1", column1);
+                                        telemetry.addData("Row 1", row1);
+                                        telemetry.addData("Column 2", column2);
+                                        telemetry.addData("Row 2", row2);
+                                        telemetry.update();
+                                    }
+                                    catch (Exception e) {
+                                        telemetry.addData("", "");
+                                        telemetry.update();
+                                    }
                                 }
                         )
                 )
@@ -225,7 +238,7 @@ public class ExperimentalTouchpadTeleOp extends CommandOpMode {
 
     @Override
     public void run() {
-
+        CommandScheduler.getInstance().run();
     }
 
     public void fillMaps() {
