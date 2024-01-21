@@ -183,7 +183,7 @@ public class IntakeSubsystem extends SubsystemBase {
             return false;
     }
 
-    public boolean slotOneColor(){
+    public boolean slotOneFilled(){
         boolean oneCheck;
         switch (slotOne) {
 
@@ -198,7 +198,7 @@ public class IntakeSubsystem extends SubsystemBase {
         }
         return oneCheck;
     }
-    public boolean slotTwoColor(){
+    public boolean slotTwoFilled(){
         boolean twoCheck;
         switch (slotTwo) {
 

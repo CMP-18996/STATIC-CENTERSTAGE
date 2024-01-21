@@ -206,7 +206,7 @@ public class SimpleTeleop extends CommandOpMode {
         if (intaking) {
             robot.intakeMotor.set(-.7 - (drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) * .3));
             intakeSubsystem.identifyColor();
-            if (intakeSubsystem.slotOneColor() && intakeSubsystem.slotTwoColor()) {
+            if (intakeSubsystem.slotOneFilled() && intakeSubsystem.slotTwoFilled()) {
                 intaking = false;
                 gamepad1.rumble(300);
                 gamepad2.rumble(300);
