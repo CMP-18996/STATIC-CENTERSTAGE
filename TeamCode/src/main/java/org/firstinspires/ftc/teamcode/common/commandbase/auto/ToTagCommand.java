@@ -10,18 +10,13 @@
  */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
-import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.common.GlobalVariables;
-import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ToTagCommand extends CommandBase {

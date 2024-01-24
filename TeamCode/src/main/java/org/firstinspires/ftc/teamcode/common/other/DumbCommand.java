@@ -7,13 +7,11 @@
  */
 package org.firstinspires.ftc.teamcode.common.other;
 
-import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
-import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 
 public class DumbCommand extends CommandBase {
     private MecanumDrive drive;

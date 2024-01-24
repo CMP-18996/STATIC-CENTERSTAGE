@@ -6,8 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusZeroAuto;
-import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
@@ -15,7 +13,6 @@ import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 @Autonomous(name = "Autonomous")
 public class Auto extends CommandOpMode {
     public Robot robot;
-    public MecanumDrive drive;
     public IntakeSubsystem intakeSubsystem;
     public DepositSubsystem depositSubsystem;
     public LiftSubsystem liftSubsystem;
@@ -31,13 +28,11 @@ public class Auto extends CommandOpMode {
 
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
-        drive = new MecanumDrive(hardwareMap, GlobalVariables.distance.getP());
         intakeSubsystem = new IntakeSubsystem(robot);
         depositSubsystem = new DepositSubsystem(robot);
         liftSubsystem = new LiftSubsystem(robot);
         super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);
         CommandScheduler.getInstance().schedule(
-                new TwoPlusZeroAuto(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem)
         );
 
         robot.camera.startPropProcessing();

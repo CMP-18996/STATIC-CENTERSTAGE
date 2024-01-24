@@ -7,17 +7,11 @@
  */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
-import static org.firstinspires.ftc.teamcode.common.GlobalVariables.Distance.*;
-
-import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
-import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
-
-import java.util.Objects;
 
 public class ToBoardCommand extends CommandBase {
     private MecanumDrive drive;

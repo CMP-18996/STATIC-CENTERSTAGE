@@ -4,13 +4,10 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DepositRotatorCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
-import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
