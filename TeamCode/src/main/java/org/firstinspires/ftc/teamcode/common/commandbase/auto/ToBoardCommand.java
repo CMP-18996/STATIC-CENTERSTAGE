@@ -7,23 +7,17 @@
  */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
-import static org.firstinspires.ftc.teamcode.common.GlobalVariables.Distance.*;
-
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.ftc.Actions;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
-import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
-
-import java.util.Objects;
+import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 
 public class ToBoardCommand extends CommandBase {
-    private MecanumDrive drive;
+    private SampleMecanumDrive drive;
     boolean t = false;
 
-    public ToBoardCommand(MecanumDrive drive) {
+    public ToBoardCommand(SampleMecanumDrive drive) {
         this.drive = drive;
     }
     @Override
@@ -32,7 +26,7 @@ public class ToBoardCommand extends CommandBase {
     public void execute() {
         switch (GlobalVariables.distance) {
             case REDFAR:
-                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(true)
                         .splineTo(new Vector2d(-35,-58), Math.toRadians(180))
                         .setReversed(false)
@@ -42,7 +36,7 @@ public class ToBoardCommand extends CommandBase {
                         .build());
                 break;
             case BLUEFAR:
-                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(true)
                         .splineTo(new Vector2d(-35,58), Math.toRadians(180))
                         .setReversed(false)
@@ -52,7 +46,7 @@ public class ToBoardCommand extends CommandBase {
                         .build());
                 break;
             case REDCLOSE:
-                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(true)
                         .splineTo(new Vector2d(36, -57), Math.toRadians(-90))
                         .setReversed(false)
@@ -60,7 +54,7 @@ public class ToBoardCommand extends CommandBase {
                         .build());
                 break;
             case BLUECLOSE:
-                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(true)
                         .splineTo(new Vector2d(20, 58), Math.toRadians(90))
                         .setReversed(false)
