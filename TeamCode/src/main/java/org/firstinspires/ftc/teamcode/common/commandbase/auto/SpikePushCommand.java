@@ -47,22 +47,22 @@ public class SpikePushCommand extends CommandBase {
         switch (GlobalVariables.position) {
             case LEFT:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .splineTo(new Vector2d(x + Math.signum(x) * 2, y - Math.signum(y) * 16), h - (Math.signum(y) * Math.signum(x) - 1) * Math.toRadians(17.5) + Math.toRadians(18))
+                        .splineTo(new Vector2d(x + Math.signum(x) * 1, y - Math.signum(y) * 18), h - (Math.signum(y) * Math.signum(x) - 1) * Math.toRadians(15) + Math.toRadians(35))
                         .build());
                 break;
             case RIGHT:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .splineTo(new Vector2d(x + Math.signum(x) * 2, y - Math.signum(y) * 16), h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(17.5) - Math.toRadians(18))
+                        .splineTo(new Vector2d(x + Math.signum(x) * 1, y - Math.signum(y) * 18), h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(15) - Math.toRadians(35))
                         .build());
-                break;
+                break; 
             case MIDDLE:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .splineTo(new Vector2d(x, y - Math.signum(y) * 20), h)
+                        .splineTo(new Vector2d(x, y - Math.signum(y) * 22), h)
                         .build());
                 break;
             default:
                 Actions.runBlocking(drive.actionBuilder(drive.pose)
-                        .splineTo(new Vector2d(x, y - Math.signum(y) * 14), h)
+                        .splineTo(new Vector2d(x, y - Math.signum(y) * 18), h)
                         .build());
                 break;
         }

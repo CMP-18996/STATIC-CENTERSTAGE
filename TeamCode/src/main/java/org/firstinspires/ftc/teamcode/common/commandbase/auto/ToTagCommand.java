@@ -10,13 +10,10 @@
  */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
-import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -36,7 +33,7 @@ public class ToTagCommand extends CommandBase {
         addRequirements(this.camera);
     }
     //turn complex coordinates into angle from 0-360
-    public double calculateHeading(double real, double imag) {
+    public static double calculateHeading(double real, double imag) {
         if (real == 0) real += 0.0000000000000000001;
         if (imag == 0) imag += 0.0000000000000000001;
         double h = Math.atan(imag / real);
@@ -51,55 +48,61 @@ public class ToTagCommand extends CommandBase {
         currentDetections = camera.getTagLocalization();
         if (currentDetections != null) {
             if (currentDetections.size() > 0) {
+                AprilTagDetection tagOfInterest = null;
                 for (AprilTagDetection tag : currentDetections) {
-                    double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
-                            tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
-                    double d = drive.pose.position.x + stats[1] - 4.5;
-                    double y = drive.pose.position.y - stats[0];
-                    double a = calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]);
-                    if (t == 0) {
-                        try {
-                            Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                    .turn(Math.toRadians(stats[5]))
-                                    .build());
-                        } catch (Exception ignored) {}
+                    if (tag.id == 2 || tag.id == 5) {
+                        tagOfInterest = tag;
                     }
-                    try {
-                        switch (tag.id) {
-                            case 2: case 5:
-                                Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                        .splineToConstantHeading(new Vector2d(d, y), a)
-                                        .waitSeconds(1)
-                                        .build());
-                                break;
-                            case 1: case 4:
-                                Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                        .splineToConstantHeading(new Vector2d(d, y - 6), a)
-                                        .waitSeconds(1)
-                                        .build());
-                                break;
-                            case 3: case 6:
-                                Actions.runBlocking(drive.actionBuilder(drive.pose)
-                                        .splineToConstantHeading(new Vector2d(d, y + 6), a)
-                                        .waitSeconds(1)
-                                        .build());
-                                break;
-                            }
-                        } catch (Exception ignored) {}
-                        break;
-                    }
+                }
+                if (tagOfInterest != null) {
+                    move(tagOfInterest, drive, t);
                 } else {
-                    /*Actions.runBlocking(drive.actionBuilder(drive.pose)
-                            .splineTo(new Vector2d(drive.pose.position.x - 4, drive.pose.position.y),
-                                    calculateHeading(drive.pose.heading.real, drive.pose.heading.imag))
-                            .build());*/
+                    tagOfInterest = currentDetections.get(0);
+                    move(tagOfInterest, drive, t);
                 }
             }
             t++;
         }
+    }
     @Override
     public boolean isFinished() {
         return t >= 2; //replaced by number of times you want to run
+    }
+    public static void move(AprilTagDetection tag, MecanumDrive drive, int t) {
+        double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
+                tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
+        double d = drive.pose.position.x + stats[1] - 7;
+        double y = drive.pose.position.y - stats[0];
+        double a = calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]);
+        if (t == 0) {
+            try {
+                Actions.runBlocking(drive.actionBuilder(drive.pose)
+                        .turn(Math.toRadians(stats[5]))
+                        .build());
+            } catch (Exception ignored) {}
+        }
+        try {
+            switch (tag.id) {
+                case 2: case 5:
+                    Actions.runBlocking(drive.actionBuilder(drive.pose)
+                            .splineToConstantHeading(new Vector2d(d, y), a)
+                            .waitSeconds(1)
+                            .build());
+                    break;
+                case 1: case 4:
+                    Actions.runBlocking(drive.actionBuilder(drive.pose)
+                            .splineToConstantHeading(new Vector2d(d, y - 6), a)
+                            .waitSeconds(1)
+                            .build());
+                    break;
+                case 3: case 6:
+                    Actions.runBlocking(drive.actionBuilder(drive.pose)
+                            .splineToConstantHeading(new Vector2d(d, y + 6), a)
+                            .waitSeconds(1)
+                            .build());
+                    break;
+            }
+        } catch (Exception ignored) {}
     }
 }
 

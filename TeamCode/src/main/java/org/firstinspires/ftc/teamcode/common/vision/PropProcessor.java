@@ -45,7 +45,7 @@ public class PropProcessor implements VisionProcessor {
     boolean startDetecting = false;
 
     // TODO: Figure these values out
-    private int smallestAllowedArea = 0;
+    private int smallestAllowedArea = 50;
 
     // Number of Detections of Each Prop Location
     private int leftPos = 0;
