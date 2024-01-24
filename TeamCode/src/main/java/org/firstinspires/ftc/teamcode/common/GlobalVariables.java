@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.common;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 @Config
 public class GlobalVariables {

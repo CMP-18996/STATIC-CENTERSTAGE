@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusZeroAuto;
+import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
@@ -13,9 +15,10 @@ import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 @Autonomous(name = "Autonomous")
 public class Auto extends CommandOpMode {
     public Robot robot;
-    public IntakeSubsystem intakeSubsystem;
-    public DepositSubsystem depositSubsystem;
-    public LiftSubsystem liftSubsystem;
+    public SampleMecanumDrive drive;
+    public IntakeSubsystem intake;
+    public DepositSubsystem deposit;
+    public LiftSubsystem lift;
     @Override
     public void initialize() {
         telemetry.addData("Status","Initalizing...");
@@ -28,11 +31,13 @@ public class Auto extends CommandOpMode {
 
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
-        intakeSubsystem = new IntakeSubsystem(robot);
-        depositSubsystem = new DepositSubsystem(robot);
-        liftSubsystem = new LiftSubsystem(robot);
-        super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);
+        drive = new SampleMecanumDrive(hardwareMap);
+        intake = new IntakeSubsystem(robot);
+        deposit = new DepositSubsystem(robot);
+        lift = new LiftSubsystem(robot);
+        super.register(robot.camera, intake, deposit, lift);
         CommandScheduler.getInstance().schedule(
+                new TwoPlusZeroAuto(deposit, lift, robot.camera, drive, intake)
         );
 
         robot.camera.startPropProcessing();

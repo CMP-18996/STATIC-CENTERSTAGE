@@ -9,16 +9,16 @@
  */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
-import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.ftc.Actions;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
+import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 
 public class StackCycleCommand extends CommandBase {
-    private MecanumDrive drive;
+    private SampleMecanumDrive drive;
     boolean t = false;
-    public StackCycleCommand(MecanumDrive drive) {
+    public StackCycleCommand(SampleMecanumDrive drive) {
         this.drive = drive;
     }
     @Override
@@ -27,8 +27,7 @@ public class StackCycleCommand extends CommandBase {
     public void execute() {
         switch (GlobalVariables.color) {
             case BLUE:
-                Actions.runBlocking(
-                        drive.actionBuilder(drive.pose)
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                                 .setReversed(true)
                                 .splineTo(new Vector2d(-62, 36), Math.toRadians(180))
                                 .waitSeconds(0.5)
@@ -37,8 +36,7 @@ public class StackCycleCommand extends CommandBase {
                                 .build());
                 break;
             case RED:
-                Actions.runBlocking(
-                        drive.actionBuilder(drive.pose)
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                                 .setReversed(true)
                                 .splineTo(new Vector2d(-62, -36), Math.toRadians(180))
                                 .waitSeconds(0.5)
