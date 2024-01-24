@@ -44,6 +44,7 @@ public class SpikePushCommand extends CommandBase {
             case RIGHT:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .splineTo(new Vector2d(x + Math.signum(x) * 2, y - Math.signum(y) * 16), h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(17.5) - Math.toRadians(18))
+                        .build());
                 break;                               
             case MIDDLE:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
@@ -53,6 +54,7 @@ public class SpikePushCommand extends CommandBase {
             default:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .splineTo(new Vector2d(x, y - Math.signum(y) * 14), h)
+                        .build());
                 break;
         }
         t = true;

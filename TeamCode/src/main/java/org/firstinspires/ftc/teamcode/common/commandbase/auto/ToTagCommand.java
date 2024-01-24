@@ -57,12 +57,12 @@ public class ToTagCommand extends CommandBase {
     public boolean isFinished() {
         return t >= 2; //replaced by number of times you want to run
     }
-    public static void move(AprilTagDetection tag, MecanumDrive drive, int t) {
+    public static void move(AprilTagDetection tag, SampleMecanumDrive drive, int t) {
         double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
                 tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
-        double d = drive.pose.position.x + stats[1] - 7;
-        double y = drive.pose.position.y - stats[0];
-        double a = calculateHeading(drive.pose.heading.real, drive.pose.heading.imag) + Math.toRadians(stats[5]);
+        double d = drive.getPoseEstimate().getX() + stats[1] - 7;
+        double y = drive.getPoseEstimate().getY() - stats[0];
+        double a = drive.getPoseEstimate().getHeading() + Math.toRadians(stats[5]);
         if (t == 0) {
             try {
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
