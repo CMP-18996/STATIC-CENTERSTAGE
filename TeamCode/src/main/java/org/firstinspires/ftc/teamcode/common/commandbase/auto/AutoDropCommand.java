@@ -25,10 +25,12 @@ public class AutoDropCommand extends SequentialCommandGroup {
                         new ToTagCommand(camera, drive),
                         new ParallelCommandGroup(
                                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
+                                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTTWO),
                                 new LowerHorizontalMoveCommand(depositSubsystem, lowerHorizontalState)
                         )
                 ),
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGHDROP),
+                new WaitCommand(500),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
                 new WaitCommand(2000),
