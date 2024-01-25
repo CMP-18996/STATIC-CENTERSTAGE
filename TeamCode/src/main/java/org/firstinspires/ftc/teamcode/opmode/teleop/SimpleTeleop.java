@@ -22,7 +22,6 @@ import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DroneComm
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FrontBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.ZeroLiftCommand;
 import org.firstinspires.ftc.teamcode.common.drive.Drive;
@@ -54,6 +53,7 @@ public class SimpleTeleop extends CommandOpMode {
     double xAxisPosition = 0.830625;
     double incrementVal = 0.067;
     boolean intaking = false;
+    int robotFront = 1;
     @Override
     public void initialize() {
         CommandScheduler.getInstance().reset();
@@ -185,9 +185,17 @@ public class SimpleTeleop extends CommandOpMode {
                 () -> schedule(new DroneCommand(miscSubsystem))
         );
 
+        drivePad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
+                new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.LEVEL3)
+        );
+
+        drivePad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(
+                new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.GROUND)
+        );
+
         super.schedule(
                 new ZeroLiftCommand(liftSubsystem),
-                new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.GROUND),
+                // new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.GROUND),
                 new InstantCommand(() -> {
                     robot.xAdj.setPosition(xAxisPosition);
                 }),
@@ -204,21 +212,23 @@ public class SimpleTeleop extends CommandOpMode {
         robot.hangServo2.setPower(-1 * gamepad2.right_stick_y);
 
         if (intaking) {
-            robot.intakeMotor.set(-.7 - (drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) * .3));
+            robotFront = -1;
+            robot.intakeMotor.set(-.3 - (drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) * .7));
             intakeSubsystem.identifyColor();
-            if (intakeSubsystem.slotOneColor() && intakeSubsystem.slotTwoColor()) {
+            if (intakeSubsystem.slotOneFilled() && intakeSubsystem.slotTwoFilled()) {
+                robotFront = 1;
                 intaking = false;
                 gamepad1.rumble(300);
                 gamepad2.rumble(300);
                 inputtedLiftHeight = 0;
                 sleep(250);
-                robot.intakeMotor.set(.5);
+                robot.intakeMotor.set(.5+(drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) * 0.5));
                 sleep(400);
                 robot.intakeMotor.set(0);
             }
         }
 
-        drive.manualPower(drivePad.getLeftX(), -drivePad.getLeftY(), -drivePad.getRightX());
+        drive.manualPower(robotFront*drivePad.getLeftX(), -robotFront*drivePad.getLeftY(), -drivePad.getRightX());
 
         telemetry.addData("Color Detected in Slot 1:", intakeSubsystem.slotOne.toString());
         telemetry.addData("Color Detected in Slot 2:", intakeSubsystem.slotTwo.toString());
