@@ -51,7 +51,7 @@ public class SimpleTeleop extends CommandOpMode {
     private HashMap<Integer, DepositSubsystem.UpperHorizontalState> upperHorizontalStateHashMap = new HashMap<>();
     int inputtedLiftHeight = 1;
     double xAxisPosition = 0.830625;
-    double incrementVal = 0.067/2;
+    double incrementVal = 0.067;
     boolean intaking = false;
     int robotFront = 1;
     @Override
@@ -213,7 +213,7 @@ public class SimpleTeleop extends CommandOpMode {
 
         if (intaking) {
             robotFront = -1;
-            robot.intakeMotor.set(-1*drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
+            robot.intakeMotor.set(-.3 - (drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) * .7));
             intakeSubsystem.identifyColor();
             if (intakeSubsystem.slotOneFilled() && intakeSubsystem.slotTwoFilled()) {
                 robotFront = 1;
@@ -228,7 +228,7 @@ public class SimpleTeleop extends CommandOpMode {
             }
         }
 
-        drive.manualPower(Math.pow(robotFront*drivePad.getLeftX(),3), Math.pow(-robotFront*drivePad.getLeftY(),3), Math.pow(-drivePad.getRightX(),3));
+        drive.manualPower(robotFront*drivePad.getLeftX(), -robotFront*drivePad.getLeftY(), -drivePad.getRightX());
 
         telemetry.addData("Color Detected in Slot 1:", intakeSubsystem.slotOne.toString());
         telemetry.addData("Color Detected in Slot 2:", intakeSubsystem.slotTwo.toString());

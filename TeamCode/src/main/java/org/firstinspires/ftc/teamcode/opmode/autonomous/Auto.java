@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusZeroAuto;
-import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
+//import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive; TODO: CLARK UNCOMMENT THIS
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
@@ -15,10 +15,10 @@ import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 @Autonomous(name = "Autonomous")
 public class Auto extends CommandOpMode {
     public Robot robot;
-    public SampleMecanumDrive drive;
-    public IntakeSubsystem intake;
-    public DepositSubsystem deposit;
-    public LiftSubsystem lift;
+    //public MecanumDrive drive; TODO: CLARK UNCOMMENT THIS
+    public IntakeSubsystem intakeSubsystem;
+    public DepositSubsystem depositSubsystem;
+    public LiftSubsystem liftSubsystem;
     @Override
     public void initialize() {
         telemetry.addData("Status","Initalizing...");
@@ -31,13 +31,13 @@ public class Auto extends CommandOpMode {
 
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
-        drive = new SampleMecanumDrive(hardwareMap);
-        intake = new IntakeSubsystem(robot);
-        deposit = new DepositSubsystem(robot);
-        lift = new LiftSubsystem(robot);
-        super.register(robot.camera, intake, deposit, lift);
+        // drive = new MecanumDrive(hardwareMap, GlobalVariables.distance.getP()); TODO: CLARK UNCOMMENT THIS
+        intakeSubsystem = new IntakeSubsystem(robot);
+        depositSubsystem = new DepositSubsystem(robot);
+        liftSubsystem = new LiftSubsystem(robot);
+        super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);
         CommandScheduler.getInstance().schedule(
-                new TwoPlusZeroAuto(deposit, lift, robot.camera, drive, intake)
+                // new TwoPlusZeroAuto(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem) TODO: CLARK UNCOMMENT THIS
         );
 
         robot.camera.startPropProcessing();
