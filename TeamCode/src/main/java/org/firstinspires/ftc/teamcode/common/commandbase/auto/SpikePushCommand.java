@@ -53,7 +53,7 @@ public class SpikePushCommand extends CommandBase {
                 break;
             default:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .lineTo(new Vector2d(x, y - Math.signum(y) * 14))
+                        .lineTo(new Vector2d(x, y - Math.signum(y) * 20))
                         .build());
                 break;
         }

@@ -36,7 +36,9 @@ public class TwoPlusZeroAuto extends SequentialCommandGroup {
                                 new ConditionalCommand(new AutoDropCommand(depositSubsystem, liftSubsystem, camera, drive, DepositSubsystem.LowerHorizontalState.E),
                                         new AutoDropCommand(depositSubsystem, liftSubsystem, camera, drive, DepositSubsystem.LowerHorizontalState.C),
                                         () -> GlobalVariables.position == GlobalVariables.Position.RIGHT),
-                                () -> GlobalVariables.position == GlobalVariables.Position.LEFT)
+                                () -> GlobalVariables.position == GlobalVariables.Position.LEFT),
+                        new StackCycleCommand(drive),
+                        new StackCycleCommand(drive)
                 )
         );
     }

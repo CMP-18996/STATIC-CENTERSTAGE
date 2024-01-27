@@ -18,20 +18,20 @@ public class MyClass {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(40, 40, Math.toRadians(360), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(12, -61, Math.toRadians(90)))
-                                .lineToLinearHeading(new Pose2d(x, y - Math.signum(y) * 20, h))
+                        drive.trajectorySequenceBuilder(new Pose2d(45, -30, Math.toRadians(0)))
+                                .lineToLinearHeading(new Pose2d(x, y - Math.signum(y) * 50, Math.toRadians(0)))
 
                                 .setReversed(true)
-                                .lineToLinearHeading(new Pose2d(36, -57, Math.toRadians(90)))
-                                .setReversed(false)
-                                .splineTo(new Vector2d(42, -36), Math.toRadians(0))
+                                .lineToLinearHeading(new Pose2d(-60, -12, Math.toRadians(0)))
 
-                                .setReversed(true)
-                                .lineTo(new Vector2d(-62, -36))
+//                                .splineTo(new Vector2d(-60, -12), Math.toRadians(180))
+//                                .splineTo(new Vector2d(-62, -12), Math.toRadians(180))
                                 .waitSeconds(0.5)
                                 .setReversed(false)
-                                .lineTo(new Vector2d(42, -36))
-                                .waitSeconds(2)
+                                .lineToLinearHeading(new Pose2d(35, -12, Math.toRadians(0)))
+                                .lineToLinearHeading(new Pose2d(45, -30, Math.toRadians(0)))
+
+//                                .splineTo(new Vector2d(42, -36), Math.toRadians(180))
                                 .build()
                 );
 
