@@ -5,7 +5,7 @@
  * Most Likely Errors:
  * - Wrong color set
  */
-package org.firstinspires.ftc.teamcode.common.commandbase.auto;
+package org.firstinspires.ftc.teamcode.common.commandbase.auto.core;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
@@ -28,38 +28,36 @@ public class ToBoardCommand extends CommandBase {
         switch (GlobalVariables.distance) {
             case REDFAR:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .setReversed(true)
-                        .splineTo(new Vector2d(-35,-58), Math.toRadians(180))
-                        .setReversed(false)
-                        .splineTo(new Vector2d(10, -58), Math.toRadians(0))
-                        .splineTo(new Vector2d(36, -36), Math.toRadians(0))
-                        .waitSeconds(2)
+                        .lineToLinearHeading(new Pose2d(-35,-58, Math.toRadians(0)))
+                        .splineTo(new Vector2d(15, -58), Math.toRadians(0))
+                        .splineTo(new Vector2d(42, -36), Math.toRadians(0))
+                        .build());
+                break;
+            case REDCLOSE:
+                if (GlobalVariables.position.equals(GlobalVariables.Position.RIGHT)) {
+                    drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                            .lineToLinearHeading(new Pose2d(36, -57, Math.toRadians(90)))
+                            .build());
+                }
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .lineToLinearHeading(new Pose2d(42, -36, Math.toRadians(0)))
                         .build());
                 break;
             case BLUEFAR:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .setReversed(true)
-                        .splineTo(new Vector2d(-35,58), Math.toRadians(180))
-                        .setReversed(false)
-                        .splineTo(new Vector2d(10, 58), Math.toRadians(0))
-                        .splineTo(new Vector2d(36, 36), Math.toRadians(0))
-                        .waitSeconds(2)
-                        .build());
-                break;
-            case REDCLOSE:
-                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .setReversed(true)
-                        .lineToLinearHeading(new Pose2d(36, -57, Math.toRadians(90)))
-                        .setReversed(false)
-                        .splineTo(new Vector2d(42, -36), Math.toRadians(0))
+                        .lineToLinearHeading(new Pose2d(-35,58, Math.toRadians(0)))
+                        .splineTo(new Vector2d(15, 58), Math.toRadians(0))
+                        .splineTo(new Vector2d(42, 36), Math.toRadians(0))
                         .build());
                 break;
             case BLUECLOSE:
+                if (GlobalVariables.position.equals(GlobalVariables.Position.LEFT)) {
+                    drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                            .lineToLinearHeading(new Pose2d(36, 57, Math.toRadians(-90)))
+                            .build());
+                }
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .setReversed(true)
-                        .lineToLinearHeading(new Pose2d(20, 58, Math.toRadians(-90)))
-                        .setReversed(false)
-                        .splineTo(new Vector2d(42, 36), Math.toRadians(0))
+                        .lineToLinearHeading(new Pose2d(42, 36, Math.toRadians(0)))
                         .build());
                 break;
         }

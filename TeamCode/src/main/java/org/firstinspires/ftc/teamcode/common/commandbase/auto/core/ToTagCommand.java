@@ -8,11 +8,13 @@
  * - Camera fails to see apriltag due to distance, blur, or lighting
  * - Various camera crashes
  */
-package org.firstinspires.ftc.teamcode.common.commandbase.auto;
+package org.firstinspires.ftc.teamcode.common.commandbase.auto.core;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
+import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -44,10 +46,10 @@ public class ToTagCommand extends CommandBase {
                     }
                 }
                 if (tagOfInterest != null) {
-                    move(tagOfInterest, drive, t);
+                    move(tagOfInterest, drive);
                 } else {
                     tagOfInterest = currentDetections.get(0);
-                    move(tagOfInterest, drive, t);
+                    move(tagOfInterest, drive);
                 }
             }
             t++;
@@ -57,37 +59,35 @@ public class ToTagCommand extends CommandBase {
     public boolean isFinished() {
         return t >= 2; //replaced by number of times you want to run
     }
-    public static void move(AprilTagDetection tag, SampleMecanumDrive drive, int t) {
-        double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.z,
-                tag.ftcPose.pitch, tag.ftcPose.roll, tag.ftcPose.yaw};
+    public static void move(AprilTagDetection tag, SampleMecanumDrive drive) {
+        double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.yaw};
         double d = drive.getPoseEstimate().getX() + stats[1] - 7;
         double y = drive.getPoseEstimate().getY() - stats[0];
-        double a = drive.getPoseEstimate().getHeading() + Math.toRadians(stats[5]);
-        if (t == 0) {
-            try {
-                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .turn(Math.toRadians(stats[5]))
-                        .build());
-            } catch (Exception ignored) {}
+        switch (GlobalVariables.position) {
+            case LEFT:
+                y += 6; break;
+            case RIGHT:
+                y -= 6; break;
         }
+        double a = drive.getPoseEstimate().getHeading() + Math.toRadians(stats[2]);
         try {
             switch (tag.id) {
                 case 2: case 5:
                     drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                            .splineToConstantHeading(new Vector2d(d, y), a)
-                            .waitSeconds(1)
+                            .splineToLinearHeading(new Pose2d(d, y, a), a)
+                            .waitSeconds(0.5)
                             .build());
                     break;
                 case 1: case 4:
                     drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                            .splineToConstantHeading(new Vector2d(d, y - 6), a)
-                            .waitSeconds(1)
+                            .splineToLinearHeading(new Pose2d(d, y - 6, a), a)
+                            .waitSeconds(0.5)
                             .build());
                     break;
                 case 3: case 6:
                     drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                            .splineToConstantHeading(new Vector2d(d, y + 6), a)
-                            .waitSeconds(1)
+                            .splineToLinearHeading(new Pose2d(d, y + 6, a), a)
+                            .waitSeconds(0.5)
                             .build());
                     break;
             }

@@ -9,7 +9,7 @@ import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 public class MyClass {
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(600);
-        Pose2d p = new Pose2d(12, -61, Math.toRadians(90));
+        Pose2d p = new Pose2d(-35, -61, Math.toRadians(90));
         double x = p.getX();
         double y = p.getY();
         double h = p.getHeading();
@@ -18,20 +18,20 @@ public class MyClass {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(40, 40, Math.toRadians(360), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(45, -34, Math.toRadians(0)))
-                                .lineToLinearHeading(new Pose2d(x, y - Math.signum(y) * 50, Math.toRadians(0)))
-
-                                .setReversed(true)
-                                .lineToLinearHeading(new Pose2d(-60, -12, Math.toRadians(0)))
-
-//                                .splineTo(new Vector2d(-60, -12), Math.toRadians(180))
-//                                .splineTo(new Vector2d(-62, -12), Math.toRadians(180))
+                        drive.trajectorySequenceBuilder(p)
+                                //.lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3, y - Math.signum(y) * 16, h - (Math.signum(y) * Math.signum(x) - 1) * Math.toRadians(17.5) + Math.toRadians(18)))
+                                .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3, y - Math.signum(y) * 16, h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(17.5) - Math.toRadians(18)))
+                                .lineToLinearHeading(new Pose2d(-35,-58, Math.toRadians(0)))
+                                .splineTo(new Vector2d(25, -57), Math.toRadians(0))
+                                .splineTo(new Vector2d(42, -36), Math.toRadians(0))
                                 .waitSeconds(0.5)
+                                .setReversed(true)
+                                .splineTo(new Vector2d(27, -10), Math.toRadians(180))
+                                .splineTo(new Vector2d(-60, -10), Math.toRadians(180))
                                 .setReversed(false)
-                                .lineToLinearHeading(new Pose2d(35, -12, Math.toRadians(0)))
-                                .lineToLinearHeading(new Pose2d(45, -34, Math.toRadians(0)))
-
-//                                .splineTo(new Vector2d(42, -36), Math.toRadians(180))
+                                .waitSeconds(0.5)
+                                .splineTo(new Vector2d(27, -10), Math.toRadians(0))
+                                .splineTo(new Vector2d(42, -36), Math.toRadians(0))
                                 .build()
                 );
 

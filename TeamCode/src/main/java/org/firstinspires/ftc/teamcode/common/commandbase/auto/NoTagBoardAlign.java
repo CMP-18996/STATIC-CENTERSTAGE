@@ -45,7 +45,7 @@ public class NoTagBoardAlign extends CommandBase {
                         .lineToLinearHeading(new Pose2d(46.5, -40, Math.toRadians(0)))
                         .build());
                 break;
-            case UNDETECTED:
+            default:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(false)
                         .lineToLinearHeading(new Pose2d(12, -52, Math.toRadians(0)))

@@ -6,7 +6,7 @@
  * - Invalid/miscoordinated initial drive pose
  * - Robot pushed off course
  */
-package org.firstinspires.ftc.teamcode.common.commandbase.auto;
+package org.firstinspires.ftc.teamcode.common.commandbase.auto.core;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
@@ -38,14 +38,14 @@ public class SpikePushCommand extends CommandBase {
         switch (GlobalVariables.position) {
             case LEFT:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 2, y - Math.signum(y) * 16, h - (Math.signum(y) * Math.signum(x) - 1) * Math.toRadians(17.5) + Math.toRadians(18)))
+                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3, y - Math.signum(y) * 16, h - (Math.signum(y) * Math.signum(x) - 1) * Math.toRadians(17.5) + Math.toRadians(18)))
                         .build());
                 break;
             case RIGHT:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 2, y - Math.signum(y) * 16, h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(17.5) - Math.toRadians(18)))
+                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3, y - Math.signum(y) * 16, h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(17.5) - Math.toRadians(18)))
                         .build());
-                break;                               
+                break;
             case MIDDLE:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .lineTo(new Vector2d(x, y - Math.signum(y) * 20))
