@@ -7,6 +7,7 @@
  */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 
@@ -48,7 +49,7 @@ public class ToBoardCommand extends CommandBase {
             case REDCLOSE:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(true)
-                        .splineTo(new Vector2d(36, -57), Math.toRadians(-90))
+                        .lineToLinearHeading(new Pose2d(36, -57, Math.toRadians(90)))
                         .setReversed(false)
                         .splineTo(new Vector2d(42, -36), Math.toRadians(0))
                         .build());
@@ -56,7 +57,7 @@ public class ToBoardCommand extends CommandBase {
             case BLUECLOSE:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(true)
-                        .splineTo(new Vector2d(20, 58), Math.toRadians(90))
+                        .lineToLinearHeading(new Pose2d(20, 58, Math.toRadians(-90)))
                         .setReversed(false)
                         .splineTo(new Vector2d(42, 36), Math.toRadians(0))
                         .build());

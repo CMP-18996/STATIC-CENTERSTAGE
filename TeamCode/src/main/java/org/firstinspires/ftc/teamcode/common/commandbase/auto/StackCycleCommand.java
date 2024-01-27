@@ -32,7 +32,7 @@ public class StackCycleCommand extends CommandBase {
                                 .splineTo(new Vector2d(-62, 36), Math.toRadians(180))
                                 .waitSeconds(0.5)
                                 .setReversed(false)
-                                .splineTo(new Vector2d(20,  36), Math.toRadians(0))
+                                .splineTo(new Vector2d(42,  36), Math.toRadians(0))
                                 .build());
                 break;
             case RED:
@@ -41,7 +41,7 @@ public class StackCycleCommand extends CommandBase {
                                 .splineTo(new Vector2d(-62, -36), Math.toRadians(180))
                                 .waitSeconds(0.5)
                                 .setReversed(false)
-                                .splineTo(new Vector2d(20, -36), Math.toRadians(0))
+                                .splineTo(new Vector2d(42, -36), Math.toRadians(0))
                                 .build());
                 break;
         }

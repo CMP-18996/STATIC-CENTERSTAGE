@@ -33,6 +33,7 @@ public class Auto extends CommandOpMode {
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
         drive = new SampleMecanumDrive(hardwareMap);
+        drive.setPoseEstimate(GlobalVariables.distance.getP());
         intakeSubsystem = new IntakeSubsystem(robot);
         depositSubsystem = new DepositSubsystem(robot);
         liftSubsystem = new LiftSubsystem(robot);

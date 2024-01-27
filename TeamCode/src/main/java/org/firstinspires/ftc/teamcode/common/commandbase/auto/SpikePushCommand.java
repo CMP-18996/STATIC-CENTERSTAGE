@@ -37,23 +37,23 @@ public class SpikePushCommand extends CommandBase {
     public void execute() {
         switch (GlobalVariables.position) {
             case LEFT:
-                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(GlobalVariables.distance.getP())
-                        .splineTo(new Vector2d(x + Math.signum(x) * 2, y - Math.signum(y) * 16), h - (Math.signum(y) * Math.signum(x) - 1) * Math.toRadians(17.5) + Math.toRadians(18))
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 2, y - Math.signum(y) * 16, h - (Math.signum(y) * Math.signum(x) - 1) * Math.toRadians(17.5) + Math.toRadians(18)))
                         .build());
                 break;
             case RIGHT:
-                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(GlobalVariables.distance.getP())
-                        .splineTo(new Vector2d(x + Math.signum(x) * 2, y - Math.signum(y) * 16), h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(17.5) - Math.toRadians(18))
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 2, y - Math.signum(y) * 16, h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(17.5) - Math.toRadians(18)))
                         .build());
                 break;                               
             case MIDDLE:
-                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(GlobalVariables.distance.getP())
-                        .splineTo(new Vector2d(x, y - Math.signum(y) * 20), h)
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .lineTo(new Vector2d(x, y - Math.signum(y) * 20))
                         .build());
                 break;
             default:
-                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(GlobalVariables.distance.getP())
-                        .splineTo(new Vector2d(x, y - Math.signum(y) * 14), h)
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .lineTo(new Vector2d(x, y - Math.signum(y) * 14))
                         .build());
                 break;
         }
