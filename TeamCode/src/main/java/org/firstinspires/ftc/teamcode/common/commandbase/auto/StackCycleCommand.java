@@ -38,7 +38,14 @@ public class StackCycleCommand extends CommandBase {
                 );*/
                 break;
             case RED:
-                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(new Pose2d(0, 0, Math.toRadians(0)))
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                                .lineToLinearHeading(new Pose2d(36, -10, Math.toRadians(0)))
+                                .setReversed(true)
+                                .lineToLinearHeading(new Pose2d(-60, -10, Math.toRadians(0)))
+                                .waitSeconds(0.5)
+                                .lineToLinearHeading(new Pose2d(36, -10, Math.toRadians(0)))
+                                .lineToLinearHeading(new Pose2d(46.5, -34, Math.toRadians(0)))
+                                //.waitSeconds(1)
                                 /*.setReversed(true)
                                 .splineTo(new Vector2d(-40, -12), Math.toRadians(180))
                                 .splineTo(new Vector2d(-62, -12), Math.toRadians(180))
@@ -50,12 +57,12 @@ public class StackCycleCommand extends CommandBase {
                                 //
                                 // .setReversed(true)
                                 //.lineToLinearHeading(new Pose2d(0.1, 0, Math.toRadians(0)))
-                                        .forward(1)
+                                        //.forward(1)
                                 //.splineTo(new Vector2d(-60, -12), Math.toRadians(0))
 
 //                                .splineTo(new Vector2d(-60, -12), Math.toRadians(180))
 //                                .splineTo(new Vector2d(-62, -12), Math.toRadians(180))
-                                .waitSeconds(1.5)
+                                //.waitSeconds(1)
                                 //.setReversed(false)
                                // .lineToLinearHeading(new Pose2d(35, -12, Math.toRadians(0)))
                                 //.lineToLinearHeading(new Pose2d(45, -30, Math.toRadians(0)))
