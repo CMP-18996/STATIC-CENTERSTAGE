@@ -29,25 +29,27 @@ public class NoTagBoardAlign extends CommandBase {
             case LEFT:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(false)
-                        .lineToLinearHeading(new Pose2d(45, -28, Math.toRadians(0)))
+                        .lineToLinearHeading(new Pose2d(46.5, -28, Math.toRadians(0)))
                         .build());
                 break;
             case MIDDLE:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(false)
-                        .lineToLinearHeading(new Pose2d(45, -34, Math.toRadians(0)))
+                        .lineToLinearHeading(new Pose2d(46.5, -34, Math.toRadians(0)))
                         .build());
                 break;
             case RIGHT:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(false)
-                        .lineToLinearHeading(new Pose2d(45, -40, Math.toRadians(0)))
+                        .lineToLinearHeading(new Pose2d(12, -52, Math.toRadians(0)))
+                        .lineToLinearHeading(new Pose2d(46.5, -40, Math.toRadians(0)))
                         .build());
                 break;
             case UNDETECTED:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(false)
-                        .lineToLinearHeading(new Pose2d(45, -34, Math.toRadians(0)))
+                        .lineToLinearHeading(new Pose2d(12, -52, Math.toRadians(0)))
+                        .lineToLinearHeading(new Pose2d(46.5, -40, Math.toRadians(0)))
                         .build());
                 break;
         }
