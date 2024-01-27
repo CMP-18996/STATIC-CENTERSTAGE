@@ -18,7 +18,7 @@ public class MyClass {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(40, 40, Math.toRadians(360), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(45, -30, Math.toRadians(0)))
+                        drive.trajectorySequenceBuilder(new Pose2d(45, -34, Math.toRadians(0)))
                                 .lineToLinearHeading(new Pose2d(x, y - Math.signum(y) * 50, Math.toRadians(0)))
 
                                 .setReversed(true)
@@ -29,7 +29,7 @@ public class MyClass {
                                 .waitSeconds(0.5)
                                 .setReversed(false)
                                 .lineToLinearHeading(new Pose2d(35, -12, Math.toRadians(0)))
-                                .lineToLinearHeading(new Pose2d(45, -30, Math.toRadians(0)))
+                                .lineToLinearHeading(new Pose2d(45, -34, Math.toRadians(0)))
 
 //                                .splineTo(new Vector2d(42, -36), Math.toRadians(180))
                                 .build()
