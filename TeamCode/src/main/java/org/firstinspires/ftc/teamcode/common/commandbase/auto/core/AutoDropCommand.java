@@ -25,7 +25,7 @@ public class AutoDropCommand extends SequentialCommandGroup {
                         new ToTagCommand(camera, drive, willAdjust),
                         new ParallelCommandGroup(
                                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
-                                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTTWO)
+                                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTONE)
                         )
                 ),
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGHDROP),
