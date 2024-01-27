@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusZeroAuto;
 //import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive; TODO: CLARK UNCOMMENT THIS
+import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
@@ -15,7 +16,7 @@ import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 @Autonomous(name = "Autonomous")
 public class Auto extends CommandOpMode {
     public Robot robot;
-    //public MecanumDrive drive; TODO: CLARK UNCOMMENT THIS
+    public SampleMecanumDrive drive;
     public IntakeSubsystem intakeSubsystem;
     public DepositSubsystem depositSubsystem;
     public LiftSubsystem liftSubsystem;
@@ -31,13 +32,13 @@ public class Auto extends CommandOpMode {
 
         CommandScheduler.getInstance().reset();
         robot = new Robot(hardwareMap);
-        // drive = new MecanumDrive(hardwareMap, GlobalVariables.distance.getP()); TODO: CLARK UNCOMMENT THIS
+        drive = new SampleMecanumDrive(hardwareMap);
         intakeSubsystem = new IntakeSubsystem(robot);
         depositSubsystem = new DepositSubsystem(robot);
         liftSubsystem = new LiftSubsystem(robot);
         super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);
         CommandScheduler.getInstance().schedule(
-                // new TwoPlusZeroAuto(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem) TODO: CLARK UNCOMMENT THIS
+                new TwoPlusZeroAuto(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem)
         );
 
         robot.camera.startPropProcessing();
