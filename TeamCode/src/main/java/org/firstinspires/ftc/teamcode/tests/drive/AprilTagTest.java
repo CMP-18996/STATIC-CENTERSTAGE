@@ -22,7 +22,7 @@ public class AprilTagTest extends CommandOpMode {
         drive = new SampleMecanumDrive(hardwareMap);
 
         CommandScheduler.getInstance().schedule(
-                new ToTagCommand(robot.camera, drive)
+                new ToTagCommand(robot.camera, drive, false)
         );
 
         telemetry.addData("Status", "Initialized!");

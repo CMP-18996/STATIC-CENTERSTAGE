@@ -15,26 +15,24 @@ import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
 public class AutoDropCommand extends SequentialCommandGroup {
-    public AutoDropCommand(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem, Camera camera, SampleMecanumDrive drive, DepositSubsystem.LowerHorizontalState lowerHorizontalState){
+    public AutoDropCommand(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem, Camera camera, SampleMecanumDrive drive, boolean willAdjust){
         addCommands(
                 //extends arm
                 //drives to apriltag
-                //correct position of arm based on apriltag
                 //drop pixel on boarde
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
                 new SequentialCommandGroup(
-                        new ToTagCommand(camera, drive),
+                        new ToTagCommand(camera, drive, willAdjust),
                         new ParallelCommandGroup(
                                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
-                                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTTWO),
-                                new LowerHorizontalMoveCommand(depositSubsystem, lowerHorizontalState)
+                                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTTWO)
                         )
                 ),
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGHDROP),
                 new WaitCommand(500),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
-                new WaitCommand(2000),
+                new WaitCommand(1000),
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS)
         );
     }

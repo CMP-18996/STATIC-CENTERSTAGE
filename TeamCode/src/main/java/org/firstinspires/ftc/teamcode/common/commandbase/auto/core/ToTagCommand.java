@@ -24,12 +24,14 @@ import java.util.List;
 public class ToTagCommand extends CommandBase {
     private Camera camera;
     private SampleMecanumDrive drive;
+    static boolean willAdjust;
     int t = 0;
     List<AprilTagDetection> currentDetections;
 
-    public ToTagCommand(Camera camera, SampleMecanumDrive drive) {
+    public ToTagCommand(Camera camera, SampleMecanumDrive drive, boolean willAdjust) {
         this.camera = camera;
         this.drive = drive;
+        ToTagCommand.willAdjust = willAdjust;
         addRequirements(this.camera);
     }
     @Override
@@ -63,11 +65,15 @@ public class ToTagCommand extends CommandBase {
         double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.yaw};
         double d = drive.getPoseEstimate().getX() + stats[1] - 7;
         double y = drive.getPoseEstimate().getY() - stats[0];
-        switch (GlobalVariables.position) {
-            case LEFT:
-                y += 6; break;
-            case RIGHT:
-                y -= 6; break;
+        if (willAdjust) {
+            switch (GlobalVariables.position) {
+                case LEFT:
+                    y += 6;
+                    break;
+                case RIGHT:
+                    y -= 6;
+                    break;
+            }
         }
         double a = drive.getPoseEstimate().getHeading() + Math.toRadians(stats[2]);
         try {

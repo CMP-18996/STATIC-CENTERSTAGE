@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusFourAuto;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusZeroAuto;
 //import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive; TODO: CLARK UNCOMMENT THIS
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
@@ -39,7 +40,7 @@ public class Auto extends CommandOpMode {
         liftSubsystem = new LiftSubsystem(robot);
         super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);
         CommandScheduler.getInstance().schedule(
-                new TwoPlusZeroAuto(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem)
+                new TwoPlusFourAuto(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem)
         );
 
         robot.camera.startPropProcessing();
