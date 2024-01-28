@@ -26,8 +26,8 @@ public class Auto extends CommandOpMode {
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
-        GlobalVariables.color = GlobalVariables.Color.RED;
-        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
+        GlobalVariables.color = GlobalVariables.Color.BLUE;
+        GlobalVariables.distance = GlobalVariables.Distance.BLUEFAR;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
         GlobalVariables.position = GlobalVariables.Position.UNDETECTED;
 
@@ -40,7 +40,7 @@ public class Auto extends CommandOpMode {
         liftSubsystem = new LiftSubsystem(robot);
         super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);
         CommandScheduler.getInstance().schedule(
-                new TwoPlusFourAuto(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem)
+                new TwoPlusZeroAuto(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem)
         );
 
         robot.camera.startPropProcessing();
@@ -71,6 +71,17 @@ public class Auto extends CommandOpMode {
             telemetry.addLine("ERROR!!! It appears as if you are using the blue setup in a red position.");
         }
         telemetry.update();
+        while (opModeInInit()) {
+            if (robot.camera.getPropProcessor().objectDetected) {
+                switch (GlobalVariables.position) {
+                    case LEFT: telemetry.addLine("Detected: Left Position"); break;
+                    case RIGHT: telemetry.addLine("Detected: Right Position"); break;
+                    case MIDDLE: telemetry.addLine("Detected: Middle Position"); break;
+                    default: telemetry.addLine("Detected: Nothing"); break;
+                }
+                telemetry.update();
+            }
+        }
     }
     @Override
     public void run() {

@@ -9,6 +9,7 @@
  */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto.core;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandScheduler;
@@ -24,15 +25,16 @@ public class ToStackCommand extends CommandBase {
         this.drive = drive;
     }
     @Override
-    public void initialize() {}
+    public void initialize() {
+    }
     @Override
     public void execute() {
         switch (GlobalVariables.color) {
             case BLUE:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(true)
-                        .splineTo(new Vector2d(27, 10), Math.toRadians(180))
-                        .splineTo(new Vector2d(-60, 10), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(27, 10), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(-60, 10), Math.toRadians(180))
                         .setReversed(false)
                         .build());
                 break;

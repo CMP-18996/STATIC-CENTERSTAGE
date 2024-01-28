@@ -20,31 +20,12 @@ public class GroundCommand extends SequentialCommandGroup {
         addCommands(
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
-                new WaitCommand(60), // might need to be tuned
-                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
-                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
-                new WaitCommand(60), // might need to be tuned
-                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT),
-                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
-                new WaitCommand(300), // might need to be tuned
-
-//                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
-//                new WaitCommand(400),
-
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
                 new WaitCommand(300),
-                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
-                new WaitCommand(500),
 
-                new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED),
-                new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem),
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.LOW),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.DROPPING_GROUND),
                 new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE)
-                /*new WaitCommand(1300),
-                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
-                new WaitCommand(300),
-                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS)*/
         );
     }
 

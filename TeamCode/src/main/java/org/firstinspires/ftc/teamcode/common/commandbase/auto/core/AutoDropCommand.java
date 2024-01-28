@@ -29,10 +29,10 @@ public class AutoDropCommand extends SequentialCommandGroup {
                         )
                 ),
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGHDROP),
-                new WaitCommand(500),
+                new WaitCommand(700),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
-                new WaitCommand(1000),
+                new WaitCommand(500),
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS)
         );
     }

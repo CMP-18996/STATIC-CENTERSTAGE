@@ -45,7 +45,7 @@ public class PropProcessor implements VisionProcessor {
     boolean startDetecting = false;
 
     // TODO: Figure these values out
-    private int smallestAllowedArea = 50;
+    private int smallestAllowedArea = 10;
 
     // Number of Detections of Each Prop Location
     private int leftPos = 0;
@@ -63,7 +63,7 @@ public class PropProcessor implements VisionProcessor {
 
     @Override
     public Object processFrame(Mat frame, long captureTimeNanos) {
-        if (!objectDetected && startDetecting) {
+        if (startDetecting) {
             frame = detectObject(frame);
             checkFinish();
         }
@@ -97,9 +97,9 @@ public class PropProcessor implements VisionProcessor {
             pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
             //Imgproc.drawContours(frame, arbitrary, 0, new Scalar(42, 42, 129), -1, Imgproc.LINE_8, fillerMat, 0);
             telemetryTestVal = pixelVal;
-            if (pixelVal < 130) {
+            if (pixelVal < 120) {
                 leftPos++;
-            } else if (pixelVal < 375) {
+            } else if (pixelVal < 475) {
                 middlePos++;
             } else {
                 rightPos++;
@@ -114,7 +114,7 @@ public class PropProcessor implements VisionProcessor {
 
     private void checkFinish() {
         if (leftPos + middlePos + rightPos >= 15) {
-            //objectDetected = true;
+            objectDetected = true;
             if (leftPos > middlePos && leftPos > rightPos) {
                 GlobalVariables.position = GlobalVariables.Position.LEFT;
             }

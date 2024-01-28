@@ -62,9 +62,9 @@ public class ToTagCommand extends CommandBase {
         return t >= 2; //replaced by number of times you want to run
     }
     public static void move(AprilTagDetection tag, SampleMecanumDrive drive) {
-        double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, tag.ftcPose.yaw};
-        double d = drive.getPoseEstimate().getX() + stats[1] - 7;
-        double y = drive.getPoseEstimate().getY() - stats[0];
+        double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, Math.toRadians(tag.ftcPose.yaw)};
+        double d = drive.getPoseEstimate().getX() + stats[1] * Math.cos(stats[2]) - 6;
+        double y = drive.getPoseEstimate().getY() - (stats[1] * Math.sin(stats[2]) + stats[0]);
         if (willAdjust) {
             switch (GlobalVariables.position) {
                 case LEFT:
@@ -75,7 +75,7 @@ public class ToTagCommand extends CommandBase {
                     break;
             }
         }
-        double a = drive.getPoseEstimate().getHeading() + Math.toRadians(stats[2]);
+        double a = drive.getPoseEstimate().getHeading() + stats[2];
         try {
             switch (tag.id) {
                 case 2: case 5:

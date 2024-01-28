@@ -29,7 +29,7 @@ public class Camera extends SubsystemBase {
     private AprilTagProcessor aprilTag;
     private PropProcessor propProcessor;
 
-
+    public PropProcessor getPropProcessor() {return propProcessor;}
     public ArrayList<AprilTagDetection> getTagLocalization() {
         return aprilTag.getDetections();
     }

@@ -9,6 +9,7 @@
  */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto.core;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandScheduler;
@@ -24,7 +25,9 @@ public class FromStackCommand extends CommandBase {
         this.drive = drive;
     }
     @Override
-    public void initialize() {}
+    public void initialize() {
+        drive.setPoseEstimate(new Pose2d(drive.getPoseEstimate().getX(), drive.getPoseEstimate().getY(), 0));
+    }
     @Override
     public void execute() {
         switch (GlobalVariables.color) {
