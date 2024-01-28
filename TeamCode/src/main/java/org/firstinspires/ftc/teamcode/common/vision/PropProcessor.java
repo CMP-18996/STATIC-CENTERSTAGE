@@ -33,7 +33,7 @@ public class PropProcessor implements VisionProcessor {
     // All util things
     private Scalar lowerBound;
     private Scalar upperBound;
-    private int pixelVal;
+    public int pixelVal;
     public int telemetryTestVal;
     private Mat hsvMat;
     private Mat mask;
@@ -45,7 +45,7 @@ public class PropProcessor implements VisionProcessor {
     boolean startDetecting = false;
 
     // TODO: Figure these values out
-    private int smallestAllowedArea = 10;
+    private int smallestAllowedArea = 60;
 
     // Number of Detections of Each Prop Location
     private int leftPos = 0;
@@ -97,9 +97,9 @@ public class PropProcessor implements VisionProcessor {
             pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
             //Imgproc.drawContours(frame, arbitrary, 0, new Scalar(42, 42, 129), -1, Imgproc.LINE_8, fillerMat, 0);
             telemetryTestVal = pixelVal;
-            if (pixelVal < 120) {
+            if (pixelVal < 200) {
                 leftPos++;
-            } else if (pixelVal < 475) {
+            } else if (pixelVal < 375) {
                 middlePos++;
             } else {
                 rightPos++;
@@ -158,7 +158,7 @@ public class PropProcessor implements VisionProcessor {
     public PropProcessor(GlobalVariables.Color teamColor) {
         switch (teamColor) {
             case RED:
-                lowerBound = new Scalar(0, 15, 58.7);
+                lowerBound = new Scalar(0, 0, 0);
                 upperBound = new Scalar(10, 255, 255);
                 break;
             case BLUE:

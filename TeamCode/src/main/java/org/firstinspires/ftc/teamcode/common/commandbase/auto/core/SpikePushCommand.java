@@ -38,7 +38,10 @@ public class SpikePushCommand extends CommandBase {
         switch (GlobalVariables.position) {
             case LEFT:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3, y - Math.signum(y) * 18, h - (Math.signum(y) * Math.signum(x) - 1) * Math.toRadians(20) + Math.toRadians(25)))
+                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3,
+                                y - Math.signum(y) * 18,
+                                h - (Math.signum(y) * Math.signum(x) - 1) *
+                                        Math.toRadians(20) + Math.toRadians(25)))
                         .build());
                 break;
             case RIGHT:
