@@ -166,7 +166,7 @@ public class PropProcessor implements VisionProcessor {
         switch (teamColor) {
             case RED:
                 lowerBound = new Scalar(0, 0, 0);
-                upperBound = new Scalar(25, 255, 255);
+                upperBound = new Scalar(35, 255, 255);
                 break;
             case BLUE:
                 lowerBound = new Scalar(108, 55, 0);
