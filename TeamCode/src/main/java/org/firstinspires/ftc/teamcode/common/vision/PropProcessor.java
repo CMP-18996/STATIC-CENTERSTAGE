@@ -33,11 +33,15 @@ public class PropProcessor implements VisionProcessor {
     // All util things
     private Scalar lowerBound;
     private Scalar upperBound;
+    private Scalar lowerUpperBound;
+    private Scalar upperUpperBound;
     public int pixelVal;
     public int telemetryTestVal;
     private Mat hsvMat;
     private Mat mask;
     private Mat resized;
+    private Mat place1;
+    private Mat place2;
     private List<MatOfPoint> contours;
     private Mat fillerMat;
     private MatOfPoint largestContour;
@@ -88,7 +92,13 @@ public class PropProcessor implements VisionProcessor {
 
         Imgproc.cvtColor(frame, hsvMat, Imgproc.COLOR_RGB2HSV);
         //Core.bitwise_not(hsvMat, negMat);
-        Core.inRange(hsvMat, lowerBound, upperBound, mask);
+        Core.inRange(hsvMat, lowerBound, upperBound, place1);
+        if (GlobalVariables.color == GlobalVariables.Color.RED) {
+            Core.inRange(hsvMat, lowerUpperBound, upperUpperBound, place2);
+        } else {
+            place2 = place1;
+        }
+        Core.bitwise_or(place1, place2, mask);
         Imgproc.findContours(mask, contours, fillerMat, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 
         largestContour = findLargestContour(contours);
@@ -167,6 +177,8 @@ public class PropProcessor implements VisionProcessor {
             case RED:
                 lowerBound = new Scalar(0, 0, 0);
                 upperBound = new Scalar(35, 255, 255);
+                lowerUpperBound = new Scalar(160, 100, 20);
+                upperUpperBound = new Scalar(180, 255, 255);
                 break;
             case BLUE:
                 lowerBound = new Scalar(108, 55, 0);
