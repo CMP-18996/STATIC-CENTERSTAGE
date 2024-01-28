@@ -19,7 +19,7 @@ public class VisionTeste extends CommandOpMode {
 
     @Override
     public void initialize() {
-        GlobalVariables.color = GlobalVariables.Color.BLUE;
+        GlobalVariables.color = GlobalVariables.Color.RED;
         GlobalVariables.position = GlobalVariables.Position.UNDETECTED;
 
         telemetry.addData("Status","Initalizing...");

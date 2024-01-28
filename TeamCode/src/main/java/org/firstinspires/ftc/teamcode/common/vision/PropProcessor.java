@@ -45,7 +45,7 @@ public class PropProcessor implements VisionProcessor {
     boolean startDetecting = false;
 
     // TODO: Figure these values out
-    private int smallestAllowedArea = 60;
+    private int smallestAllowedArea = 0;
 
     // Number of Detections of Each Prop Location
     private int leftPos = 0;
@@ -164,13 +164,16 @@ public class PropProcessor implements VisionProcessor {
     public PropProcessor(GlobalVariables.Color teamColor) {
         switch (teamColor) {
             case RED:
-                lowerBound = new Scalar(0, 0, 0);
-                upperBound = new Scalar(10, 255, 255);
+                lowerBound = new Scalar(245, 0, 0);
+                upperBound = new Scalar(255, 255, 255);
                 break;
             case BLUE:
                 lowerBound = new Scalar(108, 55, 0);
                 upperBound = new Scalar(121.8, 255, 255);
                 break;
         }
+    }
+    public int getMiddle(Mat frame) {
+        Imgproc.cvtColor(frame, hsvMat, RGB2HSV);
     }
 }
