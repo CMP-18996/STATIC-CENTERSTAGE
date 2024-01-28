@@ -26,8 +26,8 @@ public class Auto extends CommandOpMode {
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
-        GlobalVariables.color = GlobalVariables.Color.RED;
-        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
+        GlobalVariables.color = GlobalVariables.Color.BLUE;
+        GlobalVariables.distance = GlobalVariables.Distance.BLUECLOSE;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
         GlobalVariables.position = GlobalVariables.Position.UNDETECTED;
 
@@ -80,7 +80,6 @@ public class Auto extends CommandOpMode {
                     default: telemetry.addLine("Detected: Nothing"); break;
                 }
                 telemetry.update();
-                robot.camera.setManualExposure(6, 250);
             }
         }
     }

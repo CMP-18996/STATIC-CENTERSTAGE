@@ -29,9 +29,13 @@ public class Camera extends SubsystemBase {
     private AprilTagProcessor aprilTag;
     private PropProcessor propProcessor;
 
-    public PropProcessor getPropProcessor() {return propProcessor;}
+
     public ArrayList<AprilTagDetection> getTagLocalization() {
         return aprilTag.getDetections();
+    }
+
+    public PropProcessor getPropProcessor() {
+        return propProcessor;
     }
 
     public int getTelemetryTestVal() {
@@ -71,7 +75,7 @@ public class Camera extends SubsystemBase {
     }
 
     // only use when stop is not requested
-    public void setManualExposure(int exposureMS, int gain) {
+    private void setManualExposure(int exposureMS, int gain) {
         if (visionPortal == null) {
             return;
         }

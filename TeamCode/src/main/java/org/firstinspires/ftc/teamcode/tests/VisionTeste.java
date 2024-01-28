@@ -36,7 +36,6 @@ public class VisionTeste extends CommandOpMode {
         CommandScheduler.getInstance().run();
         camera.startPropProcessing();
         List<AprilTagDetection> currentDetections = camera.getTagLocalization();
-        camera.setManualExposure(6, 250);
         telemetry.addData("# AprilTags Detected", currentDetections.size());
 
         // Add "key" information to telemetry
@@ -54,7 +53,6 @@ public class VisionTeste extends CommandOpMode {
         }
         telemetry.addLine("Prop Position Detected: " + GlobalVariables.position.toString());
         telemetry.addData("Detected Pixel Val:", camera.getTelemetryTestVal());
-        telemetry.addData("dumbdumb", camera.getPropProcessor().dumbdumb);
         telemetry.update();
     }
 }
