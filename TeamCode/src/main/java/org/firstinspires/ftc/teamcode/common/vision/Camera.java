@@ -71,7 +71,7 @@ public class Camera extends SubsystemBase {
     }
 
     // only use when stop is not requested
-    private void setManualExposure(int exposureMS, int gain) {
+    public void setManualExposure(int exposureMS, int gain) {
         if (visionPortal == null) {
             return;
         }

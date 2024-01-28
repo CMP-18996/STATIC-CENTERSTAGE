@@ -51,6 +51,7 @@ public class PropProcessor implements VisionProcessor {
     private int leftPos = 0;
     private int middlePos = 0;
     private int rightPos = 0;
+    public double dumbdumb;
 
     // These are not final nor is the system for detecting final
 
@@ -63,6 +64,7 @@ public class PropProcessor implements VisionProcessor {
 
     @Override
     public Object processFrame(Mat frame, long captureTimeNanos) {
+        dumbdumb = getMiddlePos(frame);
         if (startDetecting) {
             frame = detectObject(frame);
             checkFinish();
@@ -160,20 +162,16 @@ public class PropProcessor implements VisionProcessor {
         return hsvMat.get(320, 160)[0];
     }
 
-
     public PropProcessor(GlobalVariables.Color teamColor) {
         switch (teamColor) {
             case RED:
-                lowerBound = new Scalar(245, 0, 0);
-                upperBound = new Scalar(255, 255, 255);
+                lowerBound = new Scalar(0, 0, 0);
+                upperBound = new Scalar(25, 255, 255);
                 break;
             case BLUE:
                 lowerBound = new Scalar(108, 55, 0);
                 upperBound = new Scalar(121.8, 255, 255);
                 break;
         }
-    }
-    public int getMiddle(Mat frame) {
-        Imgproc.cvtColor(frame, hsvMat, RGB2HSV);
     }
 }

@@ -80,6 +80,7 @@ public class Auto extends CommandOpMode {
                     default: telemetry.addLine("Detected: Nothing"); break;
                 }
                 telemetry.update();
+                robot.camera.setManualExposure(6, 250);
             }
         }
     }
