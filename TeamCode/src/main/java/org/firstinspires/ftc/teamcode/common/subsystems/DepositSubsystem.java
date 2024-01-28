@@ -11,7 +11,7 @@ public class DepositSubsystem extends SubsystemBase {
     public static double incrementVal = 0.067;
     // Proposed centerVals, 0.8325 from indexing by eye, 0.82875 from averaging range
     // 0.830625 from averaging them
-    public static double centerVal = 0.830625;
+    public static double centerVal = 0.75;
     // end position on the right is 0.6575, bar ranges from 0.6575-1 on set position
     public static double DEPOSIT_PICKING_UP_VALUE = .48;
     public static double DEPOSIT_PARALLEL_VALUE = .37;

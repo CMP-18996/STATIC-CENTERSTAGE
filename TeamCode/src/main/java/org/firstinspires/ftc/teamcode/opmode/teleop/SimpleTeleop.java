@@ -50,7 +50,7 @@ public class SimpleTeleop extends CommandOpMode {
     private HashMap<Integer, DepositSubsystem.LowerHorizontalState> lowerHorizontalStateHashMap = new HashMap<>();
     private HashMap<Integer, DepositSubsystem.UpperHorizontalState> upperHorizontalStateHashMap = new HashMap<>();
     int inputtedLiftHeight = 1;
-    double xAxisPosition = 0.830625;
+    double xAxisPosition = DepositSubsystem.centerVal;
     double incrementVal = 0.067;
     boolean intaking = false;
     int robotFront = 1;
