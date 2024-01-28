@@ -154,6 +154,12 @@ public class PropProcessor implements VisionProcessor {
         return largestContour;
     }
 
+    public double getMiddlePos(Mat frame) {
+        hsvMat = new Mat();
+        Imgproc.cvtColor(frame, hsvMat, Imgproc.COLOR_RGB2HSV);
+        return hsvMat.get(320, 160)[0];
+    }
+
 
     public PropProcessor(GlobalVariables.Color teamColor) {
         switch (teamColor) {

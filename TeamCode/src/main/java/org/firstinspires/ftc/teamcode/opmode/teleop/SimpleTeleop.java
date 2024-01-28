@@ -106,18 +106,14 @@ public class SimpleTeleop extends CommandOpMode {
                         new SequentialCommandGroup(
                                 new ConditionalCommand(
                                         new SequentialCommandGroup(
-                                                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
-                                                new WaitCommand(300),
+                                                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
+                                                new WaitCommand(250),
                                                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
-                                                new WaitCommand(500),
                                                 new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED)
                                         ),
                                         new InstantCommand(() -> {}),
                                         () -> intakeSubsystem.getCoverState() == IntakeSubsystem.CoverState.OPEN
-                                ),
-                                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
-                                new WaitCommand(400),
-                                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH)
+                                )
                         )
                 )
         );
@@ -132,7 +128,10 @@ public class SimpleTeleop extends CommandOpMode {
                                             new InstantCommand(() -> {}),
                                             () -> depositSubsystem.getFourBarState() == DepositSubsystem.FourBarState.HIGH
                                     ),
-                                    new TakeFromIntakeCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
+                                    new TakeFromIntakeCommand(liftSubsystem, depositSubsystem, intakeSubsystem),
+                                    new InstantCommand(() -> {
+                                        gamepad2.rumble(200);
+                                    })
                             )
                     );
                 }
@@ -173,12 +172,17 @@ public class SimpleTeleop extends CommandOpMode {
         );
 
         drivePad.getGamepadButton(GamepadKeys.Button.B).whenPressed(
-                () -> {
-                    intaking = false;
-                    robot.intakeMotor.set(.5);
-                    sleep(400);
-                    robot.intakeMotor.set(0);
-                }
+                () -> schedule(
+                    new SequentialCommandGroup(
+                            new InstantCommand(() -> {
+                                intaking = false;
+                                robot.intakeMotor.set(.5);
+                            }),
+                            new WaitCommand(400),
+                            new InstantCommand(() -> robot.intakeMotor.set(0))
+
+                    )
+                )
         );
 
         drivePad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
@@ -216,19 +220,29 @@ public class SimpleTeleop extends CommandOpMode {
             robot.intakeMotor.set(-.3 - (drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) * .7));
             intakeSubsystem.identifyColor();
             if (intakeSubsystem.slotOneFilled() && intakeSubsystem.slotTwoFilled()) {
-                robotFront = 1;
-                intaking = false;
-                gamepad1.rumble(300);
-                gamepad2.rumble(300);
-                inputtedLiftHeight = 0;
-                sleep(250);
-                robot.intakeMotor.set(.5+(drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) * 0.5));
-                sleep(400);
-                robot.intakeMotor.set(0);
+                schedule(
+                        new SequentialCommandGroup(
+                        new InstantCommand(() -> {
+                            robotFront = 1;
+                            intaking = false;
+                            gamepad1.rumble(300);
+                            gamepad2.rumble(300);
+                            inputtedLiftHeight = 0;
+                        }),
+                        new WaitCommand(250),
+                        new InstantCommand(() -> robot.intakeMotor.set(.8)),
+                        new WaitCommand(600),
+                        new InstantCommand(() -> robot.intakeMotor.set(0))
+
+                ));
             }
         }
 
-        drive.manualPower(robotFront*drivePad.getLeftX(), -robotFront*drivePad.getLeftY(), -drivePad.getRightX());
+        drive.manualPower(
+                robotFront * drivePad.getLeftX(),
+                -robotFront * drivePad.getLeftY(),
+                -drivePad.getRightX()
+        );
 
         telemetry.addData("Color Detected in Slot 1:", intakeSubsystem.slotOne.toString());
         telemetry.addData("Color Detected in Slot 2:", intakeSubsystem.slotTwo.toString());
