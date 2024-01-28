@@ -31,7 +31,7 @@ import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadAndDisplaySubsys
 
 import java.util.HashMap;
 
-@TeleOp(name="Experimental Touchpad TeleOP")
+@TeleOp(name="Experimental Touchpad TeleOP", group="Aofficial")
 public class ExperimentalTouchpadTeleOp extends CommandOpMode {
     Robot robot;
     private Drive drive;

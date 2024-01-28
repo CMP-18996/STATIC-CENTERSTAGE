@@ -8,6 +8,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.opencv.core.Scalar;
 
+@Disabled
 @Autonomous
 public class EnhancedColourMassDetectionOpMode extends OpMode {
     private VisionPortal visionPortal;

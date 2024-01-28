@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IdentifyColorCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
+@Disabled
 
 @TeleOp(name="Color Sensor Test Three")
 public class ColorSensorTestThree extends CommandOpMode {

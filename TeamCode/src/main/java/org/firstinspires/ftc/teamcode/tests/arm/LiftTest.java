@@ -16,7 +16,8 @@ import org.firstinspires.ftc.teamcode.common.subsystems.TouchpadAndDisplaySubsys
 
 import java.util.HashMap;
 
-@TeleOp(name="Lift Test")
+
+@TeleOp(name="Lift Test", group="test")
 public class LiftTest extends CommandOpMode {
     private Robot robot;
     private int val = 1;

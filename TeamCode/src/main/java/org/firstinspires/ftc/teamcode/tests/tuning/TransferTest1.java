@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
-@TeleOp
+@TeleOp(name = "transfer test",group="test")
 public class TransferTest1 extends LinearOpMode {
 
     public static double GRABBER_OPEN_VALUE = 0.75;

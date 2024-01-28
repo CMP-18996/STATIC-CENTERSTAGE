@@ -13,6 +13,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;
 
+@Disabled
 @TeleOp(name="pure camera view",group="test")
 public class VisionTeste extends CommandOpMode {
     public Camera camera;

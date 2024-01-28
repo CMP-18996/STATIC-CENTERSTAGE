@@ -34,7 +34,7 @@ import org.firstinspires.ftc.teamcode.common.subsystems.MiscSubsystem;
 import java.util.HashMap;
 
 @Config
-@TeleOp(name="Simple Final TeleOp", group="Official")
+@TeleOp(name="Simple Final TeleOp", group="AOfficial")
 public class SimpleTeleop extends CommandOpMode {
     private Robot robot;
     private Drive drive;

@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 
-@Autonomous(name = "Autonomous")
+@Autonomous(name = "Autonomous", group="Aofficial")
 public class Auto extends CommandOpMode {
     public Robot robot;
     public SampleMecanumDrive drive;

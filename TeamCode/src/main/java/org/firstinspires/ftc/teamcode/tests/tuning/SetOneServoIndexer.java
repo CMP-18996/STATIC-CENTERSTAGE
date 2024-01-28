@@ -9,8 +9,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.common.Robot;
 
 
-
-@TeleOp
+@TeleOp(name = "servo indexer 0",group="test")
 public class SetOneServoIndexer extends LinearOpMode {
     Robot robot;
     @Override

@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 
-@TeleOp(name = "april tag local",group="Official")
+@TeleOp(name = "april tag local",group="test")
 public class AprilTagTest extends CommandOpMode {
     public Robot robot;
     public SampleMecanumDrive drive;

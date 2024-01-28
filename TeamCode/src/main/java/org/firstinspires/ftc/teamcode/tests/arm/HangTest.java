@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.common.Robot;
 
-@TeleOp(name="Hang Test")
+@TeleOp(name="Hang Test", group="test")
 public class HangTest extends LinearOpMode {
     Robot robot;
     DcMotorEx liftL, liftR;

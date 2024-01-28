@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 
-@TeleOp(name="X Axis Tuning")
+@TeleOp(name="X Axis Tuning", group="test")
 public class XAxisTuning extends CommandOpMode {
     Robot robot;
     DepositSubsystem deposit;
