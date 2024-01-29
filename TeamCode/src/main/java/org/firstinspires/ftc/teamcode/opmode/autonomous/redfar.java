@@ -3,22 +3,17 @@ package org.firstinspires.ftc.teamcode.opmode.autonomous;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusFourNoTagTest;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusZeroAuto;
-//import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive; TODO: CLARK UNCOMMENT THIS
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusZeroAutoNoTag;
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 
-@Disabled
-@Autonomous(name = "2+4 test auto")
-public class TwoPlusFourTest extends CommandOpMode {
+@Autonomous(name = "redfar", group="Aofficial")
+public class redfar extends CommandOpMode {
     public Robot robot;
     public SampleMecanumDrive drive;
     public IntakeSubsystem intakeSubsystem;
@@ -30,7 +25,7 @@ public class TwoPlusFourTest extends CommandOpMode {
         telemetry.update();
 
         GlobalVariables.color = GlobalVariables.Color.RED;
-        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
+        GlobalVariables.distance = GlobalVariables.Distance.REDFAR;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
         GlobalVariables.position = GlobalVariables.Position.UNDETECTED;
 
@@ -43,7 +38,7 @@ public class TwoPlusFourTest extends CommandOpMode {
         liftSubsystem = new LiftSubsystem(robot);
         super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);
         CommandScheduler.getInstance().schedule(
-                new TwoPlusFourNoTagTest(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem)
+                new TwoPlusZeroAuto(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem)
         );
 
         robot.camera.startPropProcessing();
@@ -65,7 +60,7 @@ public class TwoPlusFourTest extends CommandOpMode {
         }
         if ((GlobalVariables.distance == GlobalVariables.Distance.BLUECLOSE ||
                 GlobalVariables.distance == GlobalVariables.Distance.BLUEFAR) &&
-                GlobalVariables.color != GlobalVariables.Color.BLUE) {
+        GlobalVariables.color != GlobalVariables.Color.BLUE) {
             telemetry.addLine("ERROR!!! It appears as if you are using the red setup in a blue position.");
         }
         if ((GlobalVariables.distance == GlobalVariables.Distance.REDCLOSE ||
@@ -74,6 +69,17 @@ public class TwoPlusFourTest extends CommandOpMode {
             telemetry.addLine("ERROR!!! It appears as if you are using the blue setup in a red position.");
         }
         telemetry.update();
+        while (opModeInInit()) {
+            if (robot.camera.getPropProcessor().objectDetected) {
+                switch (GlobalVariables.position) {
+                    case LEFT: telemetry.addLine("Detected: Left Position"); break;
+                    case RIGHT: telemetry.addLine("Detected: Right Position"); break;
+                    case MIDDLE: telemetry.addLine("Detected: Middle Position"); break;
+                    default: telemetry.addLine("Detected: Nothing"); break;
+                }
+                telemetry.update();
+            }
+        }
     }
     @Override
     public void run() {

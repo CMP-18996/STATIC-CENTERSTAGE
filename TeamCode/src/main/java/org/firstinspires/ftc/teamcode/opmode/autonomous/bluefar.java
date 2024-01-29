@@ -6,16 +6,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusFourAuto;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusZeroAuto;
-//import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive; TODO: CLARK UNCOMMENT THIS
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 
-@Autonomous(name = "Autonomous", group="Aofficial")
-public class Auto extends CommandOpMode {
+@Autonomous(name = "bluefar", group="Aofficial")
+public class bluefar extends CommandOpMode {
     public Robot robot;
     public SampleMecanumDrive drive;
     public IntakeSubsystem intakeSubsystem;
@@ -26,8 +24,8 @@ public class Auto extends CommandOpMode {
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
-        GlobalVariables.color = GlobalVariables.Color.RED;
-        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
+        GlobalVariables.color = GlobalVariables.Color.BLUE;
+        GlobalVariables.distance = GlobalVariables.Distance.BLUEFAR;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
         GlobalVariables.position = GlobalVariables.Position.UNDETECTED;
 

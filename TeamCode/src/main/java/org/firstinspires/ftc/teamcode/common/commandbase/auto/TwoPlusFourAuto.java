@@ -19,28 +19,7 @@ public class TwoPlusFourAuto extends SequentialCommandGroup {
     public TwoPlusFourAuto(DepositSubsystem deposit, LiftSubsystem lift, Camera camera, SampleMecanumDrive drive, IntakeSubsystem intake){
         addCommands(
                 new TwoPlusZeroAuto(deposit, lift, camera, drive, intake),
-                new ToStackCommand(drive),
-                new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
-                new WaitCommand(2000),
-                new ParallelCommandGroup(
-                        new SequentialCommandGroup(
-                                new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED),
-                                new TakeFromIntakeCommand(lift, deposit, intake)
-                        ),
-                        new FromStackCommand(drive)
-                ),
-                new AutoDropCommand(deposit, lift, camera, drive, false),
-                new ToStackCommand(drive),
-                new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
-                new WaitCommand(2000),
-                new ParallelCommandGroup(
-                        new SequentialCommandGroup(
-                                new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED),
-                                new TakeFromIntakeCommand(lift, deposit, intake)
-                        ),
-                        new FromStackCommand(drive)
-                ),
-                new AutoDropCommand(deposit, lift, camera, drive, false)
+                new StackCycleCommand(drive, intake, lift, deposit, camera, IntakeSubsystem.FrontBarState.LEVEL3)
         );
     }
 }

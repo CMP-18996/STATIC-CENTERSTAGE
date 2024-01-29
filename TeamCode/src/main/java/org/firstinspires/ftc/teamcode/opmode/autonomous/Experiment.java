@@ -2,22 +2,22 @@ package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusZeroAuto;
 //import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive; TODO: CLARK UNCOMMENT THIS
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusFourAuto;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusZeroAutoNoTag;
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 
-@Disabled
-@Autonomous(name = "No Apriltag Autonomous")
-public class NoTagAuto extends CommandOpMode {
+@Autonomous(name = "2+2")
+public class Experiment extends CommandOpMode {
     public Robot robot;
     public SampleMecanumDrive drive;
     public IntakeSubsystem intakeSubsystem;
@@ -42,7 +42,7 @@ public class NoTagAuto extends CommandOpMode {
         liftSubsystem = new LiftSubsystem(robot);
         super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);
         CommandScheduler.getInstance().schedule(
-                new TwoPlusZeroAutoNoTag(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem)
+                new TwoPlusFourAuto(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem)
         );
 
         robot.camera.startPropProcessing();
@@ -73,12 +73,24 @@ public class NoTagAuto extends CommandOpMode {
             telemetry.addLine("ERROR!!! It appears as if you are using the blue setup in a red position.");
         }
         telemetry.update();
+        while (opModeInInit()) {
+            if (robot.camera.getPropProcessor().objectDetected) {
+                switch (GlobalVariables.position) {
+                    case LEFT: telemetry.addLine("Detected: Left Position"); break;
+                    case RIGHT: telemetry.addLine("Detected: Right Position"); break;
+                    case MIDDLE: telemetry.addLine("Detected: Middle Position"); break;
+                    default: telemetry.addLine("Detected: Nothing"); break;
+                }
+                telemetry.update();
+            }
+        }
+        super.schedule(new InstantCommand(() -> robot.camera.stopPropProcessing()));
     }
     @Override
     public void run() {
         CommandScheduler.getInstance().run();
         telemetry.addData("Status", "Running...");
         telemetry.update();
-        robot.camera.stopPropProcessing();
+        drive.update();
     }
 }

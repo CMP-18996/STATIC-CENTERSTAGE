@@ -23,20 +23,16 @@ public class TwoPlusZeroAuto extends SequentialCommandGroup {
         addCommands(
                 //push block out of way, place purple pixel on ground
                 new GroundCommand(intakeSubsystem, depositSubsystem, liftSubsystem),
-                new WaitCommand(300),
                 new SpikePushCommand(drive),
-                new ConditionalCommand(new SequentialCommandGroup(
-                        new WaitCommand(300),
+                new ConditionalCommand(
                         new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
-                        new WaitCommand(300)),
                         new InstantCommand(),
                         () -> GlobalVariables.position != GlobalVariables.Position.UNDETECTED),
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
                 //evade purple pixel, place yellow pixel on board
                 new ToBoardCommand(drive),
-                new WaitCommand(500),//nessecary for camera to stabilize
-                new AutoDropCommand(depositSubsystem, liftSubsystem, camera, drive, true),
-                new ParkCommand(drive)
+                new WaitCommand(250),//nessecary for camera to stabilize
+                new AutoDropCommand(depositSubsystem, liftSubsystem, camera, drive, true)
         );
     }
 }

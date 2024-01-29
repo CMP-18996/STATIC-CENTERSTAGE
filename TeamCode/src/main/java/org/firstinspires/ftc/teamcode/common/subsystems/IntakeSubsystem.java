@@ -53,11 +53,11 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public enum FrontBarState {
         // five heights for the stack
-        GROUND(0.0, 0.9),
-        LEVEL1(0.00875, 0.9),
-        LEVEL2(0.0175, 0.9),
-        LEVEL3(0.02625, 0.9),
-        LEVEL4(0.035, 0.9);
+        GROUND(0.0, 0.9), //all
+        LEVEL1(0.00875, 0.9), //next 1
+        LEVEL2(0.0175, 0.9), //next 1
+        LEVEL3(0.02625, 0.9), //top 2 maybe 1
+        LEVEL4(0.035, 0.9); //nothing
 
         double barState;
         double intakeSpeed;

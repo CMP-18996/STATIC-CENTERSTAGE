@@ -35,11 +35,11 @@ public class TwoPlusFourNoTagTest extends SequentialCommandGroup {
                         //new ToBoardCommand(drive),
                         //new WaitCommand(1000),//necessary for camera to stabilize
                         new NoTagBoardAlign(drive),
-                        new NoTagAutoDropCommand(depositSubsystem, liftSubsystem, camera, drive),
-                        new StackCycleCommand(drive),
-                        new NoTagAutoDropCommand(depositSubsystem, liftSubsystem, camera, drive),
-                        new StackCycleCommand(drive),
                         new NoTagAutoDropCommand(depositSubsystem, liftSubsystem, camera, drive)
+                        /*new StackCycleCommand(drive),
+                        new NoTagAutoDropCommand(depositSubsystem, liftSubsystem, camera, drive),
+                        new StackCycleCommand(drive),
+                        new NoTagAutoDropCommand(depositSubsystem, liftSubsystem, camera, drive)*/
 
                         ));
     }

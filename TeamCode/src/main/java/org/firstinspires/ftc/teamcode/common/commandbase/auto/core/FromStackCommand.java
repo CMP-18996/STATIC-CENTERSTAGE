@@ -25,21 +25,19 @@ public class FromStackCommand extends CommandBase {
         this.drive = drive;
     }
     @Override
-    public void initialize() {
-        drive.setPoseEstimate(new Pose2d(drive.getPoseEstimate().getX(), drive.getPoseEstimate().getY(), 0));
-    }
+    public void initialize() {}
     @Override
     public void execute() {
         switch (GlobalVariables.color) {
             case BLUE:
-                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .splineTo(new Vector2d(27, 10), Math.toRadians(0))
+                drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .splineTo(new Vector2d(27, 7), Math.toRadians(0))
                         .splineTo(new Vector2d(42, 36), Math.toRadians(0))
                         .build());
                 break;
             case RED:
-                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .splineTo(new Vector2d(27, -10), Math.toRadians(0))
+                drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .splineTo(new Vector2d(27, -7), Math.toRadians(0))
                         .splineTo(new Vector2d(42, -36), Math.toRadians(0))
                         .build());
                 break;
