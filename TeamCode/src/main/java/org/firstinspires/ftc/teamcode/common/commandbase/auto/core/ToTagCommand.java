@@ -59,7 +59,7 @@ public class ToTagCommand extends CommandBase {
     }
     @Override
     public boolean isFinished() {
-        return t >= 3; //replaced by number of times you want to run
+        return t >= 2; //replaced by number of times you want to run
     }
     public static void move(AprilTagDetection tag, SampleMecanumDrive drive) {
         double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, Math.toRadians(tag.ftcPose.yaw)};
