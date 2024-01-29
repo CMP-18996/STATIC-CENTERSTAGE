@@ -8,6 +8,8 @@
  */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto.core;
 
+import android.provider.Settings;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
@@ -25,12 +27,19 @@ public class SpikePushCommand extends CommandBase {
     public double x;
     public double y;
     public double h;
+    public double adj = 0;
     @Override
     public void initialize() {
         p = drive.getPoseEstimate();
         x = p.getX();
         y = p.getY();
         h = p.getHeading();
+        if ((GlobalVariables.position.equals(GlobalVariables.Position.LEFT) && GlobalVariables.distance.equals(GlobalVariables.Distance.BLUECLOSE)) ||
+                (GlobalVariables.position.equals(GlobalVariables.Position.RIGHT) && GlobalVariables.distance.equals(GlobalVariables.Distance.BLUEFAR)) ||
+                (GlobalVariables.position.equals(GlobalVariables.Position.LEFT) && GlobalVariables.distance.equals(GlobalVariables.Distance.REDCLOSE)) ||
+                (GlobalVariables.position.equals(GlobalVariables.Position.RIGHT) && GlobalVariables.distance.equals(GlobalVariables.Distance.REDFAR))) {
+            adj = 3.5;
+        }
     }
     
     @Override
@@ -39,19 +48,19 @@ public class SpikePushCommand extends CommandBase {
             case LEFT:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3,
-                                y - Math.signum(y) * 18,
+                                y - Math.signum(y) * (17.5 + adj),
                                 h - (Math.signum(y) * Math.signum(x) - 1) *
-                                        Math.toRadians(20) + Math.toRadians(25)))
+                                        Math.toRadians(25) + Math.toRadians(25)))
                         .build());
                 break;
             case RIGHT:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3, y - Math.signum(y) * 18, h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(20) - Math.toRadians(25)))
+                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3, y - Math.signum(y) * (17.5 + adj), h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(25) - Math.toRadians(25)))
                         .build());
                 break;
             default:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .lineTo(new Vector2d(x, y - Math.signum(y) * 23))
+                        .lineTo(new Vector2d(x, y - Math.signum(y) * 22.5))
                         .build());
                 break;
         }

@@ -48,7 +48,7 @@ public class LiftSubsystem extends SubsystemBase {
         HEIGHTSEVEN(1300),
         HEIGHTEIGHT(1500),
         HEIGHTNINE(1700),
-        HEIGHTTEN(1900),
+        HEIGHTTEN(1800),
         PICKUPHEIGHT(43);
 
         public final int target;
@@ -75,7 +75,7 @@ public class LiftSubsystem extends SubsystemBase {
         if (controlLift) {
             error = this.currentHeight.target - robot.liftOne.getCurrentPosition();
 
-            double power = Range.clip(P * error + F * (error / Math.max(abs(error), 0.01)), -maxDesc, .5); // CONSIDER REMOVING * (error / Math.max(abs(error), 0.01))
+            double power = Range.clip(P * error + F * (error / Math.max(abs(error), 0.01)), -maxDesc, .8); // CONSIDER REMOVING * (error / Math.max(abs(error), 0.01))
             robot.liftOne.setPower(power);
             robot.liftTwo.setPower(power);
         }

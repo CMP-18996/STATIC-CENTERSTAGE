@@ -97,9 +97,9 @@ public class PropProcessor implements VisionProcessor {
             pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
             //Imgproc.drawContours(frame, arbitrary, 0, new Scalar(42, 42, 129), -1, Imgproc.LINE_8, fillerMat, 0);
             telemetryTestVal = pixelVal;
-            if (pixelVal < 130) {
+            if (pixelVal < 115) {
                 leftPos++;
-            } else if (pixelVal < 375) {
+            } else if (pixelVal < 437.5) {
                 middlePos++;
             } else {
                 rightPos++;

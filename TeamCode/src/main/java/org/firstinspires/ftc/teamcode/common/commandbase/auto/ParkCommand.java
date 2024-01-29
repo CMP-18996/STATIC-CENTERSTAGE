@@ -20,14 +20,14 @@ public class ParkCommand extends CommandBase {
         switch (GlobalVariables.color) {
             case BLUE:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .splineToLinearHeading(new Pose2d(40, 60, Math.toRadians(0)), Math.toRadians(0))
-                        .splineTo(new Vector2d(54, 60), 0)
+                        .splineToConstantHeading(new Vector2d(40, 60), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(60, 60), 0)
                         .build());
                 break;
             case RED:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .splineToLinearHeading(new Pose2d(40, -60, Math.toRadians(0)), Math.toRadians(0))
-                        .splineTo(new Vector2d(54, -60), 0)
+                        .splineTo(new Vector2d(60, -60), 0)
                         .build());
                 break;
         }

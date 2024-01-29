@@ -28,8 +28,8 @@ public class ToBoardCommand extends CommandBase {
         switch (GlobalVariables.distance) {
             case REDFAR:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .lineToLinearHeading(new Pose2d(-35,-58, Math.toRadians(0)))
-                        .splineTo(new Vector2d(15, -58), Math.toRadians(0))
+                        .lineToLinearHeading(new Pose2d(-35,-59.5, Math.toRadians(0)))
+                        .splineTo(new Vector2d(15, -59.5), Math.toRadians(0))
                         .splineTo(new Vector2d(42, -36), Math.toRadians(0))
                         .build());
                 break;
@@ -45,8 +45,8 @@ public class ToBoardCommand extends CommandBase {
                 break;
             case BLUEFAR:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .lineToLinearHeading(new Pose2d(-35,55, Math.toRadians(0)))
-                        .splineTo(new Vector2d(15, 55), Math.toRadians(0))
+                        .lineToLinearHeading(new Pose2d(-35,59.5, Math.toRadians(0)))
+                        .splineTo(new Vector2d(15, 59.5), Math.toRadians(0))
                         .splineTo(new Vector2d(42, 36), Math.toRadians(0))
                         .build());
                 break;

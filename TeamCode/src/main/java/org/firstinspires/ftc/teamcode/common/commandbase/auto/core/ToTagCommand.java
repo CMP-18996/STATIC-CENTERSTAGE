@@ -59,7 +59,7 @@ public class ToTagCommand extends CommandBase {
     }
     @Override
     public boolean isFinished() {
-        return t >= 2; //replaced by number of times you want to run
+        return t >= 3; //replaced by number of times you want to run
     }
     public static void move(AprilTagDetection tag, SampleMecanumDrive drive) {
         double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, Math.toRadians(tag.ftcPose.yaw)};
@@ -81,19 +81,19 @@ public class ToTagCommand extends CommandBase {
                 case 2: case 5:
                     drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                             .splineToLinearHeading(new Pose2d(d, y, a), a)
-                            .waitSeconds(0.5)
+                                    .waitSeconds(0.25)
                             .build());
                     break;
                 case 1: case 4:
                     drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                             .splineToLinearHeading(new Pose2d(d, y - 6, a), a)
-                            .waitSeconds(0.5)
+                            .waitSeconds(0.25)
                             .build());
                     break;
                 case 3: case 6:
                     drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                             .splineToLinearHeading(new Pose2d(d, y + 6, a), a)
-                            .waitSeconds(0.5)
+                            .waitSeconds(0.25)
                             .build());
                     break;
             }

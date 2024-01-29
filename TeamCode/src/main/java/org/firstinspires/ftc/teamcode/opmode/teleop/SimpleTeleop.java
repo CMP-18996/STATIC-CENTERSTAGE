@@ -104,16 +104,16 @@ public class SimpleTeleop extends CommandOpMode {
         liftPad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(
                 () -> schedule(
                         new SequentialCommandGroup(
-                                new ConditionalCommand(
-                                        new SequentialCommandGroup(
+                                //new ConditionalCommand(
+                                  //      new SequentialCommandGroup(
                                                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
                                                 new WaitCommand(250),
                                                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
                                                 new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED)
-                                        ),
-                                        new InstantCommand(() -> {}),
-                                        () -> intakeSubsystem.getCoverState() == IntakeSubsystem.CoverState.OPEN
-                                )
+                                    //    ),
+                                     //   new InstantCommand(() -> {}),
+                                     //   () -> intakeSubsystem.getCoverState() == IntakeSubsystem.CoverState.OPEN
+                               // )
                         )
                 )
         );
@@ -195,6 +195,10 @@ public class SimpleTeleop extends CommandOpMode {
 
         drivePad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(
                 new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.GROUND)
+        );
+
+        drivePad.getGamepadButton(GamepadKeys.Button.X).whenPressed(
+                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTTEN)
         );
 
         super.schedule(

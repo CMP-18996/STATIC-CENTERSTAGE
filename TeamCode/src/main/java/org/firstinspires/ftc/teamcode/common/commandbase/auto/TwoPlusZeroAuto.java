@@ -34,8 +34,9 @@ public class TwoPlusZeroAuto extends SequentialCommandGroup {
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
                 //evade purple pixel, place yellow pixel on board
                 new ToBoardCommand(drive),
-                new WaitCommand(1000),//nessecary for camera to stabilize
-                new AutoDropCommand(depositSubsystem, liftSubsystem, camera, drive, true)
+                new WaitCommand(500),//nessecary for camera to stabilize
+                new AutoDropCommand(depositSubsystem, liftSubsystem, camera, drive, true),
+                new ParkCommand(drive)
         );
     }
 }
