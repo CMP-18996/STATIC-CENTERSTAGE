@@ -1,12 +1,3 @@
-/**
- * Purpose: Drive from the backdrop to a stack, then drives back to the backdrop.
- * Dependencies (variables): COLOR
- * Dependencies (subsystem): RR-drive
- * Most Likely Errors:
- * - Crashes into other robots
- * - Intake system fails to obtain pixel
- * - General odometry drift
- */
 package org.firstinspires.ftc.teamcode.common.commandbase.auto.core;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -18,10 +9,10 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 
-public class ToStackCommand extends CommandBase {
+public class AutoStrafeCommand extends CommandBase {
     private SampleMecanumDrive drive;
     boolean t = false;
-    public ToStackCommand(SampleMecanumDrive drive) {
+    public AutoStrafeCommand(SampleMecanumDrive drive) {
         this.drive = drive;
     }
     @Override
@@ -43,8 +34,7 @@ public class ToStackCommand extends CommandBase {
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(true)
                         //.splineTo(new Vector2d(27, -7), Math.toRadians(180))
-                        .splineToConstantHeading(new Vector2d(-61, -5), Math.toRadians(180))
-                        .strafeRight(6)
+                        .strafeLeft(6)
                         .setReversed(false)
                         .build());
                 break;

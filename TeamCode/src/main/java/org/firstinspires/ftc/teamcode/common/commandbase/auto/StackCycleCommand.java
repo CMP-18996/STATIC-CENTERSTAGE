@@ -19,9 +19,15 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.AutoDropCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.AutoStrafeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.FromStackCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.TakeFromStackCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.ToMiddleCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.ToStackCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.TakeFromIntakeCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.CoverCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FrontBarCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
@@ -31,10 +37,25 @@ import org.firstinspires.ftc.teamcode.common.vision.Camera;
 public class StackCycleCommand extends SequentialCommandGroup {
     public StackCycleCommand(SampleMecanumDrive drive, IntakeSubsystem intake, LiftSubsystem lift, DepositSubsystem deposit, Camera camera, IntakeSubsystem.FrontBarState state) {
         addCommands(
+                new CoverCommand(intake, IntakeSubsystem.CoverState.CLOSED),
+                new ToMiddleCommand(drive),
+                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.GROUND),
+
+                //intake
                 new ToStackCommand(drive),
-                new TakeFromStackCommand(intake, lift, deposit, state),
+                new WaitCommand(300),
+//strafe
+                new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
+                new WaitCommand(300),
+                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.GROUND),
+                new WaitCommand(500),
+                new AutoStrafeCommand(drive),
+                new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
+                new WaitCommand(2000),
                 new FromStackCommand(drive),
-                new AutoDropCommand(deposit, lift, camera, drive, false)
+                new TakeFromIntakeCommand(lift, deposit, intake),
+                new WaitCommand(500),
+                new AutoDropCommand(deposit, lift, camera, drive, true)
         );
     }
 }

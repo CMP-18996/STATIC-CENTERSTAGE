@@ -18,10 +18,10 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 
-public class ToStackCommand extends CommandBase {
+public class ToMiddleCommand extends CommandBase {
     private SampleMecanumDrive drive;
     boolean t = false;
-    public ToStackCommand(SampleMecanumDrive drive) {
+    public ToMiddleCommand(SampleMecanumDrive drive) {
         this.drive = drive;
     }
     @Override
@@ -42,9 +42,8 @@ public class ToStackCommand extends CommandBase {
             case RED:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(true)
-                        //.splineTo(new Vector2d(27, -7), Math.toRadians(180))
-                        .splineToConstantHeading(new Vector2d(-61, -5), Math.toRadians(180))
-                        .strafeRight(6)
+                        .splineTo(new Vector2d(27, -7), Math.toRadians(180))
+                        //.splineTo(new Vector2d(-61, -7), Math.toRadians(180))
                         .setReversed(false)
                         .build());
                 break;
