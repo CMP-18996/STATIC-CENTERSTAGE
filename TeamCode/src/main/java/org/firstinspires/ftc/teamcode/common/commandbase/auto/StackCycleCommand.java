@@ -15,6 +15,7 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
+import com.arcrobotics.ftclib.command.ParallelDeadlineGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
@@ -22,7 +23,6 @@ import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.AutoDropCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.AutoStrafeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.FromStackCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.TakeFromStackCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.ToMiddleCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.ToStackCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.TakeFromIntakeCommand;
@@ -39,27 +39,18 @@ public class StackCycleCommand extends SequentialCommandGroup {
     public StackCycleCommand(SampleMecanumDrive drive, IntakeSubsystem intake, LiftSubsystem lift, DepositSubsystem deposit, Camera camera, IntakeSubsystem.FrontBarState state) {
         addCommands(
                 new CoverCommand(intake, IntakeSubsystem.CoverState.CLOSED),
-                new ToMiddleCommand(drive),
-                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.LEVEL3),
-
-                //intake
-                new ToStackCommand(drive),
-                new WaitCommand(300),
+                new ToStackCommand(drive, intake),
                 // strafe
                 new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
-                new WaitCommand(300),
                 new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.AUTO),
-                new WaitCommand(500),
+                new WaitCommand(250),
                 new AutoStrafeCommand(drive),
-                // new WaitCommand(200),
-                // new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
                 new WaitCommand(2000),
-                new ParallelCommandGroup(
-                        new FromStackCommand(drive),
-                        new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING)
+                new ParallelDeadlineGroup(
+                        new FromStackCommand(drive, intake),
+                        new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
+                        new TakeFromIntakeCommand(lift, deposit, intake)
                 ),
-                new TakeFromIntakeCommand(lift, deposit, intake),
-                new WaitCommand(500),
                 new AutoDropCommand(deposit, lift, camera, drive, true)
         );
     }

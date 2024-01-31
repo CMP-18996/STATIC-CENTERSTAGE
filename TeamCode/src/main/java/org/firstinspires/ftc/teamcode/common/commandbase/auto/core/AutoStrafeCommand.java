@@ -24,18 +24,12 @@ public class AutoStrafeCommand extends CommandBase {
         switch (GlobalVariables.color) {
             case BLUE:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .setReversed(true)
-                        .splineToConstantHeading(new Vector2d(27, 7), Math.toRadians(180))
-                        .splineToConstantHeading(new Vector2d(-61, 7), Math.toRadians(180))
-                        .setReversed(false)
+                        .strafeLeft(12)
                         .build());
                 break;
             case RED:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .setReversed(true)
-                        //.splineTo(new Vector2d(27, -7), Math.toRadians(180))
-                        .strafeLeft(6)
-                        .setReversed(false)
+                        .strafeRight(12)
                         .build());
                 break;
         }

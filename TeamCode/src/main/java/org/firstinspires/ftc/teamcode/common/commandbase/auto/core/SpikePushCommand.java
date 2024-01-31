@@ -38,7 +38,7 @@ public class SpikePushCommand extends CommandBase {
                 (GlobalVariables.position.equals(GlobalVariables.Position.RIGHT) && GlobalVariables.distance.equals(GlobalVariables.Distance.BLUEFAR)) ||
                 (GlobalVariables.position.equals(GlobalVariables.Position.LEFT) && GlobalVariables.distance.equals(GlobalVariables.Distance.REDCLOSE)) ||
                 (GlobalVariables.position.equals(GlobalVariables.Position.RIGHT) && GlobalVariables.distance.equals(GlobalVariables.Distance.REDFAR))) {
-            adj = 3.5;
+            adj = 4.5;
         }
     }
     
@@ -48,9 +48,9 @@ public class SpikePushCommand extends CommandBase {
             case LEFT:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3,
-                                y - Math.signum(y) * (17.5 + adj),
+                                y - Math.signum(y) * (17 + adj),
                                 h - (Math.signum(y) * Math.signum(x) - 1) *
-                                        Math.toRadians(25) + Math.toRadians(25)))
+                                        Math.toRadians(25) + Math.toRadians(35)))
                         .build());
                 break;
             case RIGHT:

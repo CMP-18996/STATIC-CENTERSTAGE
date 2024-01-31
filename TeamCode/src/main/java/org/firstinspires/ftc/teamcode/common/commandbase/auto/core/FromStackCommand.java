@@ -16,13 +16,18 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.common.drive.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 
 public class FromStackCommand extends CommandBase {
     private SampleMecanumDrive drive;
+    private IntakeSubsystem intake;
     boolean t = false;
-    public FromStackCommand(SampleMecanumDrive drive) {
+    public FromStackCommand(SampleMecanumDrive drive, IntakeSubsystem intake) {
         this.drive = drive;
+        this.intake = intake;
     }
     @Override
     public void initialize() {}
@@ -31,18 +36,21 @@ public class FromStackCommand extends CommandBase {
         switch (GlobalVariables.color) {
             case BLUE:
                 drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .splineTo(new Vector2d(27, 7), Math.toRadians(0))
-                        .splineTo(new Vector2d(42, 36), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(27, 0), Math.toRadians(0))
+                        .addDisplacementMarker(() -> CommandScheduler.getInstance().schedule(new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED)))
+                        .splineToConstantHeading(new Vector2d(42, 36), Math.toRadians(0))
+                        .addSpatialMarker(new Vector2d(41, 35), () -> t = true)
                         .build());
                 break;
             case RED:
                 drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .splineTo(new Vector2d(27, -7), Math.toRadians(0))
-                        .splineTo(new Vector2d(42, -36), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(27, 0), Math.toRadians(0))
+                        .addDisplacementMarker(() -> CommandScheduler.getInstance().schedule(new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED)))
+                        .splineToConstantHeading(new Vector2d(42, -36), Math.toRadians(0))
+                        .addSpatialMarker(new Vector2d(41, 35), () -> t = true)
                         .build());
                 break;
         }
-        t = true;
     }
     @Override
     public boolean isFinished() { return t;}

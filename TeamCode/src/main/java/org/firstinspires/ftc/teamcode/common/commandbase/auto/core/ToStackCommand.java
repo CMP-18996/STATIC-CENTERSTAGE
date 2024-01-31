@@ -16,13 +16,17 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FrontBarCommand;
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 
 public class ToStackCommand extends CommandBase {
     private SampleMecanumDrive drive;
+    private IntakeSubsystem intake;
     boolean t = false;
-    public ToStackCommand(SampleMecanumDrive drive) {
+    public ToStackCommand(SampleMecanumDrive drive, IntakeSubsystem intake) {
         this.drive = drive;
+        this.intake = intake;
     }
     @Override
     public void initialize() {
@@ -34,16 +38,18 @@ public class ToStackCommand extends CommandBase {
             case BLUE:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(true)
-                        .splineToConstantHeading(new Vector2d(27, 7), Math.toRadians(180))
-                        .splineToConstantHeading(new Vector2d(-61, 7), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(27, 0), Math.toRadians(180))
+                        .addDisplacementMarker(() -> CommandScheduler.getInstance().schedule(new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.LEVEL3)))
+                        .splineToConstantHeading(new Vector2d(-60, 0), Math.toRadians(180))
                         .setReversed(false)
                         .build());
                 break;
             case RED:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(true)
-                        //.splineTo(new Vector2d(27, -7), Math.toRadians(180))
-                        .splineToConstantHeading(new Vector2d(-61, -5), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(27, 0), Math.toRadians(180))
+                        .addDisplacementMarker(() -> CommandScheduler.getInstance().schedule(new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.LEVEL3)))
+                        .splineToConstantHeading(new Vector2d(-60, 0), Math.toRadians(180))
                         .strafeRight(6)
                         .setReversed(false)
                         .build());

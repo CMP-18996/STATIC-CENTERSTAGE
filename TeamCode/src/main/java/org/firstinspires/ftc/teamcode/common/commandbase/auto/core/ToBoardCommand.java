@@ -29,8 +29,8 @@ public class ToBoardCommand extends CommandBase {
             case REDFAR:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .lineToLinearHeading(new Pose2d(-35,-59.5, Math.toRadians(0)))
-                        .splineTo(new Vector2d(15, -59.5), Math.toRadians(0))
-                        .splineTo(new Vector2d(42, -36), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(15, -59.5), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(42, -36), Math.toRadians(0))
                         .build());
                 break;
             case REDCLOSE:
@@ -46,8 +46,8 @@ public class ToBoardCommand extends CommandBase {
             case BLUEFAR:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .lineToLinearHeading(new Pose2d(-35,59.5, Math.toRadians(0)))
-                        .splineTo(new Vector2d(15, 59.5), Math.toRadians(0))
-                        .splineTo(new Vector2d(42, 36), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(15, 59.5), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(42, 36), Math.toRadians(0))
                         .build());
                 break;
             case BLUECLOSE:
