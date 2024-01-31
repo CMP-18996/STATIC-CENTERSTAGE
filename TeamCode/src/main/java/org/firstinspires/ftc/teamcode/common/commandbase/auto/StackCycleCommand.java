@@ -14,6 +14,7 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
@@ -39,20 +40,24 @@ public class StackCycleCommand extends SequentialCommandGroup {
         addCommands(
                 new CoverCommand(intake, IntakeSubsystem.CoverState.CLOSED),
                 new ToMiddleCommand(drive),
-                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.GROUND),
+                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.LEVEL3),
 
                 //intake
                 new ToStackCommand(drive),
                 new WaitCommand(300),
-//strafe
+                // strafe
                 new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
                 new WaitCommand(300),
-                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.GROUND),
+                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.AUTO),
                 new WaitCommand(500),
                 new AutoStrafeCommand(drive),
-                new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
+                // new WaitCommand(200),
+                // new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
                 new WaitCommand(2000),
-                new FromStackCommand(drive),
+                new ParallelCommandGroup(
+                        new FromStackCommand(drive),
+                        new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING)
+                ),
                 new TakeFromIntakeCommand(lift, deposit, intake),
                 new WaitCommand(500),
                 new AutoDropCommand(deposit, lift, camera, drive, true)
