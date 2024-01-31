@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.common.commandbase.auto.core;
 
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
+import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
@@ -22,7 +23,9 @@ public class AutoDropCommand extends SequentialCommandGroup {
                 //drop pixel on boarde
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
                 new SequentialCommandGroup(
-                        new ToTagCommand(camera, drive, willAdjust),
+                        new ParallelRaceGroup(
+                                new ToTagCommand(camera, drive, willAdjust),
+                                new WaitCommand(4000)),
                         new ParallelCommandGroup(
                                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
                                 new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTONE)

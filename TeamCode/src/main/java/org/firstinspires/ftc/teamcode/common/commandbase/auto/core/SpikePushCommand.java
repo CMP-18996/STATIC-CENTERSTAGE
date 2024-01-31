@@ -34,14 +34,14 @@ public class SpikePushCommand extends CommandBase {
         x = p.getX();
         y = p.getY();
         h = p.getHeading();
-        if ((GlobalVariables.position.equals(GlobalVariables.Position.LEFT) && GlobalVariables.distance.equals(GlobalVariables.Distance.BLUECLOSE)) ||
-                (GlobalVariables.position.equals(GlobalVariables.Position.RIGHT) && GlobalVariables.distance.equals(GlobalVariables.Distance.BLUEFAR)) ||
+        if ((GlobalVariables.position.equals(GlobalVariables.Position.RIGHT) && GlobalVariables.distance.equals(GlobalVariables.Distance.BLUECLOSE)) ||
+                (GlobalVariables.position.equals(GlobalVariables.Position.LEFT) && GlobalVariables.distance.equals(GlobalVariables.Distance.BLUEFAR)) ||
                 (GlobalVariables.position.equals(GlobalVariables.Position.LEFT) && GlobalVariables.distance.equals(GlobalVariables.Distance.REDCLOSE)) ||
                 (GlobalVariables.position.equals(GlobalVariables.Position.RIGHT) && GlobalVariables.distance.equals(GlobalVariables.Distance.REDFAR))) {
-            adj = 4.5;
+            adj = 5;
         }
     }
-    
+    //blue = y+ close = x+
     @Override
     public void execute() {
         switch (GlobalVariables.position) {
