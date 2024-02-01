@@ -51,7 +51,7 @@ public class SimpleTeleop extends CommandOpMode {
     private HashMap<Integer, DepositSubsystem.UpperHorizontalState> upperHorizontalStateHashMap = new HashMap<>();
     int inputtedLiftHeight = 1;
     double xAxisPosition = DepositSubsystem.centerVal;
-    double incrementVal = 0.067;
+    double incrementVal = 0.067 / 2;
     boolean intaking = false;
     int robotFront = 1;
     @Override
@@ -199,6 +199,10 @@ public class SimpleTeleop extends CommandOpMode {
 
         drivePad.getGamepadButton(GamepadKeys.Button.X).whenPressed(
                 new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTTEN)
+        );
+
+        drivePad.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(
+                new ZeroLiftCommand(liftSubsystem)
         );
 
         super.schedule(
