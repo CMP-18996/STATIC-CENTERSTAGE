@@ -35,7 +35,7 @@ public class ZeroLiftCommand extends SequentialCommandGroup {
                     liftSubsystem.robot.liftOne.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                     liftSubsystem.robot.liftTwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 }) */
-                new SequentialCommandGroup(
+                new ParallelRaceGroup(
                         new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.GROUND),
                         new WaitCommand(500)
                 ),
