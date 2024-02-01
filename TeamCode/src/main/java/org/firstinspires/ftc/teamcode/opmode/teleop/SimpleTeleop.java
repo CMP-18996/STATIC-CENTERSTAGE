@@ -71,7 +71,7 @@ public class SimpleTeleop extends CommandOpMode {
 
         liftPad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
                 () -> {
-                    inputtedLiftHeight = Math.min(inputtedLiftHeight + 1, 10);
+                    inputtedLiftHeight = Math.min(inputtedLiftHeight + 1, 11);
                     schedule(
                             new LiftCommand(liftSubsystem, liftHeights.get(inputtedLiftHeight))
                     );
@@ -267,7 +267,8 @@ public class SimpleTeleop extends CommandOpMode {
         liftHeights.put(7, LiftSubsystem.LiftHeight.HEIGHTSEVEN);
         liftHeights.put(8, LiftSubsystem.LiftHeight.HEIGHTEIGHT);
         liftHeights.put(9, LiftSubsystem.LiftHeight.HEIGHTNINE);
-        liftHeights.put(10,LiftSubsystem.LiftHeight.HEIGHTTEN);
+        liftHeights.put(10, LiftSubsystem.LiftHeight.HEIGHTTEN);
+        liftHeights.put(11, LiftSubsystem.LiftHeight.HEIGHTELEVEN);
 
         intakeHeights.put(1, IntakeSubsystem.FrontBarState.GROUND);
         intakeHeights.put(2, IntakeSubsystem.FrontBarState.LEVEL1);

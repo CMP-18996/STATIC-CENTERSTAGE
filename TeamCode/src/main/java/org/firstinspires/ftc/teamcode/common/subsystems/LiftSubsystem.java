@@ -19,7 +19,7 @@ public class LiftSubsystem extends SubsystemBase {
     public static int LIFT_PICKUP_HEIGHT = 100;
     public static double F = 0.07;
     public static double P = 0.005;
-    public static double maxDesc = 0.5;
+    public static double maxDesc = 1.0;
     public boolean controlLift = true;
     private PIDFController pidfController = new PIDFController(0.7, 0.2, 0.5, 0);
     /* Honestly at this point we should get rid of this stuff
@@ -49,7 +49,9 @@ public class LiftSubsystem extends SubsystemBase {
         HEIGHTSEVEN(1300),
         HEIGHTEIGHT(1500),
         HEIGHTNINE(1700),
-        HEIGHTTEN(1800),
+        HEIGHTTEN(1900),
+        HEIGHTELEVEN(2100),
+
         PICKUPHEIGHT(43);
 
         public final int target;
@@ -76,13 +78,13 @@ public class LiftSubsystem extends SubsystemBase {
         if (controlLift) {
             error = this.currentHeight.target - robot.liftOne.getCurrentPosition();
 
-            double power = Range.clip(P * error + F * (error / Math.max(abs(error), 0.01)), -maxDesc, .8); // CONSIDER REMOVING * (error / Math.max(abs(error), 0.01))
+            double power = Range.clip(P * error + F * (error / Math.max(abs(error), 0.01)), -maxDesc, 1.0); // CONSIDER REMOVING * (error / Math.max(abs(error), 0.01))
             robot.liftOne.setPower(power);
             robot.liftTwo.setPower(power);
         }
     }
     public boolean checkDone(LiftHeight height) {
-        return abs(height.target - robot.liftOne.getCurrentPosition()) < 15;
+        return abs(height.target - this.currentHeight.target) < 15;
     }
 
     @Deprecated
