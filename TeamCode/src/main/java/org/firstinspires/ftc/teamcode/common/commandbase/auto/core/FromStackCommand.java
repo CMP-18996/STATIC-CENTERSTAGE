@@ -44,6 +44,7 @@ public class FromStackCommand extends CommandBase {
                 break;
             case RED:
                 drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .strafeLeft(12)
                         .splineToConstantHeading(new Vector2d(27, 0), Math.toRadians(0))
                         .addDisplacementMarker(() -> CommandScheduler.getInstance().schedule(new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED)))
                         .splineToConstantHeading(new Vector2d(42, -36), Math.toRadians(0))

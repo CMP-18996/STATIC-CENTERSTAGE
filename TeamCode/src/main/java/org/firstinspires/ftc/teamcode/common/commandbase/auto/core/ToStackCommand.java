@@ -50,7 +50,6 @@ public class ToStackCommand extends CommandBase {
                         .splineToConstantHeading(new Vector2d(27, 0), Math.toRadians(180))
                         .addDisplacementMarker(() -> CommandScheduler.getInstance().schedule(new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.LEVEL3)))
                         .splineToConstantHeading(new Vector2d(-60, 0), Math.toRadians(180))
-                        .strafeRight(6)
                         .setReversed(false)
                         .build());
                 break;

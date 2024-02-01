@@ -21,6 +21,8 @@ public class AutoDropCommand extends SequentialCommandGroup {
                 //extends arm
                 //drives to apriltag
                 //drop pixel on boarde
+                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT),
+                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
                 new SequentialCommandGroup(
                         new ParallelRaceGroup(
