@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.Subsystem;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.arcrobotics.ftclib.controller.PController;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -37,19 +38,20 @@ public class ZeroLiftCommand extends SequentialCommandGroup {
                 }) */
                 new SequentialCommandGroup(
                         new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE),
+                        //new WaitUntilCommand(()->liftSubsystem.checkDone(LiftSubsystem.LiftHeight.BASE)),
                         new ParallelRaceGroup(
                                 new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.GROUND),
                                 new WaitCommand(500)
-                        )
-                ),
+                        ),
+                        new InstantCommand(() -> {
+                            liftSubsystem.robot.liftOne.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                            liftSubsystem.robot.liftTwo.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                            liftSubsystem.robot.liftOne.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                            liftSubsystem.robot.liftTwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                        }),
+                        new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.ZERO)
+                )
                 // new WaitCommand(500),
-                new InstantCommand(() -> {
-                    liftSubsystem.robot.liftOne.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    liftSubsystem.robot.liftTwo.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    liftSubsystem.robot.liftOne.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                    liftSubsystem.robot.liftTwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                }),
-                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.ZERO)
         );
     }
 }

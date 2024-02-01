@@ -84,7 +84,7 @@ public class LiftSubsystem extends SubsystemBase {
         }
     }
     public boolean checkDone(LiftHeight height) {
-        return abs(height.target - this.currentHeight.target) < 15;
+        return abs(height.target - robot.liftOne.getCurrentPosition()) < 15;
     }
 
     @Deprecated
