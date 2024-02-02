@@ -26,7 +26,8 @@ public class GroundCommand extends SequentialCommandGroup {
                         new WaitCommand(2000),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.LOW),
                         new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.DROPPING_GROUND),
-                        new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE))
+                        new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE)
+                )
         );
     }
 

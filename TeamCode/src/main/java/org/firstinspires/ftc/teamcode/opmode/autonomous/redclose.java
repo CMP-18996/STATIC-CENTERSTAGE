@@ -36,7 +36,7 @@ public class redclose extends CommandOpMode {
         intakeSubsystem = new IntakeSubsystem(robot);
         depositSubsystem = new DepositSubsystem(robot);
         liftSubsystem = new LiftSubsystem(robot);
-        super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);
+        // super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);
         CommandScheduler.getInstance().schedule(
                 new TwoPlusZeroAuto(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem)
         );
