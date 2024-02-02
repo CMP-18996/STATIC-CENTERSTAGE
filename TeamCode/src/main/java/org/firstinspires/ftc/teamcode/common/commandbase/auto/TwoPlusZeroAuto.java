@@ -22,11 +22,9 @@ import org.firstinspires.ftc.teamcode.common.vision.Camera;
 public class TwoPlusZeroAuto extends SequentialCommandGroup {
     public TwoPlusZeroAuto(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem, Camera camera, SampleMecanumDrive drive, IntakeSubsystem intakeSubsystem){
         addCommands(
+                new InstantCommand(),
                 //push block out of way, place purple pixel on ground
-                new ParallelDeadlineGroup(
-                        new WaitCommand(2000),
-                        new GroundCommand(intakeSubsystem, depositSubsystem, liftSubsystem)
-                ),
+                new GroundCommand(intakeSubsystem, depositSubsystem, liftSubsystem),
                 new WaitCommand(1000),
                 new SpikePushCommand(drive),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),

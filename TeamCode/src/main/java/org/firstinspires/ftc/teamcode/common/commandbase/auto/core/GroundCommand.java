@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.common.commandbase.auto.core;
 
+import com.arcrobotics.ftclib.command.ParallelDeadlineGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
@@ -20,12 +21,12 @@ public class GroundCommand extends SequentialCommandGroup {
         addCommands(
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
-                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
-                new WaitCommand(200),
-
-                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.LOW),
-                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.DROPPING_GROUND),
-                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE)
+                new WaitCommand(500),
+                new ParallelDeadlineGroup(
+                        new WaitCommand(2000),
+                        new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.LOW),
+                        new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.DROPPING_GROUND),
+                        new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE))
         );
     }
 
