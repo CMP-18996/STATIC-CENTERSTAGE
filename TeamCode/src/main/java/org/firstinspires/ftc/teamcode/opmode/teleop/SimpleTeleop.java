@@ -114,6 +114,7 @@ public class SimpleTeleop extends CommandOpMode {
                                                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
                                                 new WaitCommand(250),
                                                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
+                                                new WaitCommand(250),
                                                 new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED)
                                     //    ),
                                      //   new InstantCommand(() -> {}),
@@ -230,7 +231,7 @@ public class SimpleTeleop extends CommandOpMode {
 
         if (intaking) {
             robotFront = -1;
-            robot.intakeMotor.set(-drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) * .7);
+            robot.intakeMotor.set(-drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
             intakeSubsystem.identifyColor();
             if (intakeSubsystem.slotOneFilled() && intakeSubsystem.slotTwoFilled()) {
                 schedule(
