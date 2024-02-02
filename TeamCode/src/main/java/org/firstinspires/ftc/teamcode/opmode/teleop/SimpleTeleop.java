@@ -54,6 +54,11 @@ public class SimpleTeleop extends CommandOpMode {
     double incrementVal = 0.067 / 2;
     boolean intaking = false;
     int robotFront = 1;
+    double forwardPowerAdjusted = 0;
+    double strafePowerAdjusted = 0;
+    double turnPowerAdjusted = 0;
+
+
     @Override
     public void initialize() {
         CommandScheduler.getInstance().reset();
@@ -176,9 +181,9 @@ public class SimpleTeleop extends CommandOpMode {
                     new SequentialCommandGroup(
                             new InstantCommand(() -> {
                                 intaking = false;
-                                robot.intakeMotor.set(.5);
+                                robot.intakeMotor.set(.8);
                             }),
-                            new WaitCommand(400),
+                            new WaitCommand(600),
                             new InstantCommand(() -> robot.intakeMotor.set(0))
 
                     )
@@ -198,7 +203,7 @@ public class SimpleTeleop extends CommandOpMode {
         );
 
         drivePad.getGamepadButton(GamepadKeys.Button.X).whenPressed(
-                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTTEN)
+                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HANGHEIGHT)
         );
 
         drivePad.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(
@@ -225,7 +230,7 @@ public class SimpleTeleop extends CommandOpMode {
 
         if (intaking) {
             robotFront = -1;
-            robot.intakeMotor.set(-.3 - (drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) * .7));
+            robot.intakeMotor.set(-drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) * .7);
             intakeSubsystem.identifyColor();
             if (intakeSubsystem.slotOneFilled() && intakeSubsystem.slotTwoFilled()) {
                 schedule(
@@ -237,23 +242,45 @@ public class SimpleTeleop extends CommandOpMode {
                             gamepad2.rumble(300);
                             inputtedLiftHeight = 0;
                         }),
-                        new WaitCommand(250),
+                        new WaitCommand(400),
                         new InstantCommand(() -> robot.intakeMotor.set(.8)),
                         new WaitCommand(600),
                         new InstantCommand(() -> robot.intakeMotor.set(0))
 
                 ));
             }
-        }
 
-        drive.manualPower(
-                robotFront * drivePad.getLeftX(),
-                -robotFront * drivePad.getLeftY(),
-                -drivePad.getRightX()
-        );
+            forwardPowerAdjusted = (87/95) * drivePad.getLeftY() + Math.signum(drivePad.getLeftY()) * 0.08;
+            /*if (Math.abs(forwardPowerAdjusted)<=0.13){
+                forwardPowerAdjusted = 0;
+            }*/
+            strafePowerAdjusted = (87/95) * drivePad.getLeftX() + Math.signum(drivePad.getLeftX()) * 0.08;
+            /*if (Math.abs(strafePowerAdjusted)<=0.13){
+                strafePowerAdjusted = 0;
+            }*/
+            turnPowerAdjusted = (87/95) * drivePad.getRightX() + Math.signum(drivePad.getRightX()) * 0.08;
+            /*if (Math.abs(turnPowerAdjusted)<=0.13){
+                turnPowerAdjusted = 0;
+            }*/
+
+            drive.manualPower(
+                    robotFront * strafePowerAdjusted,
+                    -robotFront * forwardPowerAdjusted,
+                    -turnPowerAdjusted
+            );
+        } else {
+            drive.manualPower(
+                    robotFront * strafePowerAdjusted,
+                    -robotFront * forwardPowerAdjusted,
+                    -turnPowerAdjusted
+            );
+        }
 
         telemetry.addData("Color Detected in Slot 1:", intakeSubsystem.slotOne.toString());
         telemetry.addData("Color Detected in Slot 2:", intakeSubsystem.slotTwo.toString());
+        telemetry.addData("Forward/Backward Power", drivePad.getLeftY());
+        telemetry.addData("Strafe Power", drivePad.getLeftX());
+        telemetry.addData("Turning Power", drivePad.getRightX());
         telemetry.update();
     }
 
