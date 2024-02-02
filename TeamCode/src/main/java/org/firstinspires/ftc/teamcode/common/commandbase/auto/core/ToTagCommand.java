@@ -68,10 +68,10 @@ public class ToTagCommand extends CommandBase {
         if (willAdjust) {
             switch (GlobalVariables.position) {
                 case LEFT:
-                    y += 6;
+                    y += 7;
                     break;
                 case RIGHT:
-                    y -= 6;
+                    y -= 7;
                     break;
             }
         }

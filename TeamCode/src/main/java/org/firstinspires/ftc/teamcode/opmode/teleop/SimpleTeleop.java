@@ -249,32 +249,26 @@ public class SimpleTeleop extends CommandOpMode {
 
                 ));
             }
+        }
 
-            forwardPowerAdjusted = (87/95) * drivePad.getLeftY() + Math.signum(drivePad.getLeftY()) * 0.08;
+        forwardPowerAdjusted = (87.0 / 95) * drivePad.getLeftY() + Math.signum(drivePad.getLeftY()) * 0.08;
             /*if (Math.abs(forwardPowerAdjusted)<=0.13){
                 forwardPowerAdjusted = 0;
             }*/
-            strafePowerAdjusted = (87/95) * drivePad.getLeftX() + Math.signum(drivePad.getLeftX()) * 0.08;
+        strafePowerAdjusted = (87.0 / 95) * drivePad.getLeftX() + Math.signum(drivePad.getLeftX()) * 0.08;
             /*if (Math.abs(strafePowerAdjusted)<=0.13){
                 strafePowerAdjusted = 0;
             }*/
-            turnPowerAdjusted = (87/95) * drivePad.getRightX() + Math.signum(drivePad.getRightX()) * 0.08;
+        turnPowerAdjusted = (87.0 / 95) * drivePad.getRightX() + Math.signum(drivePad.getRightX()) * 0.08;
             /*if (Math.abs(turnPowerAdjusted)<=0.13){
                 turnPowerAdjusted = 0;
             }*/
 
-            drive.manualPower(
-                    robotFront * strafePowerAdjusted,
-                    -robotFront * forwardPowerAdjusted,
-                    -turnPowerAdjusted
-            );
-        } else {
-            drive.manualPower(
-                    robotFront * strafePowerAdjusted,
-                    -robotFront * forwardPowerAdjusted,
-                    -turnPowerAdjusted
-            );
-        }
+        drive.manualPower(
+                robotFront * strafePowerAdjusted,
+                -robotFront * forwardPowerAdjusted,
+                -turnPowerAdjusted
+        );
 
         telemetry.addData("Color Detected in Slot 1:", intakeSubsystem.slotOne.toString());
         telemetry.addData("Color Detected in Slot 2:", intakeSubsystem.slotTwo.toString());

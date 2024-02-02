@@ -48,9 +48,9 @@ public class PropProcessor implements VisionProcessor {
     private int smallestAllowedArea = 0;
 
     // Number of Detections of Each Prop Location
-    private int leftPos = 14;
-    private int middlePos = 14;
-    private int rightPos = 14;
+    private int leftPos = 10;
+    private int middlePos = 10;
+    private int rightPos = 10;
 
     // These are not final nor is the system for detecting final
 
@@ -94,10 +94,10 @@ public class PropProcessor implements VisionProcessor {
             boundingRect = Imgproc.boundingRect(largestContour);
             // arbitrary = new ArrayList<>();
             // arbitrary.add(largestContour);
-            pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2);
+            pixelVal = (int) Math.ceil(boundingRect.x + boundingRect.width / 2.0);
             //Imgproc.drawContours(frame, arbitrary, 0, new Scalar(42, 42, 129), -1, Imgproc.LINE_8, fillerMat, 0);
             telemetryTestVal = pixelVal;
-            if (pixelVal < 115) {
+            if (pixelVal < 100) {
                 leftPos++;
             } else if (pixelVal < 437.5) {
                 middlePos++;

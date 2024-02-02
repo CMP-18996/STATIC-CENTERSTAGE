@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.common.commandbase.auto;
 
 import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.ParallelDeadlineGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
@@ -22,12 +23,13 @@ public class TwoPlusZeroAuto extends SequentialCommandGroup {
     public TwoPlusZeroAuto(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem, Camera camera, SampleMecanumDrive drive, IntakeSubsystem intakeSubsystem){
         addCommands(
                 //push block out of way, place purple pixel on ground
-                new GroundCommand(intakeSubsystem, depositSubsystem, liftSubsystem),
+                new ParallelDeadlineGroup(
+                        new WaitCommand(2000),
+                        new GroundCommand(intakeSubsystem, depositSubsystem, liftSubsystem)
+                ),
+                new WaitCommand(1000),
                 new SpikePushCommand(drive),
-                new ConditionalCommand(
-                        new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
-                        new InstantCommand(),
-                        () -> GlobalVariables.position != GlobalVariables.Position.UNDETECTED),
+                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
                 //evade purple pixel, place yellow pixel on board
                 new ToBoardCommand(drive),

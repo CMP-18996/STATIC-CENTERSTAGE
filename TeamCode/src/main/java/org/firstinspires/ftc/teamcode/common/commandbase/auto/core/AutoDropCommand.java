@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.common.commandbase.auto.core;
 
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
+import com.arcrobotics.ftclib.command.ParallelDeadlineGroup;
 import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -24,17 +25,13 @@ public class AutoDropCommand extends SequentialCommandGroup {
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
-                new SequentialCommandGroup(
-                        new ParallelRaceGroup(
-                                new ToTagCommand(camera, drive, willAdjust),
-                                new WaitCommand(4000)),
-                        new ParallelCommandGroup(
-                                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
-                                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTONE)
-                        )
+                new ToTagCommand(camera, drive, willAdjust),
+                new ParallelDeadlineGroup(
+                        new WaitCommand(3000),
+                        new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
+                        new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTONE),
+                        new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGHDROP)
                 ),
-                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGHDROP),
-                new WaitCommand(850),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
                 new WaitCommand(500),
