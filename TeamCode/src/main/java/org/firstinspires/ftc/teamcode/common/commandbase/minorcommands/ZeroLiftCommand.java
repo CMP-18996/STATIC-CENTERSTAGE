@@ -43,6 +43,8 @@ public class ZeroLiftCommand extends CommandBase {
         if (!liftSubsystem.robot.liftLimitSwitch.getState()) {
             liftSubsystem.robot.liftOne.setPower(0);
             liftSubsystem.robot.liftTwo.setPower(0);
+            liftSubsystem.robot.liftOne.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            liftSubsystem.robot.liftTwo.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
         return false;
     }
