@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.common.commandbase.minorcommands;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelDeadlineGroup;
 import com.arcrobotics.ftclib.command.ParallelRaceGroup;
@@ -18,40 +21,29 @@ import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-public class ZeroLiftCommand extends SequentialCommandGroup {
+public class ZeroLiftCommand extends CommandBase {
+    LiftSubsystem liftSubsystem;
     public ZeroLiftCommand(LiftSubsystem liftSubsystem) {
-        addCommands(
-                /* new ParallelDeadlineGroup(
-                        // new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.GROUND),
-                        // new WaitCommand(1000)
-                        new WaitCommand(1000),
-                        new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.GROUND)
-                ),
-                new InstantCommand(() -> {
-                    liftSubsystem.robot.liftOne.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    liftSubsystem.robot.liftTwo.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    liftSubsystem.robot.liftOne.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                    liftSubsystem.robot.liftTwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                }) */
-                new SequentialCommandGroup(
-                        new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE),
-                        //new WaitUntilCommand(()->liftSubsystem.checkDone(LiftSubsystem.LiftHeight.BASE)),
-                        new ParallelRaceGroup(
-                                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.GROUND),
-                                new WaitCommand(500)
-                        ),
-                        new InstantCommand(() -> {
-                            liftSubsystem.robot.liftOne.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                            liftSubsystem.robot.liftTwo.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                            liftSubsystem.robot.liftOne.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                            liftSubsystem.robot.liftTwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                        }),
-                        new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.ZERO)
-                )
-                // new WaitCommand(500),
-        );
+        this.liftSubsystem = liftSubsystem;
+    }
+
+    @Override
+    public void initialize() {
+        liftSubsystem.controlLift = false;
+        liftSubsystem.robot.liftOne.setPower(-.3);
+        liftSubsystem.robot.liftTwo.setPower(-.3);
+    }
+
+    @Override
+    public boolean isFinished() {
+        if (!liftSubsystem.robot.liftLimitSwitch.getState()) {
+            liftSubsystem.robot.liftOne.setPower(0);
+            liftSubsystem.robot.liftTwo.setPower(0);
+        }
+        return false;
     }
 }

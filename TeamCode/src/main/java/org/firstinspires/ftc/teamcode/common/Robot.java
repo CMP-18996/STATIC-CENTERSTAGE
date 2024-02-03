@@ -10,8 +10,11 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DigitalChannelImpl;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorTouch;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
 import java.util.List;
@@ -31,6 +34,7 @@ public class Robot {
     public Camera camera;
     public ColorSensor colorSensor1, colorSensor2;
     public HardwareMap hardwareMap;
+    public DigitalChannel liftLimitSwitch;
 
     public Robot(HardwareMap hardwareMap) {
         List<LynxModule> hubs = hardwareMap.getAll(LynxModule.class);
@@ -142,6 +146,8 @@ public class Robot {
         droneMotor = hardwareMap.get(DcMotorEx.class, "droneMotor");
         droneMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         droneMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        liftLimitSwitch = hardwareMap.get(DigitalChannelImpl.class, "d");
 
         for (LynxModule hub : hubs) {
             hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
