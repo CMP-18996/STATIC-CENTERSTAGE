@@ -38,7 +38,7 @@ public class LiftSubsystem extends SubsystemBase {
         // At least six states
         // Probably can only use up to eight total actual heights
         GROUND(-500),
-        ZERO(0),
+        ZERO(-10),
         BASE(30),
         HEIGHTONE(100),
         HEIGHTTWO(300),

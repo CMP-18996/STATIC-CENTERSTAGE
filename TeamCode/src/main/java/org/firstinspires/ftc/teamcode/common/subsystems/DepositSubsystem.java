@@ -22,7 +22,7 @@ public class DepositSubsystem extends SubsystemBase {
     public static double EXPANDED_STATE_VALUE = 20.0; // TODO: CONSIDER ADDING THIS
     public static double FOUR_BAR_STASIS = .25;
     public static double FOUR_BAR_HIGH = .71;
-    public static double FOUR_BAR_HIGH_DROP = .71;
+    public static double FOUR_BAR_HIGH_DROP = .73;
     public static double FOUR_BAR_LOW = .9;
     public static double PICK_UP_HEIGHT = 0.11;
     public static double PICK_UP_HEIGHT_ADDED = 0.08;

@@ -143,7 +143,7 @@ public class SimpleTeleop extends CommandOpMode {
                 }
         );
 
-        liftPad.getGamepadButton(GamepadKeys.Button.B).whenPressed(
+        liftPad.getGamepadButton(GamepadKeys.Button.B).whenPressed(//x
                 () -> {
                     inputtedLiftHeight = 0;
                     schedule(
@@ -203,10 +203,9 @@ public class SimpleTeleop extends CommandOpMode {
                 new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.GROUND)
         );
 
-        //hangheight throws error - clark
-        /*drivePad.getGamepadButton(GamepadKeys.Button.X).whenPressed(
+        drivePad.getGamepadButton(GamepadKeys.Button.X).whenPressed(//square
                 new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HANGHEIGHT)
-        );*/
+        );
 
         drivePad.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(
                 new ZeroLiftCommand(liftSubsystem)
@@ -280,6 +279,7 @@ public class SimpleTeleop extends CommandOpMode {
         telemetry.addData("Forward/Backward Power", drivePad.getLeftY());
         telemetry.addData("Strafe Power", drivePad.getLeftX());
         telemetry.addData("Turning Power", drivePad.getRightX());
+        //telemetry.addData("square", drivePad.getButton(GamepadKeys.Button.X));
         telemetry.update();
     }
 
