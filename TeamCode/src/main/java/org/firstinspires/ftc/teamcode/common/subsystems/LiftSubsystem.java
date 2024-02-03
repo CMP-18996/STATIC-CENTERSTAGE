@@ -37,7 +37,7 @@ public class LiftSubsystem extends SubsystemBase {
         // Change the values for the actual robot, otherwise it'll probably crash
         // At least six states
         // Probably can only use up to eight total actual heights
-        GROUND(-500),
+        GROUND(0),
         ZERO(0),
         BASE(30),
         HEIGHTONE(100),
