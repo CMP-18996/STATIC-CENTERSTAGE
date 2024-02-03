@@ -76,7 +76,7 @@ public class SimpleTeleop extends CommandOpMode {
 
         liftPad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
                 () -> {
-                    inputtedLiftHeight = Math.min(inputtedLiftHeight + 1, 11);
+                    inputtedLiftHeight = Math.min(inputtedLiftHeight + 1, 10);
                     schedule(
                             new LiftCommand(liftSubsystem, liftHeights.get(inputtedLiftHeight))
                     );
@@ -203,21 +203,25 @@ public class SimpleTeleop extends CommandOpMode {
                 new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.GROUND)
         );
 
-        drivePad.getGamepadButton(GamepadKeys.Button.X).whenPressed(
+        //hangheight throws error - clark
+        /*drivePad.getGamepadButton(GamepadKeys.Button.X).whenPressed(
                 new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HANGHEIGHT)
-        );
+        );*/
 
         drivePad.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(
                 new ZeroLiftCommand(liftSubsystem)
         );
 
         super.schedule(
-                new ZeroLiftCommand(liftSubsystem),
-                // new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.GROUND),
-                new InstantCommand(() -> {
-                    robot.xAdj.setPosition(xAxisPosition);
-                }),
-                new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED)
+                new SequentialCommandGroup(
+                        new InstantCommand(), //prevents first command glitch
+                        new ZeroLiftCommand(liftSubsystem),
+                        // new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.GROUND),
+                        new InstantCommand(() -> {
+                            robot.xAdj.setPosition(xAxisPosition);
+                        }),
+                        new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED)
+                )
         );
     }
 
@@ -290,7 +294,9 @@ public class SimpleTeleop extends CommandOpMode {
         liftHeights.put(8, LiftSubsystem.LiftHeight.HEIGHTEIGHT);
         liftHeights.put(9, LiftSubsystem.LiftHeight.HEIGHTNINE);
         liftHeights.put(10, LiftSubsystem.LiftHeight.HEIGHTTEN);
-        liftHeights.put(11, LiftSubsystem.LiftHeight.HEIGHTELEVEN);
+
+        //heighteleven throws error - clark
+        //liftHeights.put(11, LiftSubsystem.LiftHeight.HEIGHTELEVEN);
 
         intakeHeights.put(1, IntakeSubsystem.FrontBarState.GROUND);
         intakeHeights.put(2, IntakeSubsystem.FrontBarState.LEVEL1);

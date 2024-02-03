@@ -21,7 +21,7 @@ public class GroundCommand extends SequentialCommandGroup {
         addCommands(
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
-                new WaitCommand(1000),
+                new WaitCommand(500),
                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.LOW),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
                 new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.BASE)

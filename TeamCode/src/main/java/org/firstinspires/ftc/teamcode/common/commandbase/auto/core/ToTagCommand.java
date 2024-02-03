@@ -74,6 +74,7 @@ public class ToTagCommand extends CommandBase {
                     y -= 7;
                     break;
             }
+            d += 0.5;
         }
         double a = drive.getPoseEstimate().getHeading() + stats[2];
         try {

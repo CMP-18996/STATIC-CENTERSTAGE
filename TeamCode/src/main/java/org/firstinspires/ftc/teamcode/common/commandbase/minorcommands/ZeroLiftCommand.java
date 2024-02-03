@@ -44,7 +44,12 @@ public class ZeroLiftCommand extends CommandBase {
             liftSubsystem.robot.liftOne.setPower(0);
             liftSubsystem.robot.liftTwo.setPower(0);
             liftSubsystem.robot.liftOne.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            liftSubsystem.updateState(LiftSubsystem.LiftHeight.BASE);
             liftSubsystem.robot.liftTwo.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            liftSubsystem.robot.liftOne.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            liftSubsystem.robot.liftTwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            liftSubsystem.controlLift = true;
+            return true;
         }
         return false;
     }
