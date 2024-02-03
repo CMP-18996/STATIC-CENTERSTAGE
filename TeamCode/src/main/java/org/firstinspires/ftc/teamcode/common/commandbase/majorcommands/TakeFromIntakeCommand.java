@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.common.commandbase.majorcommands;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
@@ -23,6 +26,7 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                 new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.OPEN),
                 new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.STOPPED),
                 new ZeroLiftCommand(liftSubsystem),
+                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.GROUND),
 
 //                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
 //                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.PICKUPHEIGHT),
