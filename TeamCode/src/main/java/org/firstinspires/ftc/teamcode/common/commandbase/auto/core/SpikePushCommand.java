@@ -51,13 +51,13 @@ public class SpikePushCommand extends CommandBase {
                         .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3,
                                 y - Math.signum(y) * (19 + adj),
                                 h - (Math.signum(y) * Math.signum(x) - 1) *
-                                        Math.toRadians(21.25) + Math.toRadians(30)))
+                                        Math.toRadians(20) + Math.toRadians(30)))
                         .build());
                 break;
             case RIGHT:
                 //needs to turn more right
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3, y - Math.signum(y) * (17.5 + adj), h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(21.25) - Math.toRadians(30)))
+                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3, y - Math.signum(y) * (17.5 + adj), h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(20) - Math.toRadians(30)))
                         .build());
                 break;
             default:
