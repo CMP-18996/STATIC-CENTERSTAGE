@@ -34,8 +34,8 @@ public class ZeroLiftCommand extends CommandBase {
     @Override
     public void initialize() {
         liftSubsystem.controlLift = false;
-        liftSubsystem.robot.liftOne.setPower(-.3);
-        liftSubsystem.robot.liftTwo.setPower(-.3);
+        liftSubsystem.robot.liftOne.setPower(-.7);
+        liftSubsystem.robot.liftTwo.setPower(-.7);
     }
 
     @Override
