@@ -35,23 +35,20 @@ public class FromStackCommand extends CommandBase {
     public void execute() {
         switch (GlobalVariables.color) {
             case BLUE:
-                drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .splineToConstantHeading(new Vector2d(27, 0), Math.toRadians(0))
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .splineToConstantHeading(new Vector2d(27, 8), Math.toRadians(0))
                         .addDisplacementMarker(() -> CommandScheduler.getInstance().schedule(new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED)))
                         .splineToConstantHeading(new Vector2d(42, 36), Math.toRadians(0))
-                        .addSpatialMarker(new Vector2d(41, 35), () -> t = true)
                         .build());
                 break;
             case RED:
-                drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .strafeLeft(12)
-                        .splineToConstantHeading(new Vector2d(27, 0), Math.toRadians(0))
-                        .addDisplacementMarker(() -> CommandScheduler.getInstance().schedule(new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED)))
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .splineToConstantHeading(new Vector2d(27, -8), Math.toRadians(0))
                         .splineToConstantHeading(new Vector2d(42, -36), Math.toRadians(0))
-                        .addSpatialMarker(new Vector2d(41, 35), () -> t = true)
                         .build());
                 break;
         }
+        t = true;
     }
     @Override
     public boolean isFinished() { return t;}

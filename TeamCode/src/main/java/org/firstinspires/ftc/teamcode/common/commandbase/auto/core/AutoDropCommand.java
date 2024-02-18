@@ -1,17 +1,13 @@
 package org.firstinspires.ftc.teamcode.common.commandbase.auto.core;
 
-import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.ParallelDeadlineGroup;
-import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.BackUpCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.DepositRotatorCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FourBarCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
-import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LowerHorizontalMoveCommand;
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
@@ -28,7 +24,7 @@ public class AutoDropCommand extends SequentialCommandGroup {
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
                 new ToTagCommand(camera, drive, willAdjust),
                 new ParallelDeadlineGroup(
-                        new WaitCommand(1000),
+                        new WaitCommand(1500),
                         new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTONE),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGHDROP)
                 ),

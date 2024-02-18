@@ -3,22 +3,18 @@ package org.firstinspires.ftc.teamcode.opmode.autonomous;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
-//import org.firstinspires.ftc.teamcode.common.drive.MecanumDrive; TODO: CLARK UNCOMMENT THIS
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusFourAuto;
-import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusZeroAutoNoTag;
-import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 
-@Autonomous(name = "2+2")
+@Autonomous(name = "pain au chocolat")
 public class Experiment extends CommandOpMode {
     public Robot robot;
     public SampleMecanumDrive drive;
