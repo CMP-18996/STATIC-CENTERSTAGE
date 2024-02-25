@@ -112,9 +112,9 @@ public class SimpleTeleop extends CommandOpMode {
                                 //new ConditionalCommand(
                                   //      new SequentialCommandGroup(
                                                 new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
-                                                new WaitCommand(250),
+                                                new WaitCommand(750),
                                                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
-                                                new WaitCommand(250),
+                                                new WaitCommand(500),
                                                 new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED)
                                     //    ),
                                      //   new InstantCommand(() -> {}),

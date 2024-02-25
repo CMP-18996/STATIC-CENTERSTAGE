@@ -115,8 +115,8 @@ public class DepositSubsystem extends SubsystemBase {
         PICKING_UP_ADDED(DEPOSIT_PICKING_UP_VALUE_ADDED),
         PARALLEL(DEPOSIT_PARALLEL_VALUE),
         DROPPING_GROUND(DEPOSIT_DROPPING_OFF_VALUE);
-        public double value;
-        DepositRotationState(double val) { value = val; }
+        public final double value;
+        DepositRotationState(double value) { this.value = value; }
     }
 
     public enum GrabberState {
@@ -133,8 +133,8 @@ public class DepositSubsystem extends SubsystemBase {
     public enum ExpandedState {
         EXPANDED_STATE(EXPANDED_STATE_VALUE),
         NOT_EXPANDED(0.0);
-        public double value;
-        ExpandedState(double val) { value = val; }
+        public final double value;
+        ExpandedState(double value) { this.value = value; }
     }
     public enum UpperHorizontalState {
         A(centerVal + 2.5 * incrementVal),

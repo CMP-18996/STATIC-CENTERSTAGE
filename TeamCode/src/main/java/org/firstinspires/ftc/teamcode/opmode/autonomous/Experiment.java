@@ -89,6 +89,7 @@ public class Experiment extends CommandOpMode {
         CommandScheduler.getInstance().run();
         telemetry.addData("Status", "Running...");
         telemetry.update();
+        robot.camera.stopPropProcessing();
         drive.update();
     }
 }

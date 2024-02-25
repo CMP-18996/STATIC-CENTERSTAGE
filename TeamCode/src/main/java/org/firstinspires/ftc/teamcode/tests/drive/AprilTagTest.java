@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.common.Robot;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.FTagCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 
@@ -22,7 +23,7 @@ public class AprilTagTest extends CommandOpMode {
         drive = new SampleMecanumDrive(hardwareMap);
 
         CommandScheduler.getInstance().schedule(
-                new ToTagCommand(robot.camera, drive, false)
+                new FTagCommand(robot.camera, drive)
         );
 
         telemetry.addData("Status", "Initialized!");

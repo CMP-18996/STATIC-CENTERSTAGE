@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.common.commandbase.majorcommands;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
-import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.ParallelDeadlineGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
@@ -23,19 +21,24 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
+                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
                 new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.OPEN),
                 new IntakeCommand(intakeSubsystem, IntakeSubsystem.SweepingState.STOPPED),
                 new ZeroLiftCommand(liftSubsystem),
-                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.GROUND),
+                new ParallelDeadlineGroup(
+                        new WaitCommand(700),
+                        new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.GROUND)
+                ),
 
 //                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
 //                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.PICKUPHEIGHT),
 //                new WaitCommand(700),
 
 //                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
-                new WaitCommand(650),
-                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
-                new WaitCommand(400),
+                new ParallelDeadlineGroup(
+                        new WaitCommand(1000),
+                        new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP)
+                ),
 /*                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP_ADDED),
                 new WaitCommand(300),
                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),*/

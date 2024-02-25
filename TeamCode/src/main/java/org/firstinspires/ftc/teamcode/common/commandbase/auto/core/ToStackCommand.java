@@ -46,16 +46,13 @@ public class ToStackCommand extends CommandBase {
                         .build());
                 break;
             case RED:
-                drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(true)
-                        .splineToConstantHeading(new Vector2d(27, -8), Math.toRadians(180))
-                        .splineToConstantHeading(new Vector2d(-60, -8), Math.toRadians(180))
-                        .addDisplacementMarker(() -> CommandScheduler.getInstance().schedule(
-                                new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
-                                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.LEVEL1)))
-                        .splineToConstantHeading(new Vector2d(-60, -20), Math.toRadians(180))
-                        .splineToConstantHeading(new Vector2d(-60, -8), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(27, -12), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(-46, -12), Math.toRadians(180))
                         .setReversed(false)
+                        .strafeTo(new Vector2d(-46, -30))
+                        .strafeTo(new Vector2d(-46, -12))
                         .build());
                 break;
         }
