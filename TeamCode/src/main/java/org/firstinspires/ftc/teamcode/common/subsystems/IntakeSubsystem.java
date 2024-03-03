@@ -54,12 +54,12 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public enum FrontBarState {
         // five heights for the stack
-        GROUND(0.0, 1), //all
-        LEVEL1(0.00875, 1), //next 1
-        LEVEL2(0.0175, 1), //next 1
-        LEVEL3(0.02625, 1), //top 2 maybe 1
-        LEVEL4(0.035, 0.9), //nothing
-        AUTO(0.02625, 0.6);
+        GROUND(0.01, 1), //all
+        LEVEL1(0.0175, 1), //next 1
+        LEVEL2(0.02625, 1), //next 1
+        LEVEL3(0.035, 1), //top 2 maybe 1
+        LEVEL4(0.042, 0.9), //nothing
+        AUTO(0.035, 0.6);
 
         double barState;
         double intakeSpeed;
@@ -225,6 +225,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public CoverState getCoverState() {
         return coverState;
     }
+    public FrontBarState getFrontBarState() { return getFrontBarState(); }
     public IntakeSubsystem(Robot robot) {
         this.robot = robot;
     }

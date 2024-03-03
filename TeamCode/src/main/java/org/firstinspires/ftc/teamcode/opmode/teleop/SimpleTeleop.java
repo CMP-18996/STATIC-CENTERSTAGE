@@ -196,7 +196,19 @@ public class SimpleTeleop extends CommandOpMode {
         );
 
         drivePad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(
-                new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.LEVEL3)
+                () -> schedule(
+                        new InstantCommand(() -> {
+                            if (intakeSubsystem.getFrontBarState() == IntakeSubsystem.FrontBarState.LEVEL2) {
+                                schedule(new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.LEVEL3));
+                            }
+                            else if (intakeSubsystem.getFrontBarState() == IntakeSubsystem.FrontBarState.LEVEL1) {
+                                schedule(new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.LEVEL2));
+                            }
+                            else if (intakeSubsystem.getFrontBarState() == IntakeSubsystem.FrontBarState.GROUND) {
+                                schedule(new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.LEVEL1));
+                            }
+                        })
+                )
         );
 
         drivePad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(
