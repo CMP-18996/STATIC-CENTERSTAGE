@@ -47,7 +47,7 @@ public class SpikePushCommand extends CommandBase {
         switch (GlobalVariables.position) {
             case LEFT:
                 //needs to drive more forwards
-                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3,
                                 y - Math.signum(y) * (15 + adj),
                                 h - (Math.signum(y) * Math.signum(x) - 1) *
@@ -56,13 +56,14 @@ public class SpikePushCommand extends CommandBase {
                 break;
             case RIGHT:
                 //needs to turn more right
-                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3, y - Math.signum(y) * (15 + adj), h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(13) - Math.toRadians(30)))
+                drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3, y - Math.signum(y) * (15 + adj),
+                                h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(13) - Math.toRadians(33)))
                         .build());
                 break;
             default:
-                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .lineTo(new Vector2d(x, y - Math.signum(y) * 19.5))
+                drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .lineTo(new Vector2d(x, y - Math.signum(y) * 20))
                         .build());
                 break;
         }

@@ -20,23 +20,23 @@ public class AutoDropCommand extends SequentialCommandGroup {
                 //extends arm
                 //drives to apriltag
                 //drop pixel on boarde
-                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT),
-                new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
-                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
+                //new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.RIGHT),
+                //new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.CLOSED, DepositSubsystem.GrabberPos.LEFT),
                 new ConditionalCommand(
                         new ToTagCommand(camera, drive, willAdj),
                         new FTagCommand(camera, drive),
                         () -> willAdj
                 ),
                 new ParallelDeadlineGroup(
-                        new WaitCommand(1500),
+                        new WaitCommand(850),
+                        new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
                         new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.HEIGHTONE),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGHDROP)
                 ),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(depositSubsystem, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
                 new ParallelDeadlineGroup(
-                        new WaitCommand(500),
+                        new WaitCommand(250),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS)
                 )
         );

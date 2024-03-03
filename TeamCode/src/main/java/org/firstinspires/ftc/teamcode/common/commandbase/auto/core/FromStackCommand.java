@@ -37,14 +37,13 @@ public class FromStackCommand extends CommandBase {
             case BLUE:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .splineToConstantHeading(new Vector2d(27, 8), Math.toRadians(0))
-                        .addDisplacementMarker(() -> CommandScheduler.getInstance().schedule(new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED)))
                         .splineToConstantHeading(new Vector2d(42, 36), Math.toRadians(0))
                         .build());
                 break;
             case RED:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .splineToConstantHeading(new Vector2d(27, -12), Math.toRadians(0))
-                        .splineToConstantHeading(new Vector2d(61, -50), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(45, -36), Math.toRadians(0))
                         .build());
                 break;
         }
