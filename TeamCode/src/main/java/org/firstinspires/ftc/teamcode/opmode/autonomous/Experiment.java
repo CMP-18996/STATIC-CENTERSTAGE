@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.common.GlobalVariables;
 import org.firstinspires.ftc.teamcode.common.Robot;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.TwoPlusFourAuto;
@@ -21,8 +23,10 @@ public class Experiment extends CommandOpMode {
     public IntakeSubsystem intakeSubsystem;
     public DepositSubsystem depositSubsystem;
     public LiftSubsystem liftSubsystem;
+    Telemetry telemetry;
     @Override
     public void initialize() {
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 

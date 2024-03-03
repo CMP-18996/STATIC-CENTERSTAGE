@@ -87,5 +87,6 @@ public class bluefar extends CommandOpMode {
         telemetry.addData("Status", "Running...");
         telemetry.update();
         robot.camera.stopPropProcessing();
+        drive.update();
     }
 }
