@@ -23,11 +23,9 @@ import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 
 public class FromStackCommand extends CommandBase {
     private SampleMecanumDrive drive;
-    private IntakeSubsystem intake;
     boolean t = false;
-    public FromStackCommand(SampleMecanumDrive drive, IntakeSubsystem intake) {
+    public FromStackCommand(SampleMecanumDrive drive) {
         this.drive = drive;
-        this.intake = intake;
     }
     @Override
     public void initialize() {}
@@ -42,8 +40,8 @@ public class FromStackCommand extends CommandBase {
                 break;
             case RED:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .splineToConstantHeading(new Vector2d(27, -12), Math.toRadians(0))
-                        .splineToConstantHeading(new Vector2d(45, -36), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(27, -6), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(43, -36), Math.toRadians(0))
                         .build());
                 break;
         }

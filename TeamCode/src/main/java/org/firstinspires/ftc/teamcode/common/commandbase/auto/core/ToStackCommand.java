@@ -32,7 +32,7 @@ public class ToStackCommand extends CommandBase {
     }
     @Override
     public void initialize() {
-        drive.setPoseEstimate(new Pose2d(drive.getPoseEstimate().getX(), drive.getPoseEstimate().getY(), 0));
+       drive.setPoseEstimate(new Pose2d(drive.getPoseEstimate().getX(), drive.getPoseEstimate().getY(), 0));
     }
     @Override
     public void execute() {
@@ -50,11 +50,11 @@ public class ToStackCommand extends CommandBase {
             case RED:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(true)
-                        .splineToConstantHeading(new Vector2d(27, 0), Math.toRadians(180))
-                        .splineToConstantHeading(new Vector2d(-62, 0), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(27, -6), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(-62, -6), Math.toRadians(180))
                         .setReversed(false)
-                        .strafeTo(new Vector2d(-62, -15))
-                        .strafeTo(new Vector2d(-62, 0))
+                        //.strafeTo(new Vector2d(-62, -15))
+                        //.strafeTo(new Vector2d(-62, 0))
                         .build());
                 break;
         }

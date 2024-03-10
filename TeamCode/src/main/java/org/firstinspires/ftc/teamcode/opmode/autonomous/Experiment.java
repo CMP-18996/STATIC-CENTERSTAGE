@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
@@ -16,6 +17,7 @@ import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 
+@Config
 @Autonomous(name = "pain au chocolat")
 public class Experiment extends CommandOpMode {
     public Robot robot;
@@ -23,7 +25,6 @@ public class Experiment extends CommandOpMode {
     public IntakeSubsystem intakeSubsystem;
     public DepositSubsystem depositSubsystem;
     public LiftSubsystem liftSubsystem;
-    Telemetry telemetry;
     @Override
     public void initialize() {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());

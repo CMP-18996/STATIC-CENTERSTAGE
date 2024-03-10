@@ -14,10 +14,12 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.ParallelDeadlineGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.arcrobotics.ftclib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.AutoDropCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.FTagCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.FromStackCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.StackSwivelCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.ToStackCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.auto.core.ToTagCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.majorcommands.SetReadyToDeposit;
@@ -30,6 +32,7 @@ import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.FrontBarC
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.GrabberGripCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.LiftCommand;
+import org.firstinspires.ftc.teamcode.common.commandbase.minorcommands.ZeroLiftCommand;
 import org.firstinspires.ftc.teamcode.common.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.common.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.common.subsystems.IntakeSubsystem;
@@ -37,32 +40,34 @@ import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
 public class StackCycleCommand extends SequentialCommandGroup {
-    public StackCycleCommand(SampleMecanumDrive drive, IntakeSubsystem intake, LiftSubsystem lift, DepositSubsystem deposit, Camera camera, IntakeSubsystem.FrontBarState state) {
+    public StackCycleCommand(SampleMecanumDrive drive, IntakeSubsystem intake, LiftSubsystem lift, DepositSubsystem deposit) {
         addCommands(
                 //new StasisCommand(lift, deposit, intake),
                 new ParallelCommandGroup(
                         new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
-                        new FrontBarCommand(intake, state),
+                        new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.LEVEL2),
                         new ToStackCommand(drive, intake)
                 ),
-                // strafe
-                //new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
-                new ParallelCommandGroup(
-                        new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
-                        new TakeFromIntakeCommand(lift, deposit, intake),
-                        new FromStackCommand(drive, intake)
-                ),
+                new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
+                new WaitCommand(200),
+                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.LEVEL1),
+                new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
+                new StackSwivelCommand(drive),
+
+                new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
+                new FromStackCommand(drive),
+                new StasisCommand(lift, deposit, intake),
+                new TakeFromIntakeCommand(lift, deposit, intake),
+                new WaitCommand(200),
                 new ParallelDeadlineGroup(
                         new WaitCommand(500),
                         new FourBarCommand(deposit, DepositSubsystem.FourBarState.HIGH),
                         new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED)
                 ),
-                new DepositRotatorCommand(deposit, DepositSubsystem.DepositRotationState.PARALLEL),
-                //new FTagCommand(camera, drive),
                 new ParallelDeadlineGroup(
                         new WaitCommand(1000),
                         new DepositRotatorCommand(deposit, DepositSubsystem.DepositRotationState.PARALLEL),
-                        new LiftCommand(lift, LiftSubsystem.LiftHeight.HEIGHTTHREE),
+                        new LiftCommand(lift, LiftSubsystem.LiftHeight.HEIGHTTWO),
                         new FourBarCommand(deposit, DepositSubsystem.FourBarState.HIGHDROP)
                 ),
                 new GrabberGripCommand(deposit, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
