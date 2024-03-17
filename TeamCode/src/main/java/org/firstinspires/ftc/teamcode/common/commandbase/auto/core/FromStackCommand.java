@@ -34,8 +34,8 @@ public class FromStackCommand extends CommandBase {
         switch (GlobalVariables.color) {
             case BLUE:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .splineToConstantHeading(new Vector2d(27, 8), Math.toRadians(0))
-                        .splineToConstantHeading(new Vector2d(42, 36), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(27, 6), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(43, 36), Math.toRadians(0))
                         .build());
                 break;
             case RED:

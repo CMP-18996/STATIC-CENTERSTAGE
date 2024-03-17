@@ -31,8 +31,8 @@ public class Experiment extends CommandOpMode {
         telemetry.addData("Status","Initalizing...");
         telemetry.update();
 
-        GlobalVariables.color = GlobalVariables.Color.RED;
-        GlobalVariables.distance = GlobalVariables.Distance.REDCLOSE;
+        GlobalVariables.color = GlobalVariables.Color.BLUE;
+        GlobalVariables.distance = GlobalVariables.Distance.BLUECLOSE;
         GlobalVariables.opMode = GlobalVariables.OpMode.AUTO;
         GlobalVariables.position = GlobalVariables.Position.UNDETECTED;
 

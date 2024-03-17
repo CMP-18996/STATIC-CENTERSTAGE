@@ -17,10 +17,20 @@ public class StackSwivelCommand extends CommandBase {
     public void initialize() {}
     @Override
     public void execute() {
-        drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                .turn(Math.toRadians(60))
-                .turn(Math.toRadians(-60))
-                .build());
+        switch (GlobalVariables.color) {
+            case RED:
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .turn(Math.toRadians(60))
+                        .turn(Math.toRadians(-60))
+                        .build());
+                break;
+            case BLUE:
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                        .turn(Math.toRadians(-60))
+                        .turn(Math.toRadians(60))
+                        .build());
+                break;
+        }
         t = true;
     }
     @Override

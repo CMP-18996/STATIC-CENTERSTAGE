@@ -44,27 +44,58 @@ public class SpikePushCommand extends CommandBase {
     //blue = y+ close = x+
     @Override
     public void execute() {
-        switch (GlobalVariables.position) {
-            case LEFT:
-                //needs to drive more forwards
-                drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3,
-                                y - Math.signum(y) * (15 + adj),
-                                h - (Math.signum(y) * Math.signum(x) - 1) *
-                                        Math.toRadians(13) + Math.toRadians(30)))
-                        .build());
+        switch (GlobalVariables.color) {
+            case RED:
+                switch (GlobalVariables.position) {
+                    case LEFT:
+                        //needs to drive more forwards
+                        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                                .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3,
+                                        -61 + (15 + adj),
+                                        Math.toRadians(90) + (Math.signum(x) - 1) *
+                                                Math.toRadians(10) + Math.toRadians(30)))
+                                .build());
+                        break;
+                    case RIGHT:
+                        //needs to turn more right
+                        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                                .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3,
+                                        -61 + (15 + adj),
+                                        Math.toRadians(90) + (Math.signum(x) + 1) * Math.toRadians(10) - Math.toRadians(33)))
+                                .build());
+                        break;
+                    default:
+                        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                                .lineTo(new Vector2d(x, y - Math.signum(y) * 20))
+                                .build());
+                        break;
+                }
                 break;
-            case RIGHT:
-                //needs to turn more right
-                drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3, y - Math.signum(y) * (15 + adj),
-                                h - (Math.signum(y) * Math.signum(x) + 1) * Math.toRadians(13) - Math.toRadians(33)))
-                        .build());
-                break;
-            default:
-                drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                        .lineTo(new Vector2d(x, y - Math.signum(y) * 20))
-                        .build());
+            case BLUE:
+                switch (GlobalVariables.position) {
+                    case LEFT:
+                        //needs to drive more forwards
+                        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                                .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3,
+                                        61 - (15 + adj),
+                                        Math.toRadians(-90) - (Math.signum(x) - 1) *
+                                                Math.toRadians(15) + Math.toRadians(20)))
+                                .build());
+                        break;
+                    case RIGHT:
+                        //needs to turn more right
+                        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                                .lineToLinearHeading(new Pose2d(x + Math.signum(x) * 3,
+                                        61 - (15 + adj),
+                                        Math.toRadians(-90) - (Math.signum(x) + 1) * Math.toRadians(15) - Math.toRadians(20)))
+                                .build());
+                        break;
+                    default:
+                        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
+                                .lineTo(new Vector2d(x, y - Math.signum(y) * 20))
+                                .build());
+                        break;
+                }
                 break;
         }
         t = true;
