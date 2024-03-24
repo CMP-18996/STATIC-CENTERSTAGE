@@ -53,6 +53,7 @@ public class SimpleTeleop extends CommandOpMode {
     double xAxisPosition = DepositSubsystem.centerVal;
     double incrementVal = 0.067 / 2;
     boolean intaking = false;
+    boolean stasisAvailable = true;
     int robotFront = 1;
     double forwardPowerAdjusted = 0;
     double strafePowerAdjusted = 0;
@@ -115,7 +116,8 @@ public class SimpleTeleop extends CommandOpMode {
                                                 new WaitCommand(750),
                                                 new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PARALLEL),
                                                 new WaitCommand(500),
-                                                new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED)
+                                                new CoverCommand(intakeSubsystem, IntakeSubsystem.CoverState.CLOSED),
+                                                new InstantCommand(() -> {stasisAvailable = true;})
                                     //    ),
                                      //   new InstantCommand(() -> {}),
                                      //   () -> intakeSubsystem.getCoverState() == IntakeSubsystem.CoverState.OPEN
@@ -137,6 +139,7 @@ public class SimpleTeleop extends CommandOpMode {
                                     new TakeFromIntakeCommand(liftSubsystem, depositSubsystem, intakeSubsystem),
                                     new InstantCommand(() -> {
                                         gamepad2.rumble(200);
+                                        stasisAvailable = false;
                                     })
                             )
                     );
@@ -145,10 +148,12 @@ public class SimpleTeleop extends CommandOpMode {
 
         liftPad.getGamepadButton(GamepadKeys.Button.B).whenPressed(//x
                 () -> {
-                    inputtedLiftHeight = 0;
-                    schedule(
-                            new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
-                    );
+                    if (stasisAvailable) {
+                        inputtedLiftHeight = 0;
+                        schedule(
+                                new StasisCommand(liftSubsystem, depositSubsystem, intakeSubsystem)
+                        );
+                    }
                 }
         );
 
@@ -247,6 +252,16 @@ public class SimpleTeleop extends CommandOpMode {
         if (intaking) {
             robotFront = -1;
             robot.intakeMotor.set(-drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
+            if (drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1) {
+                schedule(
+                        new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.GROUND)
+                );
+            }
+            else {
+                schedule(
+                        new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.LEVEL4)
+                );
+            }
             intakeSubsystem.identifyColor();
             if (intakeSubsystem.slotOneFilled() && intakeSubsystem.slotTwoFilled()) {
                 schedule(
