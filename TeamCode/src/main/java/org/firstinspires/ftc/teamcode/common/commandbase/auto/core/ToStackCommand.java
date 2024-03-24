@@ -42,7 +42,7 @@ public class ToStackCommand extends CommandBase {
                         .setReversed(true)
                         .splineToConstantHeading(new Vector2d(27, 6), Math.toRadians(180))
                         .splineToConstantHeading(new Vector2d(-40, 6), Math.toRadians(180))
-                        .splineToConstantHeading(new Vector2d(-62, 15), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(-62, 14), Math.toRadians(180))
                         .setReversed(false)
                         .build());
                 break;

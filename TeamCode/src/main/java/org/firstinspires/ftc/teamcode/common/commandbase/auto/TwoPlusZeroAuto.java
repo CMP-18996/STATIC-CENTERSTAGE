@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.common.vision.Camera;
 
 public class TwoPlusZeroAuto extends SequentialCommandGroup {
-    public TwoPlusZeroAuto(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem, Camera camera, SampleMecanumDrive drive, IntakeSubsystem intakeSubsystem){
+    public TwoPlusZeroAuto(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem, Camera camera, SampleMecanumDrive drive, IntakeSubsystem intakeSubsystem, boolean willAdj){
         addCommands(
                 new InstantCommand(),
                 //push block out of way, place purple pixel on ground
@@ -39,7 +39,7 @@ public class TwoPlusZeroAuto extends SequentialCommandGroup {
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS)
                 ),
                 new WaitCommand(250),//nessecary for camera to stabilize
-                new AutoDropCommand(depositSubsystem, liftSubsystem, camera, drive, true)
+                new AutoDropCommand(depositSubsystem, liftSubsystem, camera, drive, willAdj)
                 //new ParkCommand(drive)
         );
     }

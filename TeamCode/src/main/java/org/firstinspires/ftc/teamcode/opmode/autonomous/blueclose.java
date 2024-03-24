@@ -39,7 +39,7 @@ public class blueclose extends CommandOpMode {
         liftSubsystem = new LiftSubsystem(robot);
         super.register(robot.camera, intakeSubsystem, depositSubsystem, liftSubsystem);
         CommandScheduler.getInstance().schedule(
-                new TwoPlusZeroAuto(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem)
+                new TwoPlusZeroAuto(depositSubsystem, liftSubsystem, robot.camera, drive, intakeSubsystem, true)
         );
 
         robot.camera.startPropProcessing();

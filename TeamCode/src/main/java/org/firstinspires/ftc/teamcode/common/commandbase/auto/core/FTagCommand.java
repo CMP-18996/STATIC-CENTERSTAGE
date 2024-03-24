@@ -25,84 +25,73 @@ public class FTagCommand extends CommandBase {
     private SampleMecanumDrive drive;
     int t = 0;
     List<AprilTagDetection> currentDetections;
+    static boolean willAdj;
 
     public FTagCommand(Camera camera, SampleMecanumDrive drive) {
         this.camera = camera;
         this.drive = drive;
+        ToTagCommand.willAdj = willAdj;
         addRequirements(this.camera);
     }
     @Override
-    public void initialize() {
-        drive.setPoseEstimate(new Pose2d(0, 0, drive.getPoseEstimate().getHeading()));
-    }
+    public void initialize() {}
     @Override
     public void execute() {
         currentDetections = camera.getTagLocalization();
         if (currentDetections != null) {
             if (currentDetections.size() > 0) {
-                AprilTagDetection tag = currentDetections.get(0);
-                tag = currentDetections.get(0);
-                double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, Math.toRadians(tag.ftcPose.yaw)};
-                //double d = drive.getPoseEstimate().getX() + stats[1] * Math.cos(stats[2]) - 5.5;
-                //double y = drive.getPoseEstimate().getY() - (stats[1] * Math.sin(stats[2]) + stats[0]);
-                double d = drive.getPoseEstimate().getX() + stats[1] - 7;
-                double y = drive.getPoseEstimate().getY();
-                double a = drive.getPoseEstimate().getHeading() + stats[2];
-                try {
-                    switch (tag.id) {
-                        case 2: case 5:
-                            drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                                    .splineToLinearHeading(new Pose2d(d, y, a), a)
-                                    .waitSeconds(0.25)
-                                    .build());
-                            break;
-                        case 1: case 4:
-                            drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                                    .splineToLinearHeading(new Pose2d(d, y, a), a)
-                                    .waitSeconds(0.25)
-                                    .build());
-                            break;
-                        case 3: case 6:
-                            drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                                    .splineToLinearHeading(new Pose2d(d, y, a), a)
-                                    .waitSeconds(0.25)
-                                    .build());
-                            break;
+                AprilTagDetection tagOfInterest = null;
+                for (AprilTagDetection tag : currentDetections) {
+                    if (tag.id == 2 || tag.id == 5) {
+                        tagOfInterest = tag;
                     }
-                } catch (Exception ignored) {}
+                }
+                if (tagOfInterest != null) {
+                    move(tagOfInterest, drive);
+                } else {
+                    tagOfInterest = currentDetections.get(0);
+                    move(tagOfInterest, drive);
+                }
             }
             t++;
         }
     }
     @Override
     public boolean isFinished() {
-        return t >= 2; //replaced by number of times you want to run
+        return t >= 1; //replaced by number of times you want to run
     }
     public static void move(AprilTagDetection tag, SampleMecanumDrive drive) {
         double[] stats = new double[]{tag.ftcPose.x, tag.ftcPose.y, Math.toRadians(tag.ftcPose.yaw)};
-        //double d = drive.getPoseEstimate().getX() + stats[1] * Math.cos(stats[2]) - 5.5;
-        //double y = drive.getPoseEstimate().getY() - (stats[1] * Math.sin(stats[2]) + stats[0]);
-        double d = drive.getPoseEstimate().getX() + stats[1] - 7;
-        double y = drive.getPoseEstimate().getY();
+        double d = drive.getPoseEstimate().getX() + stats[1] * Math.cos(stats[2]) - 5.5;
+        double y = drive.getPoseEstimate().getY() - (stats[1] * Math.sin(stats[2]) + stats[0]);
+        //double d = drive.getPoseEstimate().getX() + stats[1]  - 5.5;
+        //double y = drive.getPoseEstimate().getY() - stats[0];
+        if (true) {
+            switch (GlobalVariables.position) {
+                case LEFT:
+                    y += 8.5;
+                    break;
+                case RIGHT:
+                    y -= 6.5;
+                    break;
+            }
+        }
         double a = drive.getPoseEstimate().getHeading() + stats[2];
         try {
             switch (tag.id) {
                 case 2: case 5:
                     drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                             .splineToLinearHeading(new Pose2d(d, y, a), a)
-                            .waitSeconds(0.25)
                             .build());
                     break;
                 case 1: case 4:
                     drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                            .splineToLinearHeading(new Pose2d(d, y, a), a)
-                            .waitSeconds(0.25)
+                            .splineToLinearHeading(new Pose2d(d, y - 8, a), a)
                             .build());
                     break;
                 case 3: case 6:
                     drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                            .splineToLinearHeading(new Pose2d(d, y, a), a)
-                            .waitSeconds(0.25)
+                            .splineToLinearHeading(new Pose2d(d, y + 8, a), a)
                             .build());
                     break;
             }

@@ -50,22 +50,17 @@ public class StackCycleCommand extends SequentialCommandGroup {
                 ),
                 new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
                 new WaitCommand(200),
-                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.GROUND),
+                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.LEVEL1),
                 new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
                 new StackSwivelCommand(drive),
-
                 new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
                 new FromStackCommand(drive),
                 new TakeFromIntakeCommand(lift, deposit, intake),
-                new ParallelDeadlineGroup(
-                        new WaitCommand(500),
-                        new FourBarCommand(deposit, DepositSubsystem.FourBarState.HIGH),
-                        new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED)
-                ),
+                new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED),
+                new StasisCommand(lift, deposit, intake),
                 new ParallelDeadlineGroup(
                         new WaitCommand(1000),
                         new DepositRotatorCommand(deposit, DepositSubsystem.DepositRotationState.PARALLEL),
-                        new LiftCommand(lift, LiftSubsystem.LiftHeight.HEIGHTTWO),
                         new FourBarCommand(deposit, DepositSubsystem.FourBarState.HIGHDROP)
                 ),
                 new GrabberGripCommand(deposit, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
