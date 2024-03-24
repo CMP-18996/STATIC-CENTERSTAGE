@@ -26,7 +26,7 @@ public class TwoPlusZeroAuto extends SequentialCommandGroup {
                 new InstantCommand(),
                 //push block out of way, place purple pixel on ground
                 new ParallelDeadlineGroup(
-                        new WaitCommand(2500),
+                        new WaitCommand(3000),
                         new GroundCommand(intakeSubsystem, depositSubsystem, liftSubsystem),
                         new SequentialCommandGroup(
                                 new WaitCommand(925),

@@ -54,7 +54,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public enum FrontBarState {
         // five heights for the stack
-        GROUND(0.01, 0.9), //all
+        GROUND(0.01, 0.8), //all
         LEVEL1(0.0175, 0.9), //next 1
         LEVEL2(0.02625, 0.9), //next 1
         LEVEL3(0.035, 0.9), //top 2 maybe 1

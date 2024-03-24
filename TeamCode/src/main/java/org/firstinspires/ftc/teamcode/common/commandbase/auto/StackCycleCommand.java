@@ -50,15 +50,13 @@ public class StackCycleCommand extends SequentialCommandGroup {
                 ),
                 new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
                 new WaitCommand(200),
-                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.LEVEL1),
+                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.GROUND),
                 new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
                 new StackSwivelCommand(drive),
 
                 new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
                 new FromStackCommand(drive),
-                new StasisCommand(lift, deposit, intake),
                 new TakeFromIntakeCommand(lift, deposit, intake),
-                new WaitCommand(200),
                 new ParallelDeadlineGroup(
                         new WaitCommand(500),
                         new FourBarCommand(deposit, DepositSubsystem.FourBarState.HIGH),
