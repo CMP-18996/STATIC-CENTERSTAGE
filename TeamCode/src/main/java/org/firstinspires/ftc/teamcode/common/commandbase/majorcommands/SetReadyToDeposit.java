@@ -15,7 +15,6 @@ import org.firstinspires.ftc.teamcode.common.subsystems.LiftSubsystem;
 public class SetReadyToDeposit extends SequentialCommandGroup {
     public SetReadyToDeposit(DepositSubsystem depositSubsystem, LiftSubsystem liftSubsystem, LiftSubsystem.LiftHeight LiftHeight) {
        addCommands(
-               //new DepositExpansionCommand(depositSubsystem, DepositSubsystem.ExpandedState.EXPANDED_STATE),
                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.HIGH),
                new WaitCommand(500),
                new LiftCommand(liftSubsystem, LiftHeight)

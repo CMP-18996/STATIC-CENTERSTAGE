@@ -54,12 +54,12 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public enum FrontBarState {
         // five heights for the stack
-        GROUND(0.01, 0.8, 0.9), //all
-        LEVEL1(0.0175, 0.8, 0.9), //next 1
-        LEVEL2(0.02625, 0.8, 0.9), //next 1
-        LEVEL3(0.035, 0.9, 0.6), //top 2 maybe 1
-        LEVEL4(0.042, 0.9, 0.6), //nothing
-        AUTO(0.035, 0.6, 0.6);
+        GROUND(0.01, 0.8, 0.7), //all
+        LEVEL1(0.0175, 0.8, 0.7), //next 1
+        LEVEL2(0.02625, 0.8, 0.7), //next 1
+        LEVEL3(0.035, 0.8, 0.7), //top 2 maybe 1
+        LEVEL4(0.042, 0.8, 0.7), //nothing
+        AUTO(0.035, 0.6, 0.8);
 
         double barState;
         double intakeSpeed;
@@ -90,7 +90,7 @@ public class IntakeSubsystem extends SubsystemBase {
                 break;
             case REPELLING:
                 // robot.intakeMotor.set(-repelPower);
-                robot.intakeMotor.set(-frontBarState.getRepelSpeed());
+                robot.intakeMotor.set(frontBarState.getRepelSpeed());
                 // CommandScheduler.getInstance().schedule(new SequentialCommandGroup(new IntakeWait(this)));
                 break;
         }

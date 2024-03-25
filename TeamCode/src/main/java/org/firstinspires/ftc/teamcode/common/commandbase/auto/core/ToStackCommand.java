@@ -40,9 +40,9 @@ public class ToStackCommand extends CommandBase {
             case BLUE:
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .setReversed(true)
-                        .splineToConstantHeading(new Vector2d(27, 6), Math.toRadians(180))
-                        .splineToConstantHeading(new Vector2d(-40, 6), Math.toRadians(180))
-                        .splineToConstantHeading(new Vector2d(-62, 14), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(27, 0), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(-44, 0), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(-60.5, 12), Math.toRadians(180))
                         .setReversed(false)
                         .build());
                 break;
@@ -51,7 +51,7 @@ public class ToStackCommand extends CommandBase {
                         .setReversed(true)
                         .splineToConstantHeading(new Vector2d(27, -6), Math.toRadians(180))
                         .splineToConstantHeading(new Vector2d(-40, -6), Math.toRadians(180))
-                        .splineToConstantHeading(new Vector2d(-62, -15), Math.toRadians(180))
+                        .splineToConstantHeading(new Vector2d(-62, -17), Math.toRadians(180))
                         .setReversed(false)
                         .build());
                 break;
