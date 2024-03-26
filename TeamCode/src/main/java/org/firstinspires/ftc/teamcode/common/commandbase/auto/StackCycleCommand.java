@@ -48,34 +48,37 @@ public class StackCycleCommand extends SequentialCommandGroup {
                 ),
                 new ParallelCommandGroup(
                         new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
-                        new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.LEVEL2),
+                        new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.LEVEL1),
                         new ToStackCommand(drive, intake)
                 ),
                 new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
                 new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.LEVEL4),
-                new WaitCommand(200),
-                new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
-                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.LEVEL1),
-                new StackSwivelCommand(drive),
-                new FrontBarCommand(intake, IntakeSubsystem.FrontBarState.GROUND),
-                new IntakeCommand(intake, IntakeSubsystem.SweepingState.REPELLING),
                 new FromStackCommand(drive),
+
                 new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED),
                 new TakeFromIntakeCommand(lift, deposit, intake),
-                new IntakeCommand(intake, IntakeSubsystem.SweepingState.INTAKING),
-                new DepositRotatorCommand(deposit, DepositSubsystem.DepositRotationState.PICKING_UP),
-                new FourBarCommand(deposit, DepositSubsystem.FourBarState.STASIS),
-                new SequentialCommandGroup(
-                        new WaitCommand(500),
-                        new FourBarCommand(deposit, DepositSubsystem.FourBarState.HIGHDROP),
-                        new WaitCommand(600),
-                        new DepositRotatorCommand(deposit, DepositSubsystem.DepositRotationState.PARALLEL),
-                        new IntakeCommand(intake, IntakeSubsystem.SweepingState.STOPPED)
-                ),
-                new WaitCommand(500),
+                new GrabberGripCommand(deposit, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
+                new WaitCommand(200),
+                new FourBarCommand(deposit, DepositSubsystem.FourBarState.HIGHDROP),
+                new WaitCommand(300),
+                new DepositRotatorCommand(deposit, DepositSubsystem.DepositRotationState.PARALLEL),
+                new WaitCommand(600),
                 new GrabberGripCommand(deposit, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
                 new GrabberGripCommand(deposit, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
-                new WaitCommand(500),
+                new WaitCommand(200),
+
+                new FourBarCommand(deposit, DepositSubsystem.FourBarState.HIGH),
+                new WaitCommand(200),
+                new TakeFromIntakeCommand(lift, deposit, intake),
+                new WaitCommand(200),
+                new FourBarCommand(deposit, DepositSubsystem.FourBarState.HIGHDROP),
+                new WaitCommand(300),
+                new DepositRotatorCommand(deposit, DepositSubsystem.DepositRotationState.PARALLEL),
+                new WaitCommand(600),
+                new GrabberGripCommand(deposit, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.RIGHT),
+                new GrabberGripCommand(deposit, DepositSubsystem.GrabberState.OPEN, DepositSubsystem.GrabberPos.LEFT),
+                new WaitCommand(200),
+
                 new StasisCommand(lift, deposit, intake)
         );
     }

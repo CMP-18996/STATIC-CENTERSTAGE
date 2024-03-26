@@ -29,14 +29,15 @@ public class TakeFromIntakeCommand extends SequentialCommandGroup {
                         new WaitCommand(700),
                         new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.GROUND)
                 ),
+                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.STASIS),
 
 //                new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP),
 //                new LiftCommand(liftSubsystem, LiftSubsystem.LiftHeight.PICKUPHEIGHT),
 //                new WaitCommand(700),
-
+                new WaitCommand(600), //seems like last parallel deadline is being skipped for no reason - clark
 //                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP),
                 new ParallelDeadlineGroup(
-                        new WaitCommand(1000),
+                        new WaitCommand(400),
                         new FourBarCommand(depositSubsystem, DepositSubsystem.FourBarState.PICKUP)
                 ),
 /*                new DepositRotatorCommand(depositSubsystem, DepositSubsystem.DepositRotationState.PICKING_UP_ADDED),
