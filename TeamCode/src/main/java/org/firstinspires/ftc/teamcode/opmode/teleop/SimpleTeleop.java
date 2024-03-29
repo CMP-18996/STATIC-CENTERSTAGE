@@ -252,16 +252,16 @@ public class SimpleTeleop extends CommandOpMode {
         if (intaking) {
             robotFront = -1;
             robot.intakeMotor.set(-drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
-            if (drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1) {
+            if (drivePad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) >= 0) {
                 schedule(
                         new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.GROUND)
                 );
             }
-            else {
+            /*else {
                 schedule(
                         new FrontBarCommand(intakeSubsystem, IntakeSubsystem.FrontBarState.LEVEL4)
                 );
-            }
+            }*/
             intakeSubsystem.identifyColor();
             if (intakeSubsystem.slotOneFilled() && intakeSubsystem.slotTwoFilled()) {
                 schedule(

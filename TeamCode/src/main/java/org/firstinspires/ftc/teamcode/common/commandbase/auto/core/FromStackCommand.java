@@ -36,8 +36,8 @@ public class FromStackCommand extends CommandBase {
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                         .splineToConstantHeading(new Vector2d(-44, 0), Math.toRadians(0))
                         .splineToConstantHeading(new Vector2d(27, 0), Math.toRadians(0))
-                        .splineToConstantHeading(new Vector2d(47, 26), Math.toRadians(0))
-                        .turn(Math.toRadians(15))
+                        .splineToConstantHeading(new Vector2d(48.5, 25), Math.toRadians(0))
+                                .turn(Math.toRadians(15))
                         .build());
                 break;
             case RED:
